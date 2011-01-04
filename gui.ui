@@ -6,16 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>541</width>
-    <height>470</height>
+    <width>519</width>
+    <height>396</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Chakra Ctk Config</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QTabWidget" name="tabWidget">
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="0" column="0">
+    <widget class="QTabWidget" name="tabs">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="currentIndex">
       <number>1</number>
      </property>
@@ -28,89 +31,17 @@
         <widget class="QWidget" name="widget_5" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="QGroupBox" name="groupBox_5">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>150</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>200</height>
-             </size>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_4">
-             <item row="0" column="1">
-              <widget class="QComboBox" name="comboBox">
-               <item>
-                <property name="text">
-                 <string>Tema 1</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Tema 2</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Tema 3</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Tema 4</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Tema 5</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Tema 6</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Tema 7</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Tema 8</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_9">
-               <property name="text">
-                <string>Selecciona un Tema</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0" colspan="2">
-              <widget class="QLabel" name="label_6">
-               <property name="text">
-                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;VISTA PREVIA AQUI !!!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Personaliza el tema tus bundles :D&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; font-weight:600;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; font-weight:600;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; font-weight:600;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
            </widget>
           </item>
           <item>
@@ -124,18 +55,18 @@ p, li { white-space: pre-wrap; }
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>150</height>
+              <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>200</height>
+              <height>250</height>
              </size>
             </property>
             <layout class="QGridLayout" name="gridLayout_5">
-             <item row="0" column="1">
-              <widget class="QComboBox" name="comboBox_2">
+             <item row="2" column="1">
+              <widget class="QComboBox" name="cb_icon">
                <item>
                 <property name="text">
                  <string>Tema 1</string>
@@ -178,21 +109,272 @@ p, li { white-space: pre-wrap; }
                </item>
               </widget>
              </item>
-             <item row="0" column="0">
+             <item row="2" column="0">
               <widget class="QLabel" name="label_10">
                <property name="text">
                 <string>Selecciona un Tema de Iconos</string>
                </property>
               </widget>
              </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>Selecciona un Tema GTK</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="cb_theme">
+               <item>
+                <property name="text">
+                 <string>Tema 1</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Tema 2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Tema 3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Tema 4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Tema 5</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Tema 6</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Tema 7</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Tema 8</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>Selecciona el tema de Iconos fallback</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QComboBox" name="cb_icon_fallback"/>
+             </item>
              <item row="1" column="0" colspan="2">
-              <widget class="QLabel" name="label_11">
+              <widget class="Line" name="line_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0" colspan="2">
+              <widget class="QWidget" name="widget_2" native="true">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>64</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>64</height>
+                </size>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <item>
+                 <spacer name="horizontalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLabel" name="lb_prev_1">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>64</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>64</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="lb_prev_2">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>64</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>64</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="lb_prev_3">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>64</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>64</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_3">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="5" column="0" colspan="2">
+              <widget class="QLabel" name="label_7">
                <property name="text">
                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;VISTA PREVIA AQUI !!!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Vista Previa:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <layout class="QVBoxLayout" name="verticalLayout"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_6" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Tipo de letra</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QFontComboBox" name="cb_font">
+               <property name="fontFilters">
+                <set>QFontComboBox::MonospacedFonts|QFontComboBox::ProportionalFonts|QFontComboBox::ScalableFonts</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="cb_font_style">
+               <item>
+                <property name="text">
+                 <string>normal</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>bold</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>italic</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>bold italic</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spin_font_tam">
+               <property name="suffix">
+                <string> px</string>
+               </property>
+               <property name="minimum">
+                <number>8</number>
+               </property>
+               <property name="maximum">
+                <number>50</number>
+               </property>
+               <property name="value">
+                <number>12</number>
                </property>
               </widget>
              </item>
@@ -211,39 +393,6 @@ p, li { white-space: pre-wrap; }
              </size>
             </property>
            </spacer>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QWidget" name="widget_6" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>Tipo de Letra</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="lineEdit_3">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_2">
-            <property name="text">
-             <string>Seleccionar Tipo de Letra</string>
-            </property>
-           </widget>
           </item>
          </layout>
         </widget>
@@ -271,7 +420,14 @@ p, li { white-space: pre-wrap; }
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_5">
+           <widget class="QPushButton" name="but_reset">
+            <property name="text">
+             <string> Predeterminado Chakra</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="but_apply">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -285,7 +441,10 @@ p, li { white-space: pre-wrap; }
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tabWidgetPage1">
+     <widget class="QWidget" name="tab_install">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <attribute name="title">
        <string>Instalador</string>
       </attribute>
@@ -307,16 +466,20 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="groupBox_3">
+           <widget class="QGroupBox" name="group_theme">
             <property name="title">
-             <string>Instalación de Tema</string>
+             <string/>
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
-             <item row="1" column="2">
-              <widget class="QLineEdit" name="lineEdit"/>
+             <item row="3" column="0" colspan="3">
+              <widget class="QLineEdit" name="txt_theme_file">
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
              </item>
-             <item row="0" column="3">
-              <widget class="QLabel" name="label_2">
+             <item row="0" column="3" colspan="2">
+              <widget class="QLabel" name="lb_for_icon">
                <property name="text">
                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -326,19 +489,15 @@ p, li { white-space: pre-wrap; }
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Here !!&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
-              </widget>
-             </item>
-             <item row="1" column="3">
-              <widget class="QPushButton" name="pushButton">
-               <property name="text">
-                <string>Seleccionar Archivo</string>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QLabel" name="label_3">
+             <item row="3" column="3">
+              <widget class="QPushButton" name="but_theme_filechoice">
                <property name="text">
-                <string>Ubicación del Archivo</string>
+                <string>Seleccionar Archivo</string>
                </property>
               </widget>
              </item>
@@ -356,130 +515,114 @@ p, li { white-space: pre-wrap; }
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
-              <spacer name="horizontalSpacer_3">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item row="2" column="3">
-              <widget class="QPushButton" name="pushButton_6">
+             <item row="3" column="4">
+              <widget class="QPushButton" name="but_theme_install">
                <property name="enabled">
                 <bool>false</bool>
                </property>
                <property name="text">
-                <string>Instalar</string>
+                <string>Instalar Tema GTK</string>
                </property>
                <property name="checkable">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="2" column="0" colspan="3">
-              <widget class="QLabel" name="label_13">
-               <property name="text">
-                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Etiqueta para avisos de la instalacion&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <item row="6" column="0" colspan="3">
+              <widget class="QLineEdit" name="txt_icon_file">
+               <property name="frame">
+                <bool>true</bool>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="groupBox_4">
-            <property name="title">
-             <string>Instalación de Iconos</string>
-            </property>
-            <property name="checkable">
-             <bool>false</bool>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_3">
-             <item row="0" column="0" colspan="3">
-              <widget class="QLabel" name="label_4">
-               <property name="text">
-                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Selecciona el archivo de iconos&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="2">
-              <widget class="QLineEdit" name="lineEdit_2"/>
-             </item>
-             <item row="1" column="3">
-              <widget class="QPushButton" name="pushButton_3">
+             <item row="6" column="3">
+              <widget class="QPushButton" name="but_icon_filechoice">
                <property name="text">
                 <string>Seleccionar Archivo</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="3">
-              <widget class="QLabel" name="label_7">
+             <item row="6" column="4">
+              <widget class="QPushButton" name="but_icon_install">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="text">
-                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Big Icon &lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Here !!&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>Instalar Iconos</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QLabel" name="label_8">
+             <item row="2" column="0" colspan="2">
+              <widget class="QLabel" name="lb_theme">
                <property name="text">
                 <string>Ubicación del Archivo</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
-              <spacer name="horizontalSpacer_4">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item row="2" column="0" colspan="3">
-              <widget class="QLabel" name="label_14">
+             <item row="5" column="0">
+              <widget class="QLabel" name="lb_icon">
                <property name="text">
-                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Etiqueta para avisos de la instalacion&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>Ubicación del Archivo</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="3">
-              <widget class="QPushButton" name="pushButton_7">
-               <property name="enabled">
-                <bool>false</bool>
+             <item row="5" column="3" colspan="2">
+              <widget class="QLabel" name="lb_icon_notice">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>48</height>
+                </size>
                </property>
                <property name="text">
-                <string>Instalar</string>
+                <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0" colspan="5">
+              <widget class="Line" name="line">
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="lineWidth">
+                <number>3</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="3" colspan="2">
+              <widget class="QLabel" name="lb_theme_notice">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
               </widget>
              </item>
@@ -498,6 +641,186 @@ p, li { white-space: pre-wrap; }
              </size>
             </property>
            </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_uninstall">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <attribute name="title">
+       <string>Desinstalador</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="1" column="1">
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="1">
+        <widget class="QWidget" name="widget" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>460</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="1" column="0" colspan="3">
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string/>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_6">
+             <item row="1" column="1">
+              <widget class="QComboBox" name="cb_uninstall_theme">
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QPushButton" name="but_uninstall_theme">
+               <property name="text">
+                <string>Desinstalar</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <spacer name="horizontalSpacer_4">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Tema Gtk</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1" colspan="2">
+              <widget class="QLabel" name="lb_notice_uninstall_theme">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLabel" name="label_8">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;DESINSTALADOR&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt; font-weight:600;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Informacion adicional &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;sobre la eliminacion de&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;temas aqui.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Icono&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;AQUI !!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="3">
+           <widget class="QGroupBox" name="groupBox_3">
+            <property name="title">
+             <string/>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_7">
+             <item row="1" column="1">
+              <widget class="QComboBox" name="cb_uninstall_icon">
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QPushButton" name="but_uninstall_icon">
+               <property name="text">
+                <string>Desinstalar</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1" colspan="2">
+              <widget class="QLabel" name="lb_notice_uninstall_icon">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>Tema de Iconos</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
          </layout>
         </widget>
