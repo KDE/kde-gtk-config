@@ -35,8 +35,12 @@ QStringList AparienciaGTK::getAvaliableIcons()
     while(iterador.hasNext()){
         QString urlActual = iterador.next();
 
-        if(!(urlActual == "/usr/share/icons/." || urlActual == "/usr/share/icons/..")){
+        if(!(urlActual == "/usr/share/icons/." || urlActual == "/usr/share/icons/.."))
             iconosDisponibles << urlActual;
+        
+         //Quitamos la carpeta Default y Default Kde4 
+        if(urlActual.contains( QRegExp("(/default)$") ) || urlActual.contains( QRegExp("(/default\.kde4)$"))){
+            iconosDisponibles.removeAll(urlActual);
         }
     }
 
@@ -46,6 +50,7 @@ QStringList AparienciaGTK::getAvaliableIcons()
 
     //Algunas veces no existe la carpeta .icons
     if(usuario.exists()){
+        //Obtener los temas de iconos instalados en la carpeta de usuario
         QDirIterator it(usuario);
         while(it.hasNext()){
             QString urlActual = it.next();
@@ -57,14 +62,18 @@ QStringList AparienciaGTK::getAvaliableIcons()
         }
     }
 
-    //Filtro, verifica si en la lista de carpetas existe un archivos
-    // tambien quita las carpetas de icono no validos
+    //Filtro, verifica si en la lista de carpetas existen archivos
+    // tambien quita la carpeta Default, Default.KDe4
     foreach(QString i, iconosDisponibles){
         QFileInfo archivo(i);
         //Si hay un archivo eliminado de la lista
         if(archivo.isFile()){
             iconosDisponibles.removeAll(i);
+            continue;
         }
+        
+       
+        
     }
 
     // Filtro, quitar los temas del mouse, ya que tambien ahi se instalan
@@ -108,7 +117,6 @@ QStringList AparienciaGTK::getAvaliableIcons()
 
     foreach(QString i, iconosDisponibles){
 
-
         QDir temp(i);
         nombreIconos << temp.dirName();
 
@@ -131,6 +139,11 @@ QStringList AparienciaGTK::getAvaliableIconsPaths()
 
         if(!(urlActual == "/usr/share/icons/." || urlActual == "/usr/share/icons/..")){
             iconosDisponibles << urlActual;
+        }
+        
+           //Quitamos la carpeta Default y Default Kde4 
+        if(urlActual.contains( QRegExp("(/default)$") ) || urlActual.contains( QRegExp("(/default\.kde4)$"))){
+            iconosDisponibles.removeAll(urlActual);
         }
     }
 
@@ -193,8 +206,6 @@ QStringList AparienciaGTK::getAvaliableIconsPaths()
         if(!icono){
             iconosDisponibles.removeAll(i);
         }
-
-
     }
 
     return iconosDisponibles;
@@ -439,10 +450,10 @@ bool AparienciaGTK::loadFileConfig(){
         qDebug() << "No Existe ese archivo Estableciendo configuraciones ";
 
         // Si no existe el archivo crearlo, y configurarlo con valores por defecto
-        settings["theme_path"] = "";
-        settings["theme"] = "";
-        settings["icon"] = "Faenza";
-        settings["icon_fallback"] = "oxygen";
+        settings["theme_path"] = "/usr/share/themes/oxygen-gtk";
+        settings["theme"] = "oxygen-gtk";
+        settings["icon"] = "oxygen-refit-2-2.5.0";
+        settings["icon_fallback"] = "oxygen-refit-2-2.5.0";
         settings["font"] = "Sans Serif 12";
 
         saveFileConfig();

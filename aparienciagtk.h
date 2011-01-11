@@ -3,9 +3,8 @@
 
 #include <QtCore>
 /**
-  Esta clase es la encargada de administradar los temas de Chakra Linux.
-
-  Carga configuraciones desde el archivo .gtkrc_gtk2-kde4
+  Esta clase es la encargada de administradar los temas gtk de Chakra Linux.
+  Carga configuraciones desde el archivo .gtkrc-2.0
   */
 class AparienciaGTK
 {
@@ -28,10 +27,8 @@ public:
     QStringList getAvaliableThemesPaths();
     QStringList getAvaliableIconsPaths();
 
-
     bool loadFileConfig(); //Carga el archivo de configuracion de aplicaciones gtk al QMap settings
     bool saveFileConfig(); //Guarda las configuraciones desde QMap Settings al archivo de configuraciones
-
 
 private:
     QMap <QString, QString> settings; //Configuraciones del sistema

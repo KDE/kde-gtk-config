@@ -1,0 +1,21 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Exec=kcmshell4 chakra-gtk-config
+Icon=chakra-smooth.png
+Type=Service
+X-KDE-ServiceTypes=KCModule
+
+# Nombre de la libreria creada desde CMakeLists.txt
+X-KDE-Library=kcm_cgc
+# Nombre del plugin registrado con K_PLUGIN_FACTORY
+X-KDE-PluginKeyword=cgc
+X-KDE-ParentApp=kcontrol
+
+X-KDE-Keywords=gtk qt settings
+X-KDE-System-Settings-Parent-Category=appareance
+
+Name=Chakra Gtk Config
+Comment=Configure your gtk's apps style
+Name[es]=Chakra Gtk Config
+Comment[es]=Configura el estilo de las apliaciones GTK
+Categories=Qt;KDE;X-KDE-settings-looknfeel;
