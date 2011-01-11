@@ -20,8 +20,7 @@ kde4_add_ui_files(kcm_SRCS gui.ui dialog_installer.ui dialog_uninstaller.ui)
 kde4_add_plugin(kcm_cgc ${kcm_SRCS})
 
 target_link_libraries(kcm_cgc ${KDE4_KIO_LIBS} )
+message("AQUI SE INSTALARA EL PLUGIN = ${KDE4_LIB_DIR}/kde4")
 
-message("AQUI SE INSTALARA EL PLUGIN = ${PLUGIN_INSTALL_DIR}")
-
-install(TARGETS kcm_cgc DESTINATION ${PLUGIN_INSTALL_DIR})
+install(TARGETS kcm_cgc DESTINATION ${KDE4_LIB_DIR}/kde4)
 install(FILES chakra-gtk-config.desktop DESTINATION ${KDE4_SERVICES_INSTALL_DIR})

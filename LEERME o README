@@ -5,7 +5,7 @@ Instalation:
 mkdir build && cd build
 cmake ..
 make 
-make install
+sudo make install
 
 enjoy  
 
@@ -13,7 +13,7 @@ enjoy
 Features:
 
 > Theme's Instalation
-> Theme's Unistalation
+> Theme's Uninstalation
 > Icon's theme Selection
 > Icon's theme fallback Selection
 > theme's selection
