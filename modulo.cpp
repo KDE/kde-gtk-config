@@ -54,6 +54,7 @@ ui(new Ui::GUI)
     appareance = new AparienciaGTK;
     refreshLists();
     makePreviewIconTheme();
+    makePreviewFont();
     
     
       //evento para aplicar cambios
@@ -78,6 +79,11 @@ ui(new Ui::GUI)
     installer =  new DialogInstaller(this);
     uninstaller = new DialogUninstaller(this, appareance);
     
+    
+    //PREVISUALIZACION DEL TIPO DE LETRA
+    connect(ui->cb_font, SIGNAL(activated(QString)), this, SLOT(makePreviewFont()));
+    connect(ui->cb_font_style, SIGNAL(activated(QString)), this, SLOT(makePreviewFont()));
+    connect(ui->spin_font_tam, SIGNAL(valueChanged(int)), this, SLOT(makePreviewFont()));
 }
 
 
@@ -183,9 +189,16 @@ void Modulo::makePreviewIconTheme()
     //file:///usr/share/icons/oxygen-refit-2-2.5.0/48x48/actions/document-print.png
 
     //Borramos iconos anteriores
-    ui->lb_prev_1->setPixmap(QPixmap());
-    ui->lb_prev_2->setPixmap(QPixmap());
-    ui->lb_prev_3->setPixmap(QPixmap());
+    ui->lb_prev_1->setPixmap(QPixmap("/usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png"));
+    ui->lb_prev_2->setPixmap(QPixmap("/usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png"));
+    ui->lb_prev_3->setPixmap(QPixmap("/usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png"));
+    ui->lb_prev_4->setPixmap(QPixmap("/usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png"));
+    ui->lb_prev_5->setPixmap(QPixmap("/usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png"));
+    ui->lb_prev_6->setPixmap(QPixmap("/usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png"));
+    ui->lb_prev_7->setPixmap(QPixmap("/usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png"));
+    ui->lb_prev_8->setPixmap(QPixmap("/usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png"));
+    ui->lb_prev_9->setPixmap(QPixmap("/usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png"));
+    
 
 
 
@@ -348,7 +361,7 @@ void Modulo::makePreviewIconTheme()
     qDebug() << "\n***********************************************";
     
     //CUARTO ICONO
-    temp.setFile(path_icon+"/places/actions/user-desktop.png");
+    temp.setFile(path_icon+"/48x48/places/user-desktop.png");
     qDebug() << "\nExiste : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_4->setPixmap(QPixmap(temp.absoluteFilePath()));
 
@@ -554,3 +567,41 @@ void Modulo::showDialogForUninstall()
     ui->cb_icon_fallback->addItems(appareance->getAvaliableIcons());
     ui->cb_icon_fallback->setCurrentIndex(ui->cb_icon_fallback->findText(temp));
 }
+
+
+void Modulo::makePreviewFont()
+{
+    
+    //Hacer un preview de las fuentes
+    QFont fuente(ui->cb_font->currentFont());
+    
+    //Investigamos el efecto de la fuente
+    bool bold = false, italic = false;
+    
+    //Dependiendo del indice del combobox es el estilo de la fuente
+    int pos = ui->cb_font_style->currentIndex();
+    
+    if(pos == 1)
+        bold = true;
+    else if(pos == 2)
+        italic = true;
+    else if(pos == 3){
+        bold = true;
+        italic = true;
+    }
+    else{
+        bold = false;
+        italic = false;
+    }
+    
+    fuente.setBold(bold);
+    fuente.setItalic(italic);
+    
+    //Establecemos el tamanio de la fuente
+    fuente.setPointSize(ui->spin_font_tam->value());
+    
+    ui->lb_font_preview->setFont(fuente);
+    
+    
+        
+}   

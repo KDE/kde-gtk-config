@@ -136,14 +136,17 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>1</string>
+                   <string/>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_3">
                   <property name="text">
-                   <string>  </string>
+                   <string/>
                   </property>
                  </widget>
                 </item>
@@ -162,14 +165,17 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>2</string>
+                   <string/>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_4">
                   <property name="text">
-                   <string>  </string>
+                   <string/>
                   </property>
                  </widget>
                 </item>
@@ -188,91 +194,112 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>3</string>
+                   <string/>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_12">
                   <property name="text">
-                   <string>  </string>
+                   <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="lb_prev_4">
                   <property name="text">
-                   <string>4</string>
+                   <string/>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_14">
                   <property name="text">
-                   <string>  </string>
+                   <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="lb_prev_5">
                   <property name="text">
-                   <string>5</string>
+                   <string/>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_15">
                   <property name="text">
-                   <string>  </string>
+                   <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="lb_prev_6">
                   <property name="text">
-                   <string>6</string>
+                   <string/>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_16">
                   <property name="text">
-                   <string>  </string>
+                   <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="lb_prev_7">
                   <property name="text">
-                   <string>7</string>
+                   <string/>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_17">
                   <property name="text">
-                   <string>  </string>
+                   <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="lb_prev_8">
                   <property name="text">
-                   <string>8</string>
+                   <string/>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_18">
                   <property name="text">
-                   <string>  </string>
+                   <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="lb_prev_9">
                   <property name="text">
-                   <string>9</string>
+                   <string/>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
                   </property>
                  </widget>
                 </item>
@@ -378,8 +405,8 @@ p, li { white-space: pre-wrap; }
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
-             <item>
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="0" column="0">
               <widget class="QLabel" name="label_5">
                <property name="text">
                 <string>Selecciona el tipo de letra</string>
@@ -395,14 +422,14 @@ p, li { white-space: pre-wrap; }
                </property>
               </widget>
              </item>
-             <item>
+             <item row="0" column="1">
               <widget class="QFontComboBox" name="cb_font">
                <property name="fontFilters">
                 <set>QFontComboBox::MonospacedFonts|QFontComboBox::ProportionalFonts|QFontComboBox::ScalableFonts</set>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="0" column="2">
               <widget class="QComboBox" name="cb_font_style">
                <item>
                 <property name="text">
@@ -426,7 +453,7 @@ p, li { white-space: pre-wrap; }
                </item>
               </widget>
              </item>
-             <item>
+             <item row="0" column="3">
               <widget class="QSpinBox" name="spin_font_tam">
                <property name="suffix">
                 <string> px</string>
@@ -440,6 +467,37 @@ p, li { white-space: pre-wrap; }
                <property name="value">
                 <number>12</number>
                </property>
+              </widget>
+             </item>
+             <item row="1" column="0" rowspan="2" colspan="4">
+              <widget class="QWidget" name="widget" native="true">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>60</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>160</height>
+                </size>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_2">
+                <item>
+                 <widget class="QLabel" name="lb_font_preview">
+                  <property name="text">
+                   <string>Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>

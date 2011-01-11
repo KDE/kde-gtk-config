@@ -46,6 +46,10 @@ public:
     
 public slots:
     void refreshLists();
+    /**
+     * Crear una previsualización de la fuente que se va a usar
+     */
+    void makePreviewFont();
     void makePreviewIconTheme();
     void appChanged(); //Metodo que se ejecuta cuando un cambio en la gui se ha registrado  
     
