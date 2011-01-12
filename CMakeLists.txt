@@ -15,12 +15,12 @@ include_directories(${KDE4_INCLUDES} ${QT_INCLUDES})
 set(kcm_SRCS installer.cpp aparienciagtk.cpp modulo.cpp dialog_installer.cpp dialog_uninstaller.cpp thread.cpp)
 
 # Uis 
-message("CARPETA ACTUAL : ${chakragtkconfig_SOURCE_DIR}")
+message("CURRENT FOLDER : ${chakragtkconfig_SOURCE_DIR}")
 kde4_add_ui_files(kcm_SRCS gui.ui dialog_installer.ui dialog_uninstaller.ui)
 kde4_add_plugin(kcm_cgc ${kcm_SRCS})
 
 target_link_libraries(kcm_cgc ${KDE4_KIO_LIBS} )
-message("AQUI SE INSTALARA EL PLUGIN = ${KDE4_LIB_DIR}/kde4")
+message("THE PLUGIN WILL BE INSTALLED HERE = ${KDE4_LIB_DIR}/kde4")
 
 install(TARGETS kcm_cgc DESTINATION ${KDE4_LIB_DIR}/kde4)
 install(FILES chakra-gtk-config.desktop DESTINATION ${KDE4_SERVICES_INSTALL_DIR})
