@@ -360,7 +360,7 @@ p, li { white-space: pre-wrap; }
                 <string/>
                </property>
                <property name="pixmap">
-                <pixmap>../../../../../../../usr/share/icons/oxygen/32x32/categories/preferences-system.png</pixmap>
+                <pixmap>../../../../../../../usr/share/icons/oxygen/32x32/apps/preferences-desktop-theme.png</pixmap>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -373,7 +373,7 @@ p, li { white-space: pre-wrap; }
                 <string/>
                </property>
                <property name="pixmap">
-                <pixmap>../../../../../../../usr/share/icons/oxygen/32x32/apps/preferences-desktop-color.png</pixmap>
+                <pixmap>../../../../../../../usr/share/icons/oxygen/32x32/apps/preferences-desktop-icons.png</pixmap>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -597,7 +597,7 @@ p, li { white-space: pre-wrap; }
              </size>
             </property>
             <property name="text">
-             <string>QUITAR TEMAS</string>
+             <string>REMOVE THEMES</string>
             </property>
             <property name="description">
              <string>Remove themes installed in the system ...</string>

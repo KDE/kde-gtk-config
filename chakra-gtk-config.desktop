@@ -7,6 +7,7 @@ Exec=kcmshell4 chakra-gtk-config
 Icon=preferences-desktop-theme
 Name=Chakra Gtk Config
 Name[es]=Chakra Gtk Config
+Name[ca]=Arranjament Gtk de Chakra
 Type=Service
 X-KDE-Keywords=gtk qt settings
 X-KDE-Library=kcm_cgc
