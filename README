@@ -23,14 +23,20 @@ Features:
 > themes selection
 > fonts selection
 
-Tue 11 Jan 2011
-
-> Port to Module KCM
-
-TODO :
-changes tr() to ki18n()
-
 enjoy !
+
+
+ChangeLog:
+-------------------------------
+11-Jan-2011
+* Port to Module KCM
+
+12-Jan-2011
+* change tr() to i18n(), make it translatable, complete translation to english, complete intergation in Apperance module
+
+
+
+
 
 
 
