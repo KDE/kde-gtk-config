@@ -8,388 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@chakra-project.org\n"
-"POT-Creation-Date: 2011-01-12 20:39+0100\n"
+"POT-Creation-Date: 2011-01-12 20:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#. i18n: file: dialog_installer.ui:20
-#. i18n: ectx: property (windowTitle), widget (QDialog, dialog_installer)
-#: build/ui_dialog_installer.h:286 translations/rc.cpp:3 rc.cpp:3
-msgid "Dialog"
-msgstr ""
-
-#. i18n: file: dialog_installer.ui:39
-#. i18n: ectx: property (text), widget (QLabel, label_10)
-#. i18n: file: dialog_uninstaller.ui:33
-#. i18n: ectx: property (text), widget (QLabel, label_8)
-#. i18n: file: dialog_installer.ui:39
-#. i18n: ectx: property (text), widget (QLabel, label_10)
-#. i18n: file: dialog_uninstaller.ui:33
-#. i18n: ectx: property (text), widget (QLabel, label_8)
-#: build/ui_dialog_installer.h:287 build/ui_dialog_uninstaller.h:225
-#: translations/rc.cpp:6 translations/rc.cpp:86 rc.cpp:6 rc.cpp:86
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Chakra Gtk Config</span></p></body></html>"
-msgstr ""
-
-#: build/ui_dialog_installer.h:295 build/ui_dialog_installer.h:312
-msgid "Para agregar un nuevo tema, sólo sigue los pasos siguientes:"
-msgstr ""
-
-#: build/ui_dialog_installer.h:296 build/ui_dialog_installer.h:324
-msgid "Seleccionar Archivo"
-msgstr ""
-
-#: build/ui_dialog_installer.h:297 build/ui_dialog_installer.h:327
-msgid "AVISOS"
-msgstr ""
-
-#: build/ui_dialog_installer.h:298 build/ui_dialog_installer.h:326
-msgid "Haz Click en el siguiente boton para instalar el tema en tu sistema"
-msgstr ""
-
-#: build/ui_dialog_installer.h:299 build/ui_dialog_installer.h:313
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Paso 1:</span></p></body></html>"
-msgstr ""
-
-#: build/ui_dialog_installer.h:304 build/ui_dialog_installer.h:318
-msgid "Selecciona el archivo tema que deseas instalar"
-msgstr ""
-
-#: build/ui_dialog_installer.h:305
-msgid "Instalar Tema GTK"
-msgstr ""
-
-#: build/ui_dialog_installer.h:306 build/ui_dialog_installer.h:319
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Paso 2 :</span></p></body></html>"
-msgstr ""
-
-#: build/ui_dialog_installer.h:311
-msgid "Agregar Tema Gtk"
-msgstr ""
-
-#: build/ui_dialog_installer.h:325
-msgid "Instalar Iconos"
-msgstr ""
-
-#: build/ui_dialog_installer.h:328
-msgid "Agregar Nuevo Tema de Iconos"
-msgstr ""
-
-#: build/ui_dialog_uninstaller.h:224
-msgid "Quitar Temas"
-msgstr ""
-
-#: build/ui_dialog_uninstaller.h:232
-msgid "Selecciona un tema gtk de la lista"
-msgstr ""
-
-#: build/ui_dialog_uninstaller.h:233 build/ui_dialog_uninstaller.h:263
-msgid "Ahora sólo presiona el boton para quitar el tema"
-msgstr ""
-
-#: build/ui_dialog_uninstaller.h:234 build/ui_dialog_uninstaller.h:258
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Paso 1:</span></p></body></html>"
-msgstr ""
-
-#: build/ui_dialog_uninstaller.h:239 build/ui_dialog_uninstaller.h:253
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Paso 2:</span></p></body></html>"
-msgstr ""
-
-#: build/ui_dialog_uninstaller.h:244
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Quitar Tema Gtk</span></p></body></html>"
-msgstr ""
-
-#: build/ui_dialog_uninstaller.h:249
-msgid "aviso"
-msgstr ""
-
-#: build/ui_dialog_uninstaller.h:250 build/ui_dialog_uninstaller.h:269
-msgid "Desinstalar"
-msgstr ""
-
-#: build/ui_dialog_uninstaller.h:252
-msgid "Selecciona un tema de iconos de la lista"
-msgstr ""
-
-#: build/ui_dialog_uninstaller.h:264
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Quitar Tema de Iconos</span></p></body></html>"
-msgstr ""
-
-#: build/ui_dialog_uninstaller.h:270
-msgid "Aviso"
-msgstr ""
-
-#. i18n: file: gui.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, GUI)
-#: build/ui_gui.h:463 modulo.cpp:32 translations/rc.cpp:159 rc.cpp:159
-msgid "Chakra Gtk Config"
-msgstr ""
-
-#. i18n: file: gui.ui:63
-#. i18n: ectx: property (text), widget (QLabel, label_10)
-#: build/ui_gui.h:464 translations/rc.cpp:165 rc.cpp:165
-msgid "Select Icons Theme"
-msgstr ""
-
-#. i18n: file: gui.ui:73
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: build/ui_gui.h:465 translations/rc.cpp:168 rc.cpp:168
-msgid "Select Fallback Icons theme"
-msgstr ""
-
-#. i18n: file: gui.ui:325
-#. i18n: ectx: property (text), widget (QLabel, label_9)
-#: build/ui_gui.h:483 translations/rc.cpp:171 rc.cpp:171
-msgid "Select a Theme"
-msgstr ""
-
-#. i18n: file: gui.ui:342
-#. i18n: ectx: property (text), widget (QLabel, label_6)
-#: build/ui_gui.h:484 translations/rc.cpp:174 rc.cpp:174
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">GTK Theme</span></p></body></html>"
-msgstr ""
-
-#. i18n: file: gui.ui:353
-#. i18n: ectx: property (text), widget (QLabel, label_8)
-#: build/ui_gui.h:489 translations/rc.cpp:181 rc.cpp:181
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Icons Theme</span></p></body></html>"
-msgstr ""
-
-#. i18n: file: gui.ui:408
-#. i18n: ectx: property (text), widget (QLabel, label_5)
-#: build/ui_gui.h:497 translations/rc.cpp:188 rc.cpp:188
-msgid "Select Font Family"
-msgstr ""
-
-#. i18n: file: gui.ui:432
-#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: build/ui_gui.h:500 translations/rc.cpp:191 rc.cpp:191
-msgid "normal"
-msgstr ""
-
-#. i18n: file: gui.ui:437
-#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: build/ui_gui.h:501 translations/rc.cpp:194 rc.cpp:194
-msgid "bold"
-msgstr ""
-
-#. i18n: file: gui.ui:442
-#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: build/ui_gui.h:502 translations/rc.cpp:197 rc.cpp:197
-msgid "italic"
-msgstr ""
-
-#. i18n: file: gui.ui:447
-#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: build/ui_gui.h:503 translations/rc.cpp:200 rc.cpp:200
-msgid "bold italic"
-msgstr ""
-
-#. i18n: file: gui.ui:455
-#. i18n: ectx: property (suffix), widget (QSpinBox, spin_font_tam)
-#: build/ui_gui.h:505 translations/rc.cpp:203 rc.cpp:203
-msgid " px"
-msgstr ""
-
-#. i18n: file: gui.ui:486
-#. i18n: ectx: property (text), widget (QLabel, lb_font_preview)
-#: build/ui_gui.h:506 translations/rc.cpp:206 rc.cpp:206
-msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
-msgstr ""
-
-#. i18n: file: gui.ui:30
-#. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: build/ui_gui.h:507 translations/rc.cpp:162 rc.cpp:162
-msgid "Configuration"
-msgstr ""
-
-#. i18n: file: gui.ui:536
-#. i18n: ectx: property (text), widget (QLabel, label_11)
-#: build/ui_gui.h:508 translations/rc.cpp:212 rc.cpp:212
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">ADD AND REMOVE THEMES</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
-"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
-"size:12pt; font-weight:600;\"></p></body></html>"
-msgstr ""
-
-#. i18n: file: gui.ui:553
-#. i18n: ectx: property (text), widget (QLabel, label_13)
-#: build/ui_gui.h:514 translations/rc.cpp:220 rc.cpp:220
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt;\">You can install new themes for your system, those themes are "
-"package files with *.tar.gz or *.tar extension.</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
-"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
-"size:10pt;\"></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt;\">We suggest the following web pages for download new themes:</"
-"span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
-"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
-"size:10pt; text-decoration: underline; color:#0057ae;\"></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href="
-"\"http://www.gnome-look.org\"><span style=\" font-size:14pt; text-"
-"decoration: underline; color:#0057ae;\">www.gnome-look.org</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href="
-"\"http://art.gnome.org\"><span style=\" font-size:14pt; text-decoration: "
-"underline; color:#0057ae;\">art.gnome.org</span></a></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-"
-"bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
-"indent:0px; font-size:14pt; text-decoration: underline; color:#0057ae;\"></"
-"p></body></html>"
-msgstr ""
-
-#. i18n: file: gui.ui:572
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: build/ui_gui.h:526 translations/rc.cpp:233 rc.cpp:233
-msgid "Actions"
-msgstr ""
-
-#. i18n: file: gui.ui:584
-#. i18n: ectx: property (text), widget (QCommandLinkButton, clb_add_theme)
-#: build/ui_gui.h:527 translations/rc.cpp:236 rc.cpp:236
-msgid "ADD THEMES"
-msgstr ""
-
-#. i18n: file: gui.ui:587
-#. i18n: ectx: property (description), widget (QCommandLinkButton, clb_add_theme)
-#: build/ui_gui.h:528 translations/rc.cpp:239 rc.cpp:239
-msgid "Install theme from file ..."
-msgstr ""
-
-#. i18n: file: gui.ui:600
-#. i18n: ectx: property (text), widget (QCommandLinkButton, clb_remove_theme)
-#: build/ui_gui.h:529 translations/rc.cpp:242 rc.cpp:242
-msgid "REMOVE THEMES"
-msgstr ""
-
-#. i18n: file: gui.ui:603
-#. i18n: ectx: property (description), widget (QCommandLinkButton, clb_remove_theme)
-#: build/ui_gui.h:530 translations/rc.cpp:245 rc.cpp:245
-msgid "Remove themes installed in the system ..."
-msgstr ""
-
-#. i18n: file: gui.ui:525
-#. i18n: ectx: attribute (title), widget (QWidget, tab_install)
-#: build/ui_gui.h:531 translations/rc.cpp:209 rc.cpp:209
-msgid "Add and Remove Themes"
-msgstr ""
 
 #: dialog_installer.cpp:60
 msgid "Select a valid gtk theme file"
@@ -439,6 +64,12 @@ msgstr ""
 msgid "The Gtk theme cannot be installed"
 msgstr ""
 
+#. i18n: file: gui.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, GUI)
+#: modulo.cpp:32 translations/rc.cpp:159 rc.cpp:159
+msgid "Chakra Gtk Config"
+msgstr ""
+
 #: modulo.cpp:33
 msgid "Config your Gtk Apps"
 msgstr ""
@@ -453,6 +84,34 @@ msgstr ""
 
 #: modulo.cpp:38
 msgid "Chakra's fan and developer"
+msgstr ""
+
+#. i18n: file: dialog_installer.ui:20
+#. i18n: ectx: property (windowTitle), widget (QDialog, dialog_installer)
+#: translations/rc.cpp:3 rc.cpp:3
+msgid "Dialog"
+msgstr ""
+
+#. i18n: file: dialog_installer.ui:39
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#. i18n: file: dialog_uninstaller.ui:33
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#. i18n: file: dialog_installer.ui:39
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#. i18n: file: dialog_uninstaller.ui:33
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: translations/rc.cpp:6 translations/rc.cpp:86 rc.cpp:6 rc.cpp:86
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"size:12pt; font-weight:600;\">Chakra Gtk Config</span></p></body></html>"
 msgstr ""
 
 #. i18n: file: dialog_installer.ui:133
@@ -711,6 +370,198 @@ msgid ""
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "size:12pt; font-weight:600;\">Remove Icons Theme</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: gui.ui:30
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: translations/rc.cpp:162 rc.cpp:162
+msgid "Configuration"
+msgstr ""
+
+#. i18n: file: gui.ui:63
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: translations/rc.cpp:165 rc.cpp:165
+msgid "Select Icons Theme"
+msgstr ""
+
+#. i18n: file: gui.ui:73
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: translations/rc.cpp:168 rc.cpp:168
+msgid "Select Fallback Icons theme"
+msgstr ""
+
+#. i18n: file: gui.ui:325
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: translations/rc.cpp:171 rc.cpp:171
+msgid "Select a Theme"
+msgstr ""
+
+#. i18n: file: gui.ui:342
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: translations/rc.cpp:174 rc.cpp:174
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"size:10pt; font-weight:600;\">GTK Theme</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: gui.ui:353
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: translations/rc.cpp:181 rc.cpp:181
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"size:10pt; font-weight:600;\">Icons Theme</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: gui.ui:408
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: translations/rc.cpp:188 rc.cpp:188
+msgid "Select Font Family"
+msgstr ""
+
+#. i18n: file: gui.ui:432
+#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
+#: translations/rc.cpp:191 rc.cpp:191
+msgid "normal"
+msgstr ""
+
+#. i18n: file: gui.ui:437
+#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
+#: translations/rc.cpp:194 rc.cpp:194
+msgid "bold"
+msgstr ""
+
+#. i18n: file: gui.ui:442
+#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
+#: translations/rc.cpp:197 rc.cpp:197
+msgid "italic"
+msgstr ""
+
+#. i18n: file: gui.ui:447
+#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
+#: translations/rc.cpp:200 rc.cpp:200
+msgid "bold italic"
+msgstr ""
+
+#. i18n: file: gui.ui:455
+#. i18n: ectx: property (suffix), widget (QSpinBox, spin_font_tam)
+#: translations/rc.cpp:203 rc.cpp:203
+msgid " px"
+msgstr ""
+
+#. i18n: file: gui.ui:486
+#. i18n: ectx: property (text), widget (QLabel, lb_font_preview)
+#: translations/rc.cpp:206 rc.cpp:206
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
+msgstr ""
+
+#. i18n: file: gui.ui:525
+#. i18n: ectx: attribute (title), widget (QWidget, tab_install)
+#: translations/rc.cpp:209 rc.cpp:209
+msgid "Add and Remove Themes"
+msgstr ""
+
+#. i18n: file: gui.ui:536
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: translations/rc.cpp:212 rc.cpp:212
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"size:12pt; font-weight:600;\">ADD AND REMOVE THEMES</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
+"size:12pt; font-weight:600;\"></p></body></html>"
+msgstr ""
+
+#. i18n: file: gui.ui:553
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: translations/rc.cpp:220 rc.cpp:220
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"size:10pt;\">You can install new themes for your system, those themes are "
+"package files with *.tar.gz or *.tar extension.</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
+"size:10pt;\"></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"size:10pt;\">We suggest the following web pages for download new themes:</"
+"span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
+"size:10pt; text-decoration: underline; color:#0057ae;\"></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href="
+"\"http://www.gnome-look.org\"><span style=\" font-size:14pt; text-"
+"decoration: underline; color:#0057ae;\">www.gnome-look.org</span></a></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href="
+"\"http://art.gnome.org\"><span style=\" font-size:14pt; text-decoration: "
+"underline; color:#0057ae;\">art.gnome.org</span></a></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-"
+"bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
+"indent:0px; font-size:14pt; text-decoration: underline; color:#0057ae;\"></"
+"p></body></html>"
+msgstr ""
+
+#. i18n: file: gui.ui:572
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: translations/rc.cpp:233 rc.cpp:233
+msgid "Actions"
+msgstr ""
+
+#. i18n: file: gui.ui:584
+#. i18n: ectx: property (text), widget (QCommandLinkButton, clb_add_theme)
+#: translations/rc.cpp:236 rc.cpp:236
+msgid "ADD THEMES"
+msgstr ""
+
+#. i18n: file: gui.ui:587
+#. i18n: ectx: property (description), widget (QCommandLinkButton, clb_add_theme)
+#: translations/rc.cpp:239 rc.cpp:239
+msgid "Install theme from file ..."
+msgstr ""
+
+#. i18n: file: gui.ui:600
+#. i18n: ectx: property (text), widget (QCommandLinkButton, clb_remove_theme)
+#: translations/rc.cpp:242 rc.cpp:242
+msgid "REMOVE THEMES"
+msgstr ""
+
+#. i18n: file: gui.ui:603
+#. i18n: ectx: property (description), widget (QCommandLinkButton, clb_remove_theme)
+#: translations/rc.cpp:245 rc.cpp:245
+msgid "Remove themes installed in the system ..."
 msgstr ""
 
 #: translations/rc.cpp:246 rc.cpp:246
