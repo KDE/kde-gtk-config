@@ -120,7 +120,7 @@ p, li { white-space: pre-wrap; }
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideMiddle</enum>
@@ -148,7 +148,7 @@ p, li { white-space: pre-wrap; }
              </sizepolicy>
             </property>
             <property name="text">
-	       <string>In order to add a new theme, just follow these steps:</string>
+             <string>In order to add a new theme, just follow these steps:</string>
             </property>
            </widget>
           </item>
@@ -174,7 +174,7 @@ p, li { white-space: pre-wrap; }
              </size>
             </property>
             <property name="text">
-             <string>WARNINGS</string>
+             <string/>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -187,7 +187,7 @@ p, li { white-space: pre-wrap; }
           <item row="8" column="0" colspan="2">
            <widget class="QLabel" name="label_4">
             <property name="text">
-	     <string>Click the next button in order to install the theme in your system</string>
+             <string>Click the next button in order to install the theme in your system</string>
             </property>
            </widget>
           </item>
@@ -218,7 +218,7 @@ p, li { white-space: pre-wrap; }
           <item row="2" column="0" colspan="2">
            <widget class="QLabel" name="label_3">
             <property name="text">
-	     <string>Select the theme file you want to install</string>
+             <string>Select the theme file you want to install</string>
             </property>
            </widget>
           </item>
@@ -262,7 +262,7 @@ p, li { white-space: pre-wrap; }
           <item row="0" column="0" colspan="2">
            <widget class="QLabel" name="lb_icon">
             <property name="text">
-	      <string>In order to add a new theme, just follow these steps:</string>
+             <string>In order to add a new theme, just follow these steps:</string>
             </property>
             <property name="wordWrap">
              <bool>true</bool>
@@ -283,7 +283,7 @@ p, li { white-space: pre-wrap; }
           <item row="2" column="0" colspan="2">
            <widget class="QLabel" name="label_7">
             <property name="text">
-	      <string>Select the theme file you want to install</string>
+             <string>Select the theme file you want to install</string>
             </property>
            </widget>
           </item>
@@ -340,7 +340,7 @@ p, li { white-space: pre-wrap; }
           <item row="6" column="0" colspan="2">
            <widget class="QLabel" name="label_8">
             <property name="text">
-	     <string>Click the next button in order to install the theme in your system</string>
+             <string>Click the next button in order to install the theme in your system</string>
             </property>
            </widget>
           </item>
@@ -359,7 +359,7 @@ p, li { white-space: pre-wrap; }
              </size>
             </property>
             <property name="text">
-             <string>WARNINGS</string>
+             <string/>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
