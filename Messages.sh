@@ -1,6 +1,6 @@
 #!/bin/sh
 BASEDIR="`pwd`"
-PROJECT="chakra-gtk-config"
+PROJECT="kcm_cgc"
 BUGADDR="bugs@chakra-project.org"
 WDIR="`pwd`/translations" 
  
