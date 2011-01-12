@@ -14,4 +14,4 @@ X-KDE-Library=kcm_cgc
 X-KDE-ParentApp=kcontrol
 X-KDE-PluginKeyword=cgc
 X-KDE-ServiceTypes=KCModule
-X-KDE-System-Settings-Category=desktop-appearance
+X-KDE-System-Settings-Parent-Category=application-appearance

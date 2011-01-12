@@ -1,15 +1,19 @@
 project(chakragtkconfig)
 cmake_minimum_required(VERSION 2.6)
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
 set(CMAKE_PREFIX_PATH /usr)
 
 message("PREFIX : ${CMAKE_PREFIX_PATH}")
 find_package(Qt4 REQUIRED)
 find_package(KDE4 REQUIRED)
+find_package(MSGFMT REQUIRED)
 include(KDE4Defaults)
 
 add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include_directories(${KDE4_INCLUDES} ${QT_INCLUDES})
+
+add_subdirectory(translations)
 
 # Codigos Fuente
 set(kcm_SRCS installer.cpp aparienciagtk.cpp modulo.cpp dialog_installer.cpp dialog_uninstaller.cpp thread.cpp)
