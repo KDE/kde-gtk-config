@@ -3,18 +3,18 @@
 bool Installer::installTheme(QString &urlPackage)
 {
     QDir destino(QDir::homePath()+"/.themes");
-    qDebug() << "INSTALANDO TEMA GTK " << urlPackage << " EN "  << destino.path();
+    qDebug() << "INSTALLING GTK THEME " << urlPackage << " IN "  << destino.path();
 
     //Verifica primero si es que existe la carpetas donde se guardan los temas
     if(!destino.exists()){
         //Trata de crear la carpeta de los temas
-        qDebug() << "PELIGRO: No existe carpeta donde se almacena los temas GTK, tratando de crearla";
+        qDebug() << "WARNING: The folder for saving the icons does no exist, tying to create it";
         if(QProcess::execute("mkdir", QStringList(destino.path())) != 0){
-            qDebug() << "ERROR: La carpeta " << destino.path() << " no se pudo crear";
+            qDebug() << "ERROR: Folder " << destino.path() << " cannot be created";
             return false;
         }
 
-        qDebug() << "Carpeta Creada satisfactoriamente";
+        qDebug() << "Folder successfully created";
 
     }
 
@@ -44,17 +44,17 @@ bool Installer::installIconTheme(QString &urlPackage)
     //Verifica primero si es que existe la carpetas donde se guardan los temas
     if(!destino.exists()){
         //Trata de crear la carpeta de los temas
-        qDebug() << "PELIGRO: No existe carpeta donde se almacena los iconos, tratando de crearla";
+        qDebug() << "WARNING: The folder for saving the icons does no exist, tying to create it";
         if(QProcess::execute("mkdir", QStringList(destino.path())) != 0){
-            qDebug() << "ERROR: La carpeta " << destino.path() << " no se pudo crear";
+            qDebug() << "ERROR: In folder " << destino.path() << " cannot be created";
             return false;
         }
 
-        qDebug() << "Carpeta Creada satisfactoriamente";
+        qDebug() << "Folder successfully created";
 
     }
 
-    qDebug() << "INSTALANDO TEMA DE ICONOS"<< urlPackage << " EN : " << destino.path();
+    qDebug() << "INSTALLING ICONS THEME"<< urlPackage << " IN : " << destino.path();
 
     // Argumentos para el comando tar
     QStringList argumentos;
