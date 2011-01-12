@@ -3,7 +3,7 @@
 AparienciaGTK::AparienciaGTK()
 {
 
-    qDebug() << "CREANDO APARIENCIA GTK";
+    qDebug() << "CREATING GTK APPEARANCE";
 
     //Como es primera ejecucion hay que cargar valores desde el archivo
     loadFileConfig();
@@ -259,7 +259,7 @@ QStringList AparienciaGTK::getAvaliableThemesPaths(){
 
         //Si no existe el fichero gtkrc, no es un tema gtk valido, eliminar de la lista de temas
         if(!gtkrc){
-            qDebug() << "La carpeta : " << i << " no contiene carpeta gtk-2.0 descartarlo";
+            qDebug() << "Folder : " << i << " does not contain a gtk-2.0 folder, discard it";
             temasDisponibles.removeAll(i);
         }
 
@@ -316,7 +316,7 @@ QStringList AparienciaGTK::getAvaliableThemes()
 
         //Si no existe el fichero gtkrc, no es un tema gtk valido, eliminar de la lista de temas
         if(!gtkrc){
-            qDebug() << "La carpeta : " << i << " no contiene carpeta gtk-2.0 descartarlo";
+            qDebug() << "Folder : " << i << " does not contain a gtk-2.0 folder, discard it";
             temasDisponibles.removeAll(i);
         }
 
@@ -341,7 +341,7 @@ bool AparienciaGTK::loadFileConfig(){
     QFile archivo(QDir::homePath()+"/.gtkrc-2.0");
 
     if(archivo.exists()){
-        qDebug() << "Archivo de Configuracion existe ... ";
+        qDebug() << "The config file already exist ... ";
 
         /**
           Variables a sacar desde el archivo
@@ -447,14 +447,14 @@ bool AparienciaGTK::loadFileConfig(){
     }
     else{
         // no existe el archivo
-        qDebug() << "No Existe ese archivo Estableciendo configuraciones ";
+        qDebug() << "File does not exist, setting configs ...";
 
         // Si no existe el archivo crearlo, y configurarlo con valores por defecto
         settings["theme_path"] = "/usr/share/themes/oxygen-gtk";
         settings["theme"] = "oxygen-gtk";
         settings["icon"] = "oxygen-refit-2-2.5.0";
         settings["icon_fallback"] = "oxygen-refit-2-2.5.0";
-        settings["font"] = "Sans Serif 12";
+        settings["font"] = "Bitstream Vera Sans 10";
 
         saveFileConfig();
 
@@ -475,16 +475,16 @@ bool AparienciaGTK::saveFileConfig()
 
     //Verifica si el archivo se pudo abrir
     if(!gtkrc.open(QIODevice::WriteOnly | QIODevice::Text)){
-        qDebug() << "No se pudo escribir el fichero .gtkrc-2.0";
+        qDebug() << "There was unable to write the file .gtkrc-2.0";
         return false;
     }
 
     QTextStream flujo(&gtkrc);
 
-    flujo << "# Archivo Creado por Chakra Gtk Config" << "\n"
-            << "# Configuraciones para los programas que usan librerias GTK2 \n\n";
+    flujo << "# File created by Chakra Gtk Config" << "\n"
+            << "# Configs for GTK2 progrmans \n\n";
 
-    qDebug() << "\tBuscar archivo gtkrc en la carpeta :  " << settings["theme_path"];
+    qDebug() << "\tSearch for gtkrc files in folder :  " << settings["theme_path"];
 
     //Buscar archivo gtkrc en el tema
     QDir tema(settings["theme_path"]);
@@ -493,7 +493,7 @@ bool AparienciaGTK::saveFileConfig()
     while(it.hasNext()){
         // Buscar archivo gtkrc
         if(it.next().contains("gtkrc")){
-            qDebug() << "\tArchivo gtkrc encontrado en : " << it.filePath();
+            qDebug() << "\tgtkrc file found at : " << it.filePath();
             temp = it.filePath();
             break;
         }
