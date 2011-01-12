@@ -53,7 +53,7 @@ DialogInstaller::~DialogInstaller()
 
 // SELECCIONA UN FICHERO TAR.GZ VALIDO
 void DialogInstaller::selectThemeFile(){
-    qDebug() << "SELECCIONANDO TEMA GTK";
+    qDebug() << "SELECTING GTK THEME";
 
     QString archivo = QFileDialog::getOpenFileName(
             this,

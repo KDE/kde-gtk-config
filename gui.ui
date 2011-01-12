@@ -27,7 +27,7 @@
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>Configuracion</string>
+       <string>Configuration</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
@@ -60,7 +60,7 @@
              <item row="6" column="0">
               <widget class="QLabel" name="label_10">
                <property name="text">
-                <string>Selecciona un Tema de Iconos</string>
+                <string>Select Icons Theme</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -70,7 +70,7 @@
              <item row="7" column="0">
               <widget class="QLabel" name="label_2">
                <property name="text">
-                <string>Selecciona un tema de iconos fallback</string>
+                <string>Select Fallback Icons theme</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -322,7 +322,7 @@
              <item row="2" column="0">
               <widget class="QLabel" name="label_9">
                <property name="text">
-                <string>Selecciona un Tema</string>
+                <string>Select a Theme</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -339,7 +339,7 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Tema GTK&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;GTK Theme&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
@@ -350,7 +350,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Temas de Iconos&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Icons Theme&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
@@ -405,7 +405,7 @@ p, li { white-space: pre-wrap; }
              <item row="0" column="0">
               <widget class="QLabel" name="label_5">
                <property name="text">
-                <string>Selecciona el tipo de letra</string>
+                <string>Select Font Family</string>
                </property>
                <property name="scaledContents">
                 <bool>false</bool>
@@ -532,7 +532,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;AGREGAR Y QUITAR TEMAS&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ADD AND REMOVE THEMES&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; font-weight:600;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
@@ -544,9 +544,9 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Puede instalar nuevos temas para tu sistema, estos temas son archivos empaquetados con extensión *.tar.gz o *.tar.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;You can install new themes for your system, those themes are package files with *.tar.gz or *.tar extension.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Te sugerimos las siguiente páginas web para descargarte nuevos temas:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;We suggest the following web pages for download new themes:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt; text-decoration: underline; color:#0057ae;&quot;&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://www.gnome-look.org&quot;&gt;&lt;span style=&quot; font-size:14pt; text-decoration: underline; color:#0057ae;&quot;&gt;www.gnome-look.org&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://art.gnome.org&quot;&gt;&lt;span style=&quot; font-size:14pt; text-decoration: underline; color:#0057ae;&quot;&gt;art.gnome.org&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
@@ -569,7 +569,7 @@ p, li { white-space: pre-wrap; }
           </sizepolicy>
          </property>
          <property name="title">
-          <string>Acciones</string>
+          <string>Actions</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="1">
@@ -581,10 +581,10 @@ p, li { white-space: pre-wrap; }
              </size>
             </property>
             <property name="text">
-             <string>AGREGAR TEMAS</string>
+             <string>ADD THEMES</string>
             </property>
             <property name="description">
-             <string>Instala tema desde un archivo ...</string>
+             <string>Install theme from file ...</string>
             </property>
            </widget>
           </item>
@@ -600,7 +600,7 @@ p, li { white-space: pre-wrap; }
              <string>QUITAR TEMAS</string>
             </property>
             <property name="description">
-             <string>Elimina temas instalados en el sistema ...</string>
+             <string>Remove themes installed in the system ...</string>
             </property>
            </widget>
           </item>
