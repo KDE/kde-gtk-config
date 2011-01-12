@@ -10,9 +10,9 @@ This program it's licensed under GPL
 Compilation:
 
 mkdir build && cd build
-cmake ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr ..
 make 
-
+sudo make install
 
 Features:
 
