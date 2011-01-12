@@ -284,11 +284,11 @@ void DialogInstaller::disableGUIThemeIconInstaller(){
 void DialogInstaller::refreshGUIIconTheme(){
     if(threadForIcon->isSuccess()){
         ui->lb_icon_notice->setText(i18n("Icons Successfully Installed"));
-        ui->txt_icon_file->setText(i18n(""));
+        ui->txt_icon_file->setText("");
     }
     else{
         ui->lb_icon_notice->setText(i18n("The icons theme cannot be installed"));
-        ui->txt_icon_file->setText(i18n(""));
+        ui->txt_icon_file->setText("");
     }
 }
 

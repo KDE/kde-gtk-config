@@ -8,13 +8,61 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@chakra-project.org\n"
-"POT-Creation-Date: 2011-01-12 00:59+0100\n"
+"POT-Creation-Date: 2011-01-12 02:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: dialog_installer.cpp:60
+msgid "Select a valid gtk theme file"
+msgstr ""
+
+#: dialog_installer.cpp:62 dialog_installer.cpp:84
+msgid "Compressed file (*.tar.gz *.tar)"
+msgstr ""
+
+#: dialog_installer.cpp:82
+msgid "Select a vaild icons theme file"
+msgstr ""
+
+#: dialog_installer.cpp:186 dialog_installer.cpp:221
+msgid "Parsing theme ... "
+msgstr ""
+
+#: dialog_installer.cpp:208
+msgid "This Gtk theme can be installed"
+msgstr ""
+
+#: dialog_installer.cpp:212
+msgid "This Gtk theme cannot be installed"
+msgstr ""
+
+#: dialog_installer.cpp:242
+msgid "This icons theme can be installed"
+msgstr ""
+
+#: dialog_installer.cpp:246
+msgid "This icons theme cannot be installed"
+msgstr ""
+
+#: dialog_installer.cpp:286
+msgid "Icons Successfully Installed"
+msgstr ""
+
+#: dialog_installer.cpp:290
+msgid "The icons theme cannot be installed"
+msgstr ""
+
+#: dialog_installer.cpp:298
+msgid "Gtk Theme Sucessfully Installed"
+msgstr ""
+
+#: dialog_installer.cpp:302
+msgid "The Gtk theme cannot be installed"
+msgstr ""
 
 #. i18n: file: gui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, GUI)
@@ -23,7 +71,7 @@ msgid "Chakra Gtk Config"
 msgstr ""
 
 #: modulo.cpp:33
-msgid "Configura tus applicaciones gtk"
+msgid "Config your Gtk Apps"
 msgstr ""
 
 #: modulo.cpp:35
@@ -35,7 +83,7 @@ msgid "José Antonio Sánchez Reynaga"
 msgstr ""
 
 #: modulo.cpp:38
-msgid "Programador y Fan de Chakra"
+msgid "Chakra's fan and developer"
 msgstr ""
 
 #. i18n: file: dialog_installer.ui:20
@@ -327,25 +375,25 @@ msgstr ""
 #. i18n: file: gui.ui:30
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: translations/rc.cpp:162 rc.cpp:162
-msgid "Configuracion"
+msgid "Configuration"
 msgstr ""
 
 #. i18n: file: gui.ui:63
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: translations/rc.cpp:165 rc.cpp:165
-msgid "Selecciona un Tema de Iconos"
+msgid "Select Icons Theme"
 msgstr ""
 
 #. i18n: file: gui.ui:73
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: translations/rc.cpp:168 rc.cpp:168
-msgid "Selecciona un tema de iconos fallback"
+msgid "Select Fallback Icons theme"
 msgstr ""
 
 #. i18n: file: gui.ui:325
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: translations/rc.cpp:171 rc.cpp:171
-msgid "Selecciona un Tema"
+msgid "Select a Theme"
 msgstr ""
 
 #. i18n: file: gui.ui:342
@@ -361,7 +409,7 @@ msgid ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Tema GTK</span></p></body></html>"
+"size:10pt; font-weight:600;\">GTK Theme</span></p></body></html>"
 msgstr ""
 
 #. i18n: file: gui.ui:353
@@ -377,13 +425,13 @@ msgid ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Temas de Iconos</span></p></body></html>"
+"size:10pt; font-weight:600;\">Icons Theme</span></p></body></html>"
 msgstr ""
 
 #. i18n: file: gui.ui:408
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: translations/rc.cpp:188 rc.cpp:188
-msgid "Selecciona el tipo de letra"
+msgid "Select Font Family"
 msgstr ""
 
 #. i18n: file: gui.ui:432
@@ -425,7 +473,7 @@ msgstr ""
 #. i18n: file: gui.ui:525
 #. i18n: ectx: attribute (title), widget (QWidget, tab_install)
 #: translations/rc.cpp:209 rc.cpp:209
-msgid "Agregar y Quitas Temas"
+msgid "Add and Remove Themes"
 msgstr ""
 
 #. i18n: file: gui.ui:536
@@ -441,7 +489,7 @@ msgid ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">AGREGAR Y QUITAR TEMAS</span></p>\n"
+"size:12pt; font-weight:600;\">ADD AND REMOVE THEMES</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
 "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
 "size:12pt; font-weight:600;\"></p></body></html>"
@@ -460,15 +508,15 @@ msgid ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt;\">Puede instalar nuevos temas para tu sistema, estos temas son "
-"archivos empaquetados con extensión *.tar.gz o *.tar.</span></p>\n"
+"size:10pt;\">You can install new themes for your system, those themes are "
+"package files with *.tar.gz or *.tar extension.</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
 "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
 "size:10pt;\"></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt;\">Te sugerimos las siguiente páginas web para descargarte nuevos "
-"temas:</span></p>\n"
+"size:10pt;\">We suggest the following web pages for download new themes:</"
+"span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
 "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
 "size:10pt; text-decoration: underline; color:#0057ae;\"></p>\n"
@@ -489,19 +537,19 @@ msgstr ""
 #. i18n: file: gui.ui:572
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: translations/rc.cpp:233 rc.cpp:233
-msgid "Acciones"
+msgid "Actions"
 msgstr ""
 
 #. i18n: file: gui.ui:584
 #. i18n: ectx: property (text), widget (QCommandLinkButton, clb_add_theme)
 #: translations/rc.cpp:236 rc.cpp:236
-msgid "AGREGAR TEMAS"
+msgid "ADD THEMES"
 msgstr ""
 
 #. i18n: file: gui.ui:587
 #. i18n: ectx: property (description), widget (QCommandLinkButton, clb_add_theme)
 #: translations/rc.cpp:239 rc.cpp:239
-msgid "Instala tema desde un archivo ..."
+msgid "Install theme from file ..."
 msgstr ""
 
 #. i18n: file: gui.ui:600
@@ -513,7 +561,7 @@ msgstr ""
 #. i18n: file: gui.ui:603
 #. i18n: ectx: property (description), widget (QCommandLinkButton, clb_remove_theme)
 #: translations/rc.cpp:245 rc.cpp:245
-msgid "Elimina temas instalados en el sistema ..."
+msgid "Remove themes installed in the system ..."
 msgstr ""
 
 #: translations/rc.cpp:246 rc.cpp:246
