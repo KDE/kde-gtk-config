@@ -1,0 +1,36 @@
+CHAKRA GTK CONFIG v1.0
+----------------------
+
+Copyright (c) 2011 - Jose Antonio Sánchez Reynaga <joanzare@gmail.com>
+and the Team behind Chakra
+
+This program it's licensed under GPL 
+
+
+Compilation:
+
+mkdir build && cd build
+cmake ..
+make 
+
+
+Features:
+
+> Themes installation
+> Themes uninstallation
+> Icon themes selection
+> Icon themes fallback selection
+> themes selection
+> fonts selection
+
+Tue 11 Jan 2011
+
+> Port to Module KCM
+
+TODO :
+changes tr() to ki18n()
+
+enjoy !
+
+
+
