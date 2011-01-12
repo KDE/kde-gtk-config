@@ -1,8 +1,8 @@
 [Desktop Entry]
 Categories=Qt;KDE;X-KDE-settings-looknfeel;
-Comment=Configure your Gtk2 apps style
-Comment[es]=Configura el estilo de las apliaciones Gtk2
-Comment[ca]=Arranja l'estil de les aplicacions Gtk2
+Comment=Configuration of Gtk2 apps style
+Comment[es]=Configuración del estilo de las apliaciones Gtk2
+Comment[ca]=Arranjament de l'estil de les aplicacions Gtk2
 Exec=kcmshell4 chakra-gtk-config
 Icon=preferences-desktop-theme
 Name=Chakra Gtk Config

@@ -522,7 +522,7 @@ p, li { white-space: pre-wrap; }
        <bool>true</bool>
       </property>
       <attribute name="title">
-       <string>Agregar y Quitas Temas</string>
+       <string>Add and Remove Themes</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
