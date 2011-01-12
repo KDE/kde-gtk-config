@@ -74,7 +74,7 @@ p, li { white-space: pre-wrap; }
          <item row="2" column="0" colspan="2">
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Select a Gtk theme from the list</string>
+            <string>Select an Gtk theme from the list</string>
            </property>
           </widget>
          </item>
@@ -154,7 +154,7 @@ p, li { white-space: pre-wrap; }
          <item row="2" column="0" colspan="2">
           <widget class="QLabel" name="label_6">
            <property name="text">
-	     <string>Select a icon theme from the list</string>
+	     <string>Select an icon theme from the list</string>
            </property>
           </widget>
          </item>
