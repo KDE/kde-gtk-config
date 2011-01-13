@@ -263,6 +263,7 @@ void DialogInstaller::enableGUIThemeIconInstaller(){
     ui->but_icon_filechoice->setEnabled(true);
     ui->but_icon_install->setEnabled(true);
     ui->txt_icon_file->setEnabled(true);
+    ui->but_accepted->setEnabled(true);
     
 }
 
@@ -278,6 +279,7 @@ void DialogInstaller::disableGUIThemeIconInstaller(){
     ui->but_icon_install->setEnabled(false);
     ui->but_icon_filechoice->setEnabled(false);
     ui->txt_icon_file->setEnabled(false);
+    ui->but_accepted->setEnabled(false);
     
 }
 
