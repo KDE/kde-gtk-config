@@ -39,7 +39,7 @@ QStringList AparienciaGTK::getAvaliableIcons()
             iconosDisponibles << urlActual;
         
          //Quitamos la carpeta Default y Default Kde4 
-        if(urlActual.contains( QRegExp("(/default)$") ) || urlActual.contains( QRegExp("(/default\.kde4)$"))){
+        if(urlActual.contains( QRegExp("(/default)$") ) || urlActual.contains( QRegExp("(/default\\.kde4)$"))){
             iconosDisponibles.removeAll(urlActual);
         }
     }
@@ -142,7 +142,7 @@ QStringList AparienciaGTK::getAvaliableIconsPaths()
         }
         
            //Quitamos la carpeta Default y Default Kde4 
-        if(urlActual.contains( QRegExp("(/default)$") ) || urlActual.contains( QRegExp("(/default\.kde4)$"))){
+        if(urlActual.contains( QRegExp("(/default)$") ) || urlActual.contains( QRegExp("(/default\\.kde4)$"))){
             iconosDisponibles.removeAll(urlActual);
         }
     }
