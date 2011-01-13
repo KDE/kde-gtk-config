@@ -1,4 +1,4 @@
-CHAKRA GTK CONFIG v1.0
+CHAKRA GTK CONFIG v1.2
 ----------------------
 
 Copyright (c) 2011 - Jose Antonio Sánchez Reynaga <joanzare@gmail.com>
@@ -28,12 +28,15 @@ enjoy !
 
 ChangeLog:
 -------------------------------
-11-Jan-2011
+V1.0
 * Port to Module KCM
-
-12-Jan-2011
 * change tr() to i18n(), make it translatable, complete translation to english, complete intergation in Apperance module
 
+V1.1
+* Adding SVG preview suport, add Spanish, Galician and Italian
+
+v1.2
+* Fix a bug in the layout for some Qt themes
 
 
 
