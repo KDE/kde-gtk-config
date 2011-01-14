@@ -1,79 +1,78 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Daniele Cocca <daniele.cocca@gmail.com>, 2011.
+# , 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@chakra-project.org\n"
 "POT-Creation-Date: 2011-01-15 00:48+0100\n"
-"PO-Revision-Date: 2011-01-13 01:21+0100\n"
-"Last-Translator: Daniele Cocca <daniele.cocca@gmail.com>\n"
-"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2011-01-14 22:15+0000\n"
+"Last-Translator: \n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en_USX-Generator: Lokalize 1.2\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: dialog_installer.cpp:60
 msgid "Select a valid gtk theme file"
-msgstr "Seleziona un file di tema di GTK+ valido"
+msgstr "Sélectionner un ficher de thème gtk"
 
 #: dialog_installer.cpp:62 dialog_installer.cpp:84
 msgid "Compressed file (*.tar.gz *.tar)"
-msgstr "File compresso (*.tar.gz, *.tar)"
+msgstr "Fichier compressé (*.tar.gz *.tar)"
 
 #: dialog_installer.cpp:82
 msgid "Select a vaild icons theme file"
-msgstr "Seleziona un file di tema di icone valido"
+msgstr "Sélectionner un ficher de thème d'icônes"
 
 #: dialog_installer.cpp:186 dialog_installer.cpp:221
 msgid "Parsing theme ... "
-msgstr "Esamino il tema..."
+msgstr "Analyse du thème ..."
 
 #: dialog_installer.cpp:208
 msgid "This Gtk theme can be installed"
-msgstr "Questo tema di GTK+ può essere installato"
+msgstr "Ce thème Gtk peut être installé"
 
 #: dialog_installer.cpp:212
 msgid "This Gtk theme cannot be installed"
-msgstr "Questo tema di GTK+ non può essere installato"
+msgstr "Ce thème Gtk ne peut pas être installé"
 
 #: dialog_installer.cpp:242
 msgid "This icons theme can be installed"
-msgstr "Questo tema di icone può essere installato"
+msgstr "Ce thème d'icônes peut être installé"
 
 #: dialog_installer.cpp:246
 msgid "This icons theme cannot be installed"
-msgstr "Questo tema di icone non può essere installato"
+msgstr "Ce thème d'icônes ne peut pas être installé"
 
 #: dialog_installer.cpp:288
 msgid "Icons Successfully Installed"
-msgstr "Icone installate con successo"
+msgstr "Les icônes ont été installés avec succès"
 
 #: dialog_installer.cpp:292
 msgid "The icons theme cannot be installed"
-msgstr "Il tema di icone non può essere installato"
+msgstr "Le thème d'icônes ne peut pas être installé"
 
 #: dialog_installer.cpp:300
 msgid "Gtk Theme Sucessfully Installed"
-msgstr "Tema di GTK+ installato con successo"
+msgstr "Le thème Gtk a été installé avec succès"
 
 #: dialog_installer.cpp:304
 msgid "The Gtk theme cannot be installed"
-msgstr "Il tema di GTK+ non può essere installato"
+msgstr "Le thème Gtk ne peut pas être installé"
 
 #. i18n: file: gui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, GUI)
 #: modulo.cpp:32 translations/rc.cpp:153 rc.cpp:153
 msgid "Chakra Gtk Config"
-msgstr "Configuratore di GTK+ per Chakra"
+msgstr "Configuration de Gtk de Chakra"
 
 #: modulo.cpp:33
 msgid "Config your Gtk Apps"
-msgstr "Configura le tua applicazioni GTK+"
+msgstr "Configurer vos applications Gtk"
 
 #: modulo.cpp:35
 msgid "Copyright 2011 José Antonio Sánchez Reynaga"
@@ -85,13 +84,13 @@ msgstr "José Antonio Sánchez Reynaga"
 
 #: modulo.cpp:38
 msgid "Chakra's fan and developer"
-msgstr "Sviluppatore e appassionato di Chakra"
+msgstr "Fan et développeur de Chakra"
 
 #. i18n: file: dialog_installer.ui:20
 #. i18n: ectx: property (windowTitle), widget (QDialog, dialog_installer)
 #: translations/rc.cpp:3 rc.cpp:3
 msgid "Dialog"
-msgstr "Dialogo "
+msgstr "Dialogue"
 
 #. i18n: file: dialog_installer.ui:39
 #. i18n: ectx: property (text), widget (QLabel, label_10)
@@ -123,14 +122,14 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Configuratore di GTK+ per Chakra</span></p></"
+"size:12pt; font-weight:600;\">Configuration de Gtk de chakra</span></p></"
 "body></html>"
 
 #. i18n: file: dialog_installer.ui:123
 #. i18n: ectx: attribute (title), widget (QWidget, tabWidgetPage1)
 #: translations/rc.cpp:13 rc.cpp:13
 msgid "Add Gtk Theme"
-msgstr "Aggiungi un tema GTK+"
+msgstr "Ajouter un thème Gtk"
 
 #. i18n: file: dialog_installer.ui:141
 #. i18n: ectx: property (text), widget (QLabel, lb_theme)
@@ -142,7 +141,7 @@ msgstr "Aggiungi un tema GTK+"
 #. i18n: ectx: property (text), widget (QLabel, lb_icon)
 #: translations/rc.cpp:16 translations/rc.cpp:48 rc.cpp:16 rc.cpp:48
 msgid "In order to add a new theme, just follow these steps:"
-msgstr "Per aggiungere un nuovo tema basta seguire questi passi:"
+msgstr "Pour ajouter un nouveau thème, suivre les étapes suivantes:"
 
 #. i18n: file: dialog_installer.ui:148
 #. i18n: ectx: property (text), widget (QPushButton, but_theme_filechoice)
@@ -154,7 +153,7 @@ msgstr "Per aggiungere un nuovo tema basta seguire questi passi:"
 #. i18n: ectx: property (text), widget (QPushButton, but_icon_filechoice)
 #: translations/rc.cpp:19 translations/rc.cpp:68 rc.cpp:19 rc.cpp:68
 msgid "Select file"
-msgstr "Seleziona file"
+msgstr "Sélectionner un fichier"
 
 #. i18n: file: dialog_installer.ui:180
 #. i18n: ectx: property (text), widget (QLabel, label_4)
@@ -166,7 +165,7 @@ msgstr "Seleziona file"
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: translations/rc.cpp:22 translations/rc.cpp:74 rc.cpp:22 rc.cpp:74
 msgid "Click the next button in order to install the theme in your system"
-msgstr "Clicca il pulsante \"Avanti\" per installare il tema nel tuo sistema"
+msgstr "Cliquer sur le bouton \"suivant\" pour installer le thème"
 
 #. i18n: file: dialog_installer.ui:204
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -198,7 +197,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Passo 1:</span></p></body></html>"
+"size:10pt; font-weight:600;\">Etape 1:</span></p></body></html>"
 
 #. i18n: file: dialog_installer.ui:211
 #. i18n: ectx: property (text), widget (QLabel, label_3)
@@ -210,13 +209,13 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: translations/rc.cpp:32 translations/rc.cpp:58 rc.cpp:32 rc.cpp:58
 msgid "Select the theme file you want to install"
-msgstr "Seleziona il file del tema che vuoi installare"
+msgstr "Sélectionner le fichier du thème à installer"
 
 #. i18n: file: dialog_installer.ui:221
 #. i18n: ectx: property (text), widget (QPushButton, but_theme_install)
 #: translations/rc.cpp:35 rc.cpp:35
 msgid "Install Gtk Theme"
-msgstr "Installa tema GTK+"
+msgstr "Installer un thème Gtk"
 
 #. i18n: file: dialog_installer.ui:235
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -248,38 +247,37 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Passo 2 :</span></p></body></html>"
+"size:10pt; font-weight:600;\">Etape 2 :</span></p></body></html>"
 
 #. i18n: file: dialog_installer.ui:246
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: translations/rc.cpp:45 rc.cpp:45
 msgid "Add new icons theme"
-msgstr "Aggiungi un nuovo tema di icone"
+msgstr "Ajouter un nouveau thème d'icônes"
 
 #. i18n: file: dialog_installer.ui:326
 #. i18n: ectx: property (text), widget (QPushButton, but_icon_install)
 #: translations/rc.cpp:71 rc.cpp:71
 msgid "Install icons"
-msgstr "Installa icone"
+msgstr "Installer les icônes"
 
 #. i18n: file: dialog_installer.ui:394
 #. i18n: ectx: property (text), widget (QPushButton, but_accepted)
 #: translations/rc.cpp:77 rc.cpp:77
 msgid "  Ok  "
-msgstr ""
+msgstr "Ok"
 
 #. i18n: file: dialog_uninstaller.ui:14
 #. i18n: ectx: property (windowTitle), widget (QDialog, dialog_uninstaller)
 #: translations/rc.cpp:80 rc.cpp:80
 msgid "Remove Themes"
-msgstr "Rimuovi temi"
+msgstr "Désinstaller des thèmes"
 
 #. i18n: file: dialog_uninstaller.ui:77
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: translations/rc.cpp:90 rc.cpp:90
-#, fuzzy
 msgid "Select an Gtk theme from the list"
-msgstr "Seleziona un tema GTK+ dalla lista"
+msgstr "Sélectionner un thème Gtk de la liste"
 
 #. i18n: file: dialog_uninstaller.ui:84
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -291,7 +289,7 @@ msgstr "Seleziona un tema GTK+ dalla lista"
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: translations/rc.cpp:93 translations/rc.cpp:137 rc.cpp:93 rc.cpp:137
 msgid "Press the button to remove the theme"
-msgstr "Premi il pulsante per rimuovere il tema"
+msgstr "Cliquer sur le bouton pour désinstaller le thème"
 
 #. i18n: file: dialog_uninstaller.ui:95
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -323,7 +321,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Passo 1:</span></p></body></html>"
+"weight:600;\">Etape 1:</span></p></body></html>"
 
 #. i18n: file: dialog_uninstaller.ui:106
 #. i18n: ectx: property (text), widget (QLabel, label_5)
@@ -355,7 +353,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Passo 2:</span></p></body></html>"
+"weight:600;\">Etape 2:</span></p></body></html>"
 
 #. i18n: file: dialog_uninstaller.ui:117
 #. i18n: ectx: property (text), widget (QLabel, label_10)
@@ -381,7 +379,8 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Rimuovi tema GTK+</span></p></body></html>"
+"size:12pt; font-weight:600;\">Désinstaller le thème Gtk</span></p></body></"
+"html>"
 
 #. i18n: file: dialog_uninstaller.ui:141
 #. i18n: ectx: property (text), widget (QPushButton, but_uninstall_theme)
@@ -393,14 +392,13 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QPushButton, but_uninstall_icon)
 #: translations/rc.cpp:117 translations/rc.cpp:147 rc.cpp:117 rc.cpp:147
 msgid "Uninstall"
-msgstr "Disinstalla"
+msgstr "Désinstaller"
 
 #. i18n: file: dialog_uninstaller.ui:157
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: translations/rc.cpp:120 rc.cpp:120
-#, fuzzy
 msgid "Select an icon theme from the list"
-msgstr "Seleziona un tema di icone dalla lista"
+msgstr "Sélectionner un thème d'icônes de la liste"
 
 #. i18n: file: dialog_uninstaller.ui:197
 #. i18n: ectx: property (text), widget (QLabel, label_12)
@@ -426,37 +424,38 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Rimuovi tema di icone</span></p></body></html>"
+"size:12pt; font-weight:600;\">Désinstaller un thème d'icônes</span></p></"
+"body></html>"
 
 #. i18n: file: dialog_uninstaller.ui:263
 #. i18n: ectx: property (text), widget (QPushButton, but_accept)
 #: translations/rc.cpp:150 rc.cpp:150
 msgid "    Ok   "
-msgstr ""
+msgstr "   Ok   "
 
 #. i18n: file: gui.ui:30
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: translations/rc.cpp:156 rc.cpp:156
 msgid "Configuration"
-msgstr "Configurazione"
+msgstr "Configuration"
 
 #. i18n: file: gui.ui:63
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: translations/rc.cpp:159 rc.cpp:159
 msgid "Select Icons Theme"
-msgstr "Seleziona tema di icone"
+msgstr "Sélectionner un thème d'icônes"
 
 #. i18n: file: gui.ui:73
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: translations/rc.cpp:162 rc.cpp:162
 msgid "Select Fallback Icons theme"
-msgstr "Seleziona tema di icone di riserva"
+msgstr "Sélectionner un thème d'icônes de secours"
 
 #. i18n: file: gui.ui:325
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: translations/rc.cpp:165 rc.cpp:165
 msgid "Select a Theme"
-msgstr "Seleziona un tema"
+msgstr "Sélectionner un thème"
 
 #. i18n: file: gui.ui:342
 #. i18n: ectx: property (text), widget (QLabel, label_6)
@@ -482,7 +481,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Tema GTK+</span></p></body></html>"
+"size:10pt; font-weight:600;\">Thème GTK</span></p></body></html>"
 
 #. i18n: file: gui.ui:353
 #. i18n: ectx: property (text), widget (QLabel, label_8)
@@ -508,37 +507,37 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Tema di icone</span></p></body></html>"
+"size:10pt; font-weight:600;\">Thème d'icônes</span></p></body></html>"
 
 #. i18n: file: gui.ui:408
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: translations/rc.cpp:182 rc.cpp:182
 msgid "Select Font Family"
-msgstr "Seleziona una famiglia di caratteri"
+msgstr "Sélectionner une police"
 
 #. i18n: file: gui.ui:432
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
 #: translations/rc.cpp:185 rc.cpp:185
 msgid "normal"
-msgstr "normale"
+msgstr "normal"
 
 #. i18n: file: gui.ui:437
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
 #: translations/rc.cpp:188 rc.cpp:188
 msgid "bold"
-msgstr "grassetto"
+msgstr "gras"
 
 #. i18n: file: gui.ui:442
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
 #: translations/rc.cpp:191 rc.cpp:191
 msgid "italic"
-msgstr "corsivo"
+msgstr "italique"
 
 #. i18n: file: gui.ui:447
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
 #: translations/rc.cpp:194 rc.cpp:194
 msgid "bold italic"
-msgstr "grassetto corsivo"
+msgstr "italique gras"
 
 #. i18n: file: gui.ui:455
 #. i18n: ectx: property (suffix), widget (QSpinBox, spin_font_tam)
@@ -556,12 +555,11 @@ msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
 #. i18n: ectx: attribute (title), widget (QWidget, tab_install)
 #: translations/rc.cpp:203 rc.cpp:203
 msgid "Add and Remove Themes"
-msgstr "Aggiungi e rimuovi temi"
+msgstr "Installer et désinstaller des thèmes"
 
 #. i18n: file: gui.ui:542
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: translations/rc.cpp:206 rc.cpp:206
-#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -583,19 +581,19 @@ msgstr ""
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
 "\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">AGGIUNGI E RIMUOVI TEMI</span></p>\n"
+"family:'Sans Serif'; font-size:12pt; font-weight:600;\">INSTALLER ET "
+"DÉSINSTALLER DES THEMES</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
 "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
-"size:12pt; font-weight:600;\"></p></body></html>"
+"family:'Sans Serif'; font-size:12pt; font-weight:600;\"></p></body></html>"
 
 #. i18n: file: gui.ui:561
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: translations/rc.cpp:214 rc.cpp:214
-#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -637,77 +635,72 @@ msgstr ""
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
 "\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt;\">Puoi installare nuovi temi per il tuo sistema. I temi sono file "
-"di pacchetto con estensione *.tar.gz o *.tar.</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
-"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
-"size:10pt;\"></p>\n"
+"family:'Sans Serif'; font-size:10pt;\">Vous pouvez installer de nouveaux "
+"thèmes s'ils sont sous la forme de fichiers avec l'extension *.tar.gz ou *."
+"tar. </span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt;\">Vi consigliamo le seguenti pagine web per scaricare nuovi temi:"
-"</span></p>\n"
+"family:'Sans Serif'; font-size:10pt;\">Nous vous suggérons les pages "
+"suivantes pour télécharger de nouveaux thèmes:</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
 "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
-"size:10pt; text-decoration: underline; color:#0057ae;\"></p>\n"
+"family:'Sans Serif'; font-size:10pt; text-decoration: underline; color:"
+"#0057ae;\"></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
 "left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href="
-"\"http://www.gnome-look.org\"><span style=\" font-size:14pt; text-"
-"decoration: underline; color:#0057ae;\">www.gnome-look.org</span></a></p>\n"
+"\"http://www.gnome-look.org\"><span style=\" font-family:'Sans Serif'; font-"
+"size:14pt; text-decoration: underline; color:#0057ae;\">www.gnome-look.org</"
+"span></a></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
 "left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href="
-"\"http://art.gnome.org\"><span style=\" font-size:14pt; text-decoration: "
-"underline; color:#0057ae;\">art.gnome.org</span></a></p>\n"
+"\"http://art.gnome.org\"><span style=\" font-family:'Sans Serif'; font-"
+"size:14pt; text-decoration: underline; color:#0057ae;\">art.gnome.org</"
+"span></a></p>\n"
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-"
 "bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
-"indent:0px; font-size:14pt; text-decoration: underline; color:#0057ae;\"></"
-"p></body></html>"
+"indent:0px; font-family:'Sans Serif'; font-size:14pt; text-decoration: "
+"underline; color:#0057ae;\"></p></body></html>"
 
 #. i18n: file: gui.ui:583
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: translations/rc.cpp:226 rc.cpp:226
 msgid "Actions"
-msgstr "Azioni"
+msgstr "Actions"
 
 #. i18n: file: gui.ui:595
 #. i18n: ectx: property (text), widget (QCommandLinkButton, clb_add_theme)
 #: translations/rc.cpp:229 rc.cpp:229
 msgid "ADD THEMES"
-msgstr "AGGIUNGI TEMI"
+msgstr "INSTALLER DES THÈMES"
 
 #. i18n: file: gui.ui:598
 #. i18n: ectx: property (description), widget (QCommandLinkButton, clb_add_theme)
 #: translations/rc.cpp:232 rc.cpp:232
 msgid "Install theme from file ..."
-msgstr "Installa tema da un file..."
+msgstr "Installer un thème depuis le fichier..."
 
 #. i18n: file: gui.ui:611
 #. i18n: ectx: property (text), widget (QCommandLinkButton, clb_remove_theme)
 #: translations/rc.cpp:235 rc.cpp:235
 msgid "REMOVE THEMES"
-msgstr "RIMUOVI TEMI"
+msgstr "DÉSINSTALLER DES THEMES"
 
 #. i18n: file: gui.ui:614
 #. i18n: ectx: property (description), widget (QCommandLinkButton, clb_remove_theme)
 #: translations/rc.cpp:238 rc.cpp:238
 msgid "Remove themes installed in the system ..."
-msgstr "Rimuove temi installati nel sistema..."
+msgstr "Désinstaller des thèmes..."
 
 #: translations/rc.cpp:239 rc.cpp:239
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Daniele Cocca"
+msgstr "Fabien Valthier (hcooh)"
 
 #: translations/rc.cpp:240 rc.cpp:240
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "daniele.cocca@gmail.com"
-
-#~ msgid "WARNINGS"
-#~ msgstr "AVVISI"
-
-#~ msgid "Warning"
-#~ msgstr "Avviso"
+msgstr "hcoohb@gmail.com"

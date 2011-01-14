@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@chakra-project.org\n"
-"POT-Creation-Date: 2011-01-13 22:19+0100\n"
+"POT-Creation-Date: 2011-01-15 00:48+0100\n"
 "PO-Revision-Date: 2011-01-13 21:12+0100\n"
 "Last-Translator: Manue Tortosa <manutortosa@chakra-project.org>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -545,19 +545,19 @@ msgstr "negreta itàlica"
 msgid " px"
 msgstr " px"
 
-#. i18n: file: gui.ui:486
+#. i18n: file: gui.ui:492
 #. i18n: ectx: property (text), widget (QLabel, lb_font_preview)
 #: translations/rc.cpp:200 rc.cpp:200
 msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
 msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
 
-#. i18n: file: gui.ui:525
+#. i18n: file: gui.ui:531
 #. i18n: ectx: attribute (title), widget (QWidget, tab_install)
 #: translations/rc.cpp:203 rc.cpp:203
 msgid "Add and Remove Themes"
 msgstr "Afegeix i suprimeix temes"
 
-#. i18n: file: gui.ui:536
+#. i18n: file: gui.ui:542
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: translations/rc.cpp:206 rc.cpp:206
 msgid ""
@@ -591,7 +591,7 @@ msgstr ""
 "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
 "family:'Sans Serif'; font-size:12pt; font-weight:600;\"></p></body></html>"
 
-#. i18n: file: gui.ui:555
+#. i18n: file: gui.ui:561
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: translations/rc.cpp:214 rc.cpp:214
 msgid ""
@@ -664,31 +664,31 @@ msgstr ""
 "indent:0px; font-family:'Sans Serif'; font-size:14pt; text-decoration: "
 "underline; color:#0057ae;\"></p></body></html>"
 
-#. i18n: file: gui.ui:577
+#. i18n: file: gui.ui:583
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: translations/rc.cpp:226 rc.cpp:226
 msgid "Actions"
 msgstr "Accions"
 
-#. i18n: file: gui.ui:589
+#. i18n: file: gui.ui:595
 #. i18n: ectx: property (text), widget (QCommandLinkButton, clb_add_theme)
 #: translations/rc.cpp:229 rc.cpp:229
 msgid "ADD THEMES"
 msgstr "AFEGEIX TEMES"
 
-#. i18n: file: gui.ui:592
+#. i18n: file: gui.ui:598
 #. i18n: ectx: property (description), widget (QCommandLinkButton, clb_add_theme)
 #: translations/rc.cpp:232 rc.cpp:232
 msgid "Install theme from file ..."
 msgstr "Instal·la tema des de fitxer ..."
 
-#. i18n: file: gui.ui:605
+#. i18n: file: gui.ui:611
 #. i18n: ectx: property (text), widget (QCommandLinkButton, clb_remove_theme)
 #: translations/rc.cpp:235 rc.cpp:235
 msgid "REMOVE THEMES"
 msgstr "SUPRIMEIX TEMES"
 
-#. i18n: file: gui.ui:608
+#. i18n: file: gui.ui:614
 #. i18n: ectx: property (description), widget (QCommandLinkButton, clb_remove_theme)
 #: translations/rc.cpp:238 rc.cpp:238
 msgid "Remove themes installed in the system ..."
