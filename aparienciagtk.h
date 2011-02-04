@@ -18,20 +18,20 @@ public:
     void setFont(QString);
 
     QString getTheme(); //Obtiene el nombre del tema actualmente utilizado
-    QString getThemePath();
+    QString getThemePath(); //Obtiene las rutas absolutas del tema utilizado actualmente
     QString getIcon(); //Obtiene el nombre del tema de iconos utilizado actualmente
     QString getFont(); //Obtiene el tipo de letra que se esta utilizando
     QString getIconFallBack(); // Obtiene el tema de iconos fallback
     QStringList getAvaliableIcons(); //Obtiene temas de icono disponibles en el sistema
     QStringList getAvaliableThemes(); //Obtiene todos los temas de icono disponibles
-    QStringList getAvaliableThemesPaths();
-    QStringList getAvaliableIconsPaths();
+    QStringList getAvaliableThemesPaths(); //Obtiene las rutas absolutas de los temas disponibles en el sistema
+    QStringList getAvaliableIconsPaths();//Obtiene las rutas absolutas de los temas de iconos disponibles en el sistema
 
-    bool loadFileConfig(); //Carga el archivo de configuracion de aplicaciones gtk al QMap settings
-    bool saveFileConfig(); //Guarda las configuraciones desde QMap Settings al archivo de configuraciones
+    bool loadFileConfig(); //Carga los datos del archivo .gtkrc-2.0
+    bool saveFileConfig(); //Guarda Cambios en el archivo .gtkrc-2.0 y .gtkrc-2.0-kde4
 
 private:
-    QMap <QString, QString> settings; //Configuraciones del sistema
+    QMap <QString, QString> settings; //Aqui se guardan las Configuraciones del sistema
 
 
 
