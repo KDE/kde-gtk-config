@@ -25,31 +25,24 @@
 #include <QtGui>
 
 
-
-static KAboutData crearAboutData()
-{
-    //   Agregamos datos sobre la aplicacion
-  KAboutData acercaDe("cgc","kcm_cgc",ki18n("Chakra Gtk Config"),"0.1",
-                      ki18n("Config your Gtk Apps"),
-                      KAboutData::License_GPL_V2,
-                      ki18n("Copyright 2011 José Antonio Sánchez Reynaga")
-                                        );
-//   Agregamos colaboradores
-  acercaDe.addAuthor(ki18n("José Antonio Sánchez Reynaga"), ki18n("Chakra's fan and developer"), "joanzare@gmail.com");
-  return acercaDe;
-  
-
-}
-
-
 // Declaracion del plugin
-K_PLUGIN_FACTORY(ModuloFactory, registerPlugin<Modulo>("cgc");)
-K_EXPORT_PLUGIN(ModuloFactory(crearAboutData()))
+K_PLUGIN_FACTORY(ModuloFactory, registerPlugin<Modulo>();)
+K_EXPORT_PLUGIN(ModuloFactory("cgc"))
 
 Modulo::Modulo(QWidget* parent, const QVariantList& args):
 KCModule(ModuloFactory::componentData(), parent),
 ui(new Ui::GUI)
 {
+    
+       KAboutData *acercade = new KAboutData("cgc","kcm_cgc",ki18n("Chakra Gtk Config"),"1.3",
+                      ki18n("Config your Gtk Apps"),
+                      KAboutData::License_GPL_V2,
+                      ki18n("Copyright 2011 José Antonio Sánchez Reynaga"));
+       acercade->addAuthor(ki18n("José Antonio Sánchez Reynaga (antonioJASR)"),ki18n("Programador"), "joanzare@gmail.com");
+       acercade->addCredit(ki18n("Manuel Tortosa (manutortosa)"), ki18n("Aportador de ideas, tester y traductor"));
+       acercade->addCredit(ki18n("Adrián Chávez Hernández (Gallaecio)"), ki18n("traduccion"));
+       setAboutData(acercade);
+    
     ui->setupUi(this);
     appareance = new AparienciaGTK;
     refreshLists();

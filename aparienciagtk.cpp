@@ -525,12 +525,18 @@ bool AparienciaGTK::saveFileConfig()
     //CErramos el archivo para finalizar
     gtkrc.close();
     
+    //tratamos de borrar el archivo .gtkrc-2.0-kde4 anterior si existe
+    if(QFile::remove(QDir::homePath()+"/.gtkrc-2.0-kde4"))
+        qDebug() << "listo para crear enlaze simbolico";
+    
     //Creamos enlaze hacia el archivo .gtkrc-2.0-kde4
     if(!QFile::link(
        (QDir::homePath()+"/.gtkrc-2.0"),
        (QDir::homePath()+"/.gtkrc-2.0-kde4")         
     ))
-        qDebug() << "no se pudo crear enlaze simbolico al archivo .gtkrc-2.0-kde4";
+        qDebug() << "no se pudo crear enlaze simbolico al archivo .gtkrc-2.0-kde4 :(";
+    else
+        qDebug() << "enlace simbolico creado ,  al archivo .gtkrc-2.0-kde4 :D";
 
     return true;
 
