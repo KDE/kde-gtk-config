@@ -1,0 +1,279 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Martin Lee, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: bugs@chakra-project.org\n"
+"POT-Creation-Date: 2010-07-20 18:13-0400\n"
+"PO-Revision-Date: 2010-12-29 13:42+0700\n"
+"Last-Translator: Martin Lee <hellnest.fuah@gmail.com>\n"
+"Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id"
+"X-Generator: Lokalize 1.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: akabeithread.cpp:63
+msgid "Failed"
+msgstr "Gagal"
+
+#: akabeithread.cpp:63
+msgid "Failed to resolve needed dependencies."
+msgstr "Gagal untuk mengatasi dependensi yang dibutuhkan"
+
+#: bundlemanager.cpp:30
+msgid "Delete"
+msgstr "Hapus"
+
+#: bundlemanager.cpp:35
+msgid "Find New..."
+msgstr "Mencari yang baru..."
+
+#: bundlemanager.cpp:42
+msgid "Chakra Bundle Manager"
+msgstr "Chakra Bundle Manager"
+
+#: cinstall.cpp:85
+msgid "Search.."
+msgstr "Mencari..."
+
+#: cinstall.cpp:115
+msgid "Browse..."
+msgstr "Melihat..."
+
+#: cinstall.cpp:122
+msgid "Apply"
+msgstr "Menerapkan"
+
+#: cinstall.cpp:129
+msgid "Upgrade"
+msgstr "Memuktahirkan"
+
+#: cinstall.cpp:135
+msgid "Select a package..."
+msgstr "Pilih paket..."
+
+#: cinstall.cpp:267
+msgid "Select pkgz to install"
+msgstr "Pilih pkgz yang akan di install"
+
+#: main.cpp:29
+msgid "CInstall"
+msgstr "CInstall"
+
+#: main.cpp:30
+msgid "Chakra Package Installer."
+msgstr "Chakra Paket Installer"
+
+#: main.cpp:32
+msgid "(c) 2010 The Chakra Project <www.chakra-project.org>"
+msgstr ""
+
+#: main.cpp:40
+msgid "Install package <package>"
+msgstr "Installasi paket <package>"
+
+#: main.cpp:41
+msgid "Remove package <package>"
+msgstr "Menghapus paket <package>"
+
+#: main.cpp:42
+msgid "Execute bundle <bundle>"
+msgstr "Memproses bundle <bundle>"
+
+#: main.cpp:43
+msgid "Manage bundles"
+msgstr "Mengelola Bundles"
+
+#: main.cpp:44
+msgid "Launch the package creation wizard"
+msgstr "Menjalankan aplikasi prosedur pembuatan paket"
+
+#: main.cpp:45
+msgid "A list of packages"
+msgstr "Daftar paket"
+
+#: packagecreator.cpp:35
+msgid "Next"
+msgstr "Selanjutnya"
+
+#: packagecreator.cpp:69
+msgid "Package Creator"
+msgstr "Pembuat Paket"
+
+#: packagecreator.cpp:103
+msgid "Finish"
+msgstr "Selesai"
+
+#: packagecreator.cpp:120
+msgid "Type:"
+msgstr "Tipe:"
+
+#: packagecreator.cpp:124
+msgid "Launcher"
+msgstr "Peluncur"
+
+#: packagecreator.cpp:124
+msgid "Installer"
+msgstr "Installer"
+
+#: packagecreator.cpp:124
+msgid "Setup"
+msgstr "Setup"
+
+#: packagecreator.cpp:127
+msgid "Name:"
+msgstr "Nama:"
+
+#: packagecreator.cpp:134
+msgid "Version:"
+msgstr "Versi:"
+
+#: packagecreator.cpp:141
+msgid "Packager:   "
+msgstr "Packager:"
+
+#: packagecreator.cpp:142
+msgid "eg, \"Unknown Packager <random.person@chakra-project.com>\""
+msgstr "cth, \"Packager tidak diketahui <random.person@chakra-project.com>\""
+
+#: packagecreator.cpp:149
+msgid "Desktop File:"
+msgstr "File Desktop:"
+
+#: packagecreator.cpp:155
+msgid "Screenshot:"
+msgstr "Screenshot"
+
+#: packagecreator.cpp:161
+msgid "Website:"
+msgstr "Website:"
+
+#: packagecreator.cpp:168
+msgid "Description:"
+msgstr "Deskripsi:"
+
+#: packagecreator.cpp:246
+msgid "Binary:"
+msgstr "Binari:"
+
+#: packagecreator.cpp:247
+msgid "The path to the executable to be launched, eg, /usr/bin/appname"
+msgstr ""
+"Direktori untuk aplikasi aktif yang akan diluncurkan, cth, /usr/bin/appname"
+
+#: packagecreator.cpp:253
+msgid "Dependencies:"
+msgstr "Dependesi"
+
+#: packagecreator.cpp:254
+msgid ""
+"A space separated list of package dependencies (core/platform pkgs only)"
+msgstr ""
+"Sebuah ruang daftar yang terpisah untuk paket dependesi (core/platform pkg "
+"saja)"
+
+#: packagecreator.cpp:269
+msgid "Environment:"
+msgstr "Lingkungan:"
+
+#: packagecreator.cpp:270
+msgid ""
+"Customized environment variables.\n"
+"\n"
+"$ORIGIN ($HOME/.cinstall/$BUNDLENAME), $PATH, $HOME"
+msgstr ""
+"Kustomisasi variabel lingkungan.\n"
+"\n"
+"$ORIGIN ($HOME/.cinstall/$BUNDLENAME),$PATH,$HOME"
+
+#: packagecreator.cpp:287
+msgid "Packages:"
+msgstr "Paket:"
+
+#: packagecreator.cpp:288
+msgid "Packages to be bundled"
+msgstr "Paket yg akan di bundle"
+
+#: packagecreator.cpp:336
+msgid "Select package files"
+msgstr "Pilih data paket"
+
+#: packagecreator.cpp:529
+msgid "PKGINFO:"
+msgstr "PKGINFO:"
+
+#: packagecreator.cpp:617
+msgid ""
+"Creation finished successfully\n"
+"Output file:"
+msgstr ""
+"Penciptaan berhasil\n"
+"Output data:"
+
+#: po/rc.cpp:1 rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Martin Lee"
+
+#: po/rc.cpp:2 rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "hellnest.fuah@gmail.com"
+
+#: quewindow.cpp:25
+msgid "Loading.."
+msgstr "Memuat..."
+
+#: quewindow.cpp:30
+msgid "Cancel"
+msgstr "Batal"
+
+#: quewindow.cpp:32
+msgid "More.."
+msgstr "Lagi..."
+
+#: quewindow.cpp:56
+msgid "Processing packages..."
+msgstr "Memproses paket..."
+
+#: quewindow.cpp:67
+msgid "loading package data..."
+msgstr "Memuat data paket..."
+
+#: quewindow.cpp:68 quewindow.cpp:69
+msgid "Loading package data..."
+msgstr "Memuat data paket..."
+
+#: quewindow.cpp:70
+msgid "checking dependencies..."
+msgstr "Mencek dependesi..."
+
+#: quewindow.cpp:71 quewindow.cpp:72
+msgid "Checking dependencies..."
+msgstr "Mencek dependensi..."
+
+#: quewindow.cpp:73
+msgid "resolving dependencies..."
+msgstr "Mengatasi dependesi..."
+
+#: quewindow.cpp:74 quewindow.cpp:75
+msgid "Resolving dependencies..."
+msgstr "Mengatasi dependesi..."
+
+#: quewindow.cpp:76
+msgid "checking package integrity..."
+msgstr "Mencek integritas paket..."
+
+#: quewindow.cpp:77 quewindow.cpp:78
+msgid "Checking package integrity..."
+msgstr "Mencek integritas paket..."
+
+#: quewindow.cpp:82 quewindow.cpp:83
+msgid "Downloading..."
+msgstr "Mengunduh..."
+
