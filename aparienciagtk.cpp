@@ -5,7 +5,7 @@ AparienciaGTK::AparienciaGTK()
 
     qDebug() << "CREATING GTK APPEARANCE";
 
-    //Como es primera ejecucion hay que cargar valores desde el archivo
+    //Cargamos información del archivo .gtkrc-2.0 al instanciar esta clase
     loadFileConfig();
 
 
@@ -44,7 +44,7 @@ QStringList AparienciaGTK::getAvaliableIcons()
         }
     }
 
-    //Verificar si existen temas desde la carpeta del usuario
+    //Verificamos si existen temas desde la carpeta del usuario
     QString usuario_path = QDir::homePath()+"/.icons";
     QDir usuario(usuario_path);
 
@@ -62,8 +62,7 @@ QStringList AparienciaGTK::getAvaliableIcons()
         }
     }
 
-    //Filtro, verifica si en la lista de carpetas existen archivos
-    // tambien quita la carpeta Default, Default.KDe4
+    //Filtro, sólo se permiten carpetas, tambien quita la carpeta Default, Default.KDe4
     foreach(QString i, iconosDisponibles){
         QFileInfo archivo(i);
         //Si hay un archivo eliminado de la lista
@@ -72,43 +71,31 @@ QStringList AparienciaGTK::getAvaliableIcons()
             continue;
         }
         
-       
-        
     }
 
     // Filtro, quitar los temas del mouse, ya que tambien ahi se instalan
     foreach(QString i, iconosDisponibles){
 
-        //qDebug() << ">>> " << i;
-        //Esto es para iterar en los contenidos de la carpeta
         QDirIterator iterador(i);
-
         bool icono = false;
         while(iterador.hasNext()){
 
             QString carpeta = iterador.next();
-            //qDebug() << "\t" << carpeta;
 
             //Buscar la carpeta cursor, si existe esa carpeta significa que es un tema del mouse
             if(carpeta.contains("cursor")){
-                //qDebug() << carpeta << "es un tema de mouse ";
                 iconosDisponibles.removeAll(i);
                 break; //Encontramos un tema de mouse que no siga buscando
             }
 
             //Buscar que tenga un archivo index.theme
-            if(carpeta.contains("index.theme")){
+            if(carpeta.contains("index.theme"))
                 icono = true;
-                //qDebug() << carpeta << "puede ser tema de iconos";
-            }
-
         }
 
-        //Si no se encontro el archivo index.theme significa que no es un tema de iconos
-        if(!icono){
+        //Si no se encontró el archivo index.theme significa que no es un tema de iconos
+        if(!icono)
             iconosDisponibles.removeAll(i);
-        }
-
 
     }
 
@@ -456,14 +443,10 @@ bool AparienciaGTK::loadFileConfig(){
         settings["icon_fallback"] = "oxygen-refit-2-2.5.0";
         settings["font"] = "Bitstream Vera Sans 10";
 
-        saveFileConfig();
-
-        qDebug() << settings;
+        saveFileConfig();  
 
         return false;
     }
-
-    qDebug() << settings;
 
     return true;
 }
@@ -517,10 +500,7 @@ bool AparienciaGTK::saveFileConfig()
             );
 
     nombre_fuente = nombre_fuente.replace(QRegExp("(bold|italic)"), "");
-    nombre_fuente = nombre_fuente.trimmed(); // Eliminamos los espacios vacios
-    qDebug() << "{{{{ " << nombre_fuente;
-
-
+    nombre_fuente = nombre_fuente.trimmed();
 
     flujo << "style \"user-font\" \n"
             << "{\n"
@@ -544,6 +524,19 @@ bool AparienciaGTK::saveFileConfig()
 
     //CErramos el archivo para finalizar
     gtkrc.close();
+    
+    //tratamos de borrar el archivo .gtkrc-2.0-kde4 anterior si existe
+    if(QFile::remove(QDir::homePath()+"/.gtkrc-2.0-kde4"))
+        qDebug() << "listo para crear enlaze simbolico";
+    
+    //Creamos enlaze hacia el archivo .gtkrc-2.0-kde4
+    if(!QFile::link(
+       (QDir::homePath()+"/.gtkrc-2.0"),
+       (QDir::homePath()+"/.gtkrc-2.0-kde4")         
+    ))
+        qDebug() << "no se pudo crear enlaze simbolico al archivo .gtkrc-2.0-kde4 :(";
+    else
+        qDebug() << "enlace simbolico creado ,  al archivo .gtkrc-2.0-kde4 :D";
 
     return true;
 

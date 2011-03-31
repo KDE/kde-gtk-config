@@ -38,11 +38,8 @@ V1.1
 v1.2
 * Fix a bug in the layout for some Qt themes
 
-v1.3
-* Creates a symlink, needed in some distros
-* Bug Fixing
-
-
+v1.3 
+* Crea enlace al archivo .gtkrc-2.0-kde4
 
 
 
