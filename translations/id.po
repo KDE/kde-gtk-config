@@ -6,274 +6,758 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@chakra-project.org\n"
-"POT-Creation-Date: 2010-07-20 18:13-0400\n"
+"POT-Creation-Date: 2011-04-21 23:18+0200\n"
 "PO-Revision-Date: 2010-12-29 13:42+0700\n"
 "Last-Translator: Martin Lee <hellnest.fuah@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id"
-"X-Generator: Lokalize 1.2\n"
+"Language: idX-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: akabeithread.cpp:63
-msgid "Failed"
-msgstr "Gagal"
+#: dialog_installer.cpp:60
+#, fuzzy
+msgid "Select a valid gtk theme file"
+msgstr "Pilih data paket"
 
-#: akabeithread.cpp:63
-msgid "Failed to resolve needed dependencies."
-msgstr "Gagal untuk mengatasi dependensi yang dibutuhkan"
-
-#: bundlemanager.cpp:30
-msgid "Delete"
-msgstr "Hapus"
-
-#: bundlemanager.cpp:35
-msgid "Find New..."
-msgstr "Mencari yang baru..."
-
-#: bundlemanager.cpp:42
-msgid "Chakra Bundle Manager"
-msgstr "Chakra Bundle Manager"
-
-#: cinstall.cpp:85
-msgid "Search.."
-msgstr "Mencari..."
-
-#: cinstall.cpp:115
-msgid "Browse..."
-msgstr "Melihat..."
-
-#: cinstall.cpp:122
-msgid "Apply"
-msgstr "Menerapkan"
-
-#: cinstall.cpp:129
-msgid "Upgrade"
-msgstr "Memuktahirkan"
-
-#: cinstall.cpp:135
-msgid "Select a package..."
-msgstr "Pilih paket..."
-
-#: cinstall.cpp:267
-msgid "Select pkgz to install"
-msgstr "Pilih pkgz yang akan di install"
-
-#: main.cpp:29
-msgid "CInstall"
-msgstr "CInstall"
-
-#: main.cpp:30
-msgid "Chakra Package Installer."
-msgstr "Chakra Paket Installer"
-
-#: main.cpp:32
-msgid "(c) 2010 The Chakra Project <www.chakra-project.org>"
+#: dialog_installer.cpp:62 dialog_installer.cpp:84
+msgid "Compressed file (*.tar.gz *.tar)"
 msgstr ""
 
-#: main.cpp:40
-msgid "Install package <package>"
-msgstr "Installasi paket <package>"
+#: dialog_installer.cpp:82
+msgid "Select a vaild icons theme file"
+msgstr ""
 
-#: main.cpp:41
-msgid "Remove package <package>"
-msgstr "Menghapus paket <package>"
+#: dialog_installer.cpp:186 dialog_installer.cpp:221
+msgid "Parsing theme ... "
+msgstr ""
 
-#: main.cpp:42
-msgid "Execute bundle <bundle>"
-msgstr "Memproses bundle <bundle>"
+#: dialog_installer.cpp:208
+msgid "This Gtk theme can be installed"
+msgstr ""
 
-#: main.cpp:43
-msgid "Manage bundles"
-msgstr "Mengelola Bundles"
+#: dialog_installer.cpp:212
+msgid "This Gtk theme cannot be installed"
+msgstr ""
 
-#: main.cpp:44
-msgid "Launch the package creation wizard"
-msgstr "Menjalankan aplikasi prosedur pembuatan paket"
+#: dialog_installer.cpp:242
+msgid "This icons theme can be installed"
+msgstr ""
 
-#: main.cpp:45
-msgid "A list of packages"
-msgstr "Daftar paket"
+#: dialog_installer.cpp:246
+msgid "This icons theme cannot be installed"
+msgstr ""
 
-#: packagecreator.cpp:35
-msgid "Next"
-msgstr "Selanjutnya"
+#: dialog_installer.cpp:288
+msgid "Icons Successfully Installed"
+msgstr ""
 
-#: packagecreator.cpp:69
-msgid "Package Creator"
-msgstr "Pembuat Paket"
+#: dialog_installer.cpp:292
+msgid "The icons theme cannot be installed"
+msgstr ""
 
-#: packagecreator.cpp:103
-msgid "Finish"
-msgstr "Selesai"
+#: dialog_installer.cpp:300
+msgid "Gtk Theme Sucessfully Installed"
+msgstr ""
 
-#: packagecreator.cpp:120
-msgid "Type:"
-msgstr "Tipe:"
+#: dialog_installer.cpp:304
+msgid "The Gtk theme cannot be installed"
+msgstr ""
 
-#: packagecreator.cpp:124
-msgid "Launcher"
-msgstr "Peluncur"
+#. i18n: file: gui.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, GUI)
+#: modulo.cpp:37 translations/rc.cpp:153 rc.cpp:153
+msgid "Chakra Gtk Config"
+msgstr ""
 
-#: packagecreator.cpp:124
+#: modulo.cpp:38
+msgid "Config your Gtk Apps"
+msgstr ""
+
+#: modulo.cpp:40
+msgid "Copyright 2011 José Antonio Sánchez Reynaga"
+msgstr ""
+
+#: modulo.cpp:41
+msgid "José Antonio Sánchez Reynaga (antonioJASR)"
+msgstr ""
+
+#: modulo.cpp:41
+msgid "Programador"
+msgstr ""
+
+#: modulo.cpp:42
+msgid "Manuel Tortosa (manutortosa)"
+msgstr ""
+
+#: modulo.cpp:42
+msgid "Aportador de ideas, tester y traductor"
+msgstr ""
+
+#: modulo.cpp:43
+msgid "Adrián Chávez Hernández (Gallaecio)"
+msgstr ""
+
+#: modulo.cpp:43
+msgid "traduccion"
+msgstr ""
+
+#. i18n: file: dialog_installer.ui:20
+#. i18n: ectx: property (windowTitle), widget (QDialog, dialog_installer)
+#: translations/rc.cpp:3 rc.cpp:3
 msgid "Installer"
 msgstr "Installer"
 
-#: packagecreator.cpp:124
-msgid "Setup"
-msgstr "Setup"
-
-#: packagecreator.cpp:127
-msgid "Name:"
-msgstr "Nama:"
-
-#: packagecreator.cpp:134
-msgid "Version:"
-msgstr "Versi:"
-
-#: packagecreator.cpp:141
-msgid "Packager:   "
-msgstr "Packager:"
-
-#: packagecreator.cpp:142
-msgid "eg, \"Unknown Packager <random.person@chakra-project.com>\""
-msgstr "cth, \"Packager tidak diketahui <random.person@chakra-project.com>\""
-
-#: packagecreator.cpp:149
-msgid "Desktop File:"
-msgstr "File Desktop:"
-
-#: packagecreator.cpp:155
-msgid "Screenshot:"
-msgstr "Screenshot"
-
-#: packagecreator.cpp:161
-msgid "Website:"
-msgstr "Website:"
-
-#: packagecreator.cpp:168
-msgid "Description:"
-msgstr "Deskripsi:"
-
-#: packagecreator.cpp:246
-msgid "Binary:"
-msgstr "Binari:"
-
-#: packagecreator.cpp:247
-msgid "The path to the executable to be launched, eg, /usr/bin/appname"
-msgstr ""
-"Direktori untuk aplikasi aktif yang akan diluncurkan, cth, /usr/bin/appname"
-
-#: packagecreator.cpp:253
-msgid "Dependencies:"
-msgstr "Dependesi"
-
-#: packagecreator.cpp:254
+#. i18n: file: dialog_installer.ui:39
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#. i18n: file: dialog_uninstaller.ui:33
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#. i18n: file: dialog_installer.ui:39
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#. i18n: file: dialog_uninstaller.ui:33
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: translations/rc.cpp:6 translations/rc.cpp:83 rc.cpp:6 rc.cpp:83
 msgid ""
-"A space separated list of package dependencies (core/platform pkgs only)"
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"size:12pt; font-weight:600;\">Chakra Gtk Config</span></p></body></html>"
 msgstr ""
-"Sebuah ruang daftar yang terpisah untuk paket dependesi (core/platform pkg "
-"saja)"
 
-#: packagecreator.cpp:269
-msgid "Environment:"
-msgstr "Lingkungan:"
-
-#: packagecreator.cpp:270
-msgid ""
-"Customized environment variables.\n"
-"\n"
-"$ORIGIN ($HOME/.cinstall/$BUNDLENAME), $PATH, $HOME"
+#. i18n: file: dialog_installer.ui:123
+#. i18n: ectx: attribute (title), widget (QWidget, tabWidgetPage1)
+#: translations/rc.cpp:13 rc.cpp:13
+msgid "Add Gtk Theme"
 msgstr ""
-"Kustomisasi variabel lingkungan.\n"
-"\n"
-"$ORIGIN ($HOME/.cinstall/$BUNDLENAME),$PATH,$HOME"
 
-#: packagecreator.cpp:287
-msgid "Packages:"
-msgstr "Paket:"
+#. i18n: file: dialog_installer.ui:141
+#. i18n: ectx: property (text), widget (QLabel, lb_theme)
+#. i18n: file: dialog_installer.ui:255
+#. i18n: ectx: property (text), widget (QLabel, lb_icon)
+#. i18n: file: dialog_installer.ui:141
+#. i18n: ectx: property (text), widget (QLabel, lb_theme)
+#. i18n: file: dialog_installer.ui:255
+#. i18n: ectx: property (text), widget (QLabel, lb_icon)
+#: translations/rc.cpp:16 translations/rc.cpp:48 rc.cpp:16 rc.cpp:48
+msgid "In order to add a new theme, just follow these steps:"
+msgstr ""
 
-#: packagecreator.cpp:288
-msgid "Packages to be bundled"
-msgstr "Paket yg akan di bundle"
-
-#: packagecreator.cpp:336
-msgid "Select package files"
+#. i18n: file: dialog_installer.ui:148
+#. i18n: ectx: property (text), widget (QPushButton, but_theme_filechoice)
+#. i18n: file: dialog_installer.ui:316
+#. i18n: ectx: property (text), widget (QPushButton, but_icon_filechoice)
+#. i18n: file: dialog_installer.ui:148
+#. i18n: ectx: property (text), widget (QPushButton, but_theme_filechoice)
+#. i18n: file: dialog_installer.ui:316
+#. i18n: ectx: property (text), widget (QPushButton, but_icon_filechoice)
+#: translations/rc.cpp:19 translations/rc.cpp:68 rc.cpp:19 rc.cpp:68
+#, fuzzy
+msgid "Select file"
 msgstr "Pilih data paket"
 
-#: packagecreator.cpp:529
-msgid "PKGINFO:"
-msgstr "PKGINFO:"
-
-#: packagecreator.cpp:617
-msgid ""
-"Creation finished successfully\n"
-"Output file:"
+#. i18n: file: dialog_installer.ui:180
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: file: dialog_installer.ui:333
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#. i18n: file: dialog_installer.ui:180
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: file: dialog_installer.ui:333
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: translations/rc.cpp:22 translations/rc.cpp:74 rc.cpp:22 rc.cpp:74
+msgid "Click the next button in order to install the theme in your system"
 msgstr ""
-"Penciptaan berhasil\n"
-"Output data:"
 
-#: po/rc.cpp:1 rc.cpp:1
+#. i18n: file: dialog_installer.ui:204
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: dialog_installer.ui:269
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#. i18n: file: dialog_installer.ui:204
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: dialog_installer.ui:269
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: translations/rc.cpp:25 translations/rc.cpp:51 rc.cpp:25 rc.cpp:51
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"size:10pt; font-weight:600;\">Step 1:</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: dialog_installer.ui:211
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: file: dialog_installer.ui:276
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#. i18n: file: dialog_installer.ui:211
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: file: dialog_installer.ui:276
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: translations/rc.cpp:32 translations/rc.cpp:58 rc.cpp:32 rc.cpp:58
+msgid "Select the theme file you want to install"
+msgstr ""
+
+#. i18n: file: dialog_installer.ui:221
+#. i18n: ectx: property (text), widget (QPushButton, but_theme_install)
+#: translations/rc.cpp:35 rc.cpp:35
+#, fuzzy
+msgid "Install Gtk Theme"
+msgstr "Installer"
+
+#. i18n: file: dialog_installer.ui:235
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: file: dialog_installer.ui:303
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#. i18n: file: dialog_installer.ui:235
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: file: dialog_installer.ui:303
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: translations/rc.cpp:38 translations/rc.cpp:61 rc.cpp:38 rc.cpp:61
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"size:10pt; font-weight:600;\">Step 2 :</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: dialog_installer.ui:246
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: translations/rc.cpp:45 rc.cpp:45
+msgid "Add new icons theme"
+msgstr ""
+
+#. i18n: file: dialog_installer.ui:326
+#. i18n: ectx: property (text), widget (QPushButton, but_icon_install)
+#: translations/rc.cpp:71 rc.cpp:71
+#, fuzzy
+msgid "Install icons"
+msgstr "CInstall"
+
+#. i18n: file: dialog_installer.ui:394
+#. i18n: ectx: property (text), widget (QPushButton, but_accepted)
+#: translations/rc.cpp:77 rc.cpp:77
+msgid "  Ok  "
+msgstr ""
+
+#. i18n: file: dialog_uninstaller.ui:14
+#. i18n: ectx: property (windowTitle), widget (QDialog, dialog_uninstaller)
+#: translations/rc.cpp:80 rc.cpp:80
+msgid "Remove Themes"
+msgstr ""
+
+#. i18n: file: dialog_uninstaller.ui:77
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: translations/rc.cpp:90 rc.cpp:90
+msgid "Select an Gtk theme from the list"
+msgstr ""
+
+#. i18n: file: dialog_uninstaller.ui:84
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: dialog_uninstaller.ui:186
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#. i18n: file: dialog_uninstaller.ui:84
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: dialog_uninstaller.ui:186
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: translations/rc.cpp:93 translations/rc.cpp:137 rc.cpp:93 rc.cpp:137
+msgid "Press the button to remove the theme"
+msgstr ""
+
+#. i18n: file: dialog_uninstaller.ui:95
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: file: dialog_uninstaller.ui:179
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#. i18n: file: dialog_uninstaller.ui:95
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: file: dialog_uninstaller.ui:179
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: translations/rc.cpp:96 translations/rc.cpp:130 rc.cpp:96 rc.cpp:130
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Step 1:</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: dialog_uninstaller.ui:106
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#. i18n: file: dialog_uninstaller.ui:168
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: file: dialog_uninstaller.ui:106
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#. i18n: file: dialog_uninstaller.ui:168
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: translations/rc.cpp:103 translations/rc.cpp:123 rc.cpp:103 rc.cpp:123
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Step 2:</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: dialog_uninstaller.ui:117
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: translations/rc.cpp:110 rc.cpp:110
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"size:12pt; font-weight:600;\">Remove Gtk Theme</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: dialog_uninstaller.ui:141
+#. i18n: ectx: property (text), widget (QPushButton, but_uninstall_theme)
+#. i18n: file: dialog_uninstaller.ui:214
+#. i18n: ectx: property (text), widget (QPushButton, but_uninstall_icon)
+#. i18n: file: dialog_uninstaller.ui:141
+#. i18n: ectx: property (text), widget (QPushButton, but_uninstall_theme)
+#. i18n: file: dialog_uninstaller.ui:214
+#. i18n: ectx: property (text), widget (QPushButton, but_uninstall_icon)
+#: translations/rc.cpp:117 translations/rc.cpp:147 rc.cpp:117 rc.cpp:147
+#, fuzzy
+msgid "Uninstall"
+msgstr "CInstall"
+
+#. i18n: file: dialog_uninstaller.ui:157
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: translations/rc.cpp:120 rc.cpp:120
+msgid "Select an icon theme from the list"
+msgstr ""
+
+#. i18n: file: dialog_uninstaller.ui:197
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: translations/rc.cpp:140 rc.cpp:140
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"size:12pt; font-weight:600;\">Remove Icons Theme</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: dialog_uninstaller.ui:263
+#. i18n: ectx: property (text), widget (QPushButton, but_accept)
+#: translations/rc.cpp:150 rc.cpp:150
+msgid "    Ok   "
+msgstr ""
+
+#. i18n: file: gui.ui:30
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: translations/rc.cpp:156 rc.cpp:156
+msgid "Configuration"
+msgstr ""
+
+#. i18n: file: gui.ui:63
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: translations/rc.cpp:159 rc.cpp:159
+msgid "Select Icons Theme"
+msgstr ""
+
+#. i18n: file: gui.ui:73
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: translations/rc.cpp:162 rc.cpp:162
+msgid "Select Fallback Icons theme"
+msgstr ""
+
+#. i18n: file: gui.ui:325
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: translations/rc.cpp:165 rc.cpp:165
+#, fuzzy
+msgid "Select a Theme"
+msgstr "Pilih paket..."
+
+#. i18n: file: gui.ui:342
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: translations/rc.cpp:168 rc.cpp:168
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"size:10pt; font-weight:600;\">GTK Theme</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: gui.ui:353
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: translations/rc.cpp:175 rc.cpp:175
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"size:10pt; font-weight:600;\">Icons Theme</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: gui.ui:408
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: translations/rc.cpp:182 rc.cpp:182
+#, fuzzy
+msgid "Select Font Family"
+msgstr "Pilih pkgz yang akan di install"
+
+#. i18n: file: gui.ui:432
+#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
+#: translations/rc.cpp:185 rc.cpp:185
+msgid "normal"
+msgstr ""
+
+#. i18n: file: gui.ui:437
+#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
+#: translations/rc.cpp:188 rc.cpp:188
+msgid "bold"
+msgstr ""
+
+#. i18n: file: gui.ui:442
+#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
+#: translations/rc.cpp:191 rc.cpp:191
+msgid "italic"
+msgstr ""
+
+#. i18n: file: gui.ui:447
+#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
+#: translations/rc.cpp:194 rc.cpp:194
+msgid "bold italic"
+msgstr ""
+
+#. i18n: file: gui.ui:455
+#. i18n: ectx: property (suffix), widget (QSpinBox, spin_font_tam)
+#: translations/rc.cpp:197 rc.cpp:197
+msgid " px"
+msgstr ""
+
+#. i18n: file: gui.ui:492
+#. i18n: ectx: property (text), widget (QLabel, lb_font_preview)
+#: translations/rc.cpp:200 rc.cpp:200
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
+msgstr ""
+
+#. i18n: file: gui.ui:531
+#. i18n: ectx: attribute (title), widget (QWidget, tab_install)
+#: translations/rc.cpp:203 rc.cpp:203
+msgid "Add and Remove Themes"
+msgstr ""
+
+#. i18n: file: gui.ui:542
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: translations/rc.cpp:206 rc.cpp:206
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"family:'Sans Serif'; font-size:12pt; font-weight:600;\">ADD AND REMOVE "
+"THEMES</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
+"family:'Sans Serif'; font-size:12pt; font-weight:600;\"></p></body></html>"
+msgstr ""
+
+#. i18n: file: gui.ui:561
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: translations/rc.cpp:214 rc.cpp:214
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"family:'Sans Serif'; font-size:10pt;\">You can install new themes for your "
+"system, those themes are package files with *.tar.gz or *.tar extension.</"
+"span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"family:'Sans Serif'; font-size:10pt;\">We suggest the following web pages "
+"for download new themes:</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
+"family:'Sans Serif'; font-size:10pt; text-decoration: underline; color:"
+"#0057ae;\"></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href="
+"\"http://www.gnome-look.org\"><span style=\" font-family:'Sans Serif'; font-"
+"size:14pt; text-decoration: underline; color:#0057ae;\">www.gnome-look.org</"
+"span></a></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href="
+"\"http://art.gnome.org\"><span style=\" font-family:'Sans Serif'; font-"
+"size:14pt; text-decoration: underline; color:#0057ae;\">art.gnome.org</"
+"span></a></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-"
+"bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
+"indent:0px; font-family:'Sans Serif'; font-size:14pt; text-decoration: "
+"underline; color:#0057ae;\"></p></body></html>"
+msgstr ""
+
+#. i18n: file: gui.ui:583
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: translations/rc.cpp:226 rc.cpp:226
+msgid "Actions"
+msgstr ""
+
+#. i18n: file: gui.ui:595
+#. i18n: ectx: property (text), widget (QCommandLinkButton, clb_add_theme)
+#: translations/rc.cpp:229 rc.cpp:229
+msgid "ADD THEMES"
+msgstr ""
+
+#. i18n: file: gui.ui:598
+#. i18n: ectx: property (description), widget (QCommandLinkButton, clb_add_theme)
+#: translations/rc.cpp:232 rc.cpp:232
+msgid "Install theme from file ..."
+msgstr ""
+
+#. i18n: file: gui.ui:611
+#. i18n: ectx: property (text), widget (QCommandLinkButton, clb_remove_theme)
+#: translations/rc.cpp:235 rc.cpp:235
+msgid "REMOVE THEMES"
+msgstr ""
+
+#. i18n: file: gui.ui:614
+#. i18n: ectx: property (description), widget (QCommandLinkButton, clb_remove_theme)
+#: translations/rc.cpp:238 rc.cpp:238
+msgid "Remove themes installed in the system ..."
+msgstr ""
+
+#: translations/rc.cpp:239 rc.cpp:239
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Martin Lee"
 
-#: po/rc.cpp:2 rc.cpp:2
+#: translations/rc.cpp:240 rc.cpp:240
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "hellnest.fuah@gmail.com"
 
-#: quewindow.cpp:25
-msgid "Loading.."
-msgstr "Memuat..."
+#~ msgid "Failed"
+#~ msgstr "Gagal"
 
-#: quewindow.cpp:30
-msgid "Cancel"
-msgstr "Batal"
+#~ msgid "Failed to resolve needed dependencies."
+#~ msgstr "Gagal untuk mengatasi dependensi yang dibutuhkan"
 
-#: quewindow.cpp:32
-msgid "More.."
-msgstr "Lagi..."
+#~ msgid "Delete"
+#~ msgstr "Hapus"
 
-#: quewindow.cpp:56
-msgid "Processing packages..."
-msgstr "Memproses paket..."
+#~ msgid "Find New..."
+#~ msgstr "Mencari yang baru..."
 
-#: quewindow.cpp:67
-msgid "loading package data..."
-msgstr "Memuat data paket..."
+#~ msgid "Chakra Bundle Manager"
+#~ msgstr "Chakra Bundle Manager"
 
-#: quewindow.cpp:68 quewindow.cpp:69
-msgid "Loading package data..."
-msgstr "Memuat data paket..."
+#~ msgid "Search.."
+#~ msgstr "Mencari..."
 
-#: quewindow.cpp:70
-msgid "checking dependencies..."
-msgstr "Mencek dependesi..."
+#~ msgid "Browse..."
+#~ msgstr "Melihat..."
 
-#: quewindow.cpp:71 quewindow.cpp:72
-msgid "Checking dependencies..."
-msgstr "Mencek dependensi..."
+#~ msgid "Apply"
+#~ msgstr "Menerapkan"
 
-#: quewindow.cpp:73
-msgid "resolving dependencies..."
-msgstr "Mengatasi dependesi..."
+#~ msgid "Upgrade"
+#~ msgstr "Memuktahirkan"
 
-#: quewindow.cpp:74 quewindow.cpp:75
-msgid "Resolving dependencies..."
-msgstr "Mengatasi dependesi..."
+#~ msgid "Chakra Package Installer."
+#~ msgstr "Chakra Paket Installer"
 
-#: quewindow.cpp:76
-msgid "checking package integrity..."
-msgstr "Mencek integritas paket..."
+#~ msgid "Install package <package>"
+#~ msgstr "Installasi paket <package>"
 
-#: quewindow.cpp:77 quewindow.cpp:78
-msgid "Checking package integrity..."
-msgstr "Mencek integritas paket..."
+#~ msgid "Remove package <package>"
+#~ msgstr "Menghapus paket <package>"
 
-#: quewindow.cpp:82 quewindow.cpp:83
-msgid "Downloading..."
-msgstr "Mengunduh..."
+#~ msgid "Execute bundle <bundle>"
+#~ msgstr "Memproses bundle <bundle>"
 
+#~ msgid "Manage bundles"
+#~ msgstr "Mengelola Bundles"
+
+#~ msgid "Launch the package creation wizard"
+#~ msgstr "Menjalankan aplikasi prosedur pembuatan paket"
+
+#~ msgid "A list of packages"
+#~ msgstr "Daftar paket"
+
+#~ msgid "Next"
+#~ msgstr "Selanjutnya"
+
+#~ msgid "Package Creator"
+#~ msgstr "Pembuat Paket"
+
+#~ msgid "Finish"
+#~ msgstr "Selesai"
+
+#~ msgid "Type:"
+#~ msgstr "Tipe:"
+
+#~ msgid "Launcher"
+#~ msgstr "Peluncur"
+
+#~ msgid "Setup"
+#~ msgstr "Setup"
+
+#~ msgid "Name:"
+#~ msgstr "Nama:"
+
+#~ msgid "Version:"
+#~ msgstr "Versi:"
+
+#~ msgid "Packager:   "
+#~ msgstr "Packager:"
+
+#~ msgid "eg, \"Unknown Packager <random.person@chakra-project.com>\""
+#~ msgstr ""
+#~ "cth, \"Packager tidak diketahui <random.person@chakra-project.com>\""
+
+#~ msgid "Desktop File:"
+#~ msgstr "File Desktop:"
+
+#~ msgid "Screenshot:"
+#~ msgstr "Screenshot"
+
+#~ msgid "Website:"
+#~ msgstr "Website:"
+
+#~ msgid "Description:"
+#~ msgstr "Deskripsi:"
+
+#~ msgid "Binary:"
+#~ msgstr "Binari:"
+
+#~ msgid "The path to the executable to be launched, eg, /usr/bin/appname"
+#~ msgstr ""
+#~ "Direktori untuk aplikasi aktif yang akan diluncurkan, cth, /usr/bin/"
+#~ "appname"
+
+#~ msgid "Dependencies:"
+#~ msgstr "Dependesi"
+
+#~ msgid ""
+#~ "A space separated list of package dependencies (core/platform pkgs only)"
+#~ msgstr ""
+#~ "Sebuah ruang daftar yang terpisah untuk paket dependesi (core/platform "
+#~ "pkg saja)"
+
+#~ msgid "Environment:"
+#~ msgstr "Lingkungan:"
+
+#~ msgid ""
+#~ "Customized environment variables.\n"
+#~ "\n"
+#~ "$ORIGIN ($HOME/.cinstall/$BUNDLENAME), $PATH, $HOME"
+#~ msgstr ""
+#~ "Kustomisasi variabel lingkungan.\n"
+#~ "\n"
+#~ "$ORIGIN ($HOME/.cinstall/$BUNDLENAME),$PATH,$HOME"
+
+#~ msgid "Packages:"
+#~ msgstr "Paket:"
+
+#~ msgid "Packages to be bundled"
+#~ msgstr "Paket yg akan di bundle"
+
+#~ msgid "PKGINFO:"
+#~ msgstr "PKGINFO:"
+
+#~ msgid ""
+#~ "Creation finished successfully\n"
+#~ "Output file:"
+#~ msgstr ""
+#~ "Penciptaan berhasil\n"
+#~ "Output data:"
+
+#~ msgid "Loading.."
+#~ msgstr "Memuat..."
+
+#~ msgid "Cancel"
+#~ msgstr "Batal"
+
+#~ msgid "More.."
+#~ msgstr "Lagi..."
+
+#~ msgid "Processing packages..."
+#~ msgstr "Memproses paket..."
+
+#~ msgid "loading package data..."
+#~ msgstr "Memuat data paket..."
+
+#~ msgid "Loading package data..."
+#~ msgstr "Memuat data paket..."
+
+#~ msgid "checking dependencies..."
+#~ msgstr "Mencek dependesi..."
+
+#~ msgid "Checking dependencies..."
+#~ msgstr "Mencek dependensi..."
+
+#~ msgid "resolving dependencies..."
+#~ msgstr "Mengatasi dependesi..."
+
+#~ msgid "Resolving dependencies..."
+#~ msgstr "Mengatasi dependesi..."
+
+#~ msgid "checking package integrity..."
+#~ msgstr "Mencek integritas paket..."
+
+#~ msgid "Checking package integrity..."
+#~ msgstr "Mencek integritas paket..."
+
+#~ msgid "Downloading..."
+#~ msgstr "Mengunduh..."

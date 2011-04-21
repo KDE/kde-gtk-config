@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@chakra-project.org\n"
-"POT-Creation-Date: 2011-01-15 00:48+0100\n"
+"POT-Creation-Date: 2011-04-21 23:18+0200\n"
 "PO-Revision-Date: 2011-01-13 21:13+0100\n"
 "Last-Translator: Manue Tortosa <manutortosa@chakra-project.org>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -68,31 +68,49 @@ msgstr "O tema visual de Gtk non pode instalarse"
 
 #. i18n: file: gui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, GUI)
-#: modulo.cpp:32 translations/rc.cpp:153 rc.cpp:153
+#: modulo.cpp:37 translations/rc.cpp:153 rc.cpp:153
 msgid "Chakra Gtk Config"
 msgstr "Configuración do Gtk de Chakra"
 
-#: modulo.cpp:33
+#: modulo.cpp:38
 msgid "Config your Gtk Apps"
 msgstr "Configure os seus aplicativos Gtk"
 
-#: modulo.cpp:35
+#: modulo.cpp:40
 msgid "Copyright 2011 José Antonio Sánchez Reynaga"
 msgstr "Dereitos de autor © 2011 José Antonio Sánchez Reynaga"
 
-#: modulo.cpp:38
-msgid "José Antonio Sánchez Reynaga"
+#: modulo.cpp:41
+#, fuzzy
+msgid "José Antonio Sánchez Reynaga (antonioJASR)"
 msgstr "José Antonio Sánchez Reynaga"
 
-#: modulo.cpp:38
-msgid "Chakra's fan and developer"
-msgstr "Seareiro e desenvolvedor de Chakra"
+#: modulo.cpp:41
+msgid "Programador"
+msgstr ""
+
+#: modulo.cpp:42
+msgid "Manuel Tortosa (manutortosa)"
+msgstr ""
+
+#: modulo.cpp:42
+msgid "Aportador de ideas, tester y traductor"
+msgstr ""
+
+#: modulo.cpp:43
+msgid "Adrián Chávez Hernández (Gallaecio)"
+msgstr ""
+
+#: modulo.cpp:43
+msgid "traduccion"
+msgstr ""
 
 #. i18n: file: dialog_installer.ui:20
 #. i18n: ectx: property (windowTitle), widget (QDialog, dialog_installer)
 #: translations/rc.cpp:3 rc.cpp:3
-msgid "Dialog"
-msgstr "Diálogo"
+#, fuzzy
+msgid "Installer"
+msgstr "Desinstalar"
 
 #. i18n: file: dialog_installer.ui:39
 #. i18n: ectx: property (text), widget (QLabel, label_10)
@@ -704,6 +722,12 @@ msgstr "Adrián Chaves Fernández (Gallaecio)"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "adriyetichaves@gmail.com"
+
+#~ msgid "Chakra's fan and developer"
+#~ msgstr "Seareiro e desenvolvedor de Chakra"
+
+#~ msgid "Dialog"
+#~ msgstr "Diálogo"
 
 #~ msgid "WARNINGS"
 #~ msgstr "AVISOS"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@chakra-project.org\n"
-"POT-Creation-Date: 2011-01-15 00:48+0100\n"
+"POT-Creation-Date: 2011-04-21 23:18+0200\n"
 "PO-Revision-Date: 2011-01-13 01:21+0100\n"
 "Last-Translator: Daniele Cocca <daniele.cocca@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -67,31 +67,49 @@ msgstr "Il tema di GTK+ non può essere installato"
 
 #. i18n: file: gui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, GUI)
-#: modulo.cpp:32 translations/rc.cpp:153 rc.cpp:153
+#: modulo.cpp:37 translations/rc.cpp:153 rc.cpp:153
 msgid "Chakra Gtk Config"
 msgstr "Configuratore di GTK+ per Chakra"
 
-#: modulo.cpp:33
+#: modulo.cpp:38
 msgid "Config your Gtk Apps"
 msgstr "Configura le tua applicazioni GTK+"
 
-#: modulo.cpp:35
+#: modulo.cpp:40
 msgid "Copyright 2011 José Antonio Sánchez Reynaga"
 msgstr "Copyright 2011 José Antonio Sánchez Reynaga"
 
-#: modulo.cpp:38
-msgid "José Antonio Sánchez Reynaga"
+#: modulo.cpp:41
+#, fuzzy
+msgid "José Antonio Sánchez Reynaga (antonioJASR)"
 msgstr "José Antonio Sánchez Reynaga"
 
-#: modulo.cpp:38
-msgid "Chakra's fan and developer"
-msgstr "Sviluppatore e appassionato di Chakra"
+#: modulo.cpp:41
+msgid "Programador"
+msgstr ""
+
+#: modulo.cpp:42
+msgid "Manuel Tortosa (manutortosa)"
+msgstr ""
+
+#: modulo.cpp:42
+msgid "Aportador de ideas, tester y traductor"
+msgstr ""
+
+#: modulo.cpp:43
+msgid "Adrián Chávez Hernández (Gallaecio)"
+msgstr ""
+
+#: modulo.cpp:43
+msgid "traduccion"
+msgstr ""
 
 #. i18n: file: dialog_installer.ui:20
 #. i18n: ectx: property (windowTitle), widget (QDialog, dialog_installer)
 #: translations/rc.cpp:3 rc.cpp:3
-msgid "Dialog"
-msgstr "Dialogo "
+#, fuzzy
+msgid "Installer"
+msgstr "Disinstalla"
 
 #. i18n: file: dialog_installer.ui:39
 #. i18n: ectx: property (text), widget (QLabel, label_10)
@@ -705,6 +723,12 @@ msgstr "Daniele Cocca"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "daniele.cocca@gmail.com"
+
+#~ msgid "Chakra's fan and developer"
+#~ msgstr "Sviluppatore e appassionato di Chakra"
+
+#~ msgid "Dialog"
+#~ msgstr "Dialogo "
 
 #~ msgid "WARNINGS"
 #~ msgstr "AVVISI"

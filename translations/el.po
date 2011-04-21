@@ -1,86 +1,88 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Dimitris Tzemos <djemos@slackel.gr>, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: 1.3\n"
 "Report-Msgid-Bugs-To: bugs@chakra-project.org\n"
 "POT-Creation-Date: 2011-04-21 23:18+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2011-04-21 13:58+0200\n"
+"Last-Translator: Dimitris Tzemos <djemos@slackel.gr>\n"
+"Language-Team: el <djemos@slackel.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Greek\n"
+"X-Poedit-Country: GREECE\n"
 
 #: dialog_installer.cpp:60
 msgid "Select a valid gtk theme file"
-msgstr ""
+msgstr "Επιλέξτε ένα έγκυρο αρχείο θέματος"
 
 #: dialog_installer.cpp:62 dialog_installer.cpp:84
 msgid "Compressed file (*.tar.gz *.tar)"
-msgstr ""
+msgstr "Συμπιεσμένο αρχείο (*.tar.gz *.tar)"
 
 #: dialog_installer.cpp:82
 msgid "Select a vaild icons theme file"
-msgstr ""
+msgstr "Επιλέξτε ένα έγκυρο αρχείο εικόνων θέματος"
 
 #: dialog_installer.cpp:186 dialog_installer.cpp:221
 msgid "Parsing theme ... "
-msgstr ""
+msgstr "Parsing theme ... "
 
 #: dialog_installer.cpp:208
 msgid "This Gtk theme can be installed"
-msgstr ""
+msgstr "Αυτό το αρχείο θέματος Gtk μπορεί να εγκατασταθεί"
 
 #: dialog_installer.cpp:212
 msgid "This Gtk theme cannot be installed"
-msgstr ""
+msgstr "Αυτό το αρχείο θέματος Gtk δεν μπορεί να εγκατασταθεί"
 
 #: dialog_installer.cpp:242
 msgid "This icons theme can be installed"
-msgstr ""
+msgstr "Αυτό το αρχείο θέματος εικόνων μπορεί να εγκατασταθεί"
 
 #: dialog_installer.cpp:246
 msgid "This icons theme cannot be installed"
-msgstr ""
+msgstr "Αυτό το αρχείο θέματος εικόνων δεν μπορεί να εγκατασταθεί"
 
 #: dialog_installer.cpp:288
 msgid "Icons Successfully Installed"
-msgstr ""
+msgstr "Επιτυχής εγκατάσταση εικονιδίων"
 
 #: dialog_installer.cpp:292
 msgid "The icons theme cannot be installed"
-msgstr ""
+msgstr "Το αρχείο θέματος εικόνων δεν μπορεί να εγκατασταθεί"
 
 #: dialog_installer.cpp:300
 msgid "Gtk Theme Sucessfully Installed"
-msgstr ""
+msgstr "Επιτυχής εγκατάσταση θέματος Gtk"
 
 #: dialog_installer.cpp:304
 msgid "The Gtk theme cannot be installed"
-msgstr ""
+msgstr "To αρχείο θέματος Gtk δεν  μπορεί να εγκατασταθεί"
 
 #. i18n: file: gui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, GUI)
 #: modulo.cpp:37 translations/rc.cpp:153 rc.cpp:153
 msgid "Chakra Gtk Config"
-msgstr ""
+msgstr "Διαμόρφωση Gtk "
 
 #: modulo.cpp:38
 msgid "Config your Gtk Apps"
-msgstr ""
+msgstr "Διαμόρφωση Gtk εφαρμογών"
 
 #: modulo.cpp:40
 msgid "Copyright 2011 José Antonio Sánchez Reynaga"
-msgstr ""
+msgstr "Copyright 2011 José Antonio Sánchez Reynaga"
 
 #: modulo.cpp:41
+#, fuzzy
 msgid "José Antonio Sánchez Reynaga (antonioJASR)"
-msgstr ""
+msgstr "José Antonio Sánchez Reynaga"
 
 #: modulo.cpp:41
 msgid "Programador"
@@ -105,8 +107,9 @@ msgstr ""
 #. i18n: file: dialog_installer.ui:20
 #. i18n: ectx: property (windowTitle), widget (QDialog, dialog_installer)
 #: translations/rc.cpp:3 rc.cpp:3
+#, fuzzy
 msgid "Installer"
-msgstr ""
+msgstr "Απεγκατάσταση"
 
 #. i18n: file: dialog_installer.ui:39
 #. i18n: ectx: property (text), widget (QLabel, label_10)
@@ -117,6 +120,7 @@ msgstr ""
 #. i18n: file: dialog_uninstaller.ui:33
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: translations/rc.cpp:6 translations/rc.cpp:83 rc.cpp:6 rc.cpp:83
+#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -129,12 +133,23 @@ msgid ""
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "size:12pt; font-weight:600;\">Chakra Gtk Config</span></p></body></html>"
 msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><DEFANGED_meta name=\"qrichtext\" content=\"1\" /> <!-- "
+"<DEFANGED_STYLE type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+" --> </DEFANGED_STYLE></head><body DEFANGED_STYLE=\" font-family:'Sans "
+"Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p DEFANGED_STYLE=\" margin-top:0px; margin-bottom:0px; margin-left:0px; "
+"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"DEFANGED_STYLE=\" font-size:12pt; font-weight:600;\">Chakra Gtk Config</"
+"span></p></body></html>"
 
 #. i18n: file: dialog_installer.ui:123
 #. i18n: ectx: attribute (title), widget (QWidget, tabWidgetPage1)
 #: translations/rc.cpp:13 rc.cpp:13
 msgid "Add Gtk Theme"
-msgstr ""
+msgstr "Πρόσθεση θέματος Gtk "
 
 #. i18n: file: dialog_installer.ui:141
 #. i18n: ectx: property (text), widget (QLabel, lb_theme)
@@ -146,7 +161,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lb_icon)
 #: translations/rc.cpp:16 translations/rc.cpp:48 rc.cpp:16 rc.cpp:48
 msgid "In order to add a new theme, just follow these steps:"
-msgstr ""
+msgstr "Για να προσθέσετε ένα νέο θέμα, ακολουθήστε τα πατακάτω βήματα:"
 
 #. i18n: file: dialog_installer.ui:148
 #. i18n: ectx: property (text), widget (QPushButton, but_theme_filechoice)
@@ -158,7 +173,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QPushButton, but_icon_filechoice)
 #: translations/rc.cpp:19 translations/rc.cpp:68 rc.cpp:19 rc.cpp:68
 msgid "Select file"
-msgstr ""
+msgstr "Επιλέξτε αρχείο"
 
 #. i18n: file: dialog_installer.ui:180
 #. i18n: ectx: property (text), widget (QLabel, label_4)
@@ -171,6 +186,7 @@ msgstr ""
 #: translations/rc.cpp:22 translations/rc.cpp:74 rc.cpp:22 rc.cpp:74
 msgid "Click the next button in order to install the theme in your system"
 msgstr ""
+"Κάντε κλικ στο επόμενο κουμπί για να εγκαταστήσετε το θέμα στο σύστημά σας"
 
 #. i18n: file: dialog_installer.ui:204
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -181,6 +197,7 @@ msgstr ""
 #. i18n: file: dialog_installer.ui:269
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: translations/rc.cpp:25 translations/rc.cpp:51 rc.cpp:25 rc.cpp:51
+#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -193,6 +210,17 @@ msgid ""
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "size:10pt; font-weight:600;\">Step 1:</span></p></body></html>"
 msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><DEFANGED_meta name=\"qrichtext\" content=\"1\" /> <!-- "
+"<DEFANGED_STYLE type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+" --> </DEFANGED_STYLE></head><body DEFANGED_STYLE=\" font-family:'Sans "
+"Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p DEFANGED_STYLE=\" margin-top:0px; margin-bottom:0px; margin-left:0px; "
+"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"DEFANGED_STYLE=\" font-size:10pt; font-weight:600;\">Step 1:</span></p></"
+"body></html>"
 
 #. i18n: file: dialog_installer.ui:211
 #. i18n: ectx: property (text), widget (QLabel, label_3)
@@ -204,13 +232,13 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: translations/rc.cpp:32 translations/rc.cpp:58 rc.cpp:32 rc.cpp:58
 msgid "Select the theme file you want to install"
-msgstr ""
+msgstr "Επιλέξτε το αρχείο θέματος που θέλετε να εγαταστήσετε"
 
 #. i18n: file: dialog_installer.ui:221
 #. i18n: ectx: property (text), widget (QPushButton, but_theme_install)
 #: translations/rc.cpp:35 rc.cpp:35
 msgid "Install Gtk Theme"
-msgstr ""
+msgstr "Εγκατάσταση θέματος Gtk "
 
 #. i18n: file: dialog_installer.ui:235
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -221,6 +249,7 @@ msgstr ""
 #. i18n: file: dialog_installer.ui:303
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: translations/rc.cpp:38 translations/rc.cpp:61 rc.cpp:38 rc.cpp:61
+#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -233,36 +262,47 @@ msgid ""
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "size:10pt; font-weight:600;\">Step 2 :</span></p></body></html>"
 msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><DEFANGED_meta name=\"qrichtext\" content=\"1\" /> <!-- "
+"<DEFANGED_STYLE type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+" --> </DEFANGED_STYLE></head><body DEFANGED_STYLE=\" font-family:'Sans "
+"Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p DEFANGED_STYLE=\" margin-top:0px; margin-bottom:0px; margin-left:0px; "
+"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"DEFANGED_STYLE=\" font-size:10pt; font-weight:600;\">Step 2 :</span></p></"
+"body></html>"
 
 #. i18n: file: dialog_installer.ui:246
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: translations/rc.cpp:45 rc.cpp:45
 msgid "Add new icons theme"
-msgstr ""
+msgstr "Πρόσθεση νέων εικονιδίων θέματος"
 
 #. i18n: file: dialog_installer.ui:326
 #. i18n: ectx: property (text), widget (QPushButton, but_icon_install)
 #: translations/rc.cpp:71 rc.cpp:71
 msgid "Install icons"
-msgstr ""
+msgstr "Εγκατάσταση εικονιδίων"
 
 #. i18n: file: dialog_installer.ui:394
 #. i18n: ectx: property (text), widget (QPushButton, but_accepted)
 #: translations/rc.cpp:77 rc.cpp:77
 msgid "  Ok  "
-msgstr ""
+msgstr "Εντάξει"
 
 #. i18n: file: dialog_uninstaller.ui:14
 #. i18n: ectx: property (windowTitle), widget (QDialog, dialog_uninstaller)
 #: translations/rc.cpp:80 rc.cpp:80
 msgid "Remove Themes"
-msgstr ""
+msgstr "Αφαίρεση θεμάτων"
 
 #. i18n: file: dialog_uninstaller.ui:77
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: translations/rc.cpp:90 rc.cpp:90
 msgid "Select an Gtk theme from the list"
-msgstr ""
+msgstr "Επιλέξτε ένα θέμα Gtk από τη λίστα"
 
 #. i18n: file: dialog_uninstaller.ui:84
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -274,7 +314,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: translations/rc.cpp:93 translations/rc.cpp:137 rc.cpp:93 rc.cpp:137
 msgid "Press the button to remove the theme"
-msgstr ""
+msgstr "Πιέστε το κουμπί να αφαιρέσετε το θέμα"
 
 #. i18n: file: dialog_uninstaller.ui:95
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -285,6 +325,7 @@ msgstr ""
 #. i18n: file: dialog_uninstaller.ui:179
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: translations/rc.cpp:96 translations/rc.cpp:130 rc.cpp:96 rc.cpp:130
+#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -297,6 +338,16 @@ msgid ""
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "weight:600;\">Step 1:</span></p></body></html>"
 msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><DEFANGED_meta name=\"qrichtext\" content=\"1\" /> <!-- "
+"<DEFANGED_STYLE type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+" --> </DEFANGED_STYLE></head><body DEFANGED_STYLE=\" font-family:'Sans "
+"Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p DEFANGED_STYLE=\" margin-top:0px; margin-bottom:0px; margin-left:0px; "
+"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"DEFANGED_STYLE=\" font-weight:600;\">Step 1:</span></p></body></html>"
 
 #. i18n: file: dialog_uninstaller.ui:106
 #. i18n: ectx: property (text), widget (QLabel, label_5)
@@ -307,6 +358,7 @@ msgstr ""
 #. i18n: file: dialog_uninstaller.ui:168
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: translations/rc.cpp:103 translations/rc.cpp:123 rc.cpp:103 rc.cpp:123
+#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -319,10 +371,21 @@ msgid ""
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "weight:600;\">Step 2:</span></p></body></html>"
 msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><DEFANGED_meta name=\"qrichtext\" content=\"1\" /> <!-- "
+"<DEFANGED_STYLE type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+" --> </DEFANGED_STYLE></head><body DEFANGED_STYLE=\" font-family:'Sans "
+"Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p DEFANGED_STYLE=\" margin-top:0px; margin-bottom:0px; margin-left:0px; "
+"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"DEFANGED_STYLE=\" font-weight:600;\">Step 2:</span></p></body></html>"
 
 #. i18n: file: dialog_uninstaller.ui:117
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: translations/rc.cpp:110 rc.cpp:110
+#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -335,6 +398,17 @@ msgid ""
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "size:12pt; font-weight:600;\">Remove Gtk Theme</span></p></body></html>"
 msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><DEFANGED_meta name=\"qrichtext\" content=\"1\" /> <!-- "
+"<DEFANGED_STYLE type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+" --> </DEFANGED_STYLE></head><body DEFANGED_STYLE=\" font-family:'Sans "
+"Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p DEFANGED_STYLE=\" margin-top:0px; margin-bottom:0px; margin-left:0px; "
+"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"DEFANGED_STYLE=\" font-size:12pt; font-weight:600;\">Αφαίρεση θέματος Gtk</"
+"span></p></body></html>"
 
 #. i18n: file: dialog_uninstaller.ui:141
 #. i18n: ectx: property (text), widget (QPushButton, but_uninstall_theme)
@@ -346,17 +420,18 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QPushButton, but_uninstall_icon)
 #: translations/rc.cpp:117 translations/rc.cpp:147 rc.cpp:117 rc.cpp:147
 msgid "Uninstall"
-msgstr ""
+msgstr "Απεγκατάσταση"
 
 #. i18n: file: dialog_uninstaller.ui:157
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: translations/rc.cpp:120 rc.cpp:120
 msgid "Select an icon theme from the list"
-msgstr ""
+msgstr "Επιλέξτε ένα εικονίδιο θέματος από τη λίστα"
 
 #. i18n: file: dialog_uninstaller.ui:197
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: translations/rc.cpp:140 rc.cpp:140
+#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -369,40 +444,52 @@ msgid ""
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "size:12pt; font-weight:600;\">Remove Icons Theme</span></p></body></html>"
 msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><DEFANGED_meta name=\"qrichtext\" content=\"1\" /> <!-- "
+"<DEFANGED_STYLE type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+" --> </DEFANGED_STYLE></head><body DEFANGED_STYLE=\" font-family:'Sans "
+"Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p DEFANGED_STYLE=\" margin-top:0px; margin-bottom:0px; margin-left:0px; "
+"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"DEFANGED_STYLE=\" font-size:12pt; font-weight:600;\">Αφαίρεση εικονιδίων "
+"θέματος</span></p></body></html>"
 
 #. i18n: file: dialog_uninstaller.ui:263
 #. i18n: ectx: property (text), widget (QPushButton, but_accept)
 #: translations/rc.cpp:150 rc.cpp:150
 msgid "    Ok   "
-msgstr ""
+msgstr "Εντάξει"
 
 #. i18n: file: gui.ui:30
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: translations/rc.cpp:156 rc.cpp:156
 msgid "Configuration"
-msgstr ""
+msgstr "Διαμόρφωση"
 
 #. i18n: file: gui.ui:63
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: translations/rc.cpp:159 rc.cpp:159
 msgid "Select Icons Theme"
-msgstr ""
+msgstr "Επιλέξτε εικονίδια θέματος"
 
 #. i18n: file: gui.ui:73
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: translations/rc.cpp:162 rc.cpp:162
 msgid "Select Fallback Icons theme"
-msgstr ""
+msgstr "Επιλέξτε προηγούμενο θέμα εικονιδίων"
 
 #. i18n: file: gui.ui:325
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: translations/rc.cpp:165 rc.cpp:165
 msgid "Select a Theme"
-msgstr ""
+msgstr "Επιλέξτε ένα θέμα"
 
 #. i18n: file: gui.ui:342
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: translations/rc.cpp:168 rc.cpp:168
+#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -415,10 +502,22 @@ msgid ""
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "size:10pt; font-weight:600;\">GTK Theme</span></p></body></html>"
 msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><DEFANGED_meta name=\"qrichtext\" content=\"1\" /> <!-- "
+"<DEFANGED_STYLE type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+" --> </DEFANGED_STYLE></head><body DEFANGED_STYLE=\" font-family:'Sans "
+"Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p DEFANGED_STYLE=\" margin-top:0px; margin-bottom:0px; margin-left:0px; "
+"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"DEFANGED_STYLE=\" font-size:10pt; font-weight:600;\">Θέμα GTK </span></p></"
+"body></html>"
 
 #. i18n: file: gui.ui:353
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: translations/rc.cpp:175 rc.cpp:175
+#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -431,58 +530,70 @@ msgid ""
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "size:10pt; font-weight:600;\">Icons Theme</span></p></body></html>"
 msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><DEFANGED_meta name=\"qrichtext\" content=\"1\" /> <!-- "
+"<DEFANGED_STYLE type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+" --> </DEFANGED_STYLE></head><body DEFANGED_STYLE=\" font-family:'Sans "
+"Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p DEFANGED_STYLE=\" margin-top:0px; margin-bottom:0px; margin-left:0px; "
+"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"DEFANGED_STYLE=\" font-size:10pt; font-weight:600;\">Θέμα εικονιδίων</span></"
+"p></body></html>"
 
 #. i18n: file: gui.ui:408
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: translations/rc.cpp:182 rc.cpp:182
 msgid "Select Font Family"
-msgstr ""
+msgstr "Επιλέξτε οικογένεια γραμματοσειράς"
 
 #. i18n: file: gui.ui:432
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
 #: translations/rc.cpp:185 rc.cpp:185
 msgid "normal"
-msgstr ""
+msgstr "κανονικό"
 
 #. i18n: file: gui.ui:437
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
 #: translations/rc.cpp:188 rc.cpp:188
 msgid "bold"
-msgstr ""
+msgstr "έντονο"
 
 #. i18n: file: gui.ui:442
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
 #: translations/rc.cpp:191 rc.cpp:191
 msgid "italic"
-msgstr ""
+msgstr "πλάγιο"
 
 #. i18n: file: gui.ui:447
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
 #: translations/rc.cpp:194 rc.cpp:194
 msgid "bold italic"
-msgstr ""
+msgstr "έντονο πλάγιο"
 
 #. i18n: file: gui.ui:455
 #. i18n: ectx: property (suffix), widget (QSpinBox, spin_font_tam)
 #: translations/rc.cpp:197 rc.cpp:197
 msgid " px"
-msgstr ""
+msgstr " px"
 
 #. i18n: file: gui.ui:492
 #. i18n: ectx: property (text), widget (QLabel, lb_font_preview)
 #: translations/rc.cpp:200 rc.cpp:200
 msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
-msgstr ""
+msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
 
 #. i18n: file: gui.ui:531
 #. i18n: ectx: attribute (title), widget (QWidget, tab_install)
 #: translations/rc.cpp:203 rc.cpp:203
 msgid "Add and Remove Themes"
-msgstr ""
+msgstr "Πρόσθεση και αφαίρεση θεμάτων"
 
 #. i18n: file: gui.ui:542
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: translations/rc.cpp:206 rc.cpp:206
+#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -499,10 +610,26 @@ msgid ""
 "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
 "family:'Sans Serif'; font-size:12pt; font-weight:600;\"></p></body></html>"
 msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><DEFANGED_meta name=\"qrichtext\" content=\"1\" /> <!-- "
+"<DEFANGED_STYLE type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+" --> </DEFANGED_STYLE></head><body DEFANGED_STYLE=\" font-family:'Bitstream "
+"Vera Sans'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p DEFANGED_STYLE=\" margin-top:0px; margin-bottom:0px; margin-left:0px; "
+"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"DEFANGED_STYLE=\" font-family:'Sans Serif'; font-size:12pt; font-weight:600;"
+"\">ΠΡΟΣΘΕΣΗ ΚΑΙ ΑΦΑΙΡΕΣΗ ΘΕΜΑΤΩΝ</span></p>\n"
+"<p DEFANGED_STYLE=\"-qt-paragraph-type:empty; margin-top:0px; margin-"
+"bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
+"indent:0px; font-family:'Sans Serif'; font-size:12pt; font-weight:600;\"></"
+"p></body></html>"
 
 #. i18n: file: gui.ui:561
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: translations/rc.cpp:214 rc.cpp:214
+#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -539,43 +666,83 @@ msgid ""
 "indent:0px; font-family:'Sans Serif'; font-size:14pt; text-decoration: "
 "underline; color:#0057ae;\"></p></body></html>"
 msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><DEFANGED_meta name=\"qrichtext\" content=\"1\" /> <!-- "
+"<DEFANGED_STYLE type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+" --> </DEFANGED_STYLE></head><body DEFANGED_STYLE=\" font-family:'Bitstream "
+"Vera Sans'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p DEFANGED_STYLE=\" margin-top:0px; margin-bottom:0px; margin-left:0px; "
+"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"DEFANGED_STYLE=\" font-family:'Sans Serif'; font-size:10pt;\">Μπορείτε να "
+"εγκαταστήσετε νέα θέματα στο σύστημά σας, αυτά τα θέματα είναι αρχεία "
+"πακέτων με προέκταση  *.tar.gz or *.tar.</span></p>\n"
+"<p DEFANGED_STYLE=\" margin-top:0px; margin-bottom:0px; margin-left:0px; "
+"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"DEFANGED_STYLE=\" font-family:'Sans Serif'; font-size:10pt;\">Προτείνουμε "
+"τις ακόλουθες ιστοσελίδες για να κατεβάσετε νέα θέματα:</span></p>\n"
+"<p DEFANGED_STYLE=\"-qt-paragraph-type:empty; margin-top:0px; margin-"
+"bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
+"indent:0px; font-family:'Sans Serif'; font-size:10pt; text-decoration: "
+"underline; color:#0057ae;\"></p>\n"
+"<p align=\"center\" DEFANGED_STYLE=\" margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a "
+"href=\"http://www.gnome-look.org\"><span DEFANGED_STYLE=\" font-family:'Sans "
+"Serif'; font-size:14pt; text-decoration: underline; color:#0057ae;\">www."
+"gnome-look.org</span></a></p>\n"
+"<p align=\"center\" DEFANGED_STYLE=\" margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a "
+"href=\"http://art.gnome.org\"><span DEFANGED_STYLE=\" font-family:'Sans "
+"Serif'; font-size:14pt; text-decoration: underline; color:#0057ae;\">art."
+"gnome.org</span></a></p>\n"
+"<p align=\"center\" DEFANGED_STYLE=\"-qt-paragraph-type:empty; margin-"
+"top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-"
+"indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:14pt; text-"
+"decoration: underline; color:#0057ae;\"></p></body></html>"
 
 #. i18n: file: gui.ui:583
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: translations/rc.cpp:226 rc.cpp:226
 msgid "Actions"
-msgstr ""
+msgstr "Ενέργειες"
 
 #. i18n: file: gui.ui:595
 #. i18n: ectx: property (text), widget (QCommandLinkButton, clb_add_theme)
 #: translations/rc.cpp:229 rc.cpp:229
 msgid "ADD THEMES"
-msgstr ""
+msgstr "ΠΡΟΣΘΕΣΗ ΘΕΜΑΤΩΝ"
 
 #. i18n: file: gui.ui:598
 #. i18n: ectx: property (description), widget (QCommandLinkButton, clb_add_theme)
 #: translations/rc.cpp:232 rc.cpp:232
 msgid "Install theme from file ..."
-msgstr ""
+msgstr "Εγκατάσταση θέματος απο αρχείο ..."
 
 #. i18n: file: gui.ui:611
 #. i18n: ectx: property (text), widget (QCommandLinkButton, clb_remove_theme)
 #: translations/rc.cpp:235 rc.cpp:235
 msgid "REMOVE THEMES"
-msgstr ""
+msgstr "ΑΦΑΙΡΕΣΗ ΘΕΜΑΤΩΝ"
 
 #. i18n: file: gui.ui:614
 #. i18n: ectx: property (description), widget (QCommandLinkButton, clb_remove_theme)
 #: translations/rc.cpp:238 rc.cpp:238
 msgid "Remove themes installed in the system ..."
-msgstr ""
+msgstr "Αφαίρεση θεμάτων εγκατεστημένων στο σύστημά σας ..."
 
 #: translations/rc.cpp:239 rc.cpp:239
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Dimitris Tzemos"
 
 #: translations/rc.cpp:240 rc.cpp:240
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "djemos@slackel.gr"
+
+#~ msgid "Chakra's fan and developer"
+#~ msgstr "Chakra's fan and developer"
+
+#~ msgid "Dialog"
+#~ msgstr "Διάλογος"
