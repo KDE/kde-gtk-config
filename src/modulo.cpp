@@ -29,12 +29,15 @@
 K_PLUGIN_FACTORY(ModuloFactory, registerPlugin<Modulo>();)
 K_EXPORT_PLUGIN(ModuloFactory("cgc"))
 
-Modulo::Modulo(QWidget* parent, const QVariantList& args):
-KCModule(ModuloFactory::componentData(), parent),
+Modulo::Modulo(QWidget* parent
+,               const QVariantList& args
+               ):
+               KCModule(ModuloFactory::componentData(), parent),
 ui(new Ui::GUI)
 {
     
-       KAboutData *acercade = new KAboutData("cgc","kcm_cgc",ki18n("Chakra Gtk Config"),"1.3",
+      Q_UNUSED(args);
+       KAboutData *acercade = new KAboutData("cgc","kcm_cgc",ki18n("Chakra Gtk Config"),"1.5",
                       ki18n("Config your Gtk Apps"),
                       KAboutData::License_GPL_V2,
                       ki18n("Copyright 2011 José Antonio Sánchez Reynaga"));

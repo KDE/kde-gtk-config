@@ -446,7 +446,7 @@ bool AparienciaGTK::loadFileConfig(){
                 
                 //Obtenemos el estilo del toolbar gtk-button-images
                 if(i.contains("gtk-menu-images")){
-                    show_icons_buttons =(
+                    show_icons_menus =(
                             (i.mid( i.indexOf("=")+1 ))
                              .trimmed() //Quitamos espacios en blanco alrededor
                              ).replace("\"", ""); // Quitamos los parentesis "

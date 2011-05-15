@@ -37,7 +37,9 @@ public:
   /**
    * Constructor
    */
-    explicit Modulo(QWidget* parent = 0, const QVariantList& args = QVariantList());
+    explicit Modulo(QWidget* parent = 0
+                    ,const QVariantList& args = QVariantList()
+                   );
     
     /**
      * Destructor
