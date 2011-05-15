@@ -337,6 +337,9 @@ bool AparienciaGTK::loadFileConfig(){
             gtk-theme-name="nombre-tema"
             gtk-icon-theme-name="OxygenRefit2"
             gtk-fallback-icon-theme = "oxygen-refit-2-2.5.0"
+            gtk-toolbar-style = GTK_TOOLBAR_ICONS
+            gtk-menu-images = true
+            gtk-button-images = true
 
           */
 
@@ -351,7 +354,12 @@ bool AparienciaGTK::loadFileConfig(){
                 icono, //Nombre del tema de iconos
                 fuente, //Nombre del tipo de letra
                 nombre_tema, //Nombre del tema configurado
-                icono_fallback;
+                icono_fallback,
+                
+                show_icons_menus, //Indica si los menus tiene iconosDisponibles
+                show_icons_buttons, //Indica si los Botones tiene iconosDisponibles
+                toolbar_style //Indica el estilo de la barra de herramientas
+                ;
             //Quitamos espacios en blanco, comentarios y las lineas que no necesito
             foreach(QString i, texto){
 
@@ -375,6 +383,8 @@ bool AparienciaGTK::loadFileConfig(){
                 }
 
             }
+            
+            qDebug() << "PASDFSADFD"  << texto;
 
             // Obtenemos los atributos de los temas
             foreach(QString i, texto){
@@ -417,8 +427,51 @@ bool AparienciaGTK::loadFileConfig(){
                              .trimmed() //Quitamos espacios en blanco alrededor
                              ).replace("\"", ""); // Quitamos los parentesis "
                 }
+                
+                //Obtenemos el estilo del toolbar gtk-toolbar-style gtk-button-images
+                if(i.contains("gtk-toolbar-style")){
+                    toolbar_style =(
+                            (i.mid( i.indexOf("=")+1 ))
+                             .trimmed() //Quitamos espacios en blanco alrededor
+                             ).replace("\"", ""); // Quitamos los parentesis "
+                }
+                
+                //Obtenemos el estilo del toolbar gtk-button-images
+                if(i.contains("gtk-button-images")){
+                    show_icons_buttons =(
+                            (i.mid( i.indexOf("=")+1 ))
+                             .trimmed() //Quitamos espacios en blanco alrededor
+                             ).replace("\"", ""); // Quitamos los parentesis "
+                }
+                
+                //Obtenemos el estilo del toolbar gtk-button-images
+                if(i.contains("gtk-menu-images")){
+                    show_icons_buttons =(
+                            (i.mid( i.indexOf("=")+1 ))
+                             .trimmed() //Quitamos espacios en blanco alrededor
+                             ).replace("\"", ""); // Quitamos los parentesis "
+                }
 
             }
+            
+            qDebug() << "Check Settings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<";
+            if(toolbar_style.isNull()){
+                 toolbar_style = "GTK_TOOLBAR_ICONS";
+                 qDebug() << "PICKED OPTIONS toolbar style: " << toolbar_style;
+            }
+            
+            if(show_icons_buttons.isNull()){
+                 show_icons_buttons = "0";
+                 qDebug() << "PICKED OPTIONS, show icons in buttons: " << show_icons_buttons;
+            }
+            
+            if(show_icons_menus.isNull()){
+                 show_icons_menus = "0";
+                 qDebug() << "PICKED OPTIONS, show icons in menus: " << show_icons_menus;
+            }
+            qDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";;
+            
+            
 
             //Ingresamos los datos
             settings["theme_path"] = tema_path;
@@ -426,6 +479,9 @@ bool AparienciaGTK::loadFileConfig(){
             settings["icon"] = icono;
             settings["icon_fallback"] = icono_fallback;
             settings["font"] = fuente;
+            settings["toolbar_style"] = toolbar_style;
+            settings["show_icons_buttons"] = show_icons_buttons;
+            settings["show_icons_menus"] = show_icons_menus;
 
             //Cerramos el archivo
             archivo.close();
@@ -442,6 +498,9 @@ bool AparienciaGTK::loadFileConfig(){
         settings["icon"] = "oxygen-refit-2-2.5.0";
         settings["icon_fallback"] = "oxygen-refit-2-2.5.0";
         settings["font"] = "Bitstream Vera Sans 10";
+        settings["toolbar_style"] = "GTK_TOOLBAR_ICONS";
+        settings["show_icons_buttons"] = "1";
+        settings["show_icons_menus"] = "1";
 
         saveFileConfig();  
 
@@ -521,27 +580,80 @@ bool AparienciaGTK::saveFileConfig()
     flujo << "gtk-icon-theme-name=\""<< settings["icon"] << "\"\n";
 
     flujo << "gtk-fallback-icon-theme=\"" << settings["icon_fallback"] << "\"\n";
+    
+    
+    /**
+     *  New features:
+     *      gtk-toolbar-style = GTK_TOOLBAR_ICONS
+            gtk-menu-images = true
+            gtk-button-images = true
+            
+            
+            settings["toolbar_style"] = toolbar_style;
+            settings["show_icons_buttons"] = show_icons_buttons;
+            settings["show_icons_menus"] = show_icons_menus;
+            
+            
+     */
+    
+    flujo << "gtk-toolbar-style=" << settings["toolbar_style"] << "\n";
+    flujo << "gtk-menu-images=" << settings["show_icons_buttons"] << "\n";
+    flujo << "gtk-button-images=" << settings["show_icons_menus"] << "\n";
+    
 
     //CErramos el archivo para finalizar
     gtkrc.close();
     
     //tratamos de borrar el archivo .gtkrc-2.0-kde4 anterior si existe
     if(QFile::remove(QDir::homePath()+"/.gtkrc-2.0-kde4"))
-        qDebug() << "ready for create symlink";
+        qDebug() << "listo para crear enlaze simbolico";
     
     //Creamos enlaze hacia el archivo .gtkrc-2.0-kde4
     if(!QFile::link(
        (QDir::homePath()+"/.gtkrc-2.0"),
        (QDir::homePath()+"/.gtkrc-2.0-kde4")         
     ))
-        qDebug() << "cannot create symlink to .gtkrc-2.0-kde4 :(";
+        qDebug() << "no se pudo crear enlaze simbolico al archivo .gtkrc-2.0-kde4 :(";
     else
-        qDebug() << "created symlink to .gtkrc-2.0-kde4 :D";
+        qDebug() << "enlace simbolico creado ,  al archivo .gtkrc-2.0-kde4 :D";
 
     return true;
 
 }
 
+
+/* Obtiene el estilo de la barra de tareas*/
+QString AparienciaGTK::getToolbarStyle()
+{
+     return settings["toolbar_style"];
+}
+
+/* */
+void AparienciaGTK::setToolbarStyle(QString toolbar_style)
+{    
+     settings["toolbar_style"] = toolbar_style;
+}
+
+
+QString AparienciaGTK::getShowIconsInButtons()
+{
+     return settings["show_icons_buttons"];
+}
+
+QString AparienciaGTK::getShowIconsInMenus()
+{
+     return settings["show_icons_menus"];
+}
+
+void AparienciaGTK::setShowIconsInButtons(QString buttons)
+{
+     settings["show_icons_buttons"] = buttons;
+}
+
+void AparienciaGTK::setShowIconsInMenus(QString menus)
+{
+     settings["show_icons_menus"] = menus;
+}
 
 
 

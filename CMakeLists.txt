@@ -11,16 +11,32 @@ find_package(MSGFMT REQUIRED)
 include(KDE4Defaults)
 
 add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-include_directories(${KDE4_INCLUDES} ${QT_INCLUDES})
+include_directories(
+    ${CMAKE_SOURCE_DIR} 
+    ${CMAKE_SOURCE_DIR}/src 
+    ${CMAKE_SOURCE_DIR}/src/ui 
+    ${KDE4_INCLUDES} ${QT_INCLUDES})
 
 add_subdirectory(translations)
 
-# Source code
-set(kcm_SRCS installer.cpp aparienciagtk.cpp modulo.cpp dialog_installer.cpp dialog_uninstaller.cpp thread.cpp)
+# Codigos Fuente
+set(kcm_SRCS 
+     src/aparienciagtk.cpp 
+     src/thread.cpp
+     src/installer.cpp 
+     src/modulo.cpp 
+     src/dialog_installer.cpp 
+     src/dialog_uninstaller.cpp 
+
+)
 
 # Uis 
 message("CURRENT FOLDER : ${chakragtkconfig_SOURCE_DIR}")
-kde4_add_ui_files(kcm_SRCS gui.ui dialog_installer.ui dialog_uninstaller.ui)
+kde4_add_ui_files(kcm_SRCS 
+     src/ui/gui.ui 
+     src/ui/dialog_installer.ui 
+     src/ui/dialog_uninstaller.ui
+)
 kde4_add_plugin(kcm_cgc ${kcm_SRCS})
 
 target_link_libraries(kcm_cgc ${KDE4_KIO_LIBS} )

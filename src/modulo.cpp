@@ -49,7 +49,6 @@ ui(new Ui::GUI)
     makePreviewIconTheme();
     makePreviewFont();
     
-    
       //evento para aplicar cambios
 
     //evento que notifican que hubo cambios en la interfaz grafica
@@ -59,6 +58,11 @@ ui(new Ui::GUI)
     connect(ui->cb_font, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_font_style, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->spin_font_tam, SIGNAL(valueChanged(int)), this, SLOT(appChanged()));
+    
+    //eventos nueos 15 may
+    connect(ui->cb_toolbar_icons, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
+    connect(ui->checkBox_icon_gtk_menus, SIGNAL(clicked(bool)), this, SLOT(appChanged()));
+    connect(ui->checkBox_icon_gtk_buttons, SIGNAL(clicked(bool)), this, SLOT(appChanged()));
 
     //eventos para hacer previews
     connect(ui->cb_icon_fallback, SIGNAL(activated(QString)), this, SLOT(makePreviewIconTheme()));
@@ -169,6 +173,41 @@ void Modulo::refreshLists()
         qDebug() << "CURRENT FOUNT:" << fuente << "\n"
                << "num : " << num << " , nombre : " << nombre;
 
+    }
+    
+    
+    //new features 15 may
+    if(appareance->getToolbarStyle() == "GTK_TOOLBAR_ICONS"){
+         //Seleccionar el indice 0
+         ui->cb_toolbar_icons->setCurrentIndex(0);
+    }
+    else if(appareance->getToolbarStyle() == "GTK_TOOLBAR_TEXT"){
+         //Seleccionar el indice 1
+         ui->cb_toolbar_icons->setCurrentIndex(1);
+    }
+    else if(appareance->getToolbarStyle() == "GTK_TOOLBAR_BOTH"){
+         //Seleccionar el indice 2
+         ui->cb_toolbar_icons->setCurrentIndex(2);
+    }
+    else if(appareance->getToolbarStyle() == "GTK_TOOLBAR_BOTH_HORIZ"){
+         //Seleccionae el indice 3
+         ui->cb_toolbar_icons->setCurrentIndex(3);
+    }
+               
+    
+    
+    if(appareance->getShowIconsInButtons() == "1"){
+         ui->checkBox_icon_gtk_buttons->setChecked(true);
+    }
+    else{
+         ui->checkBox_icon_gtk_buttons->setChecked(false);
+    }
+    
+    if(appareance->getShowIconsInMenus() == "1"){
+         ui->checkBox_icon_gtk_menus->setChecked(true);
+    }
+    else{
+         ui->checkBox_icon_gtk_menus->setChecked(false);
     }
 
 }
@@ -545,7 +584,39 @@ void Modulo::save()
     }
     appareance->setFont( fuente );
 
+    //new features
+        QStringList toolbarOptiones;
+    
+        
+    // Toolbar style
+    if(ui->cb_toolbar_icons->currentIndex() == 0){
+         appareance->setToolbarStyle("GTK_TOOLBAR_ICONS");
+    }
+    else if(ui->cb_toolbar_icons->currentIndex() == 1){
+         appareance->setToolbarStyle("GTK_TOOLBAR_TEXT");
+    }
+    else if(ui->cb_toolbar_icons->currentIndex() == 2){
+         appareance->setToolbarStyle("GTK_TOOLBAR_BOTH");
+    }
+    else if(ui->cb_toolbar_icons->currentIndex() == 3){
+         appareance->setToolbarStyle("GTK_TOOLBAR_BOTH_HORIZ");
+    }
 
+   //Icons in buttons
+   if(ui->checkBox_icon_gtk_buttons->isChecked()){
+        appareance->setShowIconsInButtons("1");
+   }
+   else{
+        appareance->setShowIconsInButtons("0");
+   }
+   
+   //Icons in menus
+   if(ui->checkBox_icon_gtk_menus->isChecked()){
+        appareance->setShowIconsInMenus("1");
+   }
+   else{
+        appareance->setShowIconsInMenus("0");
+   }
 
     qDebug() << "******************************************* INSTALLATION :\n"
             << "theme : " << appareance->getTheme() << "\n"
@@ -553,6 +624,10 @@ void Modulo::save()
             << "icons : " << appareance->getIcon() << "\n"
             << "fallback icons : " << appareance->getIconFallBack() << "\n"
             << "font family : " << appareance->getFont() << "\n"
+            << "toolbar style : " << appareance->getToolbarStyle() << "\n"
+            << "icons in buttons : " << appareance->getShowIconsInButtons() << "\n"
+            << "icons in menus : " << appareance->getShowIconsInMenus() << "\n"
+            
             << "********************************************************";
 
     //Guardamos configuracion
