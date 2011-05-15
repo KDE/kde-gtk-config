@@ -15,7 +15,7 @@ include_directories(${KDE4_INCLUDES} ${QT_INCLUDES})
 
 add_subdirectory(translations)
 
-# Codigos Fuente
+# Source code
 set(kcm_SRCS installer.cpp aparienciagtk.cpp modulo.cpp dialog_installer.cpp dialog_uninstaller.cpp thread.cpp)
 
 # Uis 
