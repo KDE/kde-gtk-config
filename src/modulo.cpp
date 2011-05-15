@@ -27,7 +27,7 @@
 
 // Declaracion del plugin
 K_PLUGIN_FACTORY(ModuloFactory, registerPlugin<Modulo>();)
-K_EXPORT_PLUGIN(ModuloFactory("cgc"))
+K_EXPORT_PLUGIN(ModuloFactory("cgc","kcm_cgc"))
 
 Modulo::Modulo(QWidget* parent
 ,               const QVariantList& args
@@ -41,9 +41,9 @@ ui(new Ui::GUI)
                       ki18n("Config your Gtk Apps"),
                       KAboutData::License_GPL_V2,
                       ki18n("Copyright 2011 José Antonio Sánchez Reynaga"));
-       acercade->addAuthor(ki18n("José Antonio Sánchez Reynaga (antonioJASR)"),ki18n("Programador"), "joanzare@gmail.com");
-       acercade->addCredit(ki18n("Manuel Tortosa (manutortosa)"), ki18n("Aportador de ideas, tester y traductor"));
-       acercade->addCredit(ki18n("Adrián Chávez Hernández (Gallaecio)"), ki18n("traduccion"));
+       acercade->addAuthor(ki18n("José Antonio Sánchez Reynaga (antonioJASR)"),ki18n("Main Developer"), "joanzare@gmail.com");
+       acercade->addCredit(ki18n("Manuel Tortosa (manutortosa)"), ki18n("Ideas, tester, internationalization"));
+       acercade->addCredit(ki18n("Adrián Chávez Hernández (Gallaecio)"), ki18n("Internationalization"));
        setAboutData(acercade);
     
     ui->setupUi(this);
