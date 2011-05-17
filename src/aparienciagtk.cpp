@@ -303,7 +303,7 @@ QStringList AparienciaGTK::getAvaliableThemes()
 
         //Si no existe el fichero gtkrc, no es un tema gtk valido, eliminar de la lista de temas
         if(!gtkrc){
-            qDebug() << "Folder : " << i << " does not contain a gtk-2.0 folder, discard it";
+            //qDebug() << "Folder : " << i << " does not contain a gtk-2.0 folder, discard it";
             temasDisponibles.removeAll(i);
         }
 
@@ -384,7 +384,7 @@ bool AparienciaGTK::loadFileConfig(){
 
             }
             
-            qDebug() << "PASDFSADFD"  << texto;
+           // qDebug() << "PASDFSADFD"  << texto;
 
             // Obtenemos los atributos de los temas
             foreach(QString i, texto){
@@ -454,22 +454,22 @@ bool AparienciaGTK::loadFileConfig(){
 
             }
             
-            qDebug() << "Check Settings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<";
+            //qDebug() << "Check Settings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<";
             if(toolbar_style.isNull()){
                  toolbar_style = "GTK_TOOLBAR_ICONS";
-                 qDebug() << "PICKED OPTIONS toolbar style: " << toolbar_style;
+                // qDebug() << "PICKED OPTIONS toolbar style: " << toolbar_style;
             }
             
             if(show_icons_buttons.isNull()){
                  show_icons_buttons = "0";
-                 qDebug() << "PICKED OPTIONS, show icons in buttons: " << show_icons_buttons;
+                 //qDebug() << "PICKED OPTIONS, show icons in buttons: " << show_icons_buttons;
             }
             
             if(show_icons_menus.isNull()){
                  show_icons_menus = "0";
-                 qDebug() << "PICKED OPTIONS, show icons in menus: " << show_icons_menus;
+                // qDebug() << "PICKED OPTIONS, show icons in menus: " << show_icons_menus;
             }
-            qDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";;
+            //qDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";;
             
             
 
@@ -526,7 +526,7 @@ bool AparienciaGTK::saveFileConfig()
     flujo << "# File created by Chakra Gtk Config" << "\n"
             << "# Configs for GTK2 progrmans \n\n";
 
-    qDebug() << "\tSearch for gtkrc files in folder :  " << settings["theme_path"];
+    //qDebug() << "\tSearch for gtkrc files in folder :  " << settings["theme_path"];
 
     //Buscar archivo gtkrc en el tema
     QDir tema(settings["theme_path"]);

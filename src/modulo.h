@@ -26,6 +26,7 @@
 #include "aparienciagtk.h"
 #include "dialog_installer.h"
 #include "dialog_uninstaller.h"
+#include <knewstuff3/downloaddialog.h>
 namespace Ui {
     class Modulo;
 }
@@ -55,6 +56,9 @@ public slots:
     void makePreviewIconTheme();
     void appChanged(); //Metodo que se ejecuta cuando un cambio en la gui se ha registrado  
     
+    void showThemeGHNS();
+  
+    
     virtual void save();
     virtual void defaults();
     
@@ -79,6 +83,7 @@ private:
     
     DialogInstaller *installer;
     DialogUninstaller *uninstaller;
+    
     
     
 

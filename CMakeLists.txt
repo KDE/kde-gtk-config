@@ -30,6 +30,13 @@ set(kcm_SRCS
 
 )
 
+# ficheros para GHNS
+set(GHNS_FILES 
+     cgcicon.knsrc
+     cgctheme.knsrc
+)
+
+
 # Uis 
 message("CURRENT FOLDER : ${chakragtkconfig_SOURCE_DIR}")
 kde4_add_ui_files(kcm_SRCS 
@@ -39,8 +46,11 @@ kde4_add_ui_files(kcm_SRCS
 )
 kde4_add_plugin(kcm_cgc ${kcm_SRCS})
 
-target_link_libraries(kcm_cgc ${KDE4_KIO_LIBS} )
+message("GHNS DIR : ${CONFIG_INSTALL_DIR}")
+
+target_link_libraries(kcm_cgc ${KDE4_KIO_LIBS} ${KDE4_KNEWSTUFF3_LIBS})
 message("THE PLUGIN WILL BE INSTALLED HERE = ${KDE4_LIB_DIR}/kde4")
 
 install(TARGETS kcm_cgc DESTINATION ${KDE4_LIB_DIR}/kde4)
+install(FILES ${GHNS_FILES} DESTINATION ${CONFIG_INSTALL_DIR})
 install(FILES chakra-gtk-config.desktop DESTINATION ${KDE4_SERVICES_INSTALL_DIR})

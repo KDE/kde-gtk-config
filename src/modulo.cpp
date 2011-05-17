@@ -37,7 +37,7 @@ ui(new Ui::GUI)
 {
     
       Q_UNUSED(args);
-       KAboutData *acercade = new KAboutData("cgc","kcm_cgc",ki18n("Chakra Gtk Config"),"1.5",
+       KAboutData *acercade = new KAboutData("cgc","kcm_cgc",ki18n("Chakra Gtk Config"),"1.6",
                       ki18n("Config your Gtk Apps"),
                       KAboutData::License_GPL_V2,
                       ki18n("Copyright 2011 José Antonio Sánchez Reynaga"));
@@ -84,6 +84,12 @@ ui(new Ui::GUI)
     connect(ui->cb_font, SIGNAL(activated(QString)), this, SLOT(makePreviewFont()));
     connect(ui->cb_font_style, SIGNAL(activated(QString)), this, SLOT(makePreviewFont()));
     connect(ui->spin_font_tam, SIGNAL(valueChanged(int)), this, SLOT(makePreviewFont()));
+    
+     //Nuevo hot stuff
+    connect(ui->but_theme_ghns, SIGNAL(clicked(bool)), this, SLOT(showThemeGHNS()));
+    
+    
+    
 }
 
 
@@ -94,6 +100,24 @@ Modulo::~Modulo()
     delete installer;
     delete uninstaller;
 }
+
+//muestra el dialogo GHNS
+void Modulo::showThemeGHNS()
+{
+     
+     KNS3::DownloadDialog dialogo("cgctheme.knsrc", this);
+     if(dialogo.exec()){
+          refreshLists();
+     }
+     else{
+          
+     }
+     
+
+}
+
+
+
 
 
 void Modulo::refreshLists()
@@ -254,34 +278,34 @@ void Modulo::makePreviewIconTheme()
     //PRIMER ICONO
 
     QFileInfo temp(path_fallback+"/48x48/places/folder_home.png");
-    qDebug() << "******************************** FALLBACK ICONS"
-             << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "******************************** FALLBACK ICONS"
+     //        << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
 
     if(temp.exists()) ui->lb_prev_1->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_fallback+"/places/48/folder_home.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_1->setPixmap(QPixmap(temp.absoluteFilePath()));
     
     
     //Soporte para elementary
     temp.setFile(path_fallback+"/places/48/folder_home.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_1->setPixmap(QPixmap(temp.absoluteFilePath()));
     
 
     //SEGUNDO ICONO
 
     temp.setFile(path_fallback+"/places/48/user-trash.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_2->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_fallback+"/places/48/user-trash.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_2->setPixmap(QPixmap(temp.absoluteFilePath()));
     
     temp.setFile(path_fallback+"/48x48/places/user-trash.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_2->setPixmap(QPixmap(temp.absoluteFilePath()));
     
     
@@ -289,104 +313,104 @@ void Modulo::makePreviewIconTheme()
     //TERCER ICONO
 
     temp.setFile(path_fallback+"/48x48/actions/document-print.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_3->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_fallback+"/actions/48/document-print.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_3->setPixmap(QPixmap(temp.absoluteFilePath()));
     
     temp.setFile(path_fallback+"/actions/48/document-print.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_3->setPixmap(QPixmap(temp.absoluteFilePath()));
 
         
     //CUARTO ICONO
     temp.setFile(path_fallback+"/48x48/places/user-desktop.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_4->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_fallback+"/places/48/user-desktop.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_4->setPixmap(QPixmap(temp.absoluteFilePath()));
     
     temp.setFile(path_fallback+"/places/48/user-desktop.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_4->setPixmap(QPixmap(temp.absoluteFilePath()));
-    qDebug() << "\n***********************************************";
+    //qDebug() << "\n***********************************************";
     
     //CINCO ICONO
     temp.setFile(path_fallback+"/48x48/places/user-bookmarks.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_5->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_fallback+"/places/48/user-bookmarks.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_5->setPixmap(QPixmap(temp.absoluteFilePath()));
     
      temp.setFile(path_fallback+"/places/48/user-bookmarks.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_5->setPixmap(QPixmap(temp.absoluteFilePath()));
     
-    qDebug() << "\n***********************************************";
+    //qDebug() << "\n***********************************************";
     
     //SEXTO ICONO
     temp.setFile(path_fallback+"/48x48/places/network-server.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_6->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_fallback+"/places/48/network-server.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_6->setPixmap(QPixmap(temp.absoluteFilePath()));
     
     temp.setFile(path_fallback+"/places/48/network-server.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_6->setPixmap(QPixmap(temp.absoluteFilePath()));
-    qDebug() << "\n***********************************************";
+    //qDebug() << "\n***********************************************";
     
     //SEPTIMO ICONO
     temp.setFile(path_fallback+"/48x48/apps/help.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_7->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_fallback+"/apps/48/help.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_7->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     
     temp.setFile(path_fallback+"/apps/48/help.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+  // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_7->setPixmap(QPixmap(temp.absoluteFilePath()));
-    qDebug() << "\n***********************************************";
+   // qDebug() << "\n***********************************************";
     
     //OCTAVO ICONO
     temp.setFile(path_fallback+"/48x48/places/start-here.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+  //  qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_8->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_fallback+"/places/48/start-here.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+  //  qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_8->setPixmap(QPixmap(temp.absoluteFilePath()));
     
         temp.setFile(path_fallback+"/places/48/start-here.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_8->setPixmap(QPixmap(temp.absoluteFilePath()));
-    qDebug() << "\n***********************************************";
+  //  qDebug() << "\n***********************************************";
     
     //NOVENO ICONO
 
     temp.setFile(path_fallback+"/48x48/actions/up.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+  //  qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_9->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_fallback+"/actions/48/up.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+  //  qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_9->setPixmap(QPixmap(temp.absoluteFilePath()));
     
        temp.setFile(path_fallback+"/actions/48/up.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+  //  qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_9->setPixmap(QPixmap(temp.absoluteFilePath()));
-    qDebug() << "\n***********************************************";
+  //  qDebug() << "\n***********************************************";
 
 
     //AHORA TOCA EL TURNO DE LOS ICONOS
@@ -401,140 +425,140 @@ void Modulo::makePreviewIconTheme()
         }
     }
 
-    qDebug() << "-- URL ICON PATH " << path_icon;
+   // qDebug() << "-- URL ICON PATH " << path_icon;
 
 
     //PRIMER ICONO
 
     temp.setFile(path_icon+"/48x48/places/folder_home.png");
-    qDebug() << "******************************** NORMAL ICONS"
-             << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "******************************** NORMAL ICONS"
+   //          << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
 
     if(temp.exists()) ui->lb_prev_1->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_icon+"/places/48/folder_home.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_1->setPixmap(QPixmap(temp.absoluteFilePath()));
     
       temp.setFile(path_icon+"/places/48/folder_home.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_1->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     //SEGUNDO ICONO
 
     temp.setFile(path_icon+"/places/48/user-trash.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_2->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     
         temp.setFile(path_icon+"/places/48/user-trash.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_2->setPixmap(QPixmap(temp.absoluteFilePath()));
     
     temp.setFile(path_icon+"/48x48/places/user-trash.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_2->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     //TERCER ICONO
 
     temp.setFile(path_icon+"/48x48/actions/document-print.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_3->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_icon+"/actions/48/document-print.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_3->setPixmap(QPixmap(temp.absoluteFilePath()));
     
      temp.setFile(path_icon+"/actions/48/document-print.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_3->setPixmap(QPixmap(temp.absoluteFilePath()));
-    qDebug() << "\n***********************************************";
+    //qDebug() << "\n***********************************************";
     
     //CUARTO ICONO
     temp.setFile(path_icon+"/48x48/places/user-desktop.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_4->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_icon+"/places/48/user-desktop.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_4->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_icon+"/places/48/user-desktop.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_4->setPixmap(QPixmap(temp.absoluteFilePath()));
     
-    qDebug() << "\n***********************************************";
+   // qDebug() << "\n***********************************************";
     
     //CINCO ICONO
     temp.setFile(path_icon+"/48x48/places/user-bookmarks.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_5->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_icon+"/places/48/user-bookmarks.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_5->setPixmap(QPixmap(temp.absoluteFilePath()));
     
     temp.setFile(path_icon+"/places/48/user-bookmarks.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_5->setPixmap(QPixmap(temp.absoluteFilePath()));
-    qDebug() << "\n***********************************************";
+   // qDebug() << "\n***********************************************";
     
     //SEXTO ICONO
     temp.setFile(path_icon+"/48x48/places/network-server.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_6->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_icon+"/places/48/network-server.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_6->setPixmap(QPixmap(temp.absoluteFilePath()));
     
     temp.setFile(path_icon+"/places/48/network-server.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_6->setPixmap(QPixmap(temp.absoluteFilePath()));
-    qDebug() << "\n***********************************************";
+    //qDebug() << "\n***********************************************";
     
     //SEPTIMO ICONO
     temp.setFile(path_icon+"/48x48/apps/help.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_7->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_icon+"/apps/48/help.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_7->setPixmap(QPixmap(temp.absoluteFilePath()));
     
     temp.setFile(path_icon+"/apps/48/help.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_7->setPixmap(QPixmap(temp.absoluteFilePath()));
-    qDebug() << "\n***********************************************";
+    //qDebug() << "\n***********************************************";
     
     //OCTAVO ICONO
     temp.setFile(path_icon+"/48x48/places/start-here.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_8->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_icon+"/places/48/start-here.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_8->setPixmap(QPixmap(temp.absoluteFilePath()));
     
         temp.setFile(path_icon+"/places/48/start-here.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+   // qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_8->setPixmap(QPixmap(temp.absoluteFilePath()));
-    qDebug() << "\n***********************************************";
+   // qDebug() << "\n***********************************************";
     
     //NOVENO ICONO
 
     temp.setFile(path_icon+"/48x48/actions/up.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_9->setPixmap(QPixmap(temp.absoluteFilePath()));
 
     temp.setFile(path_icon+"/actions/48/up.png");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_9->setPixmap(QPixmap(temp.absoluteFilePath()));
     
      temp.setFile(path_icon+"/actions/48/up.svg");
-    qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
+    //qDebug() << "\nExist : " << temp.absoluteFilePath() << " : " << temp.exists();
     if(temp.exists()) ui->lb_prev_9->setPixmap(QPixmap(temp.absoluteFilePath()));
-    qDebug() << "\n***********************************************";
+    //qDebug() << "\n***********************************************";
 }
 
 void Modulo::appChanged()
