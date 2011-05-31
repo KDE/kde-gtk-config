@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@chakra-project.org\n"
-"POT-Creation-Date: 2011-05-31 20:27+0200\n"
-"PO-Revision-Date: 2011-05-15 15:40+0100\n"
+"POT-Creation-Date: 2011-05-31 20:36+0200\n"
+"PO-Revision-Date: 2011-05-16 21:03+0100\n"
 "Last-Translator: Pavel Zelenka <pavel.zelenka@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Chakra Gtk Config</span></p></body></html>"
+"size:12pt; font-weight:600;\">Chakra Nastavení Gtk</span></p></body></html>"
 
 #. i18n: file: src/ui/dialog_installer.ui:141
 #. i18n: ectx: property (text), widget (QLabel, lb_theme)
@@ -91,8 +91,7 @@ msgstr "Vyberte soubor"
 #: build/ui_dialog_installer.h:309 build/ui_dialog_installer.h:337
 #: translations/rc.cpp:22 translations/rc.cpp:74 rc.cpp:22 rc.cpp:74
 msgid "Click the next button in order to install the theme in your system"
-msgstr ""
-"Klikněte na tlačítko další, aby se mohl nainstalovat motiv do vašeho systému"
+msgstr "Klikněte na tlačítko pro nainstalování motivu do systému"
 
 #. i18n: file: src/ui/dialog_installer.ui:204
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -125,7 +124,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Step 1:</span></p></body></html>"
+"size:10pt; font-weight:600;\">Krok 1:</span></p></body></html>"
 
 #. i18n: file: src/ui/dialog_installer.ui:211
 #. i18n: ectx: property (text), widget (QLabel, label_3)
@@ -177,7 +176,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Step 2 :</span></p></body></html>"
+"size:10pt; font-weight:600;\">Krok 2 :</span></p></body></html>"
 
 #. i18n: file: src/ui/dialog_installer.ui:123
 #. i18n: ectx: attribute (title), widget (QWidget, tabWidgetPage1)
@@ -213,7 +212,7 @@ msgstr "Odstranit motiv"
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: build/ui_dialog_uninstaller.h:242 translations/rc.cpp:90 rc.cpp:90
 msgid "Select an Gtk theme from the list"
-msgstr "Vyberte Gtk motiv ze seznamu"
+msgstr "Zvolte si Gtk motiv ze seznamu"
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:84
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -259,7 +258,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Step 1:</span></p></body></html>"
+"weight:600;\">Krok 1:</span></p></body></html>"
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:106
 #. i18n: ectx: property (text), widget (QLabel, label_5)
@@ -292,7 +291,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Step 2:</span></p></body></html>"
+"weight:600;\">Krok 2:</span></p></body></html>"
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:117
 #. i18n: ectx: property (text), widget (QLabel, label_10)
@@ -318,7 +317,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Remove Gtk Theme</span></p></body></html>"
+"size:12pt; font-weight:600;\">Odstranit motiv Gtk</span></p></body></html>"
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:141
 #. i18n: ectx: property (text), widget (QPushButton, but_uninstall_theme)
@@ -337,7 +336,7 @@ msgstr "Odinstalovat"
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: build/ui_dialog_uninstaller.h:262 translations/rc.cpp:120 rc.cpp:120
 msgid "Select an icon theme from the list"
-msgstr "Vyberte motiv ikon ze seznamu"
+msgstr "Zvolte si motiv ikon ze seznamu"
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:197
 #. i18n: ectx: property (text), widget (QLabel, label_12)
@@ -363,7 +362,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Remove Icons Theme</span></p></body></html>"
+"size:12pt; font-weight:600;\">Odstranit motiv ikon</span></p></body></html>"
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:263
 #. i18n: ectx: property (text), widget (QPushButton, but_accept)
@@ -375,25 +374,25 @@ msgstr "    Ok   "
 #. i18n: ectx: property (windowTitle), widget (QWidget, GUI)
 #: build/ui_gui.h:536 src/modulo.cpp:40 translations/rc.cpp:153 rc.cpp:153
 msgid "Chakra Gtk Config"
-msgstr "Chakra Gtk Config"
+msgstr "Chakra Nastavení Gtk"
 
 #. i18n: file: src/ui/gui.ui:63
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: build/ui_gui.h:537 translations/rc.cpp:159 rc.cpp:159
 msgid "Select Icons Theme"
-msgstr "Výběr motivu ikon"
+msgstr "Zvolte motiv ikon"
 
 #. i18n: file: src/ui/gui.ui:73
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: build/ui_gui.h:538 translations/rc.cpp:162 rc.cpp:162
 msgid "Select Fallback Icons theme"
-msgstr "Výběr záložního motivu ikon"
+msgstr "Zvolte záložní motiv ikon"
 
 #. i18n: file: src/ui/gui.ui:325
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: build/ui_gui.h:556 translations/rc.cpp:165 rc.cpp:165
 msgid "Select a Theme"
-msgstr "Výběr motivu"
+msgstr "Zvolte motiv"
 
 #. i18n: file: src/ui/gui.ui:342
 #. i18n: ectx: property (text), widget (QLabel, label_6)
@@ -419,7 +418,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">GTK Theme</span></p></body></html>"
+"size:10pt; font-weight:600;\">Motiv GTK</span></p></body></html>"
 
 #. i18n: file: src/ui/gui.ui:353
 #. i18n: ectx: property (text), widget (QLabel, label_8)
@@ -445,37 +444,37 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Icons Theme</span></p></body></html>"
+"size:10pt; font-weight:600;\">Motiv ikon</span></p></body></html>"
 
 #. i18n: file: src/ui/gui.ui:408
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: build/ui_gui.h:570 translations/rc.cpp:182 rc.cpp:182
 msgid "Select Font Family"
-msgstr "Výběr rodiny písma"
+msgstr "Zvolte rodinu písma"
 
 #. i18n: file: src/ui/gui.ui:432
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
 #: build/ui_gui.h:573 translations/rc.cpp:185 rc.cpp:185
 msgid "normal"
-msgstr "běžné"
+msgstr "Obyčejný"
 
 #. i18n: file: src/ui/gui.ui:437
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
 #: build/ui_gui.h:574 translations/rc.cpp:188 rc.cpp:188
 msgid "bold"
-msgstr "tučné"
+msgstr "Tučné"
 
 #. i18n: file: src/ui/gui.ui:442
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
 #: build/ui_gui.h:575 translations/rc.cpp:191 rc.cpp:191
 msgid "italic"
-msgstr "kurzíva"
+msgstr "Skloněné"
 
 #. i18n: file: src/ui/gui.ui:447
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
 #: build/ui_gui.h:576 translations/rc.cpp:194 rc.cpp:194
 msgid "bold italic"
-msgstr "tučná kurzíva"
+msgstr "Tučné Skloněné"
 
 #. i18n: file: src/ui/gui.ui:455
 #. i18n: ectx: property (suffix), widget (QSpinBox, spin_font_tam)
@@ -487,7 +486,7 @@ msgstr " px"
 #. i18n: ectx: property (text), widget (QLabel, lb_font_preview)
 #: build/ui_gui.h:579 translations/rc.cpp:200 rc.cpp:200
 msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
-msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
+msgstr "Žluťoučký kůň úpěl ďábelské ódy"
 
 #. i18n: file: src/ui/gui.ui:30
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
@@ -499,49 +498,49 @@ msgstr "Nastavení"
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
 #: build/ui_gui.h:584 translations/rc.cpp:206 rc.cpp:206
 msgid "Icons only"
-msgstr ""
+msgstr "Pouze ikony"
 
 #. i18n: file: src/ui/gui.ui:546
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
 #: build/ui_gui.h:585 translations/rc.cpp:209 rc.cpp:209
 msgid "Text only"
-msgstr ""
+msgstr "Pouze text"
 
 #. i18n: file: src/ui/gui.ui:551
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
 #: build/ui_gui.h:586 translations/rc.cpp:212 rc.cpp:212
 msgid "Text under icons"
-msgstr ""
+msgstr "Text před ikonami"
 
 #. i18n: file: src/ui/gui.ui:556
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
 #: build/ui_gui.h:587 translations/rc.cpp:215 rc.cpp:215
 msgid "Text after icons"
-msgstr ""
+msgstr "Text za ikonami"
 
 #. i18n: file: src/ui/gui.ui:571
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_icon_gtk_buttons)
 #: build/ui_gui.h:589 translations/rc.cpp:218 rc.cpp:218
 msgid "Show icons in Gtk Buttons"
-msgstr ""
+msgstr "Zobrazit ikony v Gtk tlačítkách"
 
 #. i18n: file: src/ui/gui.ui:578
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_icon_gtk_menus)
 #: build/ui_gui.h:590 translations/rc.cpp:221 rc.cpp:221
 msgid "Show Icons in Gtk Menus"
-msgstr ""
+msgstr "Zobrazit ikony v Gtk nabídkách"
 
 #. i18n: file: src/ui/gui.ui:597
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: build/ui_gui.h:591 translations/rc.cpp:224 rc.cpp:224
 msgid "Gtk style toolbar"
-msgstr ""
+msgstr "Motiv Gtk lišty nástrojů"
 
 #. i18n: file: src/ui/gui.ui:528
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: build/ui_gui.h:592 translations/rc.cpp:203 rc.cpp:203
 msgid "Fine Tuning"
-msgstr ""
+msgstr "Ladění"
 
 #. i18n: file: src/ui/gui.ui:635
 #. i18n: ectx: property (text), widget (QLabel, label_11)
@@ -571,8 +570,8 @@ msgstr ""
 "size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Sans Serif'; font-size:12pt; font-weight:600;\">ADD AND REMOVE "
-"THEMES</span></p>\n"
+"family:'Sans Serif'; font-size:12pt; font-weight:600;\">PŘIDAT A ODEBRAT "
+"MOTIVY</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
 "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
 "family:'Sans Serif'; font-size:12pt; font-weight:600;\"></p></body></html>"
@@ -625,13 +624,12 @@ msgstr ""
 "size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Sans Serif'; font-size:10pt;\">You can install new themes for your "
-"system, those themes are package files with *.tar.gz or *.tar extension.</"
-"span></p>\n"
+"family:'Sans Serif'; font-size:10pt;\">Do systému si můžete nainstalovat "
+"nové motivy. Soubory motivů jsou zabalené jako tar.gz nebo tar.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Sans Serif'; font-size:10pt;\">We suggest the following web pages "
-"for download new themes:</span></p>\n"
+"family:'Sans Serif'; font-size:10pt;\">Doporučujeme stáhnout na těchto "
+"stránkách nové motivy:</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
 "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
 "family:'Sans Serif'; font-size:10pt; text-decoration: underline; color:"
@@ -761,7 +759,7 @@ msgstr "José Antonio Sánchez Reynaga (antonioJASR)"
 
 #: src/modulo.cpp:44
 msgid "Main Developer"
-msgstr ""
+msgstr "Hlavní vývojář"
 
 #: src/modulo.cpp:45
 msgid "Manuel Tortosa (manutortosa)"
@@ -769,7 +767,7 @@ msgstr "Manuel Tortosa (manutortosa)"
 
 #: src/modulo.cpp:45
 msgid "Ideas, tester, internationalization"
-msgstr ""
+msgstr "Nápady, tester, lokalizace"
 
 #: src/modulo.cpp:46
 msgid "Adrián Chávez Hernández (Gallaecio)"
@@ -777,7 +775,7 @@ msgstr "Adrián Chávez Hernández (Gallaecio)"
 
 #: src/modulo.cpp:46
 msgid "Internationalization"
-msgstr ""
+msgstr "Lokalizace"
 
 #: translations/rc.cpp:269 rc.cpp:269
 msgctxt "NAME OF TRANSLATORS"
