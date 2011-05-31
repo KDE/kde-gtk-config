@@ -39,15 +39,14 @@ v1.2
 * Fix a bug in the layout for some Qt themes
 
 v1.3 
-* Crea enlace al archivo .gtkrc-2.0-kde4
+* Symlink .gtkrc-2.0-kde4
 
 v1.4
 * Bug Fixing
-* 
 
 v1.5
-Add support for the toolbar style 
+* Add support for the toolbar style 
 
 v1.6
-half-support for GHNS in gtk themes
+* Support for GHNS in gtk themes
 

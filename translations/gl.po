@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@chakra-project.org\n"
-"POT-Creation-Date: 2011-05-16 00:58+0200\n"
+"POT-Creation-Date: 2011-05-31 20:27+0200\n"
 "PO-Revision-Date: 2011-01-13 21:13+0100\n"
 "Last-Translator: Manue Tortosa <manutortosa@chakra-project.org>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -379,31 +379,31 @@ msgstr "    Bien   "
 
 #. i18n: file: src/ui/gui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, GUI)
-#: build/ui_gui.h:527 src/modulo.cpp:40 translations/rc.cpp:153 rc.cpp:153
+#: build/ui_gui.h:536 src/modulo.cpp:40 translations/rc.cpp:153 rc.cpp:153
 msgid "Chakra Gtk Config"
 msgstr "Configuración do Gtk de Chakra"
 
 #. i18n: file: src/ui/gui.ui:63
 #. i18n: ectx: property (text), widget (QLabel, label_10)
-#: build/ui_gui.h:528 translations/rc.cpp:159 rc.cpp:159
+#: build/ui_gui.h:537 translations/rc.cpp:159 rc.cpp:159
 msgid "Select Icons Theme"
 msgstr "Escoller unha colección de iconas"
 
 #. i18n: file: src/ui/gui.ui:73
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: build/ui_gui.h:529 translations/rc.cpp:162 rc.cpp:162
+#: build/ui_gui.h:538 translations/rc.cpp:162 rc.cpp:162
 msgid "Select Fallback Icons theme"
 msgstr "Escoller unha colección de iconas secundaria"
 
 #. i18n: file: src/ui/gui.ui:325
 #. i18n: ectx: property (text), widget (QLabel, label_9)
-#: build/ui_gui.h:547 translations/rc.cpp:165 rc.cpp:165
+#: build/ui_gui.h:556 translations/rc.cpp:165 rc.cpp:165
 msgid "Select a Theme"
 msgstr "Escoller un tema visual"
 
 #. i18n: file: src/ui/gui.ui:342
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: build/ui_gui.h:548 translations/rc.cpp:168 rc.cpp:168
+#: build/ui_gui.h:557 translations/rc.cpp:168 rc.cpp:168
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -429,7 +429,7 @@ msgstr ""
 
 #. i18n: file: src/ui/gui.ui:353
 #. i18n: ectx: property (text), widget (QLabel, label_8)
-#: build/ui_gui.h:553 translations/rc.cpp:175 rc.cpp:175
+#: build/ui_gui.h:562 translations/rc.cpp:175 rc.cpp:175
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -455,103 +455,103 @@ msgstr ""
 
 #. i18n: file: src/ui/gui.ui:408
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: build/ui_gui.h:561 translations/rc.cpp:182 rc.cpp:182
+#: build/ui_gui.h:570 translations/rc.cpp:182 rc.cpp:182
 msgid "Select Font Family"
 msgstr "Escoller un tipo de letra"
 
 #. i18n: file: src/ui/gui.ui:432
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: build/ui_gui.h:564 translations/rc.cpp:185 rc.cpp:185
+#: build/ui_gui.h:573 translations/rc.cpp:185 rc.cpp:185
 msgid "normal"
 msgstr "normal"
 
 #. i18n: file: src/ui/gui.ui:437
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: build/ui_gui.h:565 translations/rc.cpp:188 rc.cpp:188
+#: build/ui_gui.h:574 translations/rc.cpp:188 rc.cpp:188
 msgid "bold"
 msgstr "grosa"
 
 #. i18n: file: src/ui/gui.ui:442
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: build/ui_gui.h:566 translations/rc.cpp:191 rc.cpp:191
+#: build/ui_gui.h:575 translations/rc.cpp:191 rc.cpp:191
 msgid "italic"
 msgstr "cursiva"
 
 #. i18n: file: src/ui/gui.ui:447
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: build/ui_gui.h:567 translations/rc.cpp:194 rc.cpp:194
+#: build/ui_gui.h:576 translations/rc.cpp:194 rc.cpp:194
 msgid "bold italic"
 msgstr "grosa cursiva"
 
 #. i18n: file: src/ui/gui.ui:455
 #. i18n: ectx: property (suffix), widget (QSpinBox, spin_font_tam)
-#: build/ui_gui.h:569 translations/rc.cpp:197 rc.cpp:197
+#: build/ui_gui.h:578 translations/rc.cpp:197 rc.cpp:197
 msgid " px"
 msgstr " px"
 
 #. i18n: file: src/ui/gui.ui:492
 #. i18n: ectx: property (text), widget (QLabel, lb_font_preview)
-#: build/ui_gui.h:570 translations/rc.cpp:200 rc.cpp:200
+#: build/ui_gui.h:579 translations/rc.cpp:200 rc.cpp:200
 msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
 msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
 
 #. i18n: file: src/ui/gui.ui:30
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: build/ui_gui.h:571 translations/rc.cpp:156 rc.cpp:156
+#: build/ui_gui.h:580 translations/rc.cpp:156 rc.cpp:156
 msgid "Configuration"
 msgstr "Configuración"
 
 #. i18n: file: src/ui/gui.ui:541
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
-#: build/ui_gui.h:575 translations/rc.cpp:206 rc.cpp:206
+#: build/ui_gui.h:584 translations/rc.cpp:206 rc.cpp:206
 msgid "Icons only"
 msgstr ""
 
 #. i18n: file: src/ui/gui.ui:546
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
-#: build/ui_gui.h:576 translations/rc.cpp:209 rc.cpp:209
+#: build/ui_gui.h:585 translations/rc.cpp:209 rc.cpp:209
 msgid "Text only"
 msgstr ""
 
 #. i18n: file: src/ui/gui.ui:551
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
-#: build/ui_gui.h:577 translations/rc.cpp:212 rc.cpp:212
+#: build/ui_gui.h:586 translations/rc.cpp:212 rc.cpp:212
 msgid "Text under icons"
 msgstr ""
 
 #. i18n: file: src/ui/gui.ui:556
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
-#: build/ui_gui.h:578 translations/rc.cpp:215 rc.cpp:215
+#: build/ui_gui.h:587 translations/rc.cpp:215 rc.cpp:215
 msgid "Text after icons"
 msgstr ""
 
 #. i18n: file: src/ui/gui.ui:571
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_icon_gtk_buttons)
-#: build/ui_gui.h:580 translations/rc.cpp:218 rc.cpp:218
+#: build/ui_gui.h:589 translations/rc.cpp:218 rc.cpp:218
 msgid "Show icons in Gtk Buttons"
 msgstr ""
 
 #. i18n: file: src/ui/gui.ui:578
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_icon_gtk_menus)
-#: build/ui_gui.h:581 translations/rc.cpp:221 rc.cpp:221
+#: build/ui_gui.h:590 translations/rc.cpp:221 rc.cpp:221
 msgid "Show Icons in Gtk Menus"
 msgstr ""
 
 #. i18n: file: src/ui/gui.ui:597
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: build/ui_gui.h:582 translations/rc.cpp:224 rc.cpp:224
+#: build/ui_gui.h:591 translations/rc.cpp:224 rc.cpp:224
 msgid "Gtk style toolbar"
 msgstr ""
 
 #. i18n: file: src/ui/gui.ui:528
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: build/ui_gui.h:583 translations/rc.cpp:203 rc.cpp:203
+#: build/ui_gui.h:592 translations/rc.cpp:203 rc.cpp:203
 msgid "Fine Tuning"
 msgstr ""
 
 #. i18n: file: src/ui/gui.ui:635
 #. i18n: ectx: property (text), widget (QLabel, label_11)
-#: build/ui_gui.h:584 translations/rc.cpp:230 rc.cpp:230
+#: build/ui_gui.h:593 translations/rc.cpp:230 rc.cpp:230
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -584,7 +584,7 @@ msgstr ""
 
 #. i18n: file: src/ui/gui.ui:654
 #. i18n: ectx: property (text), widget (QLabel, label_13)
-#: build/ui_gui.h:590 translations/rc.cpp:238 rc.cpp:238
+#: build/ui_gui.h:599 translations/rc.cpp:238 rc.cpp:238
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -657,37 +657,49 @@ msgstr ""
 
 #. i18n: file: src/ui/gui.ui:676
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: build/ui_gui.h:601 translations/rc.cpp:250 rc.cpp:250
+#: build/ui_gui.h:610 translations/rc.cpp:250 rc.cpp:250
 msgid "Actions"
 msgstr "Accións"
 
 #. i18n: file: src/ui/gui.ui:688
 #. i18n: ectx: property (text), widget (QCommandLinkButton, clb_add_theme)
-#: build/ui_gui.h:602 translations/rc.cpp:253 rc.cpp:253
+#: build/ui_gui.h:611 translations/rc.cpp:253 rc.cpp:253
 msgid "ADD THEMES"
 msgstr "Engadir temas visuais"
 
 #. i18n: file: src/ui/gui.ui:691
 #. i18n: ectx: property (description), widget (QCommandLinkButton, clb_add_theme)
-#: build/ui_gui.h:603 translations/rc.cpp:256 rc.cpp:256
+#: build/ui_gui.h:612 translations/rc.cpp:256 rc.cpp:256
 msgid "Install theme from file ..."
 msgstr "Instalar un tema visual a partir dun ficheiro..."
 
 #. i18n: file: src/ui/gui.ui:704
 #. i18n: ectx: property (text), widget (QCommandLinkButton, clb_remove_theme)
-#: build/ui_gui.h:604 translations/rc.cpp:259 rc.cpp:259
+#: build/ui_gui.h:613 translations/rc.cpp:259 rc.cpp:259
 msgid "REMOVE THEMES"
 msgstr "Quitar temas visuais"
 
 #. i18n: file: src/ui/gui.ui:707
 #. i18n: ectx: property (description), widget (QCommandLinkButton, clb_remove_theme)
-#: build/ui_gui.h:605 translations/rc.cpp:262 rc.cpp:262
+#: build/ui_gui.h:614 translations/rc.cpp:262 rc.cpp:262
 msgid "Remove themes installed in the system ..."
 msgstr "Desinstalar temas visuais do sistema..."
 
+#. i18n: file: src/ui/gui.ui:766
+#. i18n: ectx: property (text), widget (QCommandLinkButton, but_theme_ghns)
+#: build/ui_gui.h:615 translations/rc.cpp:265 rc.cpp:265
+msgid "Download new gtk themes"
+msgstr ""
+
+#. i18n: file: src/ui/gui.ui:773
+#. i18n: ectx: property (description), widget (QCommandLinkButton, but_theme_ghns)
+#: build/ui_gui.h:616 translations/rc.cpp:268 rc.cpp:268
+msgid "Retrieve gtk themes from opendesktop.org"
+msgstr ""
+
 #. i18n: file: src/ui/gui.ui:624
 #. i18n: ectx: attribute (title), widget (QWidget, tab_install)
-#: build/ui_gui.h:606 translations/rc.cpp:227 rc.cpp:227
+#: build/ui_gui.h:617 translations/rc.cpp:227 rc.cpp:227
 msgid "Add and Remove Themes"
 msgstr "Xestionar os temas visuais"
 
@@ -772,12 +784,12 @@ msgstr ""
 msgid "Internationalization"
 msgstr ""
 
-#: translations/rc.cpp:263 rc.cpp:263
+#: translations/rc.cpp:269 rc.cpp:269
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Adrián Chaves Fernández (Gallaecio)"
 
-#: translations/rc.cpp:264 rc.cpp:264
+#: translations/rc.cpp:270 rc.cpp:270
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "adriyetichaves@gmail.com"
