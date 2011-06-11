@@ -2,6 +2,7 @@
 Categories=Qt;KDE;X-KDE-settings-looknfeel;
 Comment=Configuration of Gtk2 apps style
 Comment[ca]=Arranjament de l'estil de les aplicacions Gtk2
+Comment[cs]=Nastavení stylu Gtk2 aplikací
 Comment[es]=Configuración del estilo de las apliaciones Gtk2
 Comment[es]=Configuration du style des applications Gtk2
 Comment[gl]=Configuración da aparencia dos aplicativos Gtk2
@@ -11,6 +12,7 @@ Exec=kcmshell4 chakra-gtk-config
 Icon=preferences-desktop
 Name=Gtk Config
 Name[ca]=Arranjament Gtk
+Name[cs]=Nastavení Gtk
 Name[es]=Configuración Gtk
 Name[fr]=Configuration Gtk
 Name[gl]=Configuración do Gtk
