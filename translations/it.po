@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@chakra-project.org\n"
 "POT-Creation-Date: 2011-06-10 23:34+0200\n"
-"PO-Revision-Date: 2011-01-13 01:21+0100\n"
-"Last-Translator: Daniele Cocca <daniele.cocca@gmail.com>\n"
+"PO-Revision-Date: 2011-06-25 13:28+0200\n"
+"Last-Translator: \n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,9 +20,8 @@ msgstr ""
 #. i18n: file: src/ui/dialog_installer.ui:20
 #. i18n: ectx: property (windowTitle), widget (QDialog, dialog_installer)
 #: build/ui_dialog_installer.h:297 translations/rc.cpp:3 rc.cpp:3
-#, fuzzy
 msgid "Installer"
-msgstr "Disinstalla"
+msgstr "Installer"
 
 #. i18n: file: src/ui/dialog_installer.ui:39
 #. i18n: ectx: property (text), widget (QLabel, label_10)
@@ -55,7 +54,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Configuratore di GTK+ per Chakra</span></p></"
+"size:12pt; font-weight:600;\">Configuratore di Gtk per Chakra</span></p></"
 "body></html>"
 
 #. i18n: file: src/ui/dialog_installer.ui:141
@@ -128,7 +127,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Passo 1:</span></p></body></html>"
+"size:10pt; font-weight:600;\">Primo Passo:</span></p></body></html>"
 
 #. i18n: file: src/ui/dialog_installer.ui:211
 #. i18n: ectx: property (text), widget (QLabel, label_3)
@@ -147,7 +146,7 @@ msgstr "Seleziona il file del tema che vuoi installare"
 #. i18n: ectx: property (text), widget (QPushButton, but_theme_install)
 #: build/ui_dialog_installer.h:316 translations/rc.cpp:35 rc.cpp:35
 msgid "Install Gtk Theme"
-msgstr "Installa tema GTK+"
+msgstr "Installa tema Gtk"
 
 #. i18n: file: src/ui/dialog_installer.ui:235
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -180,13 +179,13 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Passo 2 :</span></p></body></html>"
+"size:10pt; font-weight:600;\">Secondo Passo :</span></p></body></html>"
 
 #. i18n: file: src/ui/dialog_installer.ui:123
 #. i18n: ectx: attribute (title), widget (QWidget, tabWidgetPage1)
 #: build/ui_dialog_installer.h:322 translations/rc.cpp:13 rc.cpp:13
 msgid "Add Gtk Theme"
-msgstr "Aggiungi un tema GTK+"
+msgstr "Aggiungi un tema Gtk"
 
 #. i18n: file: src/ui/dialog_installer.ui:326
 #. i18n: ectx: property (text), widget (QPushButton, but_icon_install)
@@ -204,7 +203,7 @@ msgstr "Aggiungi un nuovo tema di icone"
 #. i18n: ectx: property (text), widget (QPushButton, but_accepted)
 #: build/ui_dialog_installer.h:340 translations/rc.cpp:77 rc.cpp:77
 msgid "  Ok  "
-msgstr ""
+msgstr " Ok "
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:14
 #. i18n: ectx: property (windowTitle), widget (QDialog, dialog_uninstaller)
@@ -215,9 +214,8 @@ msgstr "Rimuovi temi"
 #. i18n: file: src/ui/dialog_uninstaller.ui:77
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: build/ui_dialog_uninstaller.h:242 translations/rc.cpp:90 rc.cpp:90
-#, fuzzy
 msgid "Select an Gtk theme from the list"
-msgstr "Seleziona un tema GTK+ dalla lista"
+msgstr "Seleziona un tema Gtk dalla lista"
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:84
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -263,7 +261,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Passo 1:</span></p></body></html>"
+"weight:600;\">Primo Passo:</span></p></body></html>"
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:106
 #. i18n: ectx: property (text), widget (QLabel, label_5)
@@ -296,7 +294,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Passo 2:</span></p></body></html>"
+"weight:600;\">Second Passo:</span></p></body></html>"
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:117
 #. i18n: ectx: property (text), widget (QLabel, label_10)
@@ -322,7 +320,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Rimuovi tema GTK+</span></p></body></html>"
+"size:12pt; font-weight:600;\">Rimuovi tema Gtk</span></p></body></html>"
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:141
 #. i18n: ectx: property (text), widget (QPushButton, but_uninstall_theme)
@@ -340,7 +338,6 @@ msgstr "Disinstalla"
 #. i18n: file: src/ui/dialog_uninstaller.ui:157
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: build/ui_dialog_uninstaller.h:262 translations/rc.cpp:120 rc.cpp:120
-#, fuzzy
 msgid "Select an icon theme from the list"
 msgstr "Seleziona un tema di icone dalla lista"
 
@@ -374,13 +371,13 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QPushButton, but_accept)
 #: build/ui_dialog_uninstaller.h:281 translations/rc.cpp:150 rc.cpp:150
 msgid "    Ok   "
-msgstr ""
+msgstr "   Ok  "
 
 #. i18n: file: src/ui/gui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, GUI)
 #: build/ui_gui.h:536 src/modulo.cpp:40 translations/rc.cpp:153 rc.cpp:153
 msgid "Chakra Gtk Config"
-msgstr "Configuratore di GTK+ per Chakra"
+msgstr "Configuratore di Gtk per Chakra"
 
 #. i18n: file: src/ui/gui.ui:63
 #. i18n: ectx: property (text), widget (QLabel, label_10)
@@ -424,7 +421,7 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Tema GTK+</span></p></body></html>"
+"size:10pt; font-weight:600;\">Tema Gtk</span></p></body></html>"
 
 #. i18n: file: src/ui/gui.ui:353
 #. i18n: ectx: property (text), widget (QLabel, label_8)
@@ -504,54 +501,53 @@ msgstr "Configurazione"
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
 #: build/ui_gui.h:584 translations/rc.cpp:206 rc.cpp:206
 msgid "Icons only"
-msgstr ""
+msgstr "Solo icone"
 
 #. i18n: file: src/ui/gui.ui:546
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
 #: build/ui_gui.h:585 translations/rc.cpp:209 rc.cpp:209
 msgid "Text only"
-msgstr ""
+msgstr "Solo testo"
 
 #. i18n: file: src/ui/gui.ui:551
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
 #: build/ui_gui.h:586 translations/rc.cpp:212 rc.cpp:212
 msgid "Text under icons"
-msgstr ""
+msgstr "Testo sotto le icone"
 
 #. i18n: file: src/ui/gui.ui:556
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
 #: build/ui_gui.h:587 translations/rc.cpp:215 rc.cpp:215
 msgid "Text after icons"
-msgstr ""
+msgstr "Testo accanto le icone"
 
 #. i18n: file: src/ui/gui.ui:571
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_icon_gtk_buttons)
 #: build/ui_gui.h:589 translations/rc.cpp:218 rc.cpp:218
 msgid "Show icons in Gtk Buttons"
-msgstr ""
+msgstr "Mostra le icone nei Pulsanti Gtk"
 
 #. i18n: file: src/ui/gui.ui:578
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_icon_gtk_menus)
 #: build/ui_gui.h:590 translations/rc.cpp:221 rc.cpp:221
 msgid "Show Icons in Gtk Menus"
-msgstr ""
+msgstr "Mostra le icone nei Menu Gtk"
 
 #. i18n: file: src/ui/gui.ui:597
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: build/ui_gui.h:591 translations/rc.cpp:224 rc.cpp:224
 msgid "Gtk style toolbar"
-msgstr ""
+msgstr "Stile della barra degli strumenti Gtk"
 
 #. i18n: file: src/ui/gui.ui:528
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: build/ui_gui.h:592 translations/rc.cpp:203 rc.cpp:203
 msgid "Fine Tuning"
-msgstr ""
+msgstr "Ritocchi"
 
 #. i18n: file: src/ui/gui.ui:635
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: build/ui_gui.h:593 translations/rc.cpp:230 rc.cpp:230
-#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -585,7 +581,6 @@ msgstr ""
 #. i18n: file: src/ui/gui.ui:654
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: build/ui_gui.h:599 translations/rc.cpp:238 rc.cpp:238
-#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -690,13 +685,13 @@ msgstr "Rimuove temi installati nel sistema..."
 #. i18n: ectx: property (text), widget (QCommandLinkButton, but_theme_ghns)
 #: build/ui_gui.h:615 translations/rc.cpp:265 rc.cpp:265
 msgid "Download new gtk themes"
-msgstr ""
+msgstr "Scarica un nuovo tema Gtk"
 
 #. i18n: file: src/ui/gui.ui:773
 #. i18n: ectx: property (description), widget (QCommandLinkButton, but_theme_ghns)
 #: build/ui_gui.h:616 translations/rc.cpp:268 rc.cpp:268
 msgid "Retrieve gtk themes from opendesktop.org"
-msgstr ""
+msgstr "Recupera temi Gtk da opendesktop.org"
 
 #. i18n: file: src/ui/gui.ui:624
 #. i18n: ectx: attribute (title), widget (QWidget, tab_install)
@@ -706,7 +701,7 @@ msgstr "Aggiungi e rimuovi temi"
 
 #: src/dialog_installer.cpp:60
 msgid "Select a valid gtk theme file"
-msgstr "Seleziona un file di tema di GTK+ valido"
+msgstr "Seleziona un file di tema di Gtk valido"
 
 #: src/dialog_installer.cpp:62 src/dialog_installer.cpp:84
 msgid "Compressed file (*.tar.gz *.tar)"
@@ -718,15 +713,15 @@ msgstr "Seleziona un file di tema di icone valido"
 
 #: src/dialog_installer.cpp:186 src/dialog_installer.cpp:221
 msgid "Parsing theme ... "
-msgstr "Esamino il tema..."
+msgstr "Esamino il tema ... "
 
 #: src/dialog_installer.cpp:208
 msgid "This Gtk theme can be installed"
-msgstr "Questo tema di GTK+ può essere installato"
+msgstr "Questo tema di Gtk può essere installato"
 
 #: src/dialog_installer.cpp:212
 msgid "This Gtk theme cannot be installed"
-msgstr "Questo tema di GTK+ non può essere installato"
+msgstr "Questo tema di Gtk non può essere installato"
 
 #: src/dialog_installer.cpp:242
 msgid "This icons theme can be installed"
@@ -746,63 +741,50 @@ msgstr "Il tema di icone non può essere installato"
 
 #: src/dialog_installer.cpp:300
 msgid "Gtk Theme Sucessfully Installed"
-msgstr "Tema di GTK+ installato con successo"
+msgstr "Tema di Gtk installato con successo"
 
 #: src/dialog_installer.cpp:304
 msgid "The Gtk theme cannot be installed"
-msgstr "Il tema di GTK+ non può essere installato"
+msgstr "Il tema di Gtk non può essere installato"
 
 #: src/modulo.cpp:41
 msgid "Config your Gtk Apps"
-msgstr "Configura le tua applicazioni GTK+"
+msgstr "Configura le tua applicazioni Gtk"
 
 #: src/modulo.cpp:43
 msgid "Copyright 2011 José Antonio Sánchez Reynaga"
 msgstr "Copyright 2011 José Antonio Sánchez Reynaga"
 
 #: src/modulo.cpp:44
-#, fuzzy
 msgid "José Antonio Sánchez Reynaga (antonioJASR)"
-msgstr "José Antonio Sánchez Reynaga"
+msgstr "José Antonio Sánchez Reynaga (antonioJASR)"
 
 #: src/modulo.cpp:44
 msgid "Main Developer"
-msgstr ""
+msgstr "Principale Sviluppatore"
 
 #: src/modulo.cpp:45
 msgid "Manuel Tortosa (manutortosa)"
-msgstr ""
+msgstr "Manuel Tortosa (manutortosa)"
 
 #: src/modulo.cpp:45
 msgid "Ideas, tester, internationalization"
-msgstr ""
+msgstr "Idee, test, internazionalizzazione"
 
 #: src/modulo.cpp:46
 msgid "Adrián Chávez Hernández (Gallaecio)"
-msgstr ""
+msgstr "Adrián Chávez Hernández (Gallaecio)"
 
 #: src/modulo.cpp:46
 msgid "Internationalization"
-msgstr ""
+msgstr "Internazionalizzazione"
 
 #: translations/rc.cpp:269 rc.cpp:269
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Daniele Cocca"
+msgstr "Daniele Cocca,Francesco Falbo"
 
 #: translations/rc.cpp:270 rc.cpp:270
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "daniele.cocca@gmail.com"
-
-#~ msgid "Chakra's fan and developer"
-#~ msgstr "Sviluppatore e appassionato di Chakra"
-
-#~ msgid "Dialog"
-#~ msgstr "Dialogo "
-
-#~ msgid "WARNINGS"
-#~ msgstr "AVVISI"
-
-#~ msgid "Warning"
-#~ msgstr "Avviso"
+msgstr "daniele.cocca@gmail.com,themadhatter1789@yahoo.it"
