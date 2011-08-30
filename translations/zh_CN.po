@@ -6,106 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@chakra-project.org\n"
-"POT-Creation-Date: 2011-05-30 01:07+0800\n"
+"POT-Creation-Date: 2011-08-30 21:05+0200\n"
 "PO-Revision-Date: 2011-05-30 01:07+0800\n"
 "Last-Translator: Weng Xuetian <wengxt@gmail.com>\n"
 "Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: src/dialog_installer.cpp:60
-msgid "Select a valid gtk theme file"
-msgstr "选择一个合法的gtk主题"
-
-#: src/dialog_installer.cpp:62 src/dialog_installer.cpp:84
-msgid "Compressed file (*.tar.gz *.tar)"
-msgstr "压缩文件 (*.tar.gz *.tar)"
-
-#: src/dialog_installer.cpp:82
-msgid "Select a vaild icons theme file"
-msgstr "选择一个合法的图标主题"
-
-#: src/dialog_installer.cpp:186 src/dialog_installer.cpp:221
-msgid "Parsing theme ... "
-msgstr "解析主题…"
-
-#: src/dialog_installer.cpp:208
-msgid "This Gtk theme can be installed"
-msgstr "Gtk主题可以安装"
-
-#: src/dialog_installer.cpp:212
-msgid "This Gtk theme cannot be installed"
-msgstr "Gtk主题无法安装"
-
-#: src/dialog_installer.cpp:242
-msgid "This icons theme can be installed"
-msgstr "图标主题可以安装"
-
-#: src/dialog_installer.cpp:246
-msgid "This icons theme cannot be installed"
-msgstr "图标主题无法安装"
-
-#: src/dialog_installer.cpp:288
-msgid "Icons Successfully Installed"
-msgstr "图标主题安装成功"
-
-#: src/dialog_installer.cpp:292
-msgid "The icons theme cannot be installed"
-msgstr "图标主题无法安装"
-
-#: src/dialog_installer.cpp:300
-msgid "Gtk Theme Sucessfully Installed"
-msgstr "Gtk主题安装成功"
-
-#: src/dialog_installer.cpp:304
-msgid "The Gtk theme cannot be installed"
-msgstr "Gtk主题无法安装"
-
-#. i18n: file: src/ui/gui.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, GUI)
-#: src/modulo.cpp:40 translations/rc.cpp:153 ui_gui.h:536 rc.cpp:153
-msgid "Chakra Gtk Config"
-msgstr "Chakra Gtk 配置"
-
-#: src/modulo.cpp:41
-msgid "Config your Gtk Apps"
-msgstr "配置您的Gtk程序"
-
-#: src/modulo.cpp:43
-msgid "Copyright 2011 José Antonio Sánchez Reynaga"
-msgstr "Copyright 2011 José Antonio Sánchez Reynaga"
-
-#: src/modulo.cpp:44
-msgid "José Antonio Sánchez Reynaga (antonioJASR)"
-msgstr "José Antonio Sánchez Reynaga (antonioJASR)"
-
-#: src/modulo.cpp:44
-msgid "Main Developer"
-msgstr "主开发者"
-
-#: src/modulo.cpp:45
-msgid "Manuel Tortosa (manutortosa)"
-msgstr "Manuel Tortosa (manutortosa)"
-
-#: src/modulo.cpp:45
-msgid "Ideas, tester, internationalization"
-msgstr "点子，测试，国际化"
-
-#: src/modulo.cpp:46
-msgid "Adrián Chávez Hernández (Gallaecio)"
-msgstr "Adrián Chávez Hernández (Gallaecio)"
-
-#: src/modulo.cpp:46
-msgid "Internationalization"
-msgstr "国际化"
-
 #. i18n: file: src/ui/dialog_installer.ui:20
 #. i18n: ectx: property (windowTitle), widget (QDialog, dialog_installer)
-#: translations/rc.cpp:3 ui_dialog_installer.h:297 rc.cpp:3
+#: build/ui_dialog_installer.h:297 translations/rc.cpp:3 rc.cpp:3
 msgid "Installer"
 msgstr "安装器"
 
@@ -117,8 +31,8 @@ msgstr "安装器"
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #. i18n: file: src/ui/dialog_uninstaller.ui:33
 #. i18n: ectx: property (text), widget (QLabel, label_8)
-#: translations/rc.cpp:6 translations/rc.cpp:83 ui_dialog_installer.h:298
-#: ui_dialog_uninstaller.h:235 rc.cpp:6 rc.cpp:83
+#: build/ui_dialog_installer.h:298 build/ui_dialog_uninstaller.h:235
+#: translations/rc.cpp:6 translations/rc.cpp:83 rc.cpp:6 rc.cpp:83
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -142,12 +56,6 @@ msgstr ""
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "size:12pt; font-weight:600;\">Chakra Gtk 配置</span></p></body></html>"
 
-#. i18n: file: src/ui/dialog_installer.ui:123
-#. i18n: ectx: attribute (title), widget (QWidget, tabWidgetPage1)
-#: translations/rc.cpp:13 ui_dialog_installer.h:322 rc.cpp:13
-msgid "Add Gtk Theme"
-msgstr "添加 Gtk 主题"
-
 #. i18n: file: src/ui/dialog_installer.ui:141
 #. i18n: ectx: property (text), widget (QLabel, lb_theme)
 #. i18n: file: src/ui/dialog_installer.ui:255
@@ -156,8 +64,8 @@ msgstr "添加 Gtk 主题"
 #. i18n: ectx: property (text), widget (QLabel, lb_theme)
 #. i18n: file: src/ui/dialog_installer.ui:255
 #. i18n: ectx: property (text), widget (QLabel, lb_icon)
-#: translations/rc.cpp:16 translations/rc.cpp:48 ui_dialog_installer.h:306
-#: ui_dialog_installer.h:323 rc.cpp:16 rc.cpp:48
+#: build/ui_dialog_installer.h:306 build/ui_dialog_installer.h:323
+#: translations/rc.cpp:16 translations/rc.cpp:48 rc.cpp:16 rc.cpp:48
 msgid "In order to add a new theme, just follow these steps:"
 msgstr "为了安装新主题，请按以下步骤执行："
 
@@ -169,8 +77,8 @@ msgstr "为了安装新主题，请按以下步骤执行："
 #. i18n: ectx: property (text), widget (QPushButton, but_theme_filechoice)
 #. i18n: file: src/ui/dialog_installer.ui:316
 #. i18n: ectx: property (text), widget (QPushButton, but_icon_filechoice)
-#: translations/rc.cpp:19 translations/rc.cpp:68 ui_dialog_installer.h:307
-#: ui_dialog_installer.h:335 rc.cpp:19 rc.cpp:68
+#: build/ui_dialog_installer.h:307 build/ui_dialog_installer.h:335
+#: translations/rc.cpp:19 translations/rc.cpp:68 rc.cpp:19 rc.cpp:68
 msgid "Select file"
 msgstr "选择文件"
 
@@ -182,8 +90,8 @@ msgstr "选择文件"
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: file: src/ui/dialog_installer.ui:333
 #. i18n: ectx: property (text), widget (QLabel, label_8)
-#: translations/rc.cpp:22 translations/rc.cpp:74 ui_dialog_installer.h:309
-#: ui_dialog_installer.h:337 rc.cpp:22 rc.cpp:74
+#: build/ui_dialog_installer.h:309 build/ui_dialog_installer.h:337
+#: translations/rc.cpp:22 translations/rc.cpp:74 rc.cpp:22 rc.cpp:74
 msgid "Click the next button in order to install the theme in your system"
 msgstr "单击下个按钮将主题安装到您的系统"
 
@@ -195,8 +103,8 @@ msgstr "单击下个按钮将主题安装到您的系统"
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: file: src/ui/dialog_installer.ui:269
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: translations/rc.cpp:25 translations/rc.cpp:51 ui_dialog_installer.h:310
-#: ui_dialog_installer.h:324 rc.cpp:25 rc.cpp:51
+#: build/ui_dialog_installer.h:310 build/ui_dialog_installer.h:324
+#: translations/rc.cpp:25 translations/rc.cpp:51 rc.cpp:25 rc.cpp:51
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -228,14 +136,14 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: file: src/ui/dialog_installer.ui:276
 #. i18n: ectx: property (text), widget (QLabel, label_7)
-#: translations/rc.cpp:32 translations/rc.cpp:58 ui_dialog_installer.h:315
-#: ui_dialog_installer.h:329 rc.cpp:32 rc.cpp:58
+#: build/ui_dialog_installer.h:315 build/ui_dialog_installer.h:329
+#: translations/rc.cpp:32 translations/rc.cpp:58 rc.cpp:32 rc.cpp:58
 msgid "Select the theme file you want to install"
 msgstr "选择您想安装的主题文件"
 
 #. i18n: file: src/ui/dialog_installer.ui:221
 #. i18n: ectx: property (text), widget (QPushButton, but_theme_install)
-#: translations/rc.cpp:35 ui_dialog_installer.h:316 rc.cpp:35
+#: build/ui_dialog_installer.h:316 translations/rc.cpp:35 rc.cpp:35
 msgid "Install Gtk Theme"
 msgstr "安装 Gtk 主题"
 
@@ -247,8 +155,8 @@ msgstr "安装 Gtk 主题"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: file: src/ui/dialog_installer.ui:303
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: translations/rc.cpp:38 translations/rc.cpp:61 ui_dialog_installer.h:317
-#: ui_dialog_installer.h:330 rc.cpp:38 rc.cpp:61
+#: build/ui_dialog_installer.h:317 build/ui_dialog_installer.h:330
+#: translations/rc.cpp:38 translations/rc.cpp:61 rc.cpp:38 rc.cpp:61
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -272,33 +180,39 @@ msgstr ""
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "size:10pt; font-weight:600;\">步骤 2：</span></p></body></html>"
 
-#. i18n: file: src/ui/dialog_installer.ui:246
-#. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: translations/rc.cpp:45 ui_dialog_installer.h:339 rc.cpp:45
-msgid "Add new icons theme"
-msgstr "添加新图标主题"
+#. i18n: file: src/ui/dialog_installer.ui:123
+#. i18n: ectx: attribute (title), widget (QWidget, tabWidgetPage1)
+#: build/ui_dialog_installer.h:322 translations/rc.cpp:13 rc.cpp:13
+msgid "Add Gtk Theme"
+msgstr "添加 Gtk 主题"
 
 #. i18n: file: src/ui/dialog_installer.ui:326
 #. i18n: ectx: property (text), widget (QPushButton, but_icon_install)
-#: translations/rc.cpp:71 ui_dialog_installer.h:336 rc.cpp:71
+#: build/ui_dialog_installer.h:336 translations/rc.cpp:71 rc.cpp:71
 msgid "Install icons"
 msgstr ""
 
+#. i18n: file: src/ui/dialog_installer.ui:246
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: build/ui_dialog_installer.h:339 translations/rc.cpp:45 rc.cpp:45
+msgid "Add new icons theme"
+msgstr "添加新图标主题"
+
 #. i18n: file: src/ui/dialog_installer.ui:394
 #. i18n: ectx: property (text), widget (QPushButton, but_accepted)
-#: translations/rc.cpp:77 ui_dialog_installer.h:340 rc.cpp:77
+#: build/ui_dialog_installer.h:340 translations/rc.cpp:77 rc.cpp:77
 msgid "  Ok  "
 msgstr "确认"
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:14
 #. i18n: ectx: property (windowTitle), widget (QDialog, dialog_uninstaller)
-#: translations/rc.cpp:80 ui_dialog_uninstaller.h:234 rc.cpp:80
+#: build/ui_dialog_uninstaller.h:234 translations/rc.cpp:80 rc.cpp:80
 msgid "Remove Themes"
 msgstr "移除主题"
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:77
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: translations/rc.cpp:90 ui_dialog_uninstaller.h:242 rc.cpp:90
+#: build/ui_dialog_uninstaller.h:242 translations/rc.cpp:90 rc.cpp:90
 msgid "Select an Gtk theme from the list"
 msgstr "从列表中选择一个 Gtk 主题"
 
@@ -310,8 +224,8 @@ msgstr "从列表中选择一个 Gtk 主题"
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: file: src/ui/dialog_uninstaller.ui:186
 #. i18n: ectx: property (text), widget (QLabel, label_9)
-#: translations/rc.cpp:93 translations/rc.cpp:137 ui_dialog_uninstaller.h:243
-#: ui_dialog_uninstaller.h:273 rc.cpp:93 rc.cpp:137
+#: build/ui_dialog_uninstaller.h:243 build/ui_dialog_uninstaller.h:273
+#: translations/rc.cpp:93 translations/rc.cpp:137 rc.cpp:93 rc.cpp:137
 msgid "Press the button to remove the theme"
 msgstr "按下按钮来移除主题"
 
@@ -323,8 +237,8 @@ msgstr "按下按钮来移除主题"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: file: src/ui/dialog_uninstaller.ui:179
 #. i18n: ectx: property (text), widget (QLabel, label_7)
-#: translations/rc.cpp:96 translations/rc.cpp:130 ui_dialog_uninstaller.h:244
-#: ui_dialog_uninstaller.h:268 rc.cpp:96 rc.cpp:130
+#: build/ui_dialog_uninstaller.h:244 build/ui_dialog_uninstaller.h:268
+#: translations/rc.cpp:96 translations/rc.cpp:130 rc.cpp:96 rc.cpp:130
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -356,8 +270,8 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #. i18n: file: src/ui/dialog_uninstaller.ui:168
 #. i18n: ectx: property (text), widget (QLabel, label_4)
-#: translations/rc.cpp:103 translations/rc.cpp:123 ui_dialog_uninstaller.h:249
-#: ui_dialog_uninstaller.h:263 rc.cpp:103 rc.cpp:123
+#: build/ui_dialog_uninstaller.h:249 build/ui_dialog_uninstaller.h:263
+#: translations/rc.cpp:103 translations/rc.cpp:123 rc.cpp:103 rc.cpp:123
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -383,7 +297,7 @@ msgstr ""
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:117
 #. i18n: ectx: property (text), widget (QLabel, label_10)
-#: translations/rc.cpp:110 ui_dialog_uninstaller.h:254 rc.cpp:110
+#: build/ui_dialog_uninstaller.h:254 translations/rc.cpp:110 rc.cpp:110
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -415,20 +329,20 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QPushButton, but_uninstall_theme)
 #. i18n: file: src/ui/dialog_uninstaller.ui:214
 #. i18n: ectx: property (text), widget (QPushButton, but_uninstall_icon)
-#: translations/rc.cpp:117 translations/rc.cpp:147 ui_dialog_uninstaller.h:260
-#: ui_dialog_uninstaller.h:279 rc.cpp:117 rc.cpp:147
+#: build/ui_dialog_uninstaller.h:260 build/ui_dialog_uninstaller.h:279
+#: translations/rc.cpp:117 translations/rc.cpp:147 rc.cpp:117 rc.cpp:147
 msgid "Uninstall"
 msgstr "卸载"
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:157
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: translations/rc.cpp:120 ui_dialog_uninstaller.h:262 rc.cpp:120
+#: build/ui_dialog_uninstaller.h:262 translations/rc.cpp:120 rc.cpp:120
 msgid "Select an icon theme from the list"
 msgstr "从列表中选择图标主题"
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:197
 #. i18n: ectx: property (text), widget (QLabel, label_12)
-#: translations/rc.cpp:140 ui_dialog_uninstaller.h:274 rc.cpp:140
+#: build/ui_dialog_uninstaller.h:274 translations/rc.cpp:140 rc.cpp:140
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -454,37 +368,37 @@ msgstr ""
 
 #. i18n: file: src/ui/dialog_uninstaller.ui:263
 #. i18n: ectx: property (text), widget (QPushButton, but_accept)
-#: translations/rc.cpp:150 ui_dialog_uninstaller.h:281 rc.cpp:150
+#: build/ui_dialog_uninstaller.h:281 translations/rc.cpp:150 rc.cpp:150
 msgid "    Ok   "
 msgstr "确认"
 
-#. i18n: file: src/ui/gui.ui:30
-#. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: translations/rc.cpp:156 ui_gui.h:580 rc.cpp:156
-msgid "Configuration"
-msgstr "配置"
+#. i18n: file: src/ui/gui.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, GUI)
+#: build/ui_gui.h:536 src/modulo.cpp:40 translations/rc.cpp:153 rc.cpp:153
+msgid "Chakra Gtk Config"
+msgstr "Chakra Gtk 配置"
 
 #. i18n: file: src/ui/gui.ui:63
 #. i18n: ectx: property (text), widget (QLabel, label_10)
-#: translations/rc.cpp:159 ui_gui.h:537 rc.cpp:159
+#: build/ui_gui.h:537 translations/rc.cpp:159 rc.cpp:159
 msgid "Select Icons Theme"
 msgstr "选择图标主题"
 
 #. i18n: file: src/ui/gui.ui:73
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: translations/rc.cpp:162 ui_gui.h:538 rc.cpp:162
+#: build/ui_gui.h:538 translations/rc.cpp:162 rc.cpp:162
 msgid "Select Fallback Icons theme"
 msgstr "选择候选图标主题"
 
 #. i18n: file: src/ui/gui.ui:325
 #. i18n: ectx: property (text), widget (QLabel, label_9)
-#: translations/rc.cpp:165 ui_gui.h:556 rc.cpp:165
+#: build/ui_gui.h:556 translations/rc.cpp:165 rc.cpp:165
 msgid "Select a Theme"
 msgstr "选择一个主题"
 
 #. i18n: file: src/ui/gui.ui:342
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: translations/rc.cpp:168 ui_gui.h:557 rc.cpp:168
+#: build/ui_gui.h:557 translations/rc.cpp:168 rc.cpp:168
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -510,7 +424,7 @@ msgstr ""
 
 #. i18n: file: src/ui/gui.ui:353
 #. i18n: ectx: property (text), widget (QLabel, label_8)
-#: translations/rc.cpp:175 ui_gui.h:562 rc.cpp:175
+#: build/ui_gui.h:562 translations/rc.cpp:175 rc.cpp:175
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -536,103 +450,103 @@ msgstr ""
 
 #. i18n: file: src/ui/gui.ui:408
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: translations/rc.cpp:182 ui_gui.h:570 rc.cpp:182
+#: build/ui_gui.h:570 translations/rc.cpp:182 rc.cpp:182
 msgid "Select Font Family"
 msgstr "选择字体族"
 
 #. i18n: file: src/ui/gui.ui:432
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: translations/rc.cpp:185 ui_gui.h:573 rc.cpp:185
+#: build/ui_gui.h:573 translations/rc.cpp:185 rc.cpp:185
 msgid "normal"
 msgstr "常规"
 
 #. i18n: file: src/ui/gui.ui:437
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: translations/rc.cpp:188 ui_gui.h:574 rc.cpp:188
+#: build/ui_gui.h:574 translations/rc.cpp:188 rc.cpp:188
 msgid "bold"
 msgstr "粗体"
 
 #. i18n: file: src/ui/gui.ui:442
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: translations/rc.cpp:191 ui_gui.h:575 rc.cpp:191
+#: build/ui_gui.h:575 translations/rc.cpp:191 rc.cpp:191
 msgid "italic"
 msgstr "斜体"
 
 #. i18n: file: src/ui/gui.ui:447
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: translations/rc.cpp:194 ui_gui.h:576 rc.cpp:194
+#: build/ui_gui.h:576 translations/rc.cpp:194 rc.cpp:194
 msgid "bold italic"
 msgstr "粗体 斜体"
 
 #. i18n: file: src/ui/gui.ui:455
 #. i18n: ectx: property (suffix), widget (QSpinBox, spin_font_tam)
-#: translations/rc.cpp:197 ui_gui.h:578 rc.cpp:197
+#: build/ui_gui.h:578 translations/rc.cpp:197 rc.cpp:197
 msgid " px"
 msgstr "像素"
 
 #. i18n: file: src/ui/gui.ui:492
 #. i18n: ectx: property (text), widget (QLabel, lb_font_preview)
-#: translations/rc.cpp:200 ui_gui.h:579 rc.cpp:200
+#: build/ui_gui.h:579 translations/rc.cpp:200 rc.cpp:200
 msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
 msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
 
-#. i18n: file: src/ui/gui.ui:528
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: translations/rc.cpp:203 ui_gui.h:592 rc.cpp:203
-msgid "Fine Tuning"
-msgstr "细节调整"
+#. i18n: file: src/ui/gui.ui:30
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: build/ui_gui.h:580 translations/rc.cpp:156 rc.cpp:156
+msgid "Configuration"
+msgstr "配置"
 
 #. i18n: file: src/ui/gui.ui:541
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
-#: translations/rc.cpp:206 ui_gui.h:584 rc.cpp:206
+#: build/ui_gui.h:584 translations/rc.cpp:206 rc.cpp:206
 msgid "Icons only"
 msgstr "只有图标"
 
 #. i18n: file: src/ui/gui.ui:546
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
-#: translations/rc.cpp:209 ui_gui.h:585 rc.cpp:209
+#: build/ui_gui.h:585 translations/rc.cpp:209 rc.cpp:209
 msgid "Text only"
 msgstr "只有文本"
 
 #. i18n: file: src/ui/gui.ui:551
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
-#: translations/rc.cpp:212 ui_gui.h:586 rc.cpp:212
+#: build/ui_gui.h:586 translations/rc.cpp:212 rc.cpp:212
 msgid "Text under icons"
 msgstr "文本在图标下"
 
 #. i18n: file: src/ui/gui.ui:556
 #. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
-#: translations/rc.cpp:215 ui_gui.h:587 rc.cpp:215
+#: build/ui_gui.h:587 translations/rc.cpp:215 rc.cpp:215
 msgid "Text after icons"
 msgstr "文本在图标旁"
 
 #. i18n: file: src/ui/gui.ui:571
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_icon_gtk_buttons)
-#: translations/rc.cpp:218 ui_gui.h:589 rc.cpp:218
+#: build/ui_gui.h:589 translations/rc.cpp:218 rc.cpp:218
 msgid "Show icons in Gtk Buttons"
 msgstr "Gtk按钮显示图标"
 
 #. i18n: file: src/ui/gui.ui:578
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_icon_gtk_menus)
-#: translations/rc.cpp:221 ui_gui.h:590 rc.cpp:221
+#: build/ui_gui.h:590 translations/rc.cpp:221 rc.cpp:221
 msgid "Show Icons in Gtk Menus"
 msgstr "Gtk 菜单显示图标"
 
 #. i18n: file: src/ui/gui.ui:597
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: translations/rc.cpp:224 ui_gui.h:591 rc.cpp:224
+#: build/ui_gui.h:591 translations/rc.cpp:224 rc.cpp:224
 msgid "Gtk style toolbar"
 msgstr "Gtk 工具条样式"
 
-#. i18n: file: src/ui/gui.ui:624
-#. i18n: ectx: attribute (title), widget (QWidget, tab_install)
-#: translations/rc.cpp:227 ui_gui.h:617 rc.cpp:227
-msgid "Add and Remove Themes"
-msgstr "添加或删除主题"
+#. i18n: file: src/ui/gui.ui:528
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: build/ui_gui.h:592 translations/rc.cpp:203 rc.cpp:203
+msgid "Fine Tuning"
+msgstr "细节调整"
 
 #. i18n: file: src/ui/gui.ui:635
 #. i18n: ectx: property (text), widget (QLabel, label_11)
-#: translations/rc.cpp:230 ui_gui.h:593 rc.cpp:230
+#: build/ui_gui.h:593 translations/rc.cpp:230 rc.cpp:230
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -666,7 +580,7 @@ msgstr ""
 
 #. i18n: file: src/ui/gui.ui:654
 #. i18n: ectx: property (text), widget (QLabel, label_13)
-#: translations/rc.cpp:238 ui_gui.h:599 rc.cpp:238
+#: build/ui_gui.h:599 translations/rc.cpp:238 rc.cpp:238
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -739,45 +653,131 @@ msgstr ""
 
 #. i18n: file: src/ui/gui.ui:676
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: translations/rc.cpp:250 ui_gui.h:610 rc.cpp:250
+#: build/ui_gui.h:610 translations/rc.cpp:250 rc.cpp:250
 msgid "Actions"
 msgstr "动作"
 
 #. i18n: file: src/ui/gui.ui:688
 #. i18n: ectx: property (text), widget (QCommandLinkButton, clb_add_theme)
-#: translations/rc.cpp:253 ui_gui.h:611 rc.cpp:253
+#: build/ui_gui.h:611 translations/rc.cpp:253 rc.cpp:253
 msgid "ADD THEMES"
 msgstr "添加主题"
 
 #. i18n: file: src/ui/gui.ui:691
 #. i18n: ectx: property (description), widget (QCommandLinkButton, clb_add_theme)
-#: translations/rc.cpp:256 ui_gui.h:612 rc.cpp:256
+#: build/ui_gui.h:612 translations/rc.cpp:256 rc.cpp:256
 msgid "Install theme from file ..."
 msgstr "从文件安装主题"
 
 #. i18n: file: src/ui/gui.ui:704
 #. i18n: ectx: property (text), widget (QCommandLinkButton, clb_remove_theme)
-#: translations/rc.cpp:259 ui_gui.h:613 rc.cpp:259
+#: build/ui_gui.h:613 translations/rc.cpp:259 rc.cpp:259
 msgid "REMOVE THEMES"
 msgstr "删除主题"
 
 #. i18n: file: src/ui/gui.ui:707
 #. i18n: ectx: property (description), widget (QCommandLinkButton, clb_remove_theme)
-#: translations/rc.cpp:262 ui_gui.h:614 rc.cpp:262
+#: build/ui_gui.h:614 translations/rc.cpp:262 rc.cpp:262
 msgid "Remove themes installed in the system ..."
 msgstr "删除系统中已安装主题…"
 
 #. i18n: file: src/ui/gui.ui:766
 #. i18n: ectx: property (text), widget (QCommandLinkButton, but_theme_ghns)
-#: translations/rc.cpp:265 ui_gui.h:615 rc.cpp:265
+#: build/ui_gui.h:615 translations/rc.cpp:265 rc.cpp:265
 msgid "Download new gtk themes"
 msgstr "下载新 gtk 主题"
 
 #. i18n: file: src/ui/gui.ui:773
 #. i18n: ectx: property (description), widget (QCommandLinkButton, but_theme_ghns)
-#: translations/rc.cpp:268 ui_gui.h:616 rc.cpp:268
+#: build/ui_gui.h:616 translations/rc.cpp:268 rc.cpp:268
 msgid "Retrieve gtk themes from opendesktop.org"
 msgstr "从 opendesktop.org 获得 gtk 主题"
+
+#. i18n: file: src/ui/gui.ui:624
+#. i18n: ectx: attribute (title), widget (QWidget, tab_install)
+#: build/ui_gui.h:617 translations/rc.cpp:227 rc.cpp:227
+msgid "Add and Remove Themes"
+msgstr "添加或删除主题"
+
+#: src/dialog_installer.cpp:60
+msgid "Select a valid gtk theme file"
+msgstr "选择一个合法的gtk主题"
+
+#: src/dialog_installer.cpp:62 src/dialog_installer.cpp:84
+msgid "Compressed file (*.tar.gz *.tar)"
+msgstr "压缩文件 (*.tar.gz *.tar)"
+
+#: src/dialog_installer.cpp:82
+msgid "Select a vaild icons theme file"
+msgstr "选择一个合法的图标主题"
+
+#: src/dialog_installer.cpp:186 src/dialog_installer.cpp:221
+msgid "Parsing theme ... "
+msgstr "解析主题…"
+
+#: src/dialog_installer.cpp:208
+msgid "This Gtk theme can be installed"
+msgstr "Gtk主题可以安装"
+
+#: src/dialog_installer.cpp:212
+msgid "This Gtk theme cannot be installed"
+msgstr "Gtk主题无法安装"
+
+#: src/dialog_installer.cpp:242
+msgid "This icons theme can be installed"
+msgstr "图标主题可以安装"
+
+#: src/dialog_installer.cpp:246
+msgid "This icons theme cannot be installed"
+msgstr "图标主题无法安装"
+
+#: src/dialog_installer.cpp:288
+msgid "Icons Successfully Installed"
+msgstr "图标主题安装成功"
+
+#: src/dialog_installer.cpp:292
+msgid "The icons theme cannot be installed"
+msgstr "图标主题无法安装"
+
+#: src/dialog_installer.cpp:300
+msgid "Gtk Theme Sucessfully Installed"
+msgstr "Gtk主题安装成功"
+
+#: src/dialog_installer.cpp:304
+msgid "The Gtk theme cannot be installed"
+msgstr "Gtk主题无法安装"
+
+#: src/modulo.cpp:41
+msgid "Config your Gtk Apps"
+msgstr "配置您的Gtk程序"
+
+#: src/modulo.cpp:43
+msgid "Copyright 2011 José Antonio Sánchez Reynaga"
+msgstr "Copyright 2011 José Antonio Sánchez Reynaga"
+
+#: src/modulo.cpp:44
+msgid "José Antonio Sánchez Reynaga (antonioJASR)"
+msgstr "José Antonio Sánchez Reynaga (antonioJASR)"
+
+#: src/modulo.cpp:44
+msgid "Main Developer"
+msgstr "主开发者"
+
+#: src/modulo.cpp:45
+msgid "Manuel Tortosa (manutortosa)"
+msgstr "Manuel Tortosa (manutortosa)"
+
+#: src/modulo.cpp:45
+msgid "Ideas, tester, internationalization"
+msgstr "点子，测试，国际化"
+
+#: src/modulo.cpp:46
+msgid "Adrián Chávez Hernández (Gallaecio)"
+msgstr "Adrián Chávez Hernández (Gallaecio)"
+
+#: src/modulo.cpp:46
+msgid "Internationalization"
+msgstr "国际化"
 
 #: translations/rc.cpp:269 rc.cpp:269
 msgctxt "NAME OF TRANSLATORS"
@@ -788,4 +788,3 @@ msgstr "Weng Xuetian"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "wengxt@gmail.com"
-
