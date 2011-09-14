@@ -43,7 +43,7 @@ ui(new Ui::GUI)
                       ki18n("Copyright 2011 José Antonio Sánchez Reynaga"));
        acercade->addAuthor(ki18n("José Antonio Sánchez Reynaga (antonioJASR)"),ki18n("Main Developer"), "joanzare@gmail.com");
        acercade->addCredit(ki18n("Manuel Tortosa (manutortosa)"), ki18n("Ideas, tester, internationalization"));
-       acercade->addCredit(ki18n("Adrián Chávez Hernández (Gallaecio)"), ki18n("Internationalization"));
+       acercade->addCredit(ki18n("Adrián Chaves Fernández (Gallaecio)"), ki18n("Internationalization"));
        setAboutData(acercade);
     
     ui->setupUi(this);

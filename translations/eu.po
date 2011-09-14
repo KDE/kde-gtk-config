@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@chakra-project.org\n"
-"POT-Creation-Date: 2011-08-30 21:05+0200\n"
+"POT-Creation-Date: 2011-09-14 03:14+0200\n"
 "PO-Revision-Date: 2011-05-28 11:12+0200\n"
 "Last-Translator: Eneko <eneko.sarasola@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -18,689 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 1.2\n"
-
-#. i18n: file: src/ui/dialog_installer.ui:20
-#. i18n: ectx: property (windowTitle), widget (QDialog, dialog_installer)
-#: build/ui_dialog_installer.h:297 translations/rc.cpp:3 rc.cpp:3
-msgid "Installer"
-msgstr "Instalatzailea"
-
-#. i18n: file: src/ui/dialog_installer.ui:39
-#. i18n: ectx: property (text), widget (QLabel, label_10)
-#. i18n: file: src/ui/dialog_uninstaller.ui:33
-#. i18n: ectx: property (text), widget (QLabel, label_8)
-#. i18n: file: src/ui/dialog_installer.ui:39
-#. i18n: ectx: property (text), widget (QLabel, label_10)
-#. i18n: file: src/ui/dialog_uninstaller.ui:33
-#. i18n: ectx: property (text), widget (QLabel, label_8)
-#: build/ui_dialog_installer.h:298 build/ui_dialog_uninstaller.h:235
-#: translations/rc.cpp:6 translations/rc.cpp:83 rc.cpp:6 rc.cpp:83
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Chakra Gtk Config</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Chakraren Gtk Konfigurazioa</span></p></body></"
-"html>"
-
-#. i18n: file: src/ui/dialog_installer.ui:141
-#. i18n: ectx: property (text), widget (QLabel, lb_theme)
-#. i18n: file: src/ui/dialog_installer.ui:255
-#. i18n: ectx: property (text), widget (QLabel, lb_icon)
-#. i18n: file: src/ui/dialog_installer.ui:141
-#. i18n: ectx: property (text), widget (QLabel, lb_theme)
-#. i18n: file: src/ui/dialog_installer.ui:255
-#. i18n: ectx: property (text), widget (QLabel, lb_icon)
-#: build/ui_dialog_installer.h:306 build/ui_dialog_installer.h:323
-#: translations/rc.cpp:16 translations/rc.cpp:48 rc.cpp:16 rc.cpp:48
-msgid "In order to add a new theme, just follow these steps:"
-msgstr "Hurrengo pausoak jarraitu gai berri bat instalatzeko:"
-
-#. i18n: file: src/ui/dialog_installer.ui:148
-#. i18n: ectx: property (text), widget (QPushButton, but_theme_filechoice)
-#. i18n: file: src/ui/dialog_installer.ui:316
-#. i18n: ectx: property (text), widget (QPushButton, but_icon_filechoice)
-#. i18n: file: src/ui/dialog_installer.ui:148
-#. i18n: ectx: property (text), widget (QPushButton, but_theme_filechoice)
-#. i18n: file: src/ui/dialog_installer.ui:316
-#. i18n: ectx: property (text), widget (QPushButton, but_icon_filechoice)
-#: build/ui_dialog_installer.h:307 build/ui_dialog_installer.h:335
-#: translations/rc.cpp:19 translations/rc.cpp:68 rc.cpp:19 rc.cpp:68
-msgid "Select file"
-msgstr "Fitxategi bat aukeratu"
-
-#. i18n: file: src/ui/dialog_installer.ui:180
-#. i18n: ectx: property (text), widget (QLabel, label_4)
-#. i18n: file: src/ui/dialog_installer.ui:333
-#. i18n: ectx: property (text), widget (QLabel, label_8)
-#. i18n: file: src/ui/dialog_installer.ui:180
-#. i18n: ectx: property (text), widget (QLabel, label_4)
-#. i18n: file: src/ui/dialog_installer.ui:333
-#. i18n: ectx: property (text), widget (QLabel, label_8)
-#: build/ui_dialog_installer.h:309 build/ui_dialog_installer.h:337
-#: translations/rc.cpp:22 translations/rc.cpp:74 rc.cpp:22 rc.cpp:74
-msgid "Click the next button in order to install the theme in your system"
-msgstr "Hurrengo botoia sakatu gai berria sisteman instalatzearren"
-
-#. i18n: file: src/ui/dialog_installer.ui:204
-#. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: file: src/ui/dialog_installer.ui:269
-#. i18n: ectx: property (text), widget (QLabel, label_5)
-#. i18n: file: src/ui/dialog_installer.ui:204
-#. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: file: src/ui/dialog_installer.ui:269
-#. i18n: ectx: property (text), widget (QLabel, label_5)
-#: build/ui_dialog_installer.h:310 build/ui_dialog_installer.h:324
-#: translations/rc.cpp:25 translations/rc.cpp:51 rc.cpp:25 rc.cpp:51
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Step 1:</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">1. Urratsa:</span></p></body></html>"
-
-#. i18n: file: src/ui/dialog_installer.ui:211
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#. i18n: file: src/ui/dialog_installer.ui:276
-#. i18n: ectx: property (text), widget (QLabel, label_7)
-#. i18n: file: src/ui/dialog_installer.ui:211
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#. i18n: file: src/ui/dialog_installer.ui:276
-#. i18n: ectx: property (text), widget (QLabel, label_7)
-#: build/ui_dialog_installer.h:315 build/ui_dialog_installer.h:329
-#: translations/rc.cpp:32 translations/rc.cpp:58 rc.cpp:32 rc.cpp:58
-msgid "Select the theme file you want to install"
-msgstr "Gai berriaren fitxategia aukera ezazu"
-
-#. i18n: file: src/ui/dialog_installer.ui:221
-#. i18n: ectx: property (text), widget (QPushButton, but_theme_install)
-#: build/ui_dialog_installer.h:316 translations/rc.cpp:35 rc.cpp:35
-msgid "Install Gtk Theme"
-msgstr "Gtk Gaia Instalatu"
-
-#. i18n: file: src/ui/dialog_installer.ui:235
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#. i18n: file: src/ui/dialog_installer.ui:303
-#. i18n: ectx: property (text), widget (QLabel, label_6)
-#. i18n: file: src/ui/dialog_installer.ui:235
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#. i18n: file: src/ui/dialog_installer.ui:303
-#. i18n: ectx: property (text), widget (QLabel, label_6)
-#: build/ui_dialog_installer.h:317 build/ui_dialog_installer.h:330
-#: translations/rc.cpp:38 translations/rc.cpp:61 rc.cpp:38 rc.cpp:61
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Step 2 :</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">2. Urratsa:</span></p></body></html>"
-
-#. i18n: file: src/ui/dialog_installer.ui:123
-#. i18n: ectx: attribute (title), widget (QWidget, tabWidgetPage1)
-#: build/ui_dialog_installer.h:322 translations/rc.cpp:13 rc.cpp:13
-msgid "Add Gtk Theme"
-msgstr "Gtk Gaia Gehitu"
-
-#. i18n: file: src/ui/dialog_installer.ui:326
-#. i18n: ectx: property (text), widget (QPushButton, but_icon_install)
-#: build/ui_dialog_installer.h:336 translations/rc.cpp:71 rc.cpp:71
-msgid "Install icons"
-msgstr "Ikonoak instalatu"
-
-#. i18n: file: src/ui/dialog_installer.ui:246
-#. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: build/ui_dialog_installer.h:339 translations/rc.cpp:45 rc.cpp:45
-msgid "Add new icons theme"
-msgstr "Ikono gai berria gehitu"
-
-#. i18n: file: src/ui/dialog_installer.ui:394
-#. i18n: ectx: property (text), widget (QPushButton, but_accepted)
-#: build/ui_dialog_installer.h:340 translations/rc.cpp:77 rc.cpp:77
-msgid "  Ok  "
-msgstr "  Ados  "
-
-#. i18n: file: src/ui/dialog_uninstaller.ui:14
-#. i18n: ectx: property (windowTitle), widget (QDialog, dialog_uninstaller)
-#: build/ui_dialog_uninstaller.h:234 translations/rc.cpp:80 rc.cpp:80
-msgid "Remove Themes"
-msgstr "Gaiak Ezabatu"
-
-#. i18n: file: src/ui/dialog_uninstaller.ui:77
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#: build/ui_dialog_uninstaller.h:242 translations/rc.cpp:90 rc.cpp:90
-msgid "Select an Gtk theme from the list"
-msgstr "Zerrendatik Gtk gai bat aukeratu"
-
-#. i18n: file: src/ui/dialog_uninstaller.ui:84
-#. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: file: src/ui/dialog_uninstaller.ui:186
-#. i18n: ectx: property (text), widget (QLabel, label_9)
-#. i18n: file: src/ui/dialog_uninstaller.ui:84
-#. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: file: src/ui/dialog_uninstaller.ui:186
-#. i18n: ectx: property (text), widget (QLabel, label_9)
-#: build/ui_dialog_uninstaller.h:243 build/ui_dialog_uninstaller.h:273
-#: translations/rc.cpp:93 translations/rc.cpp:137 rc.cpp:93 rc.cpp:137
-msgid "Press the button to remove the theme"
-msgstr "Hurrengo botoia sakatu ezazu gaia ezabatzearren"
-
-#. i18n: file: src/ui/dialog_uninstaller.ui:95
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#. i18n: file: src/ui/dialog_uninstaller.ui:179
-#. i18n: ectx: property (text), widget (QLabel, label_7)
-#. i18n: file: src/ui/dialog_uninstaller.ui:95
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#. i18n: file: src/ui/dialog_uninstaller.ui:179
-#. i18n: ectx: property (text), widget (QLabel, label_7)
-#: build/ui_dialog_uninstaller.h:244 build/ui_dialog_uninstaller.h:268
-#: translations/rc.cpp:96 translations/rc.cpp:130 rc.cpp:96 rc.cpp:130
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Step 1:</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">1. Urratsa:</span></p></body></html>"
-
-#. i18n: file: src/ui/dialog_uninstaller.ui:106
-#. i18n: ectx: property (text), widget (QLabel, label_5)
-#. i18n: file: src/ui/dialog_uninstaller.ui:168
-#. i18n: ectx: property (text), widget (QLabel, label_4)
-#. i18n: file: src/ui/dialog_uninstaller.ui:106
-#. i18n: ectx: property (text), widget (QLabel, label_5)
-#. i18n: file: src/ui/dialog_uninstaller.ui:168
-#. i18n: ectx: property (text), widget (QLabel, label_4)
-#: build/ui_dialog_uninstaller.h:249 build/ui_dialog_uninstaller.h:263
-#: translations/rc.cpp:103 translations/rc.cpp:123 rc.cpp:103 rc.cpp:123
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Step 2:</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">2. Urratsa:</span></p></body></html>"
-
-#. i18n: file: src/ui/dialog_uninstaller.ui:117
-#. i18n: ectx: property (text), widget (QLabel, label_10)
-#: build/ui_dialog_uninstaller.h:254 translations/rc.cpp:110 rc.cpp:110
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Remove Gtk Theme</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Gtk Gaia Ezabatu</span></p></body></html>"
-
-#. i18n: file: src/ui/dialog_uninstaller.ui:141
-#. i18n: ectx: property (text), widget (QPushButton, but_uninstall_theme)
-#. i18n: file: src/ui/dialog_uninstaller.ui:214
-#. i18n: ectx: property (text), widget (QPushButton, but_uninstall_icon)
-#. i18n: file: src/ui/dialog_uninstaller.ui:141
-#. i18n: ectx: property (text), widget (QPushButton, but_uninstall_theme)
-#. i18n: file: src/ui/dialog_uninstaller.ui:214
-#. i18n: ectx: property (text), widget (QPushButton, but_uninstall_icon)
-#: build/ui_dialog_uninstaller.h:260 build/ui_dialog_uninstaller.h:279
-#: translations/rc.cpp:117 translations/rc.cpp:147 rc.cpp:117 rc.cpp:147
-msgid "Uninstall"
-msgstr "Desinstalatu"
-
-#. i18n: file: src/ui/dialog_uninstaller.ui:157
-#. i18n: ectx: property (text), widget (QLabel, label_6)
-#: build/ui_dialog_uninstaller.h:262 translations/rc.cpp:120 rc.cpp:120
-msgid "Select an icon theme from the list"
-msgstr "Zerrendatik ikono gai bat aukera ezazu"
-
-#. i18n: file: src/ui/dialog_uninstaller.ui:197
-#. i18n: ectx: property (text), widget (QLabel, label_12)
-#: build/ui_dialog_uninstaller.h:274 translations/rc.cpp:140 rc.cpp:140
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Remove Icons Theme</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:12pt; font-weight:600;\">Ikono Gaia Ezabatu</span></p></body></html>"
-
-#. i18n: file: src/ui/dialog_uninstaller.ui:263
-#. i18n: ectx: property (text), widget (QPushButton, but_accept)
-#: build/ui_dialog_uninstaller.h:281 translations/rc.cpp:150 rc.cpp:150
-msgid "    Ok   "
-msgstr "    Ados   "
-
-#. i18n: file: src/ui/gui.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, GUI)
-#: build/ui_gui.h:536 src/modulo.cpp:40 translations/rc.cpp:153 rc.cpp:153
-msgid "Chakra Gtk Config"
-msgstr "Chakraren Gtk Konfigurazioa"
-
-#. i18n: file: src/ui/gui.ui:63
-#. i18n: ectx: property (text), widget (QLabel, label_10)
-#: build/ui_gui.h:537 translations/rc.cpp:159 rc.cpp:159
-msgid "Select Icons Theme"
-msgstr "Ikono Gaia  Aukeratu"
-
-#. i18n: file: src/ui/gui.ui:73
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: build/ui_gui.h:538 translations/rc.cpp:162 rc.cpp:162
-msgid "Select Fallback Icons theme"
-msgstr "Bigarren Mailako Ikono gaia Aukeratu"
-
-#. i18n: file: src/ui/gui.ui:325
-#. i18n: ectx: property (text), widget (QLabel, label_9)
-#: build/ui_gui.h:556 translations/rc.cpp:165 rc.cpp:165
-msgid "Select a Theme"
-msgstr "Gaia aukeratu"
-
-#. i18n: file: src/ui/gui.ui:342
-#. i18n: ectx: property (text), widget (QLabel, label_6)
-#: build/ui_gui.h:557 translations/rc.cpp:168 rc.cpp:168
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">GTK Theme</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">GTK Gaia</span></p></body></html>"
-
-#. i18n: file: src/ui/gui.ui:353
-#. i18n: ectx: property (text), widget (QLabel, label_8)
-#: build/ui_gui.h:562 translations/rc.cpp:175 rc.cpp:175
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Icons Theme</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"size:10pt; font-weight:600;\">Ikono Gaia</span></p></body></html>"
-
-#. i18n: file: src/ui/gui.ui:408
-#. i18n: ectx: property (text), widget (QLabel, label_5)
-#: build/ui_gui.h:570 translations/rc.cpp:182 rc.cpp:182
-msgid "Select Font Family"
-msgstr "Letra-tipoa Aukeratu"
-
-#. i18n: file: src/ui/gui.ui:432
-#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: build/ui_gui.h:573 translations/rc.cpp:185 rc.cpp:185
-msgid "normal"
-msgstr "normala"
-
-#. i18n: file: src/ui/gui.ui:437
-#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: build/ui_gui.h:574 translations/rc.cpp:188 rc.cpp:188
-msgid "bold"
-msgstr "beltza"
-
-#. i18n: file: src/ui/gui.ui:442
-#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: build/ui_gui.h:575 translations/rc.cpp:191 rc.cpp:191
-msgid "italic"
-msgstr "etzanda"
-
-#. i18n: file: src/ui/gui.ui:447
-#. i18n: ectx: property (text), item, widget (QComboBox, cb_font_style)
-#: build/ui_gui.h:576 translations/rc.cpp:194 rc.cpp:194
-msgid "bold italic"
-msgstr "beltza eta etzanda"
-
-#. i18n: file: src/ui/gui.ui:455
-#. i18n: ectx: property (suffix), widget (QSpinBox, spin_font_tam)
-#: build/ui_gui.h:578 translations/rc.cpp:197 rc.cpp:197
-msgid " px"
-msgstr " px"
-
-#. i18n: file: src/ui/gui.ui:492
-#. i18n: ectx: property (text), widget (QLabel, lb_font_preview)
-#: build/ui_gui.h:579 translations/rc.cpp:200 rc.cpp:200
-msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
-msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
-
-#. i18n: file: src/ui/gui.ui:30
-#. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: build/ui_gui.h:580 translations/rc.cpp:156 rc.cpp:156
-msgid "Configuration"
-msgstr "Konfigurazioa"
-
-#. i18n: file: src/ui/gui.ui:541
-#. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
-#: build/ui_gui.h:584 translations/rc.cpp:206 rc.cpp:206
-msgid "Icons only"
-msgstr "Ikonoak soilik"
-
-#. i18n: file: src/ui/gui.ui:546
-#. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
-#: build/ui_gui.h:585 translations/rc.cpp:209 rc.cpp:209
-msgid "Text only"
-msgstr "Testua soilik"
-
-#. i18n: file: src/ui/gui.ui:551
-#. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
-#: build/ui_gui.h:586 translations/rc.cpp:212 rc.cpp:212
-msgid "Text under icons"
-msgstr "Testua ikonoen azpian"
-
-#. i18n: file: src/ui/gui.ui:556
-#. i18n: ectx: property (text), item, widget (QComboBox, cb_toolbar_icons)
-#: build/ui_gui.h:587 translations/rc.cpp:215 rc.cpp:215
-msgid "Text after icons"
-msgstr "Testua ikonoen ondoan"
-
-#. i18n: file: src/ui/gui.ui:571
-#. i18n: ectx: property (text), widget (QCheckBox, checkBox_icon_gtk_buttons)
-#: build/ui_gui.h:589 translations/rc.cpp:218 rc.cpp:218
-msgid "Show icons in Gtk Buttons"
-msgstr "Ikonoak erakutsi Gtk Botoietan"
-
-#. i18n: file: src/ui/gui.ui:578
-#. i18n: ectx: property (text), widget (QCheckBox, checkBox_icon_gtk_menus)
-#: build/ui_gui.h:590 translations/rc.cpp:221 rc.cpp:221
-msgid "Show Icons in Gtk Menus"
-msgstr "Ikonoak Erakutsi Gtk Menuetan"
-
-#. i18n: file: src/ui/gui.ui:597
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: build/ui_gui.h:591 translations/rc.cpp:224 rc.cpp:224
-msgid "Gtk style toolbar"
-msgstr "Gtk antzerako tresna-barra"
-
-#. i18n: file: src/ui/gui.ui:528
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: build/ui_gui.h:592 translations/rc.cpp:203 rc.cpp:203
-msgid "Fine Tuning"
-msgstr "Pertsonalizazio Sakona"
-
-#. i18n: file: src/ui/gui.ui:635
-#. i18n: ectx: property (text), widget (QLabel, label_11)
-#: build/ui_gui.h:593 translations/rc.cpp:230 rc.cpp:230
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Sans Serif'; font-size:12pt; font-weight:600;\">ADD AND REMOVE "
-"THEMES</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
-"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
-"family:'Sans Serif'; font-size:12pt; font-weight:600;\"></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Sans Serif'; font-size:12pt; font-weight:600;\">GAIAK GEHITU ETA "
-"KENDU</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
-"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
-"family:'Sans Serif'; font-size:12pt; font-weight:600;\"></p></body></html>"
-
-#. i18n: file: src/ui/gui.ui:654
-#. i18n: ectx: property (text), widget (QLabel, label_13)
-#: build/ui_gui.h:599 translations/rc.cpp:238 rc.cpp:238
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Sans Serif'; font-size:10pt;\">You can install new themes for your "
-"system, those themes are package files with *.tar.gz or *.tar extension.</"
-"span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Sans Serif'; font-size:10pt;\">We suggest the following web pages "
-"for download new themes:</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
-"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
-"family:'Sans Serif'; font-size:10pt; text-decoration: underline; color:"
-"#0057ae;\"></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href="
-"\"http://www.gnome-look.org\"><span style=\" font-family:'Sans Serif'; font-"
-"size:14pt; text-decoration: underline; color:#0057ae;\">www.gnome-look.org</"
-"span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href="
-"\"http://art.gnome.org\"><span style=\" font-family:'Sans Serif'; font-"
-"size:14pt; text-decoration: underline; color:#0057ae;\">art.gnome.org</"
-"span></a></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-"
-"bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
-"indent:0px; font-family:'Sans Serif'; font-size:14pt; text-decoration: "
-"underline; color:#0057ae;\"></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Sans Serif'; font-size:10pt;\">Gai berriak instala ditzakezu zure "
-"sisteman, gai horiek *.tar edo *.tar.gz luzapena dute.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Sans Serif'; font-size:10pt;\">Se recomienda bajarlos de los "
-"siguientes sitios web:</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
-"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
-"family:'Sans Serif'; font-size:10pt; text-decoration: underline; color:"
-"#0057ae;\"></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href="
-"\"http://www.gnome-look.org\"><span style=\" font-family:'Sans Serif'; font-"
-"size:14pt; text-decoration: underline; color:#0057ae;\">www.gnome-look.org</"
-"span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href="
-"\"http://art.gnome.org\"><span style=\" font-family:'Sans Serif'; font-"
-"size:14pt; text-decoration: underline; color:#0057ae;\">art.gnome.org</"
-"span></a></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-"
-"bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
-"indent:0px; font-family:'Sans Serif'; font-size:14pt; text-decoration: "
-"underline; color:#0057ae;\"></p></body></html> "
-
-#. i18n: file: src/ui/gui.ui:676
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: build/ui_gui.h:610 translations/rc.cpp:250 rc.cpp:250
-msgid "Actions"
-msgstr "Ekintzak"
-
-#. i18n: file: src/ui/gui.ui:688
-#. i18n: ectx: property (text), widget (QCommandLinkButton, clb_add_theme)
-#: build/ui_gui.h:611 translations/rc.cpp:253 rc.cpp:253
-msgid "ADD THEMES"
-msgstr "GAIAK GEHITU"
-
-#. i18n: file: src/ui/gui.ui:691
-#. i18n: ectx: property (description), widget (QCommandLinkButton, clb_add_theme)
-#: build/ui_gui.h:612 translations/rc.cpp:256 rc.cpp:256
-msgid "Install theme from file ..."
-msgstr "Gai bat instalatu fitxategi batetik abiatuta..."
-
-#. i18n: file: src/ui/gui.ui:704
-#. i18n: ectx: property (text), widget (QCommandLinkButton, clb_remove_theme)
-#: build/ui_gui.h:613 translations/rc.cpp:259 rc.cpp:259
-msgid "REMOVE THEMES"
-msgstr "GAIAK KENDU"
-
-#. i18n: file: src/ui/gui.ui:707
-#. i18n: ectx: property (description), widget (QCommandLinkButton, clb_remove_theme)
-#: build/ui_gui.h:614 translations/rc.cpp:262 rc.cpp:262
-msgid "Remove themes installed in the system ..."
-msgstr "Sistematik instalatutako gaiak ezabatu ..."
-
-#. i18n: file: src/ui/gui.ui:766
-#. i18n: ectx: property (text), widget (QCommandLinkButton, but_theme_ghns)
-#: build/ui_gui.h:615 translations/rc.cpp:265 rc.cpp:265
-msgid "Download new gtk themes"
-msgstr ""
-
-#. i18n: file: src/ui/gui.ui:773
-#. i18n: ectx: property (description), widget (QCommandLinkButton, but_theme_ghns)
-#: build/ui_gui.h:616 translations/rc.cpp:268 rc.cpp:268
-msgid "Retrieve gtk themes from opendesktop.org"
-msgstr ""
-
-#. i18n: file: src/ui/gui.ui:624
-#. i18n: ectx: attribute (title), widget (QWidget, tab_install)
-#: build/ui_gui.h:617 translations/rc.cpp:227 rc.cpp:227
-msgid "Add and Remove Themes"
-msgstr "Gaiak Gehitu eta Kendu"
 
 #: src/dialog_installer.cpp:60
 msgid "Select a valid gtk theme file"
@@ -750,6 +67,10 @@ msgstr "Gtk Gaia Arrakastaz Instalatu da"
 msgid "The Gtk theme cannot be installed"
 msgstr "Gtk gaia ezin da instalatu"
 
+#: src/modulo.cpp:40
+msgid "Chakra Gtk Config"
+msgstr "Chakraren Gtk Konfigurazioa"
+
 #: src/modulo.cpp:41
 msgid "Config your Gtk Apps"
 msgstr "Zure Gtk Aplikazioak Konfiguratu"
@@ -775,22 +96,457 @@ msgid "Ideas, tester, internationalization"
 msgstr "Ideiak, probatzaileak, internazionalizazioa"
 
 #: src/modulo.cpp:46
-msgid "Adrián Chávez Hernández (Gallaecio)"
+#, fuzzy
+msgid "Adrián Chaves Fernández (Gallaecio)"
 msgstr "Adrián Chávez Hernández (Gallaecio)"
 
 #: src/modulo.cpp:46
 msgid "Internationalization"
 msgstr "Internazionalizazioa"
 
-#: translations/rc.cpp:269 rc.cpp:269
+#: translations/rc.cpp:1 rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Eneko Sarasola"
 
-#: translations/rc.cpp:270 rc.cpp:270
+#: translations/rc.cpp:2 rc.cpp:2
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "eneko.sarasola@gmail.com"
+
+#~ msgid "Installer"
+#~ msgstr "Instalatzailea"
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "size:12pt; font-weight:600;\">Chakra Gtk Config</span></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "size:12pt; font-weight:600;\">Chakraren Gtk Konfigurazioa</span></p></"
+#~ "body></html>"
+
+#~ msgid "In order to add a new theme, just follow these steps:"
+#~ msgstr "Hurrengo pausoak jarraitu gai berri bat instalatzeko:"
+
+#~ msgid "Select file"
+#~ msgstr "Fitxategi bat aukeratu"
+
+#~ msgid "Click the next button in order to install the theme in your system"
+#~ msgstr "Hurrengo botoia sakatu gai berria sisteman instalatzearren"
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "size:10pt; font-weight:600;\">Step 1:</span></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "size:10pt; font-weight:600;\">1. Urratsa:</span></p></body></html>"
+
+#~ msgid "Select the theme file you want to install"
+#~ msgstr "Gai berriaren fitxategia aukera ezazu"
+
+#~ msgid "Install Gtk Theme"
+#~ msgstr "Gtk Gaia Instalatu"
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "size:10pt; font-weight:600;\">Step 2 :</span></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "size:10pt; font-weight:600;\">2. Urratsa:</span></p></body></html>"
+
+#~ msgid "Add Gtk Theme"
+#~ msgstr "Gtk Gaia Gehitu"
+
+#~ msgid "Install icons"
+#~ msgstr "Ikonoak instalatu"
+
+#~ msgid "Add new icons theme"
+#~ msgstr "Ikono gai berria gehitu"
+
+#~ msgid "  Ok  "
+#~ msgstr "  Ados  "
+
+#~ msgid "Remove Themes"
+#~ msgstr "Gaiak Ezabatu"
+
+#~ msgid "Select an Gtk theme from the list"
+#~ msgstr "Zerrendatik Gtk gai bat aukeratu"
+
+#~ msgid "Press the button to remove the theme"
+#~ msgstr "Hurrengo botoia sakatu ezazu gaia ezabatzearren"
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">Step 1:</span></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">1. Urratsa:</span></p></body></html>"
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">Step 2:</span></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">2. Urratsa:</span></p></body></html>"
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "size:12pt; font-weight:600;\">Remove Gtk Theme</span></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "size:12pt; font-weight:600;\">Gtk Gaia Ezabatu</span></p></body></html>"
+
+#~ msgid "Uninstall"
+#~ msgstr "Desinstalatu"
+
+#~ msgid "Select an icon theme from the list"
+#~ msgstr "Zerrendatik ikono gai bat aukera ezazu"
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "size:12pt; font-weight:600;\">Remove Icons Theme</span></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "size:12pt; font-weight:600;\">Ikono Gaia Ezabatu</span></p></body></html>"
+
+#~ msgid "    Ok   "
+#~ msgstr "    Ados   "
+
+#~ msgid "Select Icons Theme"
+#~ msgstr "Ikono Gaia  Aukeratu"
+
+#~ msgid "Select Fallback Icons theme"
+#~ msgstr "Bigarren Mailako Ikono gaia Aukeratu"
+
+#~ msgid "Select a Theme"
+#~ msgstr "Gaia aukeratu"
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "size:10pt; font-weight:600;\">GTK Theme</span></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "size:10pt; font-weight:600;\">GTK Gaia</span></p></body></html>"
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "size:10pt; font-weight:600;\">Icons Theme</span></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "size:10pt; font-weight:600;\">Ikono Gaia</span></p></body></html>"
+
+#~ msgid "Select Font Family"
+#~ msgstr "Letra-tipoa Aukeratu"
+
+#~ msgid "normal"
+#~ msgstr "normala"
+
+#~ msgid "bold"
+#~ msgstr "beltza"
+
+#~ msgid "italic"
+#~ msgstr "etzanda"
+
+#~ msgid "bold italic"
+#~ msgstr "beltza eta etzanda"
+
+#~ msgid " px"
+#~ msgstr " px"
+
+#~ msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
+#~ msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit.In leo nisl"
+
+#~ msgid "Configuration"
+#~ msgstr "Konfigurazioa"
+
+#~ msgid "Icons only"
+#~ msgstr "Ikonoak soilik"
+
+#~ msgid "Text only"
+#~ msgstr "Testua soilik"
+
+#~ msgid "Text under icons"
+#~ msgstr "Testua ikonoen azpian"
+
+#~ msgid "Text after icons"
+#~ msgstr "Testua ikonoen ondoan"
+
+#~ msgid "Show icons in Gtk Buttons"
+#~ msgstr "Ikonoak erakutsi Gtk Botoietan"
+
+#~ msgid "Show Icons in Gtk Menus"
+#~ msgstr "Ikonoak Erakutsi Gtk Menuetan"
+
+#~ msgid "Gtk style toolbar"
+#~ msgstr "Gtk antzerako tresna-barra"
+
+#~ msgid "Fine Tuning"
+#~ msgstr "Pertsonalizazio Sakona"
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:9pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "family:'Sans Serif'; font-size:12pt; font-weight:600;\">ADD AND REMOVE "
+#~ "THEMES</span></p>\n"
+#~ "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
+#~ "font-family:'Sans Serif'; font-size:12pt; font-weight:600;\"></p></body></"
+#~ "html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:9pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "family:'Sans Serif'; font-size:12pt; font-weight:600;\">GAIAK GEHITU ETA "
+#~ "KENDU</span></p>\n"
+#~ "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
+#~ "font-family:'Sans Serif'; font-size:12pt; font-weight:600;\"></p></body></"
+#~ "html>"
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:9pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "family:'Sans Serif'; font-size:10pt;\">You can install new themes for "
+#~ "your system, those themes are package files with *.tar.gz or *.tar "
+#~ "extension.</span></p>\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "family:'Sans Serif'; font-size:10pt;\">We suggest the following web pages "
+#~ "for download new themes:</span></p>\n"
+#~ "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
+#~ "font-family:'Sans Serif'; font-size:10pt; text-decoration: underline; "
+#~ "color:#0057ae;\"></p>\n"
+#~ "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
+#~ "left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a "
+#~ "href=\"http://www.gnome-look.org\"><span style=\" font-family:'Sans "
+#~ "Serif'; font-size:14pt; text-decoration: underline; color:#0057ae;\">www."
+#~ "gnome-look.org</span></a></p>\n"
+#~ "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
+#~ "left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a "
+#~ "href=\"http://art.gnome.org\"><span style=\" font-family:'Sans Serif'; "
+#~ "font-size:14pt; text-decoration: underline; color:#0057ae;\">art.gnome."
+#~ "org</span></a></p>\n"
+#~ "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; "
+#~ "margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; "
+#~ "text-indent:0px; font-family:'Sans Serif'; font-size:14pt; text-"
+#~ "decoration: underline; color:#0057ae;\"></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:9pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "family:'Sans Serif'; font-size:10pt;\">Gai berriak instala ditzakezu zure "
+#~ "sisteman, gai horiek *.tar edo *.tar.gz luzapena dute.</span></p>\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "family:'Sans Serif'; font-size:10pt;\">Se recomienda bajarlos de los "
+#~ "siguientes sitios web:</span></p>\n"
+#~ "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
+#~ "font-family:'Sans Serif'; font-size:10pt; text-decoration: underline; "
+#~ "color:#0057ae;\"></p>\n"
+#~ "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
+#~ "left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a "
+#~ "href=\"http://www.gnome-look.org\"><span style=\" font-family:'Sans "
+#~ "Serif'; font-size:14pt; text-decoration: underline; color:#0057ae;\">www."
+#~ "gnome-look.org</span></a></p>\n"
+#~ "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-"
+#~ "left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a "
+#~ "href=\"http://art.gnome.org\"><span style=\" font-family:'Sans Serif'; "
+#~ "font-size:14pt; text-decoration: underline; color:#0057ae;\">art.gnome."
+#~ "org</span></a></p>\n"
+#~ "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; "
+#~ "margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; "
+#~ "text-indent:0px; font-family:'Sans Serif'; font-size:14pt; text-"
+#~ "decoration: underline; color:#0057ae;\"></p></body></html> "
+
+#~ msgid "Actions"
+#~ msgstr "Ekintzak"
+
+#~ msgid "ADD THEMES"
+#~ msgstr "GAIAK GEHITU"
+
+#~ msgid "Install theme from file ..."
+#~ msgstr "Gai bat instalatu fitxategi batetik abiatuta..."
+
+#~ msgid "REMOVE THEMES"
+#~ msgstr "GAIAK KENDU"
+
+#~ msgid "Remove themes installed in the system ..."
+#~ msgstr "Sistematik instalatutako gaiak ezabatu ..."
+
+#~ msgid "Add and Remove Themes"
+#~ msgstr "Gaiak Gehitu eta Kendu"
 
 #~ msgid "Chakra's fan and developer"
 #~ msgstr "Fan y desarrollador de Chakra"
