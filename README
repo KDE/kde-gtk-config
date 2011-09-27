@@ -1,4 +1,4 @@
-CHAKRA GTK CONFIG v1.6
+CHAKRA GTK CONFIG v1.7
 ----------------------
 
 Copyright (c) 2011 - Jose Antonio Sánchez Reynaga <joanzare@gmail.com>
@@ -52,4 +52,7 @@ v1.6
 
 v1.7 
 * Added Russian
+
+v1.7
+* Added Gtk3 Support, You can install gtk3 themes through GHNS API and manual installation.
 

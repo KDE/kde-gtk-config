@@ -34,6 +34,7 @@ set(kcm_SRCS
 set(GHNS_FILES 
      cgcicon.knsrc
      cgctheme.knsrc
+     cgcgtk3.knsrc
 )
 
 

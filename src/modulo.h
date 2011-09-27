@@ -57,6 +57,7 @@ public slots:
     void appChanged(); //Metodo que se ejecuta cuando un cambio en la gui se ha registrado  
     
     void showThemeGHNS();
+    void installThemeGTK3GHNS();
   
     
     virtual void save();
@@ -70,6 +71,7 @@ public slots:
      * Muestra el dialogo para desinstalar un tema
      */
     void showDialogForUninstall();
+  
 
 signals:
     void selectedTheme();

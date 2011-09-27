@@ -390,6 +390,19 @@ p, li { white-space: pre-wrap; }
                </property>
               </widget>
              </item>
+             <item row="3" column="1">
+              <widget class="QComboBox" name="cb_theme_gtk3"/>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_21">
+               <property name="text">
+                <string>Select a GTK3 Theme </string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>
@@ -676,7 +689,7 @@ p, li { white-space: pre-wrap; }
           <string>Actions</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="2" column="1">
+          <item row="3" column="1">
            <widget class="QCommandLinkButton" name="clb_add_theme">
             <property name="minimumSize">
              <size>
@@ -692,7 +705,7 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
+          <item row="6" column="1">
            <widget class="QCommandLinkButton" name="clb_remove_theme">
             <property name="minimumSize">
              <size>
@@ -708,7 +721,7 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="0">
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -721,7 +734,7 @@ p, li { white-space: pre-wrap; }
             </property>
            </spacer>
           </item>
-          <item row="5" column="0">
+          <item row="6" column="0">
            <spacer name="horizontalSpacer_4">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -734,7 +747,7 @@ p, li { white-space: pre-wrap; }
             </property>
            </spacer>
           </item>
-          <item row="2" column="2">
+          <item row="3" column="2">
            <spacer name="horizontalSpacer_5">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -747,7 +760,7 @@ p, li { white-space: pre-wrap; }
             </property>
            </spacer>
           </item>
-          <item row="5" column="2">
+          <item row="6" column="2">
            <spacer name="horizontalSpacer_6">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -771,6 +784,16 @@ p, li { white-space: pre-wrap; }
             </property>
             <property name="description">
              <string>Retrieve gtk themes from opendesktop.org</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCommandLinkButton" name="but_theme_gtk3_ghns">
+            <property name="text">
+             <string>Dowload new gtk3 themes</string>
+            </property>
+            <property name="description">
+             <string>Retrieve gtk3 themes from opendesktop.org</string>
             </property>
            </widget>
           </item>

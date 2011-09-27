@@ -7,6 +7,8 @@ AparienciaGTK::AparienciaGTK()
 
     //Cargamos información del archivo .gtkrc-2.0 al instanciar esta clase
     loadFileConfig();
+    
+    getAvaliableGtk3Themes();
 
 
 }
@@ -18,12 +20,29 @@ void AparienciaGTK::setIconFallBack(QString fall){ settings["icon_fallback"] = f
 void AparienciaGTK::setFont(QString fo){ settings["font"] = fo;}
 void AparienciaGTK::setThemePath(QString temaPath){ settings["theme_path"] = temaPath; }
 
+void AparienciaGTK::setThemeGtk3(const QString& theme)
+{
+  settings["themegtk3"] = theme;
+}
+
+void AparienciaGTK::setThemeGtk3Path(const QString& themePath)
+{
+    settings["themegtk3_path"] = themePath;
+}
+
+
 // GETTERS
 QString AparienciaGTK::getTheme(){ return settings["theme"];}
 QString AparienciaGTK::getThemePath(){ return settings["theme_path"]; }
 QString AparienciaGTK::getIcon(){ return settings["icon"];}
 QString AparienciaGTK::getIconFallBack(){ return settings["icon_fallback"]; }
 QString AparienciaGTK::getFont(){ return settings["font"]; }
+
+QString AparienciaGTK::getThemeGtk3()
+{
+    return settings["themegtk3"];
+}
+
 
 QStringList AparienciaGTK::getAvaliableIcons()
 {
@@ -199,6 +218,7 @@ QStringList AparienciaGTK::getAvaliableIconsPaths()
 
 }
 
+
 QStringList AparienciaGTK::getAvaliableThemesPaths(){
     QStringList temasDisponibles;
 
@@ -254,6 +274,75 @@ QStringList AparienciaGTK::getAvaliableThemesPaths(){
 
     return temasDisponibles;
 }
+
+QStringList AparienciaGTK::getAvaliableGtk3Themes()
+{
+    QStringList temasDisponibles;
+
+    //Listo las carpetas que existen en el directorio de los temas en root
+    QDir root("/usr/share/themes");
+    QDirIterator iterador(root);
+    while(iterador.hasNext()){
+        QString urlActual = iterador.next();
+
+        if(!(urlActual == "/usr/share/themes/." || urlActual == "/usr/share/themes/..")){
+            temasDisponibles << urlActual;
+        }
+    }
+
+    //Verificar si existen temas desde la carpeta del usuario
+    QString usuario_path = QDir::homePath()+"/.themes";
+    QDir usuario(usuario_path);
+
+    //Algunas veces no existe la carpeta .themes
+    if(usuario.exists()){
+        QDirIterator it(usuario);
+        while(it.hasNext()){
+            QString urlActual = it.next();
+
+            if(!(urlActual == (usuario_path+"/.") || urlActual == (usuario_path+"/..") )){
+                temasDisponibles << urlActual;
+            }
+        }
+    }
+
+    //FILTRO, verificar si en cada directorio, existe el archivo gtkrc
+    foreach(QString i, temasDisponibles){
+
+        bool gtkrc = false; //bandera de ayuda, si es true significa que si existe el archivo gtkrc
+        QDirIterator itera(i);
+        while(itera.hasNext()){
+
+            QString urlActual = itera.next();
+            
+            qDebug() << "gtk3 -> " << urlActual;
+
+            if(itera.filePath().contains(QRegExp("(gtk-3.0)$"))){
+                gtkrc = true;
+                break;
+            }
+        }
+
+        //Si no existe el fichero gtkrc, no es un tema gtk valido, eliminar de la lista de temas
+        if(!gtkrc){
+            //qDebug() << "Folder : " << i << " does not contain a gtk-2.0 folder, discard it";
+            temasDisponibles.removeAll(i);
+        }
+
+    }
+
+    QStringList temas;
+
+    foreach(QString i, temasDisponibles){
+        QDir temp(i);
+        temas << temp.dirName();
+    }
+    
+    qDebug() << "*** Temas GTK3 path:" << temas;
+
+    return temas;
+}
+
 
 QStringList AparienciaGTK::getAvaliableThemes()
 {
@@ -326,6 +415,8 @@ bool AparienciaGTK::loadFileConfig(){
 
     //Verificar si el archivo de configuracion existe
     QFile archivo(QDir::homePath()+"/.gtkrc-2.0");
+    
+    bool is_settings_read = false;
 
     if(archivo.exists()){
         qDebug() << "The config file already exist ... ";
@@ -485,15 +576,177 @@ bool AparienciaGTK::loadFileConfig(){
 
             //Cerramos el archivo
             archivo.close();
+            
+            is_settings_read = true;
         }
 
     }
-    else{
+    
+    
+    //Leemos los datos para temas GTK3
+    QFile file_gtk3(QDir::homePath()+"/.config/gtk-3.0/settings.ini");
+    
+    if(file_gtk3.exists()){
+        qDebug() << "The config file already exist gtk3 :) ... ";
+
+        /**
+          Variables a sacar desde el archivo
+            include "/path/to/theme/gtkrc"
+            font-name="Nombre de fuente"
+            gtk-theme-name="nombre-tema"
+            gtk-icon-theme-name="OxygenRefit2"
+            gtk-fallback-icon-theme = "oxygen-refit-2-2.5.0"
+            gtk-toolbar-style = GTK_TOOLBAR_ICONS
+            gtk-menu-images = true
+            gtk-button-images = true
+
+          */
+
+        //Abrir el archivo para la lectura
+        if(file_gtk3.open(QIODevice::ReadOnly | QIODevice::Text)){
+
+            //Leemos el archivo y lo guardamos como una una lista de cadenas
+            QTextStream flujo(&file_gtk3);
+            QStringList texto = flujo.readAll().split('\n');
+
+            QString 
+                icono, //Nombre del tema de iconos
+                fuente, //Nombre del tipo de letra
+                nombre_tema, //Nombre del tema configurado
+                icono_fallback,
+                
+                show_icons_menus, //Indica si los menus tiene iconosDisponibles
+                show_icons_buttons, //Indica si los Botones tiene iconosDisponibles
+                toolbar_style //Indica el estilo de la barra de herramientas
+                ;
+            //Quitamos espacios en blanco, comentarios y las lineas que no necesito
+            foreach(QString i, texto){
+
+                //Quitamos comentarios y los espacios vacios
+                if(i.startsWith('#') || i.isEmpty()){
+                    texto.removeAll(i);
+                    continue;
+                }
+
+                //La linea que contiene este include no la necesito para leer
+                if(i.contains("[Settings]")){
+                    texto.removeAll(i);
+                    continue;
+                }
+
+                
+
+            }
+            
+        
+
+            // Obtenemos los atributos de los temas
+            foreach(QString i, texto){
+          
+                //Obtengo el nombre del tema instalado
+                if(i.contains("gtk-theme-name")){
+                    nombre_tema = (i.mid(i.indexOf("=")+1)).remove("\"");
+                    texto.removeAll(i);
+                    continue;
+                }
+                
+
+                // Obtenemos el nombre de la fuente
+                if(i.contains("gtk-font-name")){
+                    fuente =(
+                            (i.mid( i.indexOf("=")+1 ))
+                             .trimmed() //Quitamos espacios en blanco alrededor
+                             ).replace("\"", ""); // Quitamos los parentesis "
+                    continue;
+                }
+
+                // Obtenemos el nombre del tema del icono
+                if(i.contains("gtk-icon-theme-name")){
+                    icono =(
+                            (i.mid( i.indexOf("=")+1 ))
+                             .trimmed() //Quitamos espacios en blanco alrededor
+                             ).replace("\"", ""); // Quitamos los parentesis "
+                }
+
+                // Obtenemos el nombre del tema fallback
+                if(i.contains("gtk-fallback-icon-theme")){
+                    icono_fallback =(
+                            (i.mid( i.indexOf("=")+1 ))
+                             .trimmed() //Quitamos espacios en blanco alrededor
+                             ).replace("\"", ""); // Quitamos los parentesis "
+                }
+                
+                //Obtenemos el estilo del toolbar gtk-toolbar-style gtk-button-images
+                if(i.contains("gtk-toolbar-style")){
+                    toolbar_style =(
+                            (i.mid( i.indexOf("=")+1 ))
+                             .trimmed() //Quitamos espacios en blanco alrededor
+                             ).replace("\"", ""); // Quitamos los parentesis "
+                }
+                
+                //Obtenemos el estilo del toolbar gtk-button-images
+                if(i.contains("gtk-button-images")){
+                    show_icons_buttons =(
+                            (i.mid( i.indexOf("=")+1 ))
+                             .trimmed() //Quitamos espacios en blanco alrededor
+                             ).replace("\"", ""); // Quitamos los parentesis "
+                }
+                
+                //Obtenemos el estilo del toolbar gtk-button-images
+                if(i.contains("gtk-menu-images")){
+                    show_icons_menus =(
+                            (i.mid( i.indexOf("=")+1 ))
+                             .trimmed() //Quitamos espacios en blanco alrededor
+                             ).replace("\"", ""); // Quitamos los parentesis "
+                }
+
+            }
+            
+            //qDebug() << "Check Settings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<";
+            if(toolbar_style.isNull()){
+                 toolbar_style = "GTK_TOOLBAR_ICONS";
+                // qDebug() << "PICKED OPTIONS toolbar style: " << toolbar_style;
+            }
+            
+            if(show_icons_buttons.isNull()){
+                 show_icons_buttons = "0";
+                 //qDebug() << "PICKED OPTIONS, show icons in buttons: " << show_icons_buttons;
+            }
+            
+            if(show_icons_menus.isNull()){
+                 show_icons_menus = "0";
+                // qDebug() << "PICKED OPTIONS, show icons in menus: " << show_icons_menus;
+            }
+            //qDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";;
+            
+            
+
+            //Ingresamos los datos
+            settings["themegtk3"] = nombre_tema;
+            settings["icon"] = icono;
+            settings["icon_fallback"] = icono_fallback;
+            settings["font"] = fuente;
+            settings["toolbar_style"] = toolbar_style;
+            settings["show_icons_buttons"] = show_icons_buttons;
+            settings["show_icons_menus"] = show_icons_menus;
+
+            qDebug()<< "***********" << settings;
+            
+            //Cerramos el archivo
+            file_gtk3.close();
+            
+            is_settings_read = true;
+        }
+    }
+    
+    //Si no se leyo ninguna configuracion
+    if(!is_settings_read){
         // no existe el archivo
-        qDebug() << "File does not exist, setting configs ...";
+        qDebug() << "File's does not exist, setting default configs  ...";
 
         // Si no existe el archivo crearlo, y configurarlo con valores por defecto
         settings["theme_path"] = "/usr/share/themes/oxygen-gtk";
+        settings["themegtk3"] = "Raleigh";
         settings["theme"] = "oxygen-gtk";
         settings["icon"] = "oxygen-refit-2-2.5.0";
         settings["icon_fallback"] = "oxygen-refit-2-2.5.0";
@@ -502,10 +755,10 @@ bool AparienciaGTK::loadFileConfig(){
         settings["show_icons_buttons"] = "1";
         settings["show_icons_menus"] = "1";
 
-        saveFileConfig();  
-
-        return false;
+        saveFileConfig();
     }
+    
+ 
 
     return true;
 }
@@ -616,7 +869,53 @@ bool AparienciaGTK::saveFileConfig()
         qDebug() << "no se pudo crear enlaze simbolico al archivo .gtkrc-2.0-kde4 :(";
     else
         qDebug() << "enlace simbolico creado ,  al archivo .gtkrc-2.0-kde4 :D";
-
+    
+    //GTK 3 support
+    //Archivo de Configuracion  ${XDG_CONFIG_HOME}/gtk-3.0/settings.ini
+    
+    QFile file_gtk3(QDir::homePath()+"/.config/gtk-3.0/settings.ini");
+    if(!file_gtk3.exists()){
+        qDebug() << "NO EXISTE " << QDir::homePath()+"/.config/gtk-3.0/settings.ini" << "Crearlo";
+        
+        QDir gtk3(QDir::homePath()+"/.config/gtk-3.0");
+        
+        if(!gtk3.exists()){
+            qDebug() << "- NO EXISTE " << QDir::homePath()+"/.config/gtk-3.0";
+            
+            QDir config(QDir::homePath()+"/.config");
+            
+            if(config.mkdir("gtk-3.0")){
+                qDebug() << "Carpeta gtk-3.0 creada satisfactoriamente";
+                
+            }
+            else{
+                qDebug() << "No se pudo crear la carpeta "  << QDir::homePath()+"/.config/gtk-3.0 " << " verifica permisos";
+                return false;
+            }
+            
+        }
+        
+    }
+    
+    //Carpeta gtk3-0 creada podemos continuar
+    
+    if(!file_gtk3.open(QIODevice::WriteOnly | QIODevice::Text)){
+        qDebug() << "No se pudo abrir el archivo " << file_gtk3.fileName();
+    }
+    
+    QTextStream flujo3(&file_gtk3);
+    
+    flujo3 << "[Settings]" << "\n";
+    flujo3 << "gtk-font-name=" << settings["font"] << "\n";
+    flujo3 << "gtk-theme-name=" << settings["themegtk3"] << "\n";
+    flujo3 << "gtk-icon-theme-name= "<< settings["icon"] << "\n";
+    flujo3 << "gtk-fallback-icon-theme=" << settings["icon_fallback"] << "\n";
+    flujo3 << "gtk-toolbar-style=" << settings["toolbar_style"] << "\n";
+    flujo3 << "gtk-menu-images=" << settings["show_icons_buttons"] << "\n";
+    flujo3 << "gtk-button-images=" << settings["show_icons_menus"] << "\n";
+    
+    file_gtk3.close();
+    
     return true;
 
 }

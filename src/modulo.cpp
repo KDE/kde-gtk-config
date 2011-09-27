@@ -1,6 +1,6 @@
 /*
-    <one line to give the library's name and an idea of what it does.>
-    Copyright (C) <year>  <name of author>
+    <KCMModule>
+    Copyright (C) <2011>  <Jose Antonio Sanchez Reynaga>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -37,7 +37,7 @@ ui(new Ui::GUI)
 {
     
       Q_UNUSED(args);
-       KAboutData *acercade = new KAboutData("cgc","kcm_cgc",ki18n("Chakra Gtk Config"),"1.6",
+       KAboutData *acercade = new KAboutData("cgc","kcm_cgc",ki18n("Chakra Gtk Config"),"1.7",
                       ki18n("Config your Gtk Apps"),
                       KAboutData::License_GPL_V2,
                       ki18n("Copyright 2011 José Antonio Sánchez Reynaga"));
@@ -56,6 +56,7 @@ ui(new Ui::GUI)
 
     //evento que notifican que hubo cambios en la interfaz grafica
     connect(ui->cb_theme, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
+    connect(ui->cb_theme_gtk3, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_icon, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_icon_fallback ,SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_font, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
@@ -87,6 +88,7 @@ ui(new Ui::GUI)
     
      //Nuevo hot stuff
     connect(ui->but_theme_ghns, SIGNAL(clicked(bool)), this, SLOT(showThemeGHNS()));
+    connect(ui->but_theme_gtk3_ghns, SIGNAL(clicked(bool)), this, SLOT(installThemeGTK3GHNS()));
     
     
     
@@ -116,6 +118,18 @@ void Modulo::showThemeGHNS()
 
 }
 
+void Modulo::installThemeGTK3GHNS()
+{
+     KNS3::DownloadDialog dialogo("cgcgtk3.knsrc", this);
+     if(dialogo.exec()){
+          refreshLists();
+     }
+     else{
+          
+     }
+}
+
+
 
 
 
@@ -130,6 +144,9 @@ void Modulo::refreshLists()
     //Actualizamos el combox de los temas de iconos disponibles
     ui->cb_icon->clear(); // limpiamos checkbox
     ui->cb_icon->addItems(appareance->getAvaliableIcons());
+    
+    ui->cb_theme_gtk3->clear();
+    ui->cb_theme_gtk3->addItems(appareance->getAvaliableGtk3Themes());
 
     //Actualizamos el combobox de los temas de iconos fallback disponibles
     ui->cb_icon_fallback->clear();
@@ -141,6 +158,12 @@ void Modulo::refreshLists()
     if(!appareance->getTheme().isEmpty()){
         int pos= ui->cb_theme->findText(appareance->getTheme());
         ui->cb_theme->setCurrentIndex(pos);
+    }
+    
+ //combobox del tema gtk3
+    if(!appareance->getThemeGtk3().isEmpty()){
+        int pos= ui->cb_theme->findText(appareance->getThemeGtk3());
+        ui->cb_theme_gtk3->setCurrentIndex(pos);
     }
 
     //combobox de icono
@@ -572,6 +595,10 @@ void Modulo::appChanged()
 // SOBRECARGA DE METODOS DE KCModule
 void Modulo::save()
 {
+    
+    
+    //Gtk3 yupi :)
+    appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
     
     //Establecemos los valores para guardarlo en el archivo .gtkrc-2.0
     appareance->setTheme(ui->cb_theme->currentText());
