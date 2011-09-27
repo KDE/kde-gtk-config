@@ -542,10 +542,7 @@ p, li { white-space: pre-wrap; }
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="2" column="1">
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="title">
-          <string/>
-         </property>
+        <widget class="QWidget" name="widget_2" native="true">
          <layout class="QGridLayout" name="gridLayout_6">
           <item row="0" column="1">
            <widget class="QComboBox" name="cb_toolbar_icons">
@@ -639,6 +636,12 @@ p, li { white-space: pre-wrap; }
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QLabel" name="label_11">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="text">
           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -791,6 +794,10 @@ p, li { white-space: pre-wrap; }
            <widget class="QCommandLinkButton" name="but_theme_gtk3_ghns">
             <property name="text">
              <string>Dowload new gtk3 themes</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>../../../../../../../../../../../usr/share/icons/oxygen/22x22/places/favorites.png</normaloff>../../../../../../../../../../../usr/share/icons/oxygen/22x22/places/favorites.png</iconset>
             </property>
             <property name="description">
              <string>Retrieve gtk3 themes from opendesktop.org</string>

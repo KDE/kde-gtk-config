@@ -159,6 +159,7 @@ void DialogUninstaller::threadUninstalledThemeFinished()
 {
     if(threadEraseTheme->isSuccess()){
         ui->lb_notice_uninstall_theme->setText(tr("Tema gtk desinstalado satisfactoriamente"));
+        emit(themeUninstalled());
     }
     else{
         ui->lb_notice_uninstall_theme->setText(tr("No se pudo desinstalar el tema gtk"));
@@ -175,6 +176,7 @@ void DialogUninstaller::threadUninstalledThemeIconFinished()
 {
     if(threadEraseTheme->isSuccess()){
         ui->lb_notice_uninstall_icon->setText(tr("Iconos Desinstalados satisfactoriamente ..."));
+        emit(themeUninstalled());
     }
     else{
         ui->lb_notice_uninstall_icon->setText(tr("No se pudo desintalar el tema de iconos"));

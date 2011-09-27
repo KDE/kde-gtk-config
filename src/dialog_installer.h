@@ -52,6 +52,12 @@ signals:
      */
     void selectedIconTheme();
     
+    /**
+     * Se activa cuando un tema se ha instalado
+     */
+    void themeInstalled();
+    
+    
 public slots:
     
     /**

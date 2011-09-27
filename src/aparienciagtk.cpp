@@ -315,7 +315,7 @@ QStringList AparienciaGTK::getAvaliableGtk3Themes()
 
             QString urlActual = itera.next();
             
-            qDebug() << "gtk3 -> " << urlActual;
+            //qDebug() << "gtk3 -> " << urlActual;
 
             if(itera.filePath().contains(QRegExp("(gtk-3.0)$"))){
                 gtkrc = true;
@@ -325,7 +325,7 @@ QStringList AparienciaGTK::getAvaliableGtk3Themes()
 
         //Si no existe el fichero gtkrc, no es un tema gtk valido, eliminar de la lista de temas
         if(!gtkrc){
-            //qDebug() << "Folder : " << i << " does not contain a gtk-2.0 folder, discard it";
+            qDebug() << "Folder : " << i << " does not contain a gtk-3.0 folder, discard it";
             temasDisponibles.removeAll(i);
         }
 

@@ -42,6 +42,10 @@ public:
     DialogUninstaller(QWidget *parent = 0, AparienciaGTK *app=0);
     ~DialogUninstaller();
     
+signals:
+    void themeUninstalled();
+    
+    
 public slots:
        //METODOS PARA EL DESINSTALADOR
     void refresthListsForUninstall();

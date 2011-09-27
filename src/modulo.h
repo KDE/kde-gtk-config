@@ -71,6 +71,7 @@ public slots:
      * Muestra el dialogo para desinstalar un tema
      */
     void showDialogForUninstall();
+   
   
 
 signals:

@@ -63,6 +63,7 @@ ui(new Ui::GUI)
     connect(ui->cb_font_style, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->spin_font_tam, SIGNAL(valueChanged(int)), this, SLOT(appChanged()));
     
+    
     //eventos nueos 15 may
     connect(ui->cb_toolbar_icons, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->checkBox_icon_gtk_menus, SIGNAL(clicked(bool)), this, SLOT(appChanged()));
@@ -79,6 +80,9 @@ ui(new Ui::GUI)
     
     installer =  new DialogInstaller(this);
     uninstaller = new DialogUninstaller(this, appareance);
+    
+    connect(installer, SIGNAL(themeInstalled()), SLOT(refreshLists()));
+    connect(uninstaller, SIGNAL(themeUninstalled()), SLOT(refreshLists()));
     
     
     //PREVISUALIZACION DEL TIPO DE LETRA
@@ -157,13 +161,26 @@ void Modulo::refreshLists()
     //combobox del tema
     if(!appareance->getTheme().isEmpty()){
         int pos= ui->cb_theme->findText(appareance->getTheme());
-        ui->cb_theme->setCurrentIndex(pos);
+        
+        if(pos == -1){
+            ui->cb_theme->setCurrentIndex(0);
+        }
+        else{
+            ui->cb_theme->setCurrentIndex(pos);
+        }
+        
     }
     
  //combobox del tema gtk3
     if(!appareance->getThemeGtk3().isEmpty()){
         int pos= ui->cb_theme->findText(appareance->getThemeGtk3());
         ui->cb_theme_gtk3->setCurrentIndex(pos);
+        if(pos == -1){
+            ui->cb_theme_gtk3->setCurrentIndex(0);
+        }
+        else{
+            ui->cb_theme_gtk3->setCurrentIndex(pos);
+        }
     }
 
     //combobox de icono
@@ -674,6 +691,7 @@ void Modulo::save()
 
     qDebug() << "******************************************* INSTALLATION :\n"
             << "theme : " << appareance->getTheme() << "\n"
+            << "themeGTK3 : " << appareance->getThemeGtk3() << "\n"
             << "theme path : " << appareance->getThemePath() << "\n"
             << "icons : " << appareance->getIcon() << "\n"
             << "fallback icons : " << appareance->getIconFallBack() << "\n"
