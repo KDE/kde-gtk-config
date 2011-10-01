@@ -718,11 +718,11 @@ void Modulo::save()
 void Modulo::defaults()
 {
      //Establecemos los valores predeterminados de chakra linux
-    appareance->setFont("Bitstream Vera Sans 10");
+    appareance->setFont("DejaVu Sans 10");
     appareance->setTheme("oxygen-gtk");
     appareance->setThemePath("/usr/share/themes/oxygen-gtk");
     appareance->setIcon("oxygen-refit-2-2.5.0");
-    appareance->setIconFallBack("oxygen-refit-2-2.5.0");
+    appareance->setIconFallBack("oxygen");
     
     //actualizamos la ui
     refreshLists();
