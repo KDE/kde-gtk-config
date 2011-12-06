@@ -3,59 +3,52 @@
 #include <QtCore>
 #include <installer.h>
 /**
- Usaremos hilos para que no se bloquee la GUI a la hora de instalar temas
+ Used so that we don't block the GUI when we install the themes
   */
 class Thread: public QThread
 {
-
 public:
-    Thread(QString);
+    Thread(const QString& );
     virtual void run();
-    void setUrlPackage(QString); //Establece la url del icono
-    bool isSuccess(); //Es true, si completo el trabajo satisfactoriamente
+    void setUrlPackage(const QString& ); //Establece la url del icono
+    bool isSuccess() const; //Es true, si completo el trabajo satisfactoriamente
 private:
     QString action;
     QString urlPackage;
     bool success;
 };
 
-/**
-  hilo para el analisys del Tema
-  */
 class ThreadAnalisysTheme: public QThread
 {
 public:
     virtual void run();
-    bool isSuccess(); //Es true, si el tema es correcto
-    void setPackageTheme(QString); //Estableces el tema a analizar
+    bool isSuccess() const; //Es true, si el tema es correcto
+    void setPackageTheme(const QString& ); //Estableces el tema a analizar
 private:
     bool success;
     QString packageTheme;
 };
 
-/**
-  hilo para el analisys del Tema de Icono
-  */
 class ThreadAnalisysThemeIcon: public QThread
 {
 public:
     virtual void run();
     bool isSuccess(); //Es true, si el tema es correcto
-    void setPackageTheme(QString); //Estableces el tema a analizar
+    void setPackageTheme(const QString& ); //Estableces el tema a analizar
 private:
     bool success;
     QString packageTheme;
 };
 
 /**
-  Hilo para eliminar los iconos
+  Thread to erase the icons
   */
 class ThreadErase: public QThread
 {
 public:
     virtual void run();
     bool isSuccess();
-    void setThemeForErase(QString);
+    void setThemeForErase(const QString& theme );
 private:
     bool success;
     QString themeForErase;

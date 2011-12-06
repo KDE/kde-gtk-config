@@ -1,369 +1,276 @@
 #include "thread.h"
+#include <kdebug.h>
 
-Thread::Thread(QString accion): action(accion)
-{
-
-}
+Thread::Thread(const QString& accion)
+    : action(accion)
+{}
 
 void Thread::run()
 {
 
     if(urlPackage.isEmpty()){
-        qDebug() << "*** ERROR: There's nothing to do";
+        kDebug() << "*** ERROR: There's nothing to do";
         return;
     }
 
     if(action == "icon"){
-        qDebug() << "Installing icons theme";
-        // Instalamos el Tema de Icono
+        kDebug() << "Installing icons theme";
         success = Installer::installIconTheme(urlPackage);
-    }
-
-    if(action == "theme"){
-        qDebug() << "Installing GTK theme";
+    } else if(action == "theme"){
+        kDebug() << "Installing GTK theme";
         success = Installer::installTheme(urlPackage);
     }
-
-
 }
 
-void Thread::setUrlPackage(QString package)
+void Thread::setUrlPackage(const QString& package)
 {
     urlPackage = package;
 }
 
-bool Thread::isSuccess()
+bool Thread::isSuccess() const
 {
-    return this->success;
+    return success;
 }
-
-
-
-
-// HILOS PARA EL ANALISIS, class implementation
 
 void ThreadAnalisysTheme::run()
 {
-    qDebug()<< "*************** GTK THEME INSTALLATION";
-    qDebug()<< "File to install" << this->packageTheme;
+    kDebug()<< "*************** GTK THEME INSTALLATION";
+    kDebug()<< "File to install" << packageTheme;
 
-    //Verificamos si existe algo en el campo de texto
-    if(this->packageTheme.isEmpty()){
-        qDebug() << "ERROR: empty theme field";
-        this->success = false;
+    if(packageTheme.isEmpty()){
+        kDebug() << "ERROR: empty theme field";
+        success = false;
         return;
     }
 
-    //Verificamos si el archivo es valido
-    if(!this->packageTheme.contains(QRegExp("(.tar.gz|tar)"))){
-        qDebug() << "ERROR: It is not a valid file";
-        this->success = false;
+    //TODO: port to KArchive
+    if(!packageTheme.contains(QRegExp("(.tar.gz|tar)"))){
+        kDebug() << "ERROR: It is not a valid file";
+        success = false;
         return;
     }
 
     //Por si las dudas verifica si el archivo existe
-    QFileInfo fichero(this->packageTheme);
-    if(!fichero.exists()){
-        qDebug() << "ERROR: This file does not exist";
-        this->success = false;
+    QFileInfo file(packageTheme);
+    if(!file.exists() || file.isDir()){
+        kDebug() << "ERROR: " << packageTheme << "is not a valid theme.";
+        success = false;
         return;
     }
 
-    //Tambien por si las dudas verifica si es un directorio
-    if(fichero.isDir()){
-        qDebug() << "ERROR: Your are trying to install a directory";
-        this->success = false;
-        return;
-    }
-
-    qDebug() << "** EXTRACTING ICONS TO A TEMPORAL FOLDER";
-    // seguimos extrayendo el tema en la carpeta temporal
+    kDebug() << "** EXTRACTING ICONS TO A TEMPORAL FOLDER";
+    //We proceed unpacking the package in a temporal directory
     QDir temporal(QDir::tempPath()+"/CGC/theme");
 
-    //Si no existe nuestra carpeta temporal, creada
-    if(!temporal.exists()){
-        qDebug() << "TEMPORAL DOES NOT EXIST " << temporal.path();
+    //Make sure it's already created
+    temporal.mkpath(temporal.path());
+    
+    QStringList argus;
+    argus << "-xf" << packageTheme  << "-C"  << temporal.path();
+    kDebug()<< "** Command to exec " << "tar " << argus.join(" ");
 
-        QStringList arguu;
-        arguu << "-p" << temporal.path();
-
-        if(QProcess::execute("mkdir", arguu)!=0){
-            qDebug() << "Cannot create temporal folder";
-            success = false;
-            return;
-        }
-
-        qDebug() << "Temporal folder as been created";
-
-    }
-
-    QStringList argumentos;
-    argumentos << "-xf" << this->packageTheme  << "-C"  << temporal.path();
-    qDebug()<< "** Command to exec " << "tar " << argumentos.join(" ");
-
-    if(QProcess::execute("tar", argumentos) != 0){
-        qDebug() << "ERROR: executing command";
-        this->success = false;
+    //TODO: port to KArchive
+    if(QProcess::execute("tar", argus) != 0){
+        kDebug() << "ERROR: executing command";
+        success = false;
         return;
     }
 
-    // ARCHIVOS EXTRAIDOS en la carpeta temporal ahora obten el nombre de la carpeta
+    // Package extracted in the temp dir. Now we want to know the name
+    QString folder=temporal.entryList(QDir::AllDirs|QDir::NoDotAndDotDot).first();
 
-    QString carpeta;
+    kDebug() << "FOUND THEME FOLDER = " << folder;
+    kDebug() << "\n******* THEME " << temporal.path()+"/"+folder;
 
-    foreach(QString i, temporal.entryList()){
-        if(i == "." || i == "..")
-            continue;
-        else
-            carpeta = i;
-    }
+    //We know the path of the folder to analyze
+    QDirIterator it(temporal.path()+"/"+folder);
 
-    qDebug() << "FOUND THEME FOLDER = " << carpeta;
+    bool found = false;
+    while(it.hasNext()){
 
-
-    qDebug() << "\n******* THEME " << temporal.path()+"/"+carpeta;
-
-    // Tenemos el nombre de la carpeta a analizar
-    QDirIterator iterador(temporal.path()+"/"+carpeta);
-
-    bool encontrado = false;
-    QString archivito;
-    while(iterador.hasNext()){
-
-        QString file = iterador.next();
-        qDebug() << file;
+        QString file = it.next();
+        kDebug() << "trying file" << file;
 
         if(file.contains(QRegExp("(gtk-2.0)$"))){
             //archivo gtk-2.0
-            qDebug() << "FILE : " << file;
-            encontrado = true;
-            archivito = file;
+            kDebug() << "FILE : " << file;
+            found = true;
             break;
         }
-
     }
 
-    qDebug() << "\n*************************\n\n\n\n";
+    kDebug() << "\n*************************\n\n\n\n";
 
-    if(!encontrado){
-        qDebug() << ">>>> Invalid file";
+    //TODO: really? looks to me the if does the same as the else
+    if(!found){
+        kDebug() << ">>>> Invalid file";
 
         //Al final borra los archivos
-        qDebug() << "Deleting temps";
+//TODO: Use KIO
+        kDebug() << "Deleting temps";
         QStringList args;
         args << "-rf" << temporal.path();
         if(QProcess::execute("rm", args) != 0){
-            qDebug() << "There was not cleanning";
+            kDebug() << "There was not cleanning";
         }
 
-        qDebug() << "Cleanning complete";
-        qDebug()<< temporal.entryList();
+        kDebug() << "Cleanning complete"<< temporal.entryList();
 
         success = false;
         return;
     }
 
-
-    qDebug() << ">>>> this is a valid theme : " << archivito;
-
     //Al final borra los archivos
-    qDebug() << "Deleting temps";
+    kDebug() << "Deleting temps";
     QStringList args;
     args << "-rf" << temporal.path();
     if(QProcess::execute("rm", args) != 0){
-        qDebug() << "There was not cleanning";
+        kDebug() << "There was not cleanning";
     }
 
-    qDebug() << "Cleanning complete";
-    qDebug()<< temporal.entryList();
+    kDebug() << "Cleanning complete";
+    kDebug()<< temporal.entryList();
 
-    this->success = true;
+    success = true;
 }
 
-void ThreadAnalisysTheme::setPackageTheme(QString theme)
+void ThreadAnalisysTheme::setPackageTheme(const QString& theme)
 {
-  this->packageTheme = theme;
+  packageTheme = theme;
 }
 
-
-bool ThreadAnalisysTheme::isSuccess()
+bool ThreadAnalisysTheme::isSuccess() const
 {
-    return this->success;
+    return success;
 }
 
-
-// Analisis en tema de icono
 void ThreadAnalisysThemeIcon::run()
 {
-    qDebug()<< "*************** GTK THEME INSTALLATION";
-    qDebug()<< "File to install" << this->packageTheme;
+    kDebug()<< "*************** GTK THEME INSTALLATION";
+    kDebug()<< "File to install" << packageTheme;
 
-    //Verificamos si existe algo en el campo de texto
-    if(this->packageTheme.isEmpty()){
-        qDebug() << "ERROR: theme field is empty";
-        this->success = false;
+    //We verify it has a correct package name
+    if(packageTheme.isEmpty()){
+        kDebug() << "ERROR: theme field is empty";
+        success = false;
         return;
     }
 
-    //Verificamos si el archivo es valido
-    if(!this->packageTheme.contains(QRegExp("(.tar.gz|tar)"))){
-        qDebug() << "ERROR: Invalid file";
-        this->success = false;
+//     TODO: port to KArchive
+    //We verify that it's a valid package...
+    if(!packageTheme.contains(QRegExp("(.tar.gz|tar)"))){
+        kDebug() << "ERROR: Invalid file";
+        success = false;
         return;
     }
 
-    //Por si las dudas verifica si el archivo existe
-    QFileInfo fichero(this->packageTheme);
-    if(!fichero.exists()){
-        qDebug() << "ERROR: This file does not exist";
-        this->success = false;
+    QFileInfo file(packageTheme);
+    if(!file.exists() || file.isDir()){
+        kDebug() << "ERROR: " << packageTheme << "is not a valid theme.";
+        success = false;
         return;
     }
 
-    //Tambien por si las dudas verifica si es un directorio
-    if(fichero.isDir()){
-        qDebug() << "ERROR: You are trying to install a directory";
-        this->success = false;
-        return;
-    }
-
-    qDebug() << "** EXTRACTING ICONS TO A TEMPORAL FOLDER";
-    // seguimos extrayendo el tema en la carpeta temporal
+    kDebug() << "** EXTRACTING ICONS TO A TEMPORAL FOLDER";
     QDir temporal(QDir::tempPath()+"/CGC/icon");
+    temporal.mkpath(temporal.path());
 
-    //Si no existe nuestra carpeta temporal, creada
-    if(!temporal.exists()){
-        qDebug() << "TEMP DOES NOT EXIST " << temporal.path();
+//     TODO: port to KArchive
+    QStringList argus;
+    argus << "-xf" << packageTheme  << "-C"  << temporal.path();
+    kDebug()<< "** Command to exec " << "tar " << argus.join(" ");
 
-        QStringList arguu;
-        arguu << "-p" << temporal.path();
-
-        if(QProcess::execute("mkdir", arguu)!=0){
-            qDebug() << "Cannot create temporal folder";
-            success = false;
-            return;
-        }
-
-        qDebug() << "Temporal folder created";
-
-    }
-
-    QStringList argumentos;
-    argumentos << "-xf" << this->packageTheme  << "-C"  << temporal.path();
-    qDebug()<< "** Command to exec " << "tar " << argumentos.join(" ");
-
-    if(QProcess::execute("tar", argumentos) != 0){
-        qDebug() << "ERROR: executing command";
-        this->success = false;
+    if(QProcess::execute("tar", argus) != 0){
+        kDebug() << "ERROR: executing command";
+        success = false;
         return;
     }
 
-    // ARCHIVOS EXTRAIDOS en la carpeta temporal ahora obten el nombre de la carpeta
+    //archive extracted in the temp directory
+    QString folder= temporal.entryList(QDir::AllDirs|QDir::NoDotAndDotDot).first();
+    kDebug() << "FOUND THEME FOLDER = " << folder;
+    kDebug() << "\n******* THEME " << temporal.path()+"/"+folder;
 
-    QString carpeta;
+    QDirIterator iterador(temporal.path()+"/"+folder);
 
-    foreach(QString i, temporal.entryList()){
-        if(i == "." || i == "..")
-            continue;
-        else
-            carpeta = i;
-    }
-
-    qDebug() << "FOUND THEME FOLDER = " << carpeta;
-
-
-    qDebug() << "\n******* THEME " << temporal.path()+"/"+carpeta;
-
-    // Tenemos el nombre de la carpeta a analizar
-    QDirIterator iterador(temporal.path()+"/"+carpeta);
-
-    bool encontrado = false;
-    QString archivito;
+    bool found = false;
     while(iterador.hasNext()){
 
         QString file = iterador.next();
-        qDebug() << file;
+        kDebug() << file;
 
         if(file.contains(QRegExp("(index.theme)$"))){
             //archivo index.theme
-            qDebug() << "FILE : " << file;
-            encontrado = true;
-            archivito = file;
+            kDebug() << "FILE : " << file;
+            found = true;
             break;
         }
 
     }
 
-    qDebug() << "\n*************************\n\n\n\n";
+    kDebug() << "\n*************************\n\n\n\n";
 
-    if(!encontrado){
-        qDebug() << ">>>> Invalid file";
+    if(!found){
+        kDebug() << ">>>> Invalid file";
 
         //Al final borra los archivos
-        qDebug() << "Deleting temps";
+        kDebug() << "Deleting temps";
         QStringList args;
         args << "-rf" << temporal.path();
         if(QProcess::execute("rm", args) != 0){
-            qDebug() << "There was not cleanning";
+            kDebug() << "There was not cleanning";
         }
 
-        qDebug() << "Cleanning complete";
-        qDebug()<< temporal.entryList();
+        kDebug() << "Cleanning complete";
+        kDebug()<< temporal.entryList();
 
         success = false;
         return;
     }
 
-
-    qDebug() << ">>>> this is a valid theme : " << archivito;
-
-    //Al final borra los archivos
-    qDebug() << "Deleting temps";
+    //Clean it up
+//     TODO: port to KIO
+    kDebug() << "Deleting temps";
     QStringList args;
     args << "-rf" << temporal.path();
     if(QProcess::execute("rm", args) != 0){
-        qDebug() << "There was not cleanning";
+        kDebug() << "There was not cleanning";
     }
 
-    qDebug() << "Cleanning complete";
-    qDebug()<< temporal.entryList();
+    kDebug() << "Cleanning complete";
+    kDebug()<< temporal.entryList();
 
-    this->success = true;
+    success = true;
 }
 
-void ThreadAnalisysThemeIcon::setPackageTheme(QString theme)
+void ThreadAnalisysThemeIcon::setPackageTheme(const QString& theme)
 {
-  this->packageTheme = theme;
+    packageTheme = theme;
 }
-
 
 bool ThreadAnalisysThemeIcon::isSuccess()
 {
-    return this->success;
+    return success;
 }
 
+bool ThreadErase::isSuccess()
+{
+    return success;
+}
 
-//HILO PARA EL BORRADO
-
-bool ThreadErase::isSuccess(){ return success; }
-void ThreadErase::setThemeForErase(QString tema){ themeForErase = tema; }
+void ThreadErase::setThemeForErase(const QString& theme)
+{
+    themeForErase = theme;
+}
 
 void ThreadErase::run()
 {
-
     QThread::sleep(3);
 
-        //Ejecutar el comando rm -rfv para eliminar archivos
-        QStringList argumentos;
-        argumentos << "-rf" << themeForErase;
+    //Ejecutar el comando rm -rfv para eliminar archivos
+//  TODO: use kio
+    QStringList argumentos;
+    argumentos << "-rf" << themeForErase;
 
-        if(QProcess::execute("rm", argumentos) != 0 ){
-           this->success = false;
-        }
-        else{
-            this->success = true;
-        }
-
-
+    success = QProcess::execute("rm", argumentos) != 0;
 }
-
