@@ -39,7 +39,7 @@ class DialogUninstaller: public QDialog
     
     Q_OBJECT
 public:
-    DialogUninstaller(QWidget *parent = 0, AparienciaGTK *app=0);
+    DialogUninstaller(QWidget *parent = 0, AppearenceGTK *app=0);
     ~DialogUninstaller();
     
 signals:
@@ -57,7 +57,7 @@ public slots:
     
 private:
     Ui::dialog_uninstaller *ui;
-    AparienciaGTK *appareance;
+    AppearenceGTK *appareance;
      //PROPIEDADES PARA EL DESINSTALADOR
     ThreadErase *threadEraseIcon; //Hilo que desinstala un tema de iconos
     ThreadErase *threadEraseTheme; //Hilo que desinstala un tema gtk

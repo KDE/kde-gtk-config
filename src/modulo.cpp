@@ -47,7 +47,7 @@ ui(new Ui::GUI)
        setAboutData(acercade);
     
     ui->setupUi(this);
-    appareance = new AparienciaGTK;
+    appareance = new AppearenceGTK;
     refreshLists();
     makePreviewIconTheme();
     makePreviewFont();

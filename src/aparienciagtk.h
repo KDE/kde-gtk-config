@@ -3,45 +3,44 @@
 
 #include <QtCore>
 /**
-  Esta clase es la encargada de administradar los temas gtk de Chakra Linux.
-  Carga configuraciones desde el archivo .gtkrc-2.0
+ * This class is responsible of administrating the GTK themes. It loads the 
+ * configurations from the .gtkrc-2.0 file.
   */
-class AparienciaGTK
+class AppearenceGTK
 {
 public:
-    AparienciaGTK();
+    AppearenceGTK();
 
-    void setTheme(QString);
+    void setTheme(const QString&);
     void setThemeGtk3(const QString &theme);
-    void setThemePath(QString);
+    void setThemePath(const QString&);
     void setThemeGtk3Path(const QString &themePath);
-    void setIcon(QString);
-    void setIconFallBack(QString);
-    void setFont(QString);
+    void setIcon(const QString&);
+    void setIconFallBack(const QString&);
+    void setFont(const QString&);
     
     //New features
-    void setToolbarStyle(QString);
-    void setShowIconsInMenus(QString);
-    void setShowIconsInButtons(QString);
+    void setToolbarStyle(const QString&);
+    void setShowIconsInMenus(const QString&);
+    void setShowIconsInButtons(const QString&);
 
-    QString getTheme(); //Obtiene el nombre del tema actualmente utilizado
-    QString getThemeGtk3();
-    QString getThemePath(); //Obtiene las rutas absolutas del tema utilizado actualmente
+    QString getTheme() const; //Obtiene el nombre del tema actualmente utilizado
+    QString getThemeGtk3() const;
+    QString getThemePath() const; //Obtiene las rutas absolutas del tema utilizado actualmente
    
-    QString getIcon(); //Obtiene el nombre del tema de iconos utilizado actualmente
-    QString getFont(); //Obtiene el tipo de letra que se esta utilizando
-    QString getIconFallBack(); // Obtiene el tema de iconos fallback
-    QStringList getAvaliableIcons(); //Obtiene temas de icono disponibles en el sistema
+    QString getIcon() const; //Obtiene el nombre del tema de iconos utilizado actualmente
+    QString getFont() const; //Obtiene el tipo de letra que se esta utilizando
+    QString getIconFallBack() const; // Obtiene el tema de iconos fallback
+    QString getToolbarStyle() const; //Obtiene el estilo de la barra de herramientas
+    QString getShowIconsInMenus() const;
+    QString getShowIconsInButtons() const;
+    
+    static QStringList getAvaliableIconsPaths();//Obtiene las rutas absolutas de los temas de iconos disponibles en el sistema
+    static QStringList getAvaliableIcons(); //Obtiene temas de icono disponibles en el sistema
     QStringList getAvaliableThemes(); //Obtiene todos los temas de icono disponibles
     QStringList getAvaliableGtk3Themes(); //Obtiene todos los temas de icono disponibles
 
     QStringList getAvaliableThemesPaths(); //Obtiene las rutas absolutas de los temas disponibles en el sistema
-  
-    
-    QStringList getAvaliableIconsPaths();//Obtiene las rutas absolutas de los temas de iconos disponibles en el sistema
-    QString getToolbarStyle(); //Obtiene el estilo de la barra de herramientas
-    QString getShowIconsInMenus();
-    QString getShowIconsInButtons();
 
     bool loadFileConfig(); //Carga los datos del archivo .gtkrc-2.0
     bool saveFileConfig(); //Guarda Cambios en el archivo .gtkrc-2.0 y .gtkrc-2.0-kde4

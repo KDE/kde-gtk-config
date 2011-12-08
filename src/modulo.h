@@ -82,7 +82,7 @@ signals:
     
 private:
     Ui::GUI *ui;
-    AparienciaGTK *appareance;
+    AppearenceGTK *appareance;
     
     DialogInstaller *installer;
     DialogUninstaller *uninstaller;
