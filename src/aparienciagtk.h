@@ -42,6 +42,9 @@ public:
 
     QStringList getAvaliableThemesPaths(); //Obtiene las rutas absolutas de los temas disponibles en el sistema
 
+    bool loadGTK2Config();
+    bool loadGTK3Config();
+    
     bool loadFileConfig(); //Carga los datos del archivo .gtkrc-2.0
     bool saveFileConfig(); //Guarda Cambios en el archivo .gtkrc-2.0 y .gtkrc-2.0-kde4
 
