@@ -10,8 +10,12 @@ class Thread: public QThread
 public:
     Thread(const QString& );
     virtual void run();
-    void setUrlPackage(const QString& ); //Establece la url del icono
-    bool isSuccess() const; //Es true, si completo el trabajo satisfactoriamente
+    
+    ///sets the icon path
+    void setUrlPackage(const QString& );
+    
+    ///@returns whether it was successful
+    bool isSuccess() const;
 private:
     QString action;
     QString urlPackage;
@@ -22,8 +26,12 @@ class ThreadAnalisysTheme: public QThread
 {
 public:
     virtual void run();
-    bool isSuccess() const; //Es true, si el tema es correcto
-    void setPackageTheme(const QString& ); //Estableces el tema a analizar
+    
+    ///@returns whether the theme is correct
+    bool isSuccess() const;
+    
+    ///sets the theme to analyze
+    void setPackageTheme(const QString& );
 private:
     bool success;
     QString packageTheme;
@@ -33,8 +41,12 @@ class ThreadAnalisysThemeIcon: public QThread
 {
 public:
     virtual void run();
-    bool isSuccess(); //Es true, si el tema es correcto
-    void setPackageTheme(const QString& ); //Estableces el tema a analizar
+    
+    ///@returns whether the theme is correct
+    bool isSuccess();
+    
+    ///sets what theme to use
+    void setPackageTheme(const QString& );
 private:
     bool success;
     QString packageTheme;
