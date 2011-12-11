@@ -162,6 +162,23 @@ QStringList AppearenceGTK::getAvaliableThemes()
 
 }
 
+QRegExp valueRx("([a-z\\-]+)=\\\"?([\\w _]+)\\\"?\\\n", Qt::CaseSensitive, QRegExp::RegExp);
+QMap<QString,QString> readSettingsTuples(const QString& allText)
+{
+    QMap<QString,QString> ret;
+    int offset=valueRx.indexIn(allText);
+    while(offset>=0) {
+        offset=valueRx.indexIn(allText, offset+valueRx.cap(0).size());
+        ret[valueRx.cap(1)] = valueRx.cap(2);
+    }
+    return ret;
+}
+
+QString readMapDefaultValue(const QMap<QString,QString>& map, const QString& key, const QString& defaultValue)
+{
+    return map.contains(key) ? map[key] : defaultValue;
+}
+
 ////////////////////////////////////
 // Methods responsible of file creation
 
@@ -170,264 +187,80 @@ bool AppearenceGTK::loadGTK2Config()
     
     QFile configFile(QDir::homePath()+"/.gtkrc-2.0");
     
-    bool is_settings_read = false;
+    bool canRead = configFile.open(QIODevice::ReadOnly | QIODevice::Text);
     
-    if(configFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    if(canRead) {
         kDebug() << "The gtk2 config file exists...";
         
-        //Leemos el archivo y lo guardamos como una una lista de cadenas
+        //we read the file and put it to a string list
+        //TODO: when we don't need the theme path this won't be needed anymore
         QTextStream flow(&configFile);
-        QStringList text = flow.readAll().split('\n');
-
-        QString themePath,
-            iconTheme,
-            fontFamily,
-            themeName,
-            iconFallback,
-            
-            showIconMenus,
-            showIconButtons,
-            toolbarStyle;
+        QString allText = flow.readAll();
+        QStringList text = allText.split('\n');
         
-        //TODO: clean up this code
-        //config file cleanup
+        QMap<QString, QString> foundSettings=readSettingsTuples(allText);
+
+        //TODO: make sure theme path is really needed...
+        QString themeName       = foundSettings["gtk-menu-images"];
+        QString themePath;
         foreach(const QString& i, text) {
-            //We remove comments and whitespaces
-            if(i.startsWith('#') || i.isEmpty()) {
-                text.removeAll(i);
-                continue;
-            }
-
-            //La linea que contiene este include no la necesito para leer
-            if(i.contains("/etc/gtk-2.0/gtkrc") || i.contains("widget_class")) {
-                text.removeAll(i);
-                continue;
-            }
-
-            //Obtengo el nombre del tema instalado
-            if(i.contains("gtk-theme-name")) {
-                themeName = (i.mid(i.indexOf("=")+1)).remove("\"");
-                text.removeAll(i);
-                continue;
-            }
-
-        }
-        
-        // kDebug() << "PASDFSADFD"  << texto;
-
-        // Obtenemos los atributos de los temas
-        foreach(const QString& i, text) {
-            //Encontramos la linea que contiene include
-            if(i.contains("include")) {
-                //Extraer la url del tema
-                //kDebug() << ">> Encontrado linea de include: " << i;
+            //We find the include
+            if(i.contains("include") && !i.contains("/etc/gtk-2.0/gtkrc") && !i.contains("widget_class")) {
                 themePath = QString(i).replace(QRegExp("(include|\")"), ""); // quitar la palabra include y los "
-                themePath = themePath.trimmed(); // Quitar espacios en blancos
-                //cortamos una cadena, desde el inicio hasta donde esta el nombre del tema
-                themePath = themePath.mid(
-                        0,
-                                themePath.indexOf(themeName) + themeName.length()
-                        );
+                themePath = themePath.trimmed();
+                //We cut the line to the theme name as the path
+                themePath = themePath.left(themePath.indexOf(themeName) + themeName.length());
 
-                continue;
+                break;
             }
-
-            if(i.contains("gtk-font-name")) {
-                fontFamily =(
-                        (i.mid( i.indexOf("=")+1 ))
-                            .trimmed()
-                            ).replace("\"", "");
-                continue;
-            }
-
-            if(i.contains("gtk-icon-theme-name")) {
-                iconTheme =(
-                        (i.mid( i.indexOf("=")+1 ))
-                            .trimmed()
-                            ).replace("\"", "");
-            }
-
-            if(i.contains("gtk-fallback-icon-theme")) {
-                iconFallback =(
-                        (i.mid( i.indexOf("=")+1 ))
-                            .trimmed()
-                            ).replace("\"", "");
-            }
-
-            if(i.contains("gtk-toolbar-style")) {
-                toolbarStyle =(
-                        (i.mid( i.indexOf("=")+1 ))
-                            .trimmed()
-                            ).replace("\"", "");
-            }
-            
-            if(i.contains("gtk-button-images")) {
-                showIconButtons =(
-                        (i.mid( i.indexOf("=")+1 ))
-                            .trimmed()
-                            ).replace("\"", "");
-            }
-            
-            if(i.contains("gtk-menu-images")) {
-                showIconMenus =(
-                        (i.mid( i.indexOf("=")+1 ))
-                            .trimmed()
-                            ).replace("\"", "");
-            }
-
         }
         
-        //kDebug() << "Check Settings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<";
-        if(toolbarStyle.isNull()) {
-                toolbarStyle = "GTK_TOOLBAR_ICONS";
-            // kDebug() << "PICKED OPTIONS toolbar style: " << toolbar_style;
-        }
-        
-        if(showIconButtons.isNull()) {
-                showIconButtons = "0";
-                //kDebug() << "PICKED OPTIONS, show icons in buttons: " << show_icons_buttons;
-        }
-        
-        if(showIconMenus.isNull()) {
-                showIconMenus = "0";
-            // kDebug() << "PICKED OPTIONS, show icons in menus: " << show_icons_menus;
-        }
-        //kDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";;
-        
-        
-
-        //Ingresamos los datos
         settings["theme_path"] = themePath;
         settings["theme"] = themeName;
-        settings["icon"] = iconTheme;
-        settings["icon_fallback"] = iconFallback;
-        settings["font"] = fontFamily;
-        settings["toolbar_style"] = toolbarStyle;
-        settings["show_icons_buttons"] = showIconButtons;
-        settings["show_icons_menus"] = showIconMenus;
-
-        is_settings_read = true;
+        settings["icon"] = foundSettings["gtk-icon-theme-name"];
+        settings["icon_fallback"] = foundSettings["gtk-fallback-icon-theme"];
+        settings["font"] = foundSettings["gtk-font-name"];
+        settings["toolbar_style"] = readMapDefaultValue(foundSettings, "gtk-toolbar-style", "GTK_TOOLBAR_ICONS");
+        settings["show_icons_buttons"] = readMapDefaultValue(foundSettings, "gtk-button-images", "0");
+        settings["show_icons_menus"] = readMapDefaultValue(foundSettings, "gtk-menu-images", "0");
     }
-    return is_settings_read;
+    
+    return canRead;
 }
 
 bool AppearenceGTK::loadGTK3Config()
 {
-    bool is_settings_read=false;
     QFile fileGtk3(QDir::homePath()+"/.config/gtk-3.0/settings.ini");
+    bool canRead=fileGtk3.open(QIODevice::ReadOnly | QIODevice::Text);
     
-    if(fileGtk3.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    if(canRead) {
         kDebug() << "The gtk3 config file exists...";
 
         //We read the whole file and we put it in a string list
         QTextStream flow(&fileGtk3);
-        QStringList text = flow.readAll().split('\n');
+        QString allText = flow.readAll();
 
-        QString 
-            iconTheme,
-            fontFamily,
-            themeName,
-            iconFallback,
-            
-            showIconsMenus,
-            showIconsButtons,
-            toolbarStyle
-            ;
-
-        //Clean up comments and empty lines
-        QRegExp rx("#.*| *|\\[Settings\\]");
-        for(QStringList::iterator it=text.begin(); it!=text.end(); ) {
-            bool erase = rx.exactMatch(*it);
-            if(erase)
-                it=text.erase(it);
-            else
-                ++it;
-        }
+        QMap<QString, QString> foundSettings = readSettingsTuples(allText);
+        settings["themegtk3"] = foundSettings["gtk-theme-name"];
+        settings["icon"] = foundSettings["gtk-icon-theme-name"];
+        settings["icon_fallback"] = foundSettings["gtk-fallback-icon-theme"];
+        settings["font"] = foundSettings["gtk-font-name"];
         
-        foreach(const QString& i, text) {
-            if(i.contains("gtk-theme-name")) {
-                themeName = (i.mid(i.indexOf("=")+1)).remove("\"");
-                text.removeAll(i);
-            }
-            
-            if(i.contains("gtk-font-name")) {
-                fontFamily =(
-                        (i.mid( i.indexOf("=")+1 ))
-                            .trimmed()
-                            ).replace("\"", "");
-            }
-
-            if(i.contains("gtk-icon-theme-name")) {
-                iconTheme =(
-                        (i.mid( i.indexOf("=")+1 ))
-                            .trimmed()
-                            ).replace("\"", "");
-            }
-
-            if(i.contains("gtk-fallback-icon-theme")) {
-                iconFallback =(
-                        (i.mid( i.indexOf("=")+1 ))
-                            .trimmed()
-                            ).replace("\"", "");
-            }
-            
-            if(i.contains("gtk-toolbar-style")) {
-                toolbarStyle =(
-                        (i.mid( i.indexOf("=")+1 ))
-                            .trimmed()
-                            ).replace("\"", "");
-            }
-            
-            if(i.contains("gtk-button-images")) {
-                showIconsButtons =(
-                        (i.mid( i.indexOf("=")+1 ))
-                            .trimmed()
-                            ).replace("\"", "");
-            }
-            
-            if(i.contains("gtk-menu-images")) {
-                showIconsMenus =(
-                        (i.mid( i.indexOf("=")+1 ))
-                            .trimmed()
-                            ).replace("\"", "");
-            }
-
-        }
-        
-        if(toolbarStyle.isEmpty()) {
-            toolbarStyle = "GTK_TOOLBAR_ICONS";
-            // kDebug() << "PICKED OPTIONS toolbar style: " << toolbar_style;
-        }
-        
-        if(showIconsButtons.isEmpty()) {
-            showIconsButtons = "0";
-            //kDebug() << "PICKED OPTIONS, show icons in buttons: " << show_icons_buttons;
-        }
-        
-        if(showIconsMenus.isEmpty()) {
-            showIconsMenus = "0";
-            // kDebug() << "PICKED OPTIONS, show icons in menus: " << show_icons_menus;
-        }
-
-        settings["themegtk3"] = themeName;
-        settings["icon"] = iconTheme;
-        settings["icon_fallback"] = iconFallback;
-        settings["font"] = fontFamily;
-        settings["toolbar_style"] = toolbarStyle;
-        settings["show_icons_buttons"] = showIconsButtons;
-        settings["show_icons_menus"] = showIconsMenus;
-
-//         kDebug()<< "***********" << settings;
-        
-        is_settings_read = true;
+        settings["toolbar_style"] = readMapDefaultValue(foundSettings, "gtk-toolbar-style", "GTK_TOOLBAR_ICONS");
+        settings["show_icons_buttons"] = readMapDefaultValue(foundSettings, "gtk-button-images", "0");
+        settings["show_icons_menus"] = readMapDefaultValue(foundSettings, "gtk-menu-images", "0");
     }
-    return is_settings_read;
+    
+    return canRead;
 }
 
 bool AppearenceGTK::loadFileConfig()
 {
+    settings.clear();
+    
     bool is_settings_read = loadGTK2Config();
     is_settings_read = loadGTK3Config() | is_settings_read;
+    Q_ASSERT(is_settings_read);
     
     //Couldn't find any configuration, set some defaults
     //TODO: don't overwrite gtk2 values if we don't have gtk3 and vice-versa
