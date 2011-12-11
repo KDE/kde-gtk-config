@@ -15,7 +15,7 @@ include_directories(
 add_subdirectory(translations)
 
 set(kcm_SRCS 
-     src/aparienciagtk.cpp 
+     src/appearencegtk.cpp
      src/thread.cpp
      src/installer.cpp 
      src/modulo.cpp 

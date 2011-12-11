@@ -24,7 +24,7 @@
 #include "installer.h"
 #include "ui_dialog_uninstaller.h"
 #include "thread.h"
-#include "aparienciagtk.h"
+#include "appearencegtk.h"
 #include "klocale.h"
 namespace Ui{
     class DialogUninstaller;

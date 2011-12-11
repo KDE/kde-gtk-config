@@ -23,7 +23,7 @@
 
 #include <kcmodule.h>
 #include "ui_gui.h"
-#include "aparienciagtk.h"
+#include "appearencegtk.h"
 #include "dialog_installer.h"
 #include "dialog_uninstaller.h"
 #include <knewstuff3/downloaddialog.h>

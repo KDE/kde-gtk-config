@@ -1,4 +1,4 @@
-#include "aparienciagtk.h"
+#include "appearencegtk.h"
 #include <kdebug.h>
 
 AppearenceGTK::AppearenceGTK()
@@ -192,7 +192,7 @@ bool AppearenceGTK::loadGTK2Config()
         QMap<QString, QString> foundSettings=readSettingsTuples(allText);
 
         //TODO: make sure theme path is really needed...
-        QString themeName       = foundSettings["gtk-menu-images"];
+        QString themeName       = foundSettings["gtk-theme-name"];
         QString themePath;
         foreach(const QString& i, text) {
             //We find the include
@@ -249,8 +249,8 @@ bool AppearenceGTK::loadFileConfig()
 {
     settings.clear();
     
-    bool is_settings_read = loadGTK2Config();
-    is_settings_read = loadGTK3Config() | is_settings_read;
+    bool is_settings_read = loadGTK3Config();
+    is_settings_read = loadGTK2Config() | is_settings_read;
     Q_ASSERT(is_settings_read);
     
     //Couldn't find any configuration, set some defaults
