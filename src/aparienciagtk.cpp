@@ -3,10 +3,7 @@
 
 AppearenceGTK::AppearenceGTK()
 {
-    //We load the gtk config file
     loadFileConfig();
-    
-//     getAvaliableGtk3Themes();
 }
 
 //SETTERS
@@ -15,16 +12,11 @@ void AppearenceGTK::setIcon(const QString& ic) { settings["icon"] = ic;}
 void AppearenceGTK::setIconFallBack(const QString& fall) { settings["icon_fallback"] = fall; }
 void AppearenceGTK::setFont(const QString& fo) { settings["font"] = fo;}
 void AppearenceGTK::setThemePath(const QString& temaPath) { settings["theme_path"] = temaPath; }
-
-void AppearenceGTK::setThemeGtk3(const QString& theme)
-{
-  settings["themegtk3"] = theme;
-}
-
-void AppearenceGTK::setThemeGtk3Path(const QString& themePath)
-{
-    settings["themegtk3_path"] = themePath;
-}
+void AppearenceGTK::setThemeGtk3(const QString& theme) { settings["themegtk3"] = theme; }
+void AppearenceGTK::setThemeGtk3Path(const QString& themePath) { settings["themegtk3_path"] = themePath; }
+void AppearenceGTK::setShowIconsInButtons(const QString& buttons) { settings["show_icons_buttons"] = buttons; }
+void AppearenceGTK::setShowIconsInMenus(const QString& menus) { settings["show_icons_menus"] = menus; }
+void AppearenceGTK::setToolbarStyle(const QString& toolbar_style) { settings["toolbar_style"] = toolbar_style; }
 
 // GETTERS
 QString AppearenceGTK::getTheme() const { return settings["theme"];}
@@ -32,11 +24,10 @@ QString AppearenceGTK::getThemePath() const { return settings["theme_path"]; }
 QString AppearenceGTK::getIcon() const { return settings["icon"];}
 QString AppearenceGTK::getIconFallBack() const { return settings["icon_fallback"]; }
 QString AppearenceGTK::getFont() const { return settings["font"]; }
-
-QString AppearenceGTK::getThemeGtk3() const
-{
-    return settings["themegtk3"];
-}
+QString AppearenceGTK::getThemeGtk3() const { return settings["themegtk3"]; }
+QString AppearenceGTK::getToolbarStyle() const { return settings["toolbar_style"]; }
+QString AppearenceGTK::getShowIconsInButtons() const { return settings["show_icons_buttons"]; }
+QString AppearenceGTK::getShowIconsInMenus() const { return settings["show_icons_menus"]; }
 
 QStringList AppearenceGTK::getAvaliableIcons()
 {
@@ -345,7 +336,7 @@ bool AppearenceGTK::saveFileConfig()
     //Creamos enlaze hacia el archivo .gtkrc-2.0-kde4
     if(!QFile::link(
        (QDir::homePath()+"/.gtkrc-2.0"),
-       (QDir::homePath()+"/.gtkrc-2.0-kde4")         
+       (QDir::homePath()+"/.gtkrc-2.0-kde4")
     ))
         kDebug() << "Couldn't create the symboling link to .gtkrc-2.0-kde4 :(";
     else
@@ -372,34 +363,4 @@ bool AppearenceGTK::saveFileConfig()
     
     return true;
 
-}
-
-QString AppearenceGTK::getToolbarStyle() const
-{
-     return settings["toolbar_style"];
-}
-
-void AppearenceGTK::setToolbarStyle(const QString& toolbar_style)
-{    
-     settings["toolbar_style"] = toolbar_style;
-}
-
-QString AppearenceGTK::getShowIconsInButtons() const
-{
-     return settings["show_icons_buttons"];
-}
-
-QString AppearenceGTK::getShowIconsInMenus() const
-{
-     return settings["show_icons_menus"];
-}
-
-void AppearenceGTK::setShowIconsInButtons(const QString& buttons)
-{
-     settings["show_icons_buttons"] = buttons;
-}
-
-void AppearenceGTK::setShowIconsInMenus(const QString& menus)
-{
-     settings["show_icons_menus"] = menus;
 }
