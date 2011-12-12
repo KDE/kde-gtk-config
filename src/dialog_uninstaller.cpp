@@ -22,7 +22,6 @@ DialogUninstaller::DialogUninstaller(QWidget* parent, AppearenceGTK *app)
     connect(threadEraseTheme, SIGNAL(finished()), this, SLOT(threadUninstalledThemeFinished()));
 }
 
-
 DialogUninstaller::~DialogUninstaller()
 {
     delete ui;
@@ -30,142 +29,80 @@ DialogUninstaller::~DialogUninstaller()
     delete threadEraseTheme;
 }
 
-
-
-// DESINTALADOR
-
 void DialogUninstaller::refresthListsForUninstall()
 {
-
-    ui->lb_notice_uninstall_icon->setText("");
-    ui->lb_notice_uninstall_theme->setText("");
+    ui->lb_notice_uninstall_icon->clear();
+    ui->lb_notice_uninstall_theme->clear();
     
-    //Rellenamos campos en los combobox
     QStringList themes = appareance->getAvaliableThemesPaths();
+    themes.filter(QDir::homePath()); //we only one the locally installed themes
+    
+    //Just leave the theme name
+    for(QStringList::iterator it=themes.begin(); it!=themes.end(); ++it)
+        *it = QDir(*it).dirName();
 
-    //validamos que contenga algo la lista themes
-    if(themes.length() > 0){
+    ui->cb_uninstall_theme->clear();
+    ui->cb_uninstall_theme->addItems(themes);
 
-        //Filtramos los temas que estan ubicados en /usr/share/themes
-        foreach(QString i, themes){
-            if(i.contains("/usr/share/theme"))themes.removeAll(i);
-        }
-        //Removemos las ruta completa para dejar el puro nombre de los iconos
-        for(int i=0; i<themes.length(); i++){
-            QDir temp(themes[i]);
-            themes[i] = temp.dirName();
-        }
-
-        ui->cb_uninstall_theme->clear();
-        ui->cb_uninstall_theme->addItems(themes);
-    }
-
-
-
+    //now the same for icons
     QStringList icons = appareance->getAvaliableIconsPaths();
+    icons.filter(QDir::homePath());
+    
+    for(QStringList::iterator it=icons.begin(); it!=icons.end(); ++it)
+        *it = QDir(*it).dirName();
 
-    //validamos si la lista contiene algo de valor
-    if(icons.length() > 0){
-
-        //Filtramos los temas que estan ubicados en /usr/share/icons
-        foreach(QString i, icons){
-            if(i.contains("/usr/share/icon"))icons.removeAll(i);
-        }
-        //Removemos las ruta completa para dejar el puro nombre de los iconos
-        for(int i=0; i<icons.length(); i++){
-            QDir temp(icons[i]);
-            icons[i] = temp.dirName();
-        }
-
-        ui->cb_uninstall_icon->clear();
-        ui->cb_uninstall_icon->addItems(icons);
-
-    }
+    ui->cb_uninstall_icon->clear();
+    ui->cb_uninstall_icon->addItems(icons);
 }
-
 
 void DialogUninstaller::uninstallTheme()
 {
-
-    //Si el combobox esta vacio no hacer algo
-    if(ui->cb_uninstall_theme->count() == 0)
+    if(ui->cb_uninstall_theme->currentIndex() < 0)
         return;
 
     QString tema = ui->cb_uninstall_theme->currentText();
 
+    QStringList themes = appareance->getAvaliableThemesPaths();
+    themes.filter(QRegExp('/'+tema+'$'));
 
-    QString ubicacion;
-    foreach(QString i, appareance->getAvaliableThemesPaths()){
-        if(i.contains(QRegExp("/"+tema+"$"))){
-            qDebug() << "Encontrado, elimina : " << i;
-            ubicacion = i;
-            break;
-        }
-    }
-
-    if(ubicacion.isEmpty())
-        return;
-
-
-    //Desahibilitamos la GUI
+    Q_ASSERT(themes.size()==1);
+    
     ui->cb_uninstall_theme->setEnabled(false);
     ui->but_uninstall_theme->setEnabled(false);
 
-    ui->lb_notice_uninstall_theme->setText(tr("Desinstalando el tema gtk ..."));
+    ui->lb_notice_uninstall_theme->setText(i18n("Uninstalling GTK theme..."));
 
-    
-
-    //Le decimos la hilo que archivos va a eliminar
-    threadEraseTheme->setThemeForErase(ubicacion);
+    threadEraseTheme->setThemeForErase(themes.first());
     threadEraseTheme->start();
-
-
 }
 
 void DialogUninstaller::uninstallIcon()
 {
-
-    //Si el combobox esta vacio no hacer algo
-    if(ui->cb_uninstall_icon->count() == 0)
+    if(ui->cb_uninstall_icon->currentIndex() < 0)
         return;
 
     QString icono = ui->cb_uninstall_icon->currentText();
+    QStringList icons=appareance->getAvaliableIconsPaths();
+    icons.filter(QRegExp("/"+icono+"$"));
 
+    Q_ASSERT(icons.size()==1);
 
-    QString ubicacion;
-    foreach(QString i, appareance->getAvaliableIconsPaths()){
-        if(i.contains(QRegExp("/"+icono+"$"))){
-            qDebug() << "Encontrado, elimina : " << i;
-            ubicacion = i;
-            break;
-        }
-    }
-
-    if(ubicacion.isEmpty())
-        return;
-
-    //Desahibilitamos la GUI
     ui->cb_uninstall_icon->setEnabled(false);
     ui->but_uninstall_icon->setEnabled(false);
 
-    ui->lb_notice_uninstall_icon->setText(tr("Desinstalando iconos ..."));
+    ui->lb_notice_uninstall_icon->setText(i18n("Uninstalling icons..."));
 
-
-    //Le decimos la hilo que archivos va a eliminar
-    threadEraseIcon->setThemeForErase(ubicacion);
+    threadEraseIcon->setThemeForErase(icons.first());
     threadEraseIcon->start();
-
 }
-
 
 void DialogUninstaller::threadUninstalledThemeFinished()
 {
-    if(threadEraseTheme->isSuccess()){
-        ui->lb_notice_uninstall_theme->setText(tr("Tema gtk desinstalado satisfactoriamente"));
+    if(threadEraseTheme->isSuccess()) {
+        ui->lb_notice_uninstall_theme->setText(i18n("GTK theme successfully uninstalled."));
         emit(themeUninstalled());
-    }
-    else{
-        ui->lb_notice_uninstall_theme->setText(tr("No se pudo desinstalar el tema gtk"));
+    } else {
+        ui->lb_notice_uninstall_theme->setText(i18n("Could not uninstall the GTK theme."));
     }
 
     ui->cb_uninstall_theme->setEnabled(true);
@@ -176,12 +113,11 @@ void DialogUninstaller::threadUninstalledThemeFinished()
 
 void DialogUninstaller::threadUninstalledThemeIconFinished()
 {
-    if(threadEraseTheme->isSuccess()){
-        ui->lb_notice_uninstall_icon->setText(tr("Iconos Desinstalados satisfactoriamente ..."));
+    if(threadEraseTheme->isSuccess()) {
+        ui->lb_notice_uninstall_icon->setText(i18n("Icons successfully uninstalled."));
         emit(themeUninstalled());
-    }
-    else{
-        ui->lb_notice_uninstall_icon->setText(tr("No se pudo desintalar el tema de iconos"));
+    } else {
+        ui->lb_notice_uninstall_icon->setText(i18n("Could not uninstall the icons theme."));
     }
 
     ui->cb_uninstall_icon->setEnabled(true);
@@ -189,4 +125,3 @@ void DialogUninstaller::threadUninstalledThemeIconFinished()
 
     refresthListsForUninstall();
 }
-
