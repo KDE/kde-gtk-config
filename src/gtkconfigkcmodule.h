@@ -20,13 +20,12 @@
 #define GTKCONFIGKCMODULE_H
 
 #include <kcmodule.h>
-#include "ui_gui.h"
 #include "appearencegtk.h"
 #include "dialog_installer.h"
 #include "dialog_uninstaller.h"
 #include <knewstuff3/downloaddialog.h>
 
-namespace Ui { class Modulo; }
+namespace Ui { class Modulo; class GUI; }
 
 class GTKConfigKCModule : public KCModule
 {
@@ -39,7 +38,6 @@ public:
     
 public slots:
     void refreshLists();
-    void makePreviewFont();
     void makePreviewIconTheme();
     
     ///it is called whenever something in the UI has changed

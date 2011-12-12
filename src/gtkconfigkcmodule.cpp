@@ -23,6 +23,7 @@
 #include <KGenericFactory>
 #include <KPluginFactory>
 #include <QtGui>
+#include "ui_gui.h"
 
 K_PLUGIN_FACTORY(GTKConfigKCModuleFactory, registerPlugin<GTKConfigKCModule>();)
 K_EXPORT_PLUGIN(GTKConfigKCModuleFactory("cgc","kcm_cgc"))
@@ -57,16 +58,13 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     appareance = new AppearenceGTK;
     refreshLists();
     makePreviewIconTheme();
-    makePreviewFont();
     
     //UI changes
     connect(ui->cb_theme, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_theme_gtk3, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_icon, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_icon_fallback ,SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
-    connect(ui->cb_font, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
-    connect(ui->cb_font_style, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
-    connect(ui->spin_font_tam, SIGNAL(valueChanged(int)), this, SLOT(appChanged()));
+    connect(ui->font, SIGNAL(fontSelected(QFont)), this, SLOT(appChanged()));
     connect(ui->cb_toolbar_icons, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->checkBox_icon_gtk_menus, SIGNAL(clicked(bool)), this, SLOT(appChanged()));
     connect(ui->checkBox_icon_gtk_buttons, SIGNAL(clicked(bool)), this, SLOT(appChanged()));
@@ -84,11 +82,6 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     
     connect(installer, SIGNAL(themeInstalled()), SLOT(refreshLists()));
     connect(uninstaller, SIGNAL(themeUninstalled()), SLOT(refreshLists()));
-    
-    //font preview
-    connect(ui->cb_font, SIGNAL(activated(QString)), this, SLOT(makePreviewFont()));
-    connect(ui->cb_font_style, SIGNAL(activated(QString)), this, SLOT(makePreviewFont()));
-    connect(ui->spin_font_tam, SIGNAL(valueChanged(int)), this, SLOT(makePreviewFont()));
     
     //GHNS connections
     connect(ui->but_theme_ghns, SIGNAL(clicked(bool)), this, SLOT(showThemeGHNS()));
@@ -117,26 +110,38 @@ void GTKConfigKCModule::installThemeGTK3GHNS()
      }
 }
 
+QFont stringToFont(const QString& font)
+{
+    QRegExp fontRx(QString(" (italic)? *(bold)? *([0-9]+)$"));
+    int pos = fontRx.indexIn(font);
+    QString fontFamily = font.left(pos);
+
+    bool italic = !fontRx.cap(1).isEmpty();
+    QFont::Weight bold = fontRx.cap(2).isEmpty() ? QFont::Normal : QFont::Bold;
+    int fontSize = fontRx.cap(3).toInt();
+    
+    return QFont(fontFamily, fontSize, bold, italic);
+}
+
+QString fontToString(const QFont& f)
+{
+    QString style;
+
+    if(f.bold())
+        style += " bold";
+    if(f.italic())
+        style += " italic";
+    
+    return f.family() + style + ' ' + QString::number(f.pointSize());
+}
+
 void GTKConfigKCModule::refreshLists()
 {
     refreshThemesUi(true);
 
     QString font = appareance->getFont();
-    if(!font.isEmpty()) {
-        QRegExp fontRx(QString(" (italic)? *(bold)? *([0-9]+)$"));
-        int pos = fontRx.indexIn(font)-1;
-        QString fontFamily = font.left(pos-1);
-
-        bool bold = !fontRx.cap(1).isEmpty();
-        bool italic = !fontRx.cap(2).isEmpty();
-        int fontSize = fontRx.cap(3).toInt();
-
-        int style=bold | (italic<<1);
-
-        ui->cb_font->setCurrentFont(QFont(fontFamily));
-        ui->cb_font_style->setCurrentIndex(style);
-        ui->spin_font_tam->setValue(fontSize);
-    }
+    Q_ASSERT(!font.isEmpty());
+    ui->font->setFont(stringToFont(font));
     
     ui->cb_toolbar_icons->setCurrentIndex(gtkToolbar[appareance->getToolbarStyle()]);
     
@@ -213,17 +218,7 @@ void GTKConfigKCModule::save()
     appareance->setTheme(ui->cb_theme->currentText());
     appareance->setIcon(ui->cb_icon->currentText());
     appareance->setIconFallBack(ui->cb_icon_fallback->currentText());
-
-    QString estilo;
-    int pos = ui->cb_font_style->currentIndex();
-
-    if(pos & 1)
-        estilo += " bold";
-    if(pos & 2)
-        estilo += " italic";
-    
-    QString font = ui->cb_font->currentFont().family() + estilo + ' ' + QVariant(ui->spin_font_tam->value()).toString();
-    appareance->setFont( font );
+    appareance->setFont(fontToString(ui->font->font()));
 
     appareance->setToolbarStyle(gtkToolbar.key(ui->cb_toolbar_icons->currentIndex()));
     appareance->setShowIconsInButtons(ui->checkBox_icon_gtk_buttons->isChecked());
@@ -248,9 +243,7 @@ void GTKConfigKCModule::save()
 
 void GTKConfigKCModule::defaults()
 {
-    QFont f = font();
-    
-    appareance->setFont(QString("%1 %2").arg(f.family()).arg(f.pointSize()));
+    appareance->setFont(fontToString(font()));
     appareance->setTheme("oxygen-gtk"); //TODO: review, should use system's settings, for better integration
     appareance->setIcon("oxygen-refit-2-2.5.0");
     appareance->setIconFallBack("oxygen");
@@ -302,16 +295,3 @@ void GTKConfigKCModule::showDialogForUninstall()
     
     refreshThemesUi();
 }
-
-void GTKConfigKCModule::makePreviewFont()
-{
-    QFont fuente(ui->cb_font->currentFont());
-    
-    int pos = ui->cb_font_style->currentIndex();
-    fuente.setBold(pos & 1);
-    fuente.setItalic(pos & 2);
-    
-    fuente.setPointSize(ui->spin_font_tam->value());
-    
-    ui->lb_font_preview->setFont(fuente);
-}   
