@@ -14,8 +14,8 @@ void AppearenceGTK::setFont(const QString& fo) { settings["font"] = fo;}
 void AppearenceGTK::setThemePath(const QString& temaPath) { settings["theme_path"] = temaPath; }
 void AppearenceGTK::setThemeGtk3(const QString& theme) { settings["themegtk3"] = theme; }
 void AppearenceGTK::setThemeGtk3Path(const QString& themePath) { settings["themegtk3_path"] = themePath; }
-void AppearenceGTK::setShowIconsInButtons(const QString& buttons) { settings["show_icons_buttons"] = buttons; }
-void AppearenceGTK::setShowIconsInMenus(const QString& menus) { settings["show_icons_menus"] = menus; }
+void AppearenceGTK::setShowIconsInButtons(bool show) { settings["show_icons_buttons"] = show ? "1" : "0"; }
+void AppearenceGTK::setShowIconsInMenus(bool show) { settings["show_icons_menus"] = show ? "1" : "0"; }
 void AppearenceGTK::setToolbarStyle(const QString& toolbar_style) { settings["toolbar_style"] = toolbar_style; }
 
 // GETTERS
@@ -26,8 +26,8 @@ QString AppearenceGTK::getIconFallBack() const { return settings["icon_fallback"
 QString AppearenceGTK::getFont() const { return settings["font"]; }
 QString AppearenceGTK::getThemeGtk3() const { return settings["themegtk3"]; }
 QString AppearenceGTK::getToolbarStyle() const { return settings["toolbar_style"]; }
-QString AppearenceGTK::getShowIconsInButtons() const { return settings["show_icons_buttons"]; }
-QString AppearenceGTK::getShowIconsInMenus() const { return settings["show_icons_menus"]; }
+bool AppearenceGTK::getShowIconsInButtons() const { return settings["show_icons_buttons"]=="1"; }
+bool AppearenceGTK::getShowIconsInMenus() const { return settings["show_icons_menus"]=="1"; }
 
 QStringList AppearenceGTK::getAvaliableIcons()
 {

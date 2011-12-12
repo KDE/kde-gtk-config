@@ -1,5 +1,8 @@
 #include "dialog_uninstaller.h"
-DialogUninstaller::DialogUninstaller(QWidget* parent, AppearenceGTK *app): QDialog(parent), appareance(app), ui(new Ui::dialog_uninstaller)
+DialogUninstaller::DialogUninstaller(QWidget* parent, AppearenceGTK *app)
+    : QDialog(parent)
+    , appareance(app)
+    , ui(new Ui::dialog_uninstaller)
 {
     ui->setupUi(this);
     
@@ -165,7 +168,6 @@ void DialogUninstaller::threadUninstalledThemeFinished()
         ui->lb_notice_uninstall_theme->setText(tr("No se pudo desinstalar el tema gtk"));
     }
 
-    //habilitamos gui
     ui->cb_uninstall_theme->setEnabled(true);
     ui->but_uninstall_theme->setEnabled(true);
 
@@ -182,10 +184,8 @@ void DialogUninstaller::threadUninstalledThemeIconFinished()
         ui->lb_notice_uninstall_icon->setText(tr("No se pudo desintalar el tema de iconos"));
     }
 
-    //habilitamos gui
     ui->cb_uninstall_icon->setEnabled(true);
     ui->but_uninstall_icon->setEnabled(true);
-
 
     refresthListsForUninstall();
 }

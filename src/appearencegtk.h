@@ -21,8 +21,8 @@ public:
     
     //New features
     void setToolbarStyle(const QString&);
-    void setShowIconsInMenus(const QString&);
-    void setShowIconsInButtons(const QString&);
+    void setShowIconsInMenus(bool show);
+    void setShowIconsInButtons(bool show);
 
     QString getTheme() const; //Obtiene el nombre del tema actualmente utilizado
     QString getThemeGtk3() const;
@@ -32,8 +32,8 @@ public:
     QString getFont() const; //Obtiene el tipo de letra que se esta utilizando
     QString getIconFallBack() const; // Obtiene el tema de iconos fallback
     QString getToolbarStyle() const; //Obtiene el estilo de la barra de herramientas
-    QString getShowIconsInMenus() const;
-    QString getShowIconsInButtons() const;
+    bool getShowIconsInMenus() const;
+    bool getShowIconsInButtons() const;
     
     static QStringList getAvaliableIconsPaths();//Obtiene las rutas absolutas de los temas de iconos disponibles en el sistema
     static QStringList getAvaliableIcons(); //Obtiene temas de icono disponibles en el sistema

@@ -29,14 +29,12 @@
 namespace Ui{
     class DialogUninstaller;
 }
+
 /**
- * 
- * Interfaz gràfica para desinstalar temas gtk y paquete de iconos
- * 
+ * GUI to uninstall GTK themes and icon themes
  */
 class DialogUninstaller: public QDialog
 {
-    
     Q_OBJECT
 public:
     DialogUninstaller(QWidget *parent = 0, AppearenceGTK *app=0);
@@ -45,22 +43,22 @@ public:
 signals:
     void themeUninstalled();
     
-    
 public slots:
-       //METODOS PARA EL DESINSTALADOR
     void refresthListsForUninstall();
     void uninstallTheme();
     void uninstallIcon();
     void threadUninstalledThemeFinished();
     void threadUninstalledThemeIconFinished();
  
-    
 private:
     Ui::dialog_uninstaller *ui;
     AppearenceGTK *appareance;
-     //PROPIEDADES PARA EL DESINSTALADOR
-    ThreadErase *threadEraseIcon; //Hilo que desinstala un tema de iconos
-    ThreadErase *threadEraseTheme; //Hilo que desinstala un tema gtk
+    
+    ///Thread that uninstalls icons
+    ThreadErase *threadEraseIcon;
+    
+    ///Thread that uninstalls themes
+    ThreadErase *threadEraseTheme;
 };
 
 #endif //dialog_installer.h 

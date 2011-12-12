@@ -1,5 +1,4 @@
 /*
-    <one line to give the library's name and an idea of what it does.>
     Copyright (C) <2011>  <José Antonio Sánchez Reynaga>
 
     This library is free software; you can redistribute it and/or
@@ -27,58 +26,38 @@
 #include "dialog_installer.h"
 #include "dialog_uninstaller.h"
 #include <knewstuff3/downloaddialog.h>
-namespace Ui {
-    class Modulo;
-}
 
-class Modulo : public KCModule
+namespace Ui { class Modulo; }
+
+class GTKConfigKCModule : public KCModule
 {
   Q_OBJECT
 public:
-  /**
-   * Constructor
-   */
-    explicit Modulo(QWidget* parent = 0
-                    ,const QVariantList& args = QVariantList()
-                   );
+    explicit GTKConfigKCModule(QWidget* parent = 0 ,const QVariantList& args = QVariantList() );
+    ~GTKConfigKCModule();
     
-    /**
-     * Destructor
-     */
-    ~Modulo();
+    void refreshThemesUi(bool useConfig=false);
     
 public slots:
     void refreshLists();
-    /**
-     * Crear una previsualización de la fuente que se va a usar
-     */
     void makePreviewFont();
     void makePreviewIconTheme();
-    void appChanged(); //Metodo que se ejecuta cuando un cambio en la gui se ha registrado  
+    
+    ///it is called whenever something in the UI has changed
+    void appChanged();
     
     void showThemeGHNS();
     void installThemeGTK3GHNS();
   
-    
     virtual void save();
     virtual void defaults();
     
-     /**
-     * Muestra el dialogo para instalar un tema
-     */
     void showDialogForInstall();
-    /**
-     * Muestra el dialogo para desinstalar un tema
-     */
     void showDialogForUninstall();
-   
-  
 
 signals:
     void selectedTheme();
     void selectedIconTheme();
-    
-
     
 private:
     Ui::GUI *ui;
@@ -86,10 +65,6 @@ private:
     
     DialogInstaller *installer;
     DialogUninstaller *uninstaller;
-    
-    
-    
-
 };
 
 #endif // MODULO_H

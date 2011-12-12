@@ -7,16 +7,15 @@ Thread::Thread(const QString& accion)
 
 void Thread::run()
 {
-
-    if(urlPackage.isEmpty()){
+    if(urlPackage.isEmpty()) {
         kDebug() << "*** ERROR: There's nothing to do";
         return;
     }
 
-    if(action == "icon"){
+    if(action == "icon") {
         kDebug() << "Installing icons theme";
         success = Installer::installIconTheme(urlPackage);
-    } else if(action == "theme"){
+    } else if(action == "theme") {
         kDebug() << "Installing GTK theme";
         success = Installer::installTheme(urlPackage);
     }
@@ -37,14 +36,14 @@ void ThreadAnalisysTheme::run()
     kDebug()<< "*************** GTK THEME INSTALLATION";
     kDebug()<< "File to install" << packageTheme;
 
-    if(packageTheme.isEmpty()){
+    if(packageTheme.isEmpty()) {
         kDebug() << "ERROR: empty theme field";
         success = false;
         return;
     }
 
     //TODO: port to KArchive
-    if(!packageTheme.contains(QRegExp("(.tar.gz|tar)"))){
+    if(!packageTheme.contains(QRegExp("(.tar.gz|tar)"))) {
         kDebug() << "ERROR: It is not a valid file";
         success = false;
         return;
@@ -52,7 +51,7 @@ void ThreadAnalisysTheme::run()
 
     //Por si las dudas verifica si el archivo existe
     QFileInfo file(packageTheme);
-    if(!file.exists() || file.isDir()){
+    if(!file.exists() || file.isDir()) {
         kDebug() << "ERROR: " << packageTheme << "is not a valid theme.";
         success = false;
         return;
@@ -70,7 +69,7 @@ void ThreadAnalisysTheme::run()
     kDebug()<< "** Command to exec " << "tar " << argus.join(" ");
 
     //TODO: port to KArchive
-    if(QProcess::execute("tar", argus) != 0){
+    if(QProcess::execute("tar", argus) != 0) {
         kDebug() << "ERROR: executing command";
         success = false;
         return;
@@ -86,13 +85,12 @@ void ThreadAnalisysTheme::run()
     QDirIterator it(temporal.path()+"/"+folder);
 
     bool found = false;
-    while(it.hasNext()){
+    while(it.hasNext()) {
 
         QString file = it.next();
         kDebug() << "trying file" << file;
 
-        if(file.contains(QRegExp("(gtk-2.0)$"))){
-            //archivo gtk-2.0
+        if(file.contains(QRegExp("(gtk-2.0)$"))) {
             kDebug() << "FILE : " << file;
             found = true;
             break;
@@ -102,7 +100,7 @@ void ThreadAnalisysTheme::run()
     kDebug() << "\n*************************\n\n\n\n";
 
     //TODO: really? looks to me the if does the same as the else
-    if(!found){
+    if(!found) {
         kDebug() << ">>>> Invalid file";
 
         //Al final borra los archivos
@@ -110,7 +108,7 @@ void ThreadAnalisysTheme::run()
         kDebug() << "Deleting temps";
         QStringList args;
         args << "-rf" << temporal.path();
-        if(QProcess::execute("rm", args) != 0){
+        if(QProcess::execute("rm", args) != 0) {
             kDebug() << "There was not cleanning";
         }
 
@@ -124,7 +122,7 @@ void ThreadAnalisysTheme::run()
     kDebug() << "Deleting temps";
     QStringList args;
     args << "-rf" << temporal.path();
-    if(QProcess::execute("rm", args) != 0){
+    if(QProcess::execute("rm", args) != 0) {
         kDebug() << "There was not cleanning";
     }
 
@@ -150,7 +148,7 @@ void ThreadAnalisysThemeIcon::run()
     kDebug()<< "File to install" << packageTheme;
 
     //We verify it has a correct package name
-    if(packageTheme.isEmpty()){
+    if(packageTheme.isEmpty()) {
         kDebug() << "ERROR: theme field is empty";
         success = false;
         return;
@@ -158,14 +156,14 @@ void ThreadAnalisysThemeIcon::run()
 
 //     TODO: port to KArchive
     //We verify that it's a valid package...
-    if(!packageTheme.contains(QRegExp("(.tar.gz|tar)"))){
+    if(!packageTheme.contains(QRegExp("(.tar.gz|tar)"))) {
         kDebug() << "ERROR: Invalid file";
         success = false;
         return;
     }
 
     QFileInfo file(packageTheme);
-    if(!file.exists() || file.isDir()){
+    if(!file.exists() || file.isDir()) {
         kDebug() << "ERROR: " << packageTheme << "is not a valid theme.";
         success = false;
         return;
@@ -180,7 +178,7 @@ void ThreadAnalisysThemeIcon::run()
     argus << "-xf" << packageTheme  << "-C"  << temporal.path();
     kDebug()<< "** Command to exec " << "tar " << argus.join(" ");
 
-    if(QProcess::execute("tar", argus) != 0){
+    if(QProcess::execute("tar", argus) != 0) {
         kDebug() << "ERROR: executing command";
         success = false;
         return;
@@ -194,12 +192,12 @@ void ThreadAnalisysThemeIcon::run()
     QDirIterator iterador(temporal.path()+"/"+folder);
 
     bool found = false;
-    while(iterador.hasNext()){
+    while(iterador.hasNext()) {
 
         QString file = iterador.next();
         kDebug() << file;
 
-        if(file.contains(QRegExp("(index.theme)$"))){
+        if(file.contains(QRegExp("(index.theme)$"))) {
             //archivo index.theme
             kDebug() << "FILE : " << file;
             found = true;
@@ -210,14 +208,14 @@ void ThreadAnalisysThemeIcon::run()
 
     kDebug() << "\n*************************\n\n\n\n";
 
-    if(!found){
+    if(!found) {
         kDebug() << ">>>> Invalid file";
 
         //Al final borra los archivos
         kDebug() << "Deleting temps";
         QStringList args;
         args << "-rf" << temporal.path();
-        if(QProcess::execute("rm", args) != 0){
+        if(QProcess::execute("rm", args) != 0) {
             kDebug() << "There was not cleanning";
         }
 
@@ -233,7 +231,7 @@ void ThreadAnalisysThemeIcon::run()
     kDebug() << "Deleting temps";
     QStringList args;
     args << "-rf" << temporal.path();
-    if(QProcess::execute("rm", args) != 0){
+    if(QProcess::execute("rm", args) != 0) {
         kDebug() << "There was not cleanning";
     }
 
@@ -267,7 +265,6 @@ void ThreadErase::run()
 {
     QThread::sleep(3);
 
-    //Ejecutar el comando rm -rfv para eliminar archivos
 //  TODO: use kio
     QStringList argumentos;
     argumentos << "-rf" << themeForErase;
