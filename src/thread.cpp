@@ -33,25 +33,11 @@ bool Thread::isSuccess() const
 
 void ThreadAnalisysTheme::run()
 {
-    kDebug()<< "*************** GTK THEME INSTALLATION";
     kDebug()<< "File to install" << packageTheme;
 
-    if(packageTheme.isEmpty()) {
-        kDebug() << "ERROR: empty theme field";
-        success = false;
-        return;
-    }
-
     //TODO: port to KArchive
-    if(!packageTheme.contains(QRegExp("(.tar.gz|tar)"))) {
-        kDebug() << "ERROR: It is not a valid file";
-        success = false;
-        return;
-    }
-
-    //Por si las dudas verifica si el archivo existe
     QFileInfo file(packageTheme);
-    if(!file.exists() || file.isDir()) {
+    if(!file.exists() || file.isDir() || !(file.completeSuffix()=="tar" || file.completeSuffix()=="tar.gz")) {
         kDebug() << "ERROR: " << packageTheme << "is not a valid theme.";
         success = false;
         return;
@@ -79,10 +65,10 @@ void ThreadAnalisysTheme::run()
     QString folder=temporal.entryList(QDir::AllDirs|QDir::NoDotAndDotDot).first();
 
     kDebug() << "FOUND THEME FOLDER = " << folder;
-    kDebug() << "\n******* THEME " << temporal.path()+"/"+folder;
+    kDebug() << "\n******* THEME " << temporal.path()+'/'+folder;
 
     //We know the path of the folder to analyze
-    QDirIterator it(temporal.path()+"/"+folder);
+    QDirIterator it(temporal.path()+'/'+folder);
 
     bool found = false;
     while(it.hasNext()) {
@@ -90,7 +76,7 @@ void ThreadAnalisysTheme::run()
         QString file = it.next();
         kDebug() << "trying file" << file;
 
-        if(file.contains(QRegExp("(gtk-2.0)$"))) {
+        if(it.fileName()=="gtkrc") {
             kDebug() << "FILE : " << file;
             found = true;
             break;
@@ -98,6 +84,7 @@ void ThreadAnalisysTheme::run()
     }
 
     kDebug() << "\n*************************\n\n\n\n";
+    success = found;
 
     //TODO: really? looks to me the if does the same as the else
     if(!found) {
@@ -113,8 +100,6 @@ void ThreadAnalisysTheme::run()
         }
 
         kDebug() << "Cleanning complete"<< temporal.entryList();
-
-        success = false;
         return;
     }
 
@@ -128,8 +113,6 @@ void ThreadAnalisysTheme::run()
 
     kDebug() << "Cleanning complete";
     kDebug()<< temporal.entryList();
-
-    success = true;
 }
 
 void ThreadAnalisysTheme::setPackageTheme(const QString& theme)
@@ -147,23 +130,9 @@ void ThreadAnalisysThemeIcon::run()
     kDebug()<< "*************** GTK THEME INSTALLATION";
     kDebug()<< "File to install" << packageTheme;
 
-    //We verify it has a correct package name
-    if(packageTheme.isEmpty()) {
-        kDebug() << "ERROR: theme field is empty";
-        success = false;
-        return;
-    }
-
 //     TODO: port to KArchive
-    //We verify that it's a valid package...
-    if(!packageTheme.contains(QRegExp("(.tar.gz|tar)"))) {
-        kDebug() << "ERROR: Invalid file";
-        success = false;
-        return;
-    }
-
     QFileInfo file(packageTheme);
-    if(!file.exists() || file.isDir()) {
+    if(!file.exists() || file.isDir() || !(file.completeSuffix()=="tar" || file.completeSuffix()=="tar.gz")) {
         kDebug() << "ERROR: " << packageTheme << "is not a valid theme.";
         success = false;
         return;
@@ -187,17 +156,16 @@ void ThreadAnalisysThemeIcon::run()
     //archive extracted in the temp directory
     QString folder= temporal.entryList(QDir::AllDirs|QDir::NoDotAndDotDot).first();
     kDebug() << "FOUND THEME FOLDER = " << folder;
-    kDebug() << "\n******* THEME " << temporal.path()+"/"+folder;
+    kDebug() << "\n******* THEME " << temporal.path()+'/'+folder;
 
-    QDirIterator iterador(temporal.path()+"/"+folder);
+    QDirIterator it(temporal.path()+'/'+folder);
 
     bool found = false;
-    while(iterador.hasNext()) {
+    while(it.hasNext()) {
 
-        QString file = iterador.next();
-        kDebug() << file;
+        QString file = it.next();
 
-        if(file.contains(QRegExp("(index.theme)$"))) {
+        if(it.fileName()=="index.theme") {
             //archivo index.theme
             kDebug() << "FILE : " << file;
             found = true;
@@ -222,7 +190,6 @@ void ThreadAnalisysThemeIcon::run()
         kDebug() << "Cleanning complete";
         kDebug()<< temporal.entryList();
 
-        success = false;
         return;
     }
 
@@ -237,8 +204,7 @@ void ThreadAnalisysThemeIcon::run()
 
     kDebug() << "Cleanning complete";
     kDebug()<< temporal.entryList();
-
-    success = true;
+    success=found;
 }
 
 void ThreadAnalisysThemeIcon::setPackageTheme(const QString& theme)

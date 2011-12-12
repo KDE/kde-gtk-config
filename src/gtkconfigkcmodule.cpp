@@ -179,7 +179,7 @@ void GTKConfigKCModule::makePreviewIconTheme()
     QString path_icon = appareance->getAvaliableIconsPaths()[icon];
 
     tryIcon(ui->lb_prev_1, path_fallback, path_icon,
-            QStringList() << "/48x48/places/folder-home.png" << "/places/48/folder-home.png" << "/places/48/folder-home.svg");
+            QStringList() << "/48x48/places/folder_home.png" << "/places/48/folder_home.png" << "/places/48/folder_home.svg");
     tryIcon(ui->lb_prev_2, path_fallback, path_icon,
             QStringList() << "/48x48/places/user-trash.png" << "/places/48/user-trash.png" << "/places/48/user-trash.svg");
     tryIcon(ui->lb_prev_3, path_fallback, path_icon,

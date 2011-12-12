@@ -52,7 +52,7 @@ QStringList AppearenceGTK::getAvaliableIconsPaths()
         QString urlActual = iter.next();
 
         //we filter out the default and kde4 default
-        if(!urlActual.contains( QRegExp("(/default)$") ) && !urlActual.contains( QRegExp("(/default\\.kde4)$"))) {
+        if(iter.fileName()!="default" && iter.fileName()!="default.kde4") {
             availableIcons << urlActual;
         }
     }
@@ -153,7 +153,7 @@ QStringList AppearenceGTK::getAvaliableThemes()
 
 }
 
-QRegExp valueRx("([a-z\\-]+)=\\\"?([\\w _]+)\\\"?\\\n", Qt::CaseSensitive, QRegExp::RegExp);
+QRegExp valueRx("([a-z\\-]+)=\\\"?([\\w _\\-]+)\\\"?\\\n", Qt::CaseSensitive, QRegExp::RegExp);
 QMap<QString,QString> readSettingsTuples(const QString& allText)
 {
     QMap<QString,QString> ret;
@@ -197,7 +197,7 @@ bool AppearenceGTK::loadGTK2Config()
         foreach(const QString& i, text) {
             //We find the include
             if(i.contains("include") && !i.contains("/etc/gtk-2.0/gtkrc") && !i.contains("widget_class")) {
-                themePath = QString(i).replace(QRegExp("(include|\")"), ""); // quitar la palabra include y los "
+                themePath = QString(i).remove(QRegExp("(include |\")"));
                 themePath = themePath.trimmed();
                 //We cut the line to the theme name as the path
                 themePath = themePath.left(themePath.indexOf(themeName) + themeName.length());
