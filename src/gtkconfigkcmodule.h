@@ -55,7 +55,6 @@ public slots:
     void showDialogForUninstall();
 
 signals:
-    void selectedTheme();
     void selectedIconTheme();
     
 private:

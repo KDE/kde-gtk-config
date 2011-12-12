@@ -29,47 +29,22 @@ namespace Ui {
     class DialogInstaller;
 }
 /**
- * 
- * Interfaz gràfica para instalar temas gtk y paquete de iconos
- * 
+ * GUI to install icons and gtk themes
  */
 class DialogInstaller: public QDialog
 {
-    
-    Q_OBJECT
+Q_OBJECT
 public:
     DialogInstaller(QWidget *parent=0);
     ~DialogInstaller();
     
-    
 signals:
     /**
-     * Se activa cuando ya se selecciono un tema
-     */
-    void selectedTheme();
-        /**
-     * Se activa cuando ya se selecciono un tema de iconos
-     */
-    void selectedIconTheme();
-    
-    /**
-     * Se activa cuando un tema se ha instalado
+     * Whenever a theme is installed, this signal is emitted
      */
     void themeInstalled();
     
-    
-public slots:
-    
-    /**
-      Abre un cuadro de dialogo, para seleccionar un fichero *.tar.gz de temas.
-      La url lo guarda en la etiqueta del grupo correspondiente
-      */
-    void selectIconThemeFile();
-    /**
-      Abre un cuadro de dialogo, para seleccionar un fichero *.tar.gz de temas.
-      La url lo guarda en la etiqueta del grupo correspondiente
-      */
-    void selectThemeFile();
+private slots:
     /**
       Instala el tema de icono a traves del objeto Installer
         Para ello lanza un hilo para que no se bloqué la GUI
@@ -85,6 +60,8 @@ public slots:
     void disableGUIThemeInstaller();
     void refreshGUITheme();
     void themeAnalisys();
+    
+    ///executed after analyzing theme
     void checkThemeAnalisys();
 
     void enableGUIThemeIconInstaller();
