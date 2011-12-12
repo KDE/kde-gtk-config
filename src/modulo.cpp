@@ -144,90 +144,62 @@ void GTKConfigKCModule::refreshLists()
     ui->checkBox_icon_gtk_menus->setChecked(appareance->getShowIconsInMenus());
 }
 
-void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const QString& relativePath)
+void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const QStringList& relativePaths)
 {
-    QPixmap p(theme+relativePath);
-    if(!p.isNull()) {
-        label->setPixmap(p);
-        label->setToolTip(relativePath);
-        return;
+    label->setToolTip(relativePaths.first());
+    
+    foreach(const QString & relpath, relativePaths) {
+        QPixmap p(theme+relpath);
+        if(!p.isNull()) {
+            label->setPixmap(p);
+            return;
+        }
+        
+        QPixmap pFallback(fallback+relpath);
+        if(!pFallback.isNull()) {
+            label->setPixmap(pFallback);
+            return;
+        }
     }
     
-    QPixmap pFallback(fallback+relativePath);
-    if(!pFallback.isNull()) {
-        label->setPixmap(pFallback);
-        label->setToolTip(relativePath);
-        return;
-    }
     
-    kDebug() << "could not find icon" << relativePath;
+    KIcon notFoundIcon("application-x-zerosize");
+    QPixmap noIcon(notFoundIcon.pixmap(48,48));
+    label->setPixmap(noIcon);
+    
+    qDebug() << "could not find icon" << relativePaths;
 }
 
 void GTKConfigKCModule::makePreviewIconTheme()
 {
-    //file:///usr/share/icons/oxygen-refit-2-2.5.0/48x48/places/folder_home.png
-    //file:///usr/share/icons/oxygen-refit-2-2.5.0/48x48/places/user-trash.png
-    //file:///usr/share/icons/oxygen-refit-2-2.5.0/48x48/actions/document-print.png
-
-    //Clean up the preview with empty ones
-    KIcon notFoundIcon("application-x-zerosize");
-    QPixmap noIcon(notFoundIcon.pixmap(48,48));
-    ui->lb_prev_1->setPixmap(noIcon);
-    ui->lb_prev_2->setPixmap(noIcon);
-    ui->lb_prev_3->setPixmap(noIcon);
-    ui->lb_prev_4->setPixmap(noIcon);
-    ui->lb_prev_5->setPixmap(noIcon);
-    ui->lb_prev_6->setPixmap(noIcon);
-    ui->lb_prev_7->setPixmap(noIcon);
-    ui->lb_prev_8->setPixmap(noIcon);
-    ui->lb_prev_9->setPixmap(noIcon);
-
     int icon_fallback = ui->cb_icon_fallback->currentIndex();
     QString path_fallback = appareance->getAvaliableIconsPaths()[icon_fallback];
     
     int icon = ui->cb_icon->currentIndex();
     QString path_icon = appareance->getAvaliableIconsPaths()[icon];
 
-    tryIcon(ui->lb_prev_1, path_fallback, path_icon, "/48x48/places/folder_home.png");
-    tryIcon(ui->lb_prev_1, path_fallback, path_icon, "/places/48/folder_home.png");
-    tryIcon(ui->lb_prev_1, path_fallback, path_icon, "/places/48/folder_home.svg");
-
-    tryIcon(ui->lb_prev_2, path_fallback, path_icon, "/48x48/places/user-trash.png");
-    tryIcon(ui->lb_prev_2, path_fallback, path_icon, "/places/48/user-trash.png");
-    tryIcon(ui->lb_prev_2, path_fallback, path_icon, "/places/48/user-trash.svg");
-
-    tryIcon(ui->lb_prev_3, path_fallback, path_icon, "/48x48/actions/document-print.png");
-    tryIcon(ui->lb_prev_3, path_fallback, path_icon, "/actions/48/document-print.png");
-    tryIcon(ui->lb_prev_3, path_fallback, path_icon, "/actions/48/document-print.svg");
-
-    tryIcon(ui->lb_prev_4, path_fallback, path_icon, "/48x48/places/user-desktop.png");
-    tryIcon(ui->lb_prev_4, path_fallback, path_icon, "/places/48/user-desktop.png");
-    tryIcon(ui->lb_prev_4, path_fallback, path_icon, "/places/48/user-desktop.svg");
-    
-    tryIcon(ui->lb_prev_5, path_fallback, path_icon, "/48x48/places/user-bookmarks.png");
-    tryIcon(ui->lb_prev_5, path_fallback, path_icon, "/places/48/user-bookmarks.png");
-    tryIcon(ui->lb_prev_5, path_fallback, path_icon, "/places/48/user-bookmarks.svg");
-    
-    tryIcon(ui->lb_prev_6, path_fallback, path_icon, "/48x48/places/network-server.png");
-    tryIcon(ui->lb_prev_6, path_fallback, path_icon, "/places/48/network-server.png");
-    tryIcon(ui->lb_prev_6, path_fallback, path_icon, "/places/48/network-server.svg");
-    
-    tryIcon(ui->lb_prev_7, path_fallback, path_icon, "/48x48/apps/help.png");
-    tryIcon(ui->lb_prev_7, path_fallback, path_icon, "/apps/48/help.png");
-    tryIcon(ui->lb_prev_7, path_fallback, path_icon, "/apps/48/help.svg");
-    
-    tryIcon(ui->lb_prev_8, path_fallback, path_icon, "/48x48/places/start-here.png");
-    tryIcon(ui->lb_prev_8, path_fallback, path_icon, "/places/48/start-here.png");
-    tryIcon(ui->lb_prev_8, path_fallback, path_icon, "/places/48/start-here.svg");
-    
-    tryIcon(ui->lb_prev_9, path_fallback, path_icon, "/48x48/actions/up.png");
-    tryIcon(ui->lb_prev_9, path_fallback, path_icon, "/actions/48/up.png");
-    tryIcon(ui->lb_prev_9, path_fallback, path_icon, "/actions/48/up.svg");
+    tryIcon(ui->lb_prev_1, path_fallback, path_icon,
+            QStringList() << "/48x48/places/folder-home.png" << "/places/48/folder-home.png" << "/places/48/folder-home.svg");
+    tryIcon(ui->lb_prev_2, path_fallback, path_icon,
+            QStringList() << "/48x48/places/user-trash.png" << "/places/48/user-trash.png" << "/places/48/user-trash.svg");
+    tryIcon(ui->lb_prev_3, path_fallback, path_icon,
+            QStringList() << "/48x48/actions/document-print.png"<< "/actions/48/document-print.png" << "/actions/48/document-print.svg");
+    tryIcon(ui->lb_prev_4, path_fallback, path_icon,
+            QStringList() << "/48x48/places/user-desktop.png" << "/places/48/user-desktop.png" << "/places/48/user-desktop.svg");
+    tryIcon(ui->lb_prev_5, path_fallback, path_icon,
+            QStringList() << "/48x48/places/user-bookmarks.png" << "/places/48/user-bookmarks.png" << "/places/48/user-bookmarks.svg");
+    tryIcon(ui->lb_prev_6, path_fallback, path_icon,
+            QStringList() << "/48x48/places/network-server.png" << "/places/48/network-server.png" << "/places/48/network-server.svg");
+    tryIcon(ui->lb_prev_7, path_fallback, path_icon,
+            QStringList() << "/48x48/actions/help.png" << "/actions/48/help.png" << "/actions/48/help.svg");
+    tryIcon(ui->lb_prev_8, path_fallback, path_icon,
+            QStringList() << "/48x48/places/start-here.png" << "/places/48/start-here.png" << "/places/48/start-here.svg");
+    tryIcon(ui->lb_prev_9, path_fallback, path_icon,
+            QStringList() << "/48x48/actions/up.png" << "/actions/48/up.png" << "/actions/48/up.svg");
 }
 
 void GTKConfigKCModule::appChanged()
 {
-   //Habilitamos el boton de instalar
    emit(changed(true));
 }
 
@@ -275,8 +247,6 @@ void GTKConfigKCModule::save()
             
             << "********************************************************";
     
-    refreshThemesUi(); //TODO: needed?
-    
     if(!appareance->saveFileConfig())
         QMessageBox::warning(this, "ERROR", i18n("It was not possible to save the config"));
 }
@@ -286,7 +256,7 @@ void GTKConfigKCModule::defaults()
 {
     QFont f = font();
     
-    appareance->setFont(QString("%1 %2").arg(f.family()).arg(f.pixelSize()));
+    appareance->setFont(QString("%1 %2").arg(f.family()).arg(f.pointSize()));
     appareance->setTheme("oxygen-gtk"); //TODO: review, should use system's settings, for better integration
     appareance->setThemePath("/usr/share/themes/oxygen-gtk");
     appareance->setIcon("oxygen-refit-2-2.5.0");
