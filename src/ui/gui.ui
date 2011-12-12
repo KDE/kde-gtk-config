@@ -88,6 +88,16 @@
                </property>
               </widget>
              </item>
+             <item row="3" column="1">
+              <widget class="KFontRequester" name="font"/>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Font</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>
@@ -382,9 +392,6 @@
          </layout>
         </widget>
        </item>
-       <item>
-        <widget class="KFontChooser" name="font"/>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tab_install">
@@ -599,9 +606,9 @@ Also you can download it from the opendesktop facilities as suggested below</str
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KFontChooser</class>
+   <class>KFontRequester</class>
    <extends>QWidget</extends>
-   <header>kfontdialog.h</header>
+   <header>kfontrequester.h</header>
   </customwidget>
   <customwidget>
    <class>KUrlLabel</class>
