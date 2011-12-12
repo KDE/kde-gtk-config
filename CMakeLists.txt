@@ -18,7 +18,7 @@ set(kcm_SRCS
      src/appearencegtk.cpp
      src/thread.cpp
      src/installer.cpp 
-     src/modulo.cpp 
+     src/gtkconfigkcmodule.cpp
      src/dialog_installer.cpp 
      src/dialog_uninstaller.cpp 
 )

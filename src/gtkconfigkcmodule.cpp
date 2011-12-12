@@ -18,7 +18,7 @@
 */
 
 
-#include "modulo.h"
+#include "gtkconfigkcmodule.h"
 #include <kaboutdata.h>
 #include <KGenericFactory>
 #include <KPluginFactory>

@@ -16,9 +16,8 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-
-#ifndef MODULO_H
-#define MODULO_H
+#ifndef GTKCONFIGKCMODULE_H
+#define GTKCONFIGKCMODULE_H
 
 #include <kcmodule.h>
 #include "ui_gui.h"
