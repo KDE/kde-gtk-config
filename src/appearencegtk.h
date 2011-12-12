@@ -25,7 +25,6 @@ public:
 
     QString getTheme() const; //Obtiene el nombre del tema actualmente utilizado
     QString getThemeGtk3() const;
-    QString getThemePath() const; //Obtiene las rutas absolutas del tema utilizado actualmente
    
     QString getIcon() const; //Obtiene el nombre del tema de iconos utilizado actualmente
     QString getFont() const; //Obtiene el tipo de letra que se esta utilizando
@@ -36,22 +35,21 @@ public:
     
     static QStringList getAvaliableIconsPaths();//Obtiene las rutas absolutas de los temas de iconos disponibles en el sistema
     static QStringList getAvaliableIcons(); //Obtiene temas de icono disponibles en el sistema
-    QStringList getAvaliableThemes(); //Obtiene todos los temas de icono disponibles
-    QStringList getAvaliableGtk3Themes(); //Obtiene todos los temas de icono disponibles
+    QStringList getAvaliableThemes() const;
+    QStringList getAvaliableGtk3Themes();
+    QStringList getAvaliableThemesPaths() const;
 
-    QStringList getAvaliableThemesPaths(); //Obtiene las rutas absolutas de los temas disponibles en el sistema
+    bool loadFileConfig();
+    bool saveFileConfig();
 
+private:
+    QString themesGtkrcFile(const QString& themeName) const;
+    bool saveGTK2Config() const;
+    bool saveGTK3Config() const;
     bool loadGTK2Config();
     bool loadGTK3Config();
     
-    bool loadFileConfig(); //Carga los datos del archivo .gtkrc-2.0
-    bool saveFileConfig(); //Guarda Cambios en el archivo .gtkrc-2.0 y .gtkrc-2.0-kde4
-
-private:
-    QMap <QString, QString> settings; //Aqui se guardan las Configuraciones del sistema
-
-
-
+    QMap <QString, QString> settings;
 };
 
 #endif // APARIENCIAGTK_H

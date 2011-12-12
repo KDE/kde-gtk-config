@@ -211,14 +211,6 @@ void GTKConfigKCModule::save()
 {
     appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
     appareance->setTheme(ui->cb_theme->currentText());
-
-    foreach(const QString& i, appareance->getAvaliableThemesPaths()) {
-        if(i.contains(ui->cb_theme->currentText())) {
-            appareance->setThemePath(i);
-            break;
-        }
-    }
-
     appareance->setIcon(ui->cb_icon->currentText());
     appareance->setIconFallBack(ui->cb_icon_fallback->currentText());
 
@@ -240,7 +232,6 @@ void GTKConfigKCModule::save()
     kDebug() << "******************************************* INSTALLATION :\n"
             << "theme : " << appareance->getTheme() << "\n"
             << "themeGTK3 : " << appareance->getThemeGtk3() << "\n"
-            << "theme path : " << appareance->getThemePath() << "\n"
             << "icons : " << appareance->getIcon() << "\n"
             << "fallback icons : " << appareance->getIconFallBack() << "\n"
             << "font family : " << appareance->getFont() << "\n"
@@ -261,7 +252,6 @@ void GTKConfigKCModule::defaults()
     
     appareance->setFont(QString("%1 %2").arg(f.family()).arg(f.pointSize()));
     appareance->setTheme("oxygen-gtk"); //TODO: review, should use system's settings, for better integration
-    appareance->setThemePath("/usr/share/themes/oxygen-gtk");
     appareance->setIcon("oxygen-refit-2-2.5.0");
     appareance->setIconFallBack("oxygen");
     

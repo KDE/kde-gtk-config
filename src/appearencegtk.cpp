@@ -11,7 +11,6 @@ void AppearenceGTK::setTheme(const QString& tema) { settings["theme"] = tema;}
 void AppearenceGTK::setIcon(const QString& ic) { settings["icon"] = ic;}
 void AppearenceGTK::setIconFallBack(const QString& fall) { settings["icon_fallback"] = fall; }
 void AppearenceGTK::setFont(const QString& fo) { settings["font"] = fo;}
-void AppearenceGTK::setThemePath(const QString& temaPath) { settings["theme_path"] = temaPath; }
 void AppearenceGTK::setThemeGtk3(const QString& theme) { settings["themegtk3"] = theme; }
 void AppearenceGTK::setShowIconsInButtons(bool show) { settings["show_icons_buttons"] = show ? "1" : "0"; }
 void AppearenceGTK::setShowIconsInMenus(bool show) { settings["show_icons_menus"] = show ? "1" : "0"; }
@@ -19,7 +18,6 @@ void AppearenceGTK::setToolbarStyle(const QString& toolbar_style) { settings["to
 
 // GETTERS
 QString AppearenceGTK::getTheme() const { return settings["theme"];}
-QString AppearenceGTK::getThemePath() const { return settings["theme_path"]; }
 QString AppearenceGTK::getIcon() const { return settings["icon"];}
 QString AppearenceGTK::getIconFallBack() const { return settings["icon_fallback"]; }
 QString AppearenceGTK::getFont() const { return settings["font"]; }
@@ -75,7 +73,7 @@ QStringList AppearenceGTK::getAvaliableIconsPaths()
     return availableIcons;
 }
 
-QStringList AppearenceGTK::getAvaliableThemesPaths()
+QStringList AppearenceGTK::getAvaliableThemesPaths() const
 {
     //TODO: Port to KStandardDirs
     QDir root("/usr/share/themes");
@@ -83,24 +81,16 @@ QStringList AppearenceGTK::getAvaliableThemesPaths()
 
     //Check if there are themes installed by the user
     QDir user(QDir::homePath()+"/.themes");
-
-    if(user.exists()) {
-        availableThemes += user.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);
-    }
+    availableThemes += user.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);
 
     //we just want actual themes
     QStringList paths;
-    for(QFileInfoList::iterator it=availableThemes.begin(); it!=availableThemes.end(); ) {
+    for(QFileInfoList::iterator it=availableThemes.begin(); it!=availableThemes.end(); ++it) {
         bool hasGtkrc = QDir(it->filePath()).exists("gtk-2.0");
 
         //If it doesn't exist, we don't want it on the list
-        if(!hasGtkrc) {
-            kDebug() << "Folder : " << it->filePath() << " does not contain a gtk-2.0 folder, discard it";
-            it = availableThemes.erase(it);
-        } else {
-            ++it;
+        if(hasGtkrc)
             paths += it->filePath();
-        }
     }
 
     return paths;
@@ -114,32 +104,23 @@ QStringList AppearenceGTK::getAvaliableGtk3Themes()
 
     //Also show the user-installed themes
     QDir user(QDir::homePath()+"/.themes");
-    if(user.exists()) {
-        availableThemes += user.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);
-    }
+    availableThemes += user.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);
 
     //we just want actual themes
     QStringList themes;
-    for(QFileInfoList::iterator it=availableThemes.begin(); it!=availableThemes.end(); ) {
+    for(QFileInfoList::iterator it=availableThemes.begin(); it!=availableThemes.end(); ++it) {
         bool hasGtkrc = QDir(it->filePath()).exists("gtk-3.0");
 
         //If it doesn't exist, we don't want it on the list
-        if(!hasGtkrc) {
-            kDebug() << "Folder : " << it->filePath() << " does not contain a gtk-3.0 folder, discard it";
-            it = availableThemes.erase(it);
-        } else {
-            ++it;
+        if(hasGtkrc)
             themes += it->fileName();
-        }
     }
-    
-    kDebug() << "*** Temas GTK3 path:" << themes;
 
     return themes;
 }
 
 
-QStringList AppearenceGTK::getAvaliableThemes()
+QStringList AppearenceGTK::getAvaliableThemes() const
 {
     QStringList temas, temasDisponibles=getAvaliableThemesPaths();
 
@@ -188,23 +169,7 @@ bool AppearenceGTK::loadGTK2Config()
         
         QMap<QString, QString> foundSettings=readSettingsTuples(allText);
 
-        //TODO: make sure theme path is really needed...
-        QString themeName       = foundSettings["gtk-theme-name"];
-        QString themePath;
-        foreach(const QString& i, text) {
-            //We find the include
-            if(i.contains("include") && !i.contains("/etc/gtk-2.0/gtkrc") && !i.contains("widget_class")) {
-                themePath = QString(i).remove(QRegExp("(include |\")"));
-                themePath = themePath.trimmed();
-                //We cut the line to the theme name as the path
-                themePath = themePath.left(themePath.indexOf(themeName) + themeName.length());
-
-                break;
-            }
-        }
-        
-        settings["theme_path"] = themePath;
-        settings["theme"] = themeName;
+        settings["theme"] = foundSettings["gtk-theme-name"];
         settings["icon"] = foundSettings["gtk-icon-theme-name"];
         settings["icon_fallback"] = foundSettings["gtk-fallback-icon-theme"];
         settings["font"] = foundSettings["gtk-font-name"];
@@ -255,7 +220,6 @@ bool AppearenceGTK::loadFileConfig()
         kDebug() << "Couldn't find any config file for gtk2 or gtk3";
 
         //If the load wasn't successful, create configurations with default values
-        settings["theme_path"] = "/usr/share/themes/oxygen-gtk";
         settings["themegtk3"] = "Raleigh";
         settings["theme"] = "oxygen-gtk";
         settings["icon"] = "oxygen-refit-2-2.5.0";
@@ -270,7 +234,25 @@ bool AppearenceGTK::loadFileConfig()
         return true;
 }
 
-bool AppearenceGTK::saveFileConfig()
+QString AppearenceGTK::themesGtkrcFile(const QString& themeName) const
+{
+    QStringList themes=getAvaliableThemesPaths();
+    themes=themes.filter(QRegExp("/"+themeName+"/?$"));
+    if(themes.size()==1) {
+        QDirIterator it(themes.first(), QDirIterator::Subdirectories);
+        while(it.hasNext()) {
+            it.next();
+            if(it.fileName()=="gtkrc") {
+                kDebug() << "\tgtkrc file found at : " << it.filePath();
+                return it.filePath();
+            }
+        }
+    }
+    
+    return QString();
+}
+
+bool AppearenceGTK::saveGTK2Config() const
 {
     QFile gtkrc(QDir::homePath()+"/.gtkrc-2.0");
 
@@ -284,19 +266,7 @@ bool AppearenceGTK::saveFileConfig()
     flow << "# File created by Chakra Gtk Config" << "\n"
          << "# Configs for GTK2 programs \n\n";
 
-    //Look up theme's gtkrc
-    QDir theme(settings["theme_path"]);
-    QDirIterator it(theme, QDirIterator::Subdirectories);
-    QString themeGtkrcFile;
-    while(it.hasNext()) {
-        QString current = it.next();
-        
-        if(it.fileName()=="gtkrc") {
-            kDebug() << "\tgtkrc file found at : " << it.filePath();
-            themeGtkrcFile = current;
-            break;
-        }
-    }
+    QString themeGtkrcFile=themesGtkrcFile(getTheme());
     
     //TODO: is this really needed?
     if(!themeGtkrcFile.isEmpty())
@@ -326,10 +296,10 @@ bool AppearenceGTK::saveFileConfig()
     //we're done with the  ~/.gtk-2.0 file
     gtkrc.close();
     
+    //TODO: do we really need the linked file?
     if(QFile::remove(QDir::homePath()+"/.gtkrc-2.0-kde4"))
         kDebug() << "ready to create the symbolic link";
     
-    //Creamos enlaze hacia el archivo .gtkrc-2.0-kde4
     if(!QFile::link(
        (QDir::homePath()+"/.gtkrc-2.0"),
        (QDir::homePath()+"/.gtkrc-2.0-kde4")
@@ -338,25 +308,36 @@ bool AppearenceGTK::saveFileConfig()
     else
         kDebug() << "Symbolic link created for .gtkrc-2.0-kde4 :D";
     
+    return true;
+}
+
+bool AppearenceGTK::saveGTK3Config() const
+{
     /////////GTK 3 support
     //Opening GTK3 config file $ENV{XDG_CONFIG_HOME}/gtk-3.0/settings.ini
     //TODO: use XDG_CONFIG_HOME, instead
     QDir::home().mkpath(QDir::homePath()+"/.config/gtk-3.0/"); //we make sure the path exists
     QFile file_gtk3(QDir::homePath()+"/.config/gtk-3.0/settings.ini");
     
-    if(file_gtk3.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream flujo3(&file_gtk3);
-        flujo3 << "[Settings]" << "\n";
-        flujo3 << "gtk-font-name=" << settings["font"] << "\n";
-        flujo3 << "gtk-theme-name=" << settings["themegtk3"] << "\n";
-        flujo3 << "gtk-icon-theme-name= "<< settings["icon"] << "\n";
-        flujo3 << "gtk-fallback-icon-theme=" << settings["icon_fallback"] << "\n";
-        flujo3 << "gtk-toolbar-style=" << settings["toolbar_style"] << "\n";
-        flujo3 << "gtk-menu-images=" << settings["show_icons_buttons"] << "\n";
-        flujo3 << "gtk-button-images=" << settings["show_icons_menus"] << "\n";
-    } else
+    if(!file_gtk3.open(QIODevice::WriteOnly | QIODevice::Text)) {
         kDebug() << "Couldn't open GTK3 config file for writing at:" << file_gtk3.fileName();
+        return false;
+    }
+    
+    QTextStream flow3(&file_gtk3);
+    flow3 << "[Settings]" << "\n";
+    flow3 << "gtk-font-name=" << settings["font"] << "\n";
+    flow3 << "gtk-theme-name=" << settings["themegtk3"] << "\n";
+    flow3 << "gtk-icon-theme-name= "<< settings["icon"] << "\n";
+    flow3 << "gtk-fallback-icon-theme=" << settings["icon_fallback"] << "\n";
+    flow3 << "gtk-toolbar-style=" << settings["toolbar_style"] << "\n";
+    flow3 << "gtk-menu-images=" << settings["show_icons_buttons"] << "\n";
+    flow3 << "gtk-button-images=" << settings["show_icons_menus"] << "\n";
     
     return true;
+}
 
+bool AppearenceGTK::saveFileConfig()
+{
+    return saveGTK2Config() && saveGTK3Config();
 }
