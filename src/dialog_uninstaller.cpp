@@ -35,7 +35,7 @@ void DialogUninstaller::refresthListsForUninstall()
     ui->lb_notice_uninstall_theme->clear();
     
     QStringList themes = appareance->getAvaliableThemesPaths();
-    themes.filter(QDir::homePath()); //we only one the locally installed themes
+    themes = themes.filter(QDir::homePath()); //we only one the locally installed themes
     
     //Just leave the theme name
     for(QStringList::iterator it=themes.begin(); it!=themes.end(); ++it)
@@ -46,7 +46,7 @@ void DialogUninstaller::refresthListsForUninstall()
 
     //now the same for icons
     QStringList icons = appareance->getAvaliableIconsPaths();
-    icons.filter(QDir::homePath());
+    icons = icons.filter(QDir::homePath());
     
     for(QStringList::iterator it=icons.begin(); it!=icons.end(); ++it)
         *it = QDir(*it).dirName();
@@ -63,7 +63,7 @@ void DialogUninstaller::uninstallTheme()
     QString tema = ui->cb_uninstall_theme->currentText();
 
     QStringList themes = appareance->getAvaliableThemesPaths();
-    themes.filter(QRegExp('/'+tema+'$'));
+    themes = themes.filter(QRegExp('/'+tema+'$'));
 
     Q_ASSERT(themes.size()==1);
     
@@ -83,7 +83,7 @@ void DialogUninstaller::uninstallIcon()
 
     QString icono = ui->cb_uninstall_icon->currentText();
     QStringList icons=appareance->getAvaliableIconsPaths();
-    icons.filter(QRegExp("/"+icono+"$"));
+    icons = icons.filter(QRegExp("/"+icono+"$"));
 
     Q_ASSERT(icons.size()==1);
 
