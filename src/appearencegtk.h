@@ -14,7 +14,6 @@ public:
     void setTheme(const QString&);
     void setThemeGtk3(const QString &theme);
     void setThemePath(const QString&);
-    void setThemeGtk3Path(const QString &themePath);
     void setIcon(const QString&);
     void setIconFallBack(const QString&);
     void setFont(const QString&);

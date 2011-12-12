@@ -173,10 +173,14 @@ void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const
 void GTKConfigKCModule::makePreviewIconTheme()
 {
     int icon_fallback = ui->cb_icon_fallback->currentIndex();
-    QString path_fallback = appareance->getAvaliableIconsPaths()[icon_fallback];
+    QString path_fallback;
+    if(icon_fallback>=0)
+        path_fallback = appareance->getAvaliableIconsPaths()[icon_fallback];
     
     int icon = ui->cb_icon->currentIndex();
-    QString path_icon = appareance->getAvaliableIconsPaths()[icon];
+    QString path_icon;
+    if(icon>=0)
+        path_icon = appareance->getAvaliableIconsPaths()[icon];
 
     tryIcon(ui->lb_prev_1, path_fallback, path_icon,
             QStringList() << "/48x48/places/folder_home.png" << "/places/48/folder_home.png" << "/places/48/folder_home.svg");
@@ -200,7 +204,7 @@ void GTKConfigKCModule::makePreviewIconTheme()
 
 void GTKConfigKCModule::appChanged()
 {
-   emit(changed(true));
+   emit changed(true);
 }
 
 void GTKConfigKCModule::save()
@@ -214,7 +218,6 @@ void GTKConfigKCModule::save()
             break;
         }
     }
-
 
     appareance->setIcon(ui->cb_icon->currentText());
     appareance->setIconFallBack(ui->cb_icon_fallback->currentText());
@@ -267,16 +270,18 @@ void GTKConfigKCModule::defaults()
 
 void GTKConfigKCModule::refreshThemesUi(bool useConfig)
 {
-    //themes
+    //theme gtk2
     QString temp;
     temp = useConfig ? appareance->getTheme() : ui->cb_theme->currentText(); //The currently selected theme
     ui->cb_theme->clear();
     ui->cb_theme->addItems(appareance->getAvaliableThemes());
     ui->cb_theme->setCurrentIndex(ui->cb_theme->findText(temp));
     
+    //theme gtk3
     temp = useConfig ? appareance->getThemeGtk3() : ui->cb_theme_gtk3->currentText();
+    QStringList themes=appareance->getAvaliableGtk3Themes();
     ui->cb_theme_gtk3->clear();
-    ui->cb_theme_gtk3->addItems(appareance->getAvaliableGtk3Themes());
+    ui->cb_theme_gtk3->addItems(themes);
     ui->cb_theme_gtk3->setCurrentIndex(ui->cb_theme_gtk3->findText(temp));
     
     //icons

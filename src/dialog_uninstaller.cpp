@@ -1,8 +1,8 @@
 #include "dialog_uninstaller.h"
 DialogUninstaller::DialogUninstaller(QWidget* parent, AppearenceGTK *app)
     : QDialog(parent)
-    , appareance(app)
     , ui(new Ui::dialog_uninstaller)
+    , appareance(app)
 {
     ui->setupUi(this);
     

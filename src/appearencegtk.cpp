@@ -13,7 +13,6 @@ void AppearenceGTK::setIconFallBack(const QString& fall) { settings["icon_fallba
 void AppearenceGTK::setFont(const QString& fo) { settings["font"] = fo;}
 void AppearenceGTK::setThemePath(const QString& temaPath) { settings["theme_path"] = temaPath; }
 void AppearenceGTK::setThemeGtk3(const QString& theme) { settings["themegtk3"] = theme; }
-void AppearenceGTK::setThemeGtk3Path(const QString& themePath) { settings["themegtk3_path"] = themePath; }
 void AppearenceGTK::setShowIconsInButtons(bool show) { settings["show_icons_buttons"] = show ? "1" : "0"; }
 void AppearenceGTK::setShowIconsInMenus(bool show) { settings["show_icons_menus"] = show ? "1" : "0"; }
 void AppearenceGTK::setToolbarStyle(const QString& toolbar_style) { settings["toolbar_style"] = toolbar_style; }
@@ -153,13 +152,11 @@ QStringList AppearenceGTK::getAvaliableThemes()
 
 }
 
-QRegExp valueRx("([a-z\\-]+)=\\\"?([\\w _\\-]+)\\\"?\\\n", Qt::CaseSensitive, QRegExp::RegExp);
+QRegExp valueRx("([a-zA-Z\\-]+) *= *\"?([^\"\\n]+)\"?\\n", Qt::CaseSensitive, QRegExp::RegExp2);
 QMap<QString,QString> readSettingsTuples(const QString& allText)
 {
     QMap<QString,QString> ret;
-    int offset=valueRx.indexIn(allText);
-    while(offset>=0) {
-        offset=valueRx.indexIn(allText, offset+valueRx.cap(0).size());
+    for(int offset=0; offset>=0; offset=valueRx.indexIn(allText, offset+valueRx.cap(0).size())) {
         ret[valueRx.cap(1)] = valueRx.cap(2);
     }
     return ret;
@@ -227,11 +224,10 @@ bool AppearenceGTK::loadGTK3Config()
     if(canRead) {
         kDebug() << "The gtk3 config file exists...";
 
-        //We read the whole file and we put it in a string list
         QTextStream flow(&fileGtk3);
-        QString allText = flow.readAll();
 
-        QMap<QString, QString> foundSettings = readSettingsTuples(allText);
+        QMap<QString, QString> foundSettings = readSettingsTuples(flow.readAll());
+        
         settings["themegtk3"] = foundSettings["gtk-theme-name"];
         settings["icon"] = foundSettings["gtk-icon-theme-name"];
         settings["icon_fallback"] = foundSettings["gtk-fallback-icon-theme"];
@@ -249,8 +245,8 @@ bool AppearenceGTK::loadFileConfig()
 {
     settings.clear();
     
-    bool is_settings_read = loadGTK3Config();
-    is_settings_read = loadGTK2Config() | is_settings_read;
+    bool is_settings_read = loadGTK2Config();
+    is_settings_read = loadGTK3Config() | is_settings_read;
     Q_ASSERT(is_settings_read);
     
     //Couldn't find any configuration, set some defaults
