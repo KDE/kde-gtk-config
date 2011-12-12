@@ -167,7 +167,7 @@ void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const
     QPixmap noIcon(notFoundIcon.pixmap(48,48));
     label->setPixmap(noIcon);
     
-    qDebug() << "could not find icon" << relativePaths;
+    kDebug() << "could not find icon" << relativePaths;
 }
 
 void GTKConfigKCModule::makePreviewIconTheme()
