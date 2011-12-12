@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>GUI</class>
  <widget class="QWidget" name="GUI">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>682</width>
+    <height>564</height>
+   </rect>
+  </property>
   <property name="windowTitle">
    <string>Chakra Gtk Config</string>
   </property>
@@ -515,22 +523,22 @@ p, li { white-space: pre-wrap; }
               <widget class="QComboBox" name="cb_font_style">
                <item>
                 <property name="text">
-                 <string>normal</string>
+                 <string>Normal</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>bold</string>
+                 <string>Bold</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>italic</string>
+                 <string>Italic</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>bold italic</string>
+                 <string>Bold and Italic</string>
                 </property>
                </item>
               </widget>
