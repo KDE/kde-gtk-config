@@ -22,6 +22,8 @@
 #include <kaboutdata.h>
 #include <KGenericFactory>
 #include <KPluginFactory>
+#include <KProcess>
+#include <KStandardDirs>
 #include <QtGui>
 #include "ui_gui.h"
 
@@ -238,6 +240,8 @@ void GTKConfigKCModule::save()
     
     if(!appareance->saveFileConfig())
         QMessageBox::warning(this, "ERROR", i18n("It was not possible to save the config"));
+    else
+        KProcess::startDetached(KStandardDirs::findExe("reload_gtk_apps"));
 }
 
 
