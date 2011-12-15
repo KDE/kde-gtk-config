@@ -25,6 +25,7 @@
 #include <KProcess>
 #include <KStandardDirs>
 #include <QtGui>
+#include <QX11EmbedContainer>
 #include "ui_gui.h"
 
 K_PLUGIN_FACTORY(GTKConfigKCModuleFactory, registerPlugin<GTKConfigKCModule>();)
@@ -88,10 +89,26 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     //GHNS connections
     connect(ui->but_theme_ghns, SIGNAL(clicked(bool)), this, SLOT(showThemeGHNS()));
     connect(ui->but_theme_gtk3_ghns, SIGNAL(clicked(bool)), this, SLOT(installThemeGTK3GHNS()));
+    
+    m_preview = new QX11EmbedContainer(ui->widget_5);
+    m_preview->setMinimumSize(100,100);
+    m_preview->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//     m_preview->show();
+    ui->widget_5->layout()->addWidget(m_preview);
+    connect(m_preview, SIGNAL(clientIsEmbedded()), SLOT(previewOn()));
+    connect(m_preview, SIGNAL(clientClosed()), SLOT(previewOff()));
+    
+    qDebug() << "duuuuuuuu" << m_preview->winId();
+    m_p = new KProcess(this);
+    *m_p << KStandardDirs::findExe("gtk_preview") << QString::number(m_preview->winId());
+    m_p->start();
 }
 
 GTKConfigKCModule::~GTKConfigKCModule()
 {
+    m_p->kill();
+    m_p->waitForFinished();
+    
     delete ui;
     delete appareance;
 }
@@ -298,4 +315,15 @@ void GTKConfigKCModule::showDialogForUninstall()
     uninstaller->exec();
     
     refreshThemesUi();
+}
+
+void GTKConfigKCModule::previewOn()
+{
+    kDebug() << "client connected!!";
+}
+
+void GTKConfigKCModule::previewOff()
+{
+    kDebug() << "client disconnected!";
+    //TODO: re-run
 }

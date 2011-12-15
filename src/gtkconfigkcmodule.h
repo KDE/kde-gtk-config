@@ -25,6 +25,8 @@
 #include "dialog_uninstaller.h"
 #include <knewstuff3/downloaddialog.h>
 
+class KProcess;
+class QX11EmbedContainer;
 namespace Ui { class Modulo; class GUI; }
 
 class GTKConfigKCModule : public KCModule
@@ -51,6 +53,9 @@ public slots:
     
     void showDialogForInstall();
     void showDialogForUninstall();
+    
+    void previewOn();
+    void previewOff();
 
 signals:
     void selectedIconTheme();
@@ -61,6 +66,9 @@ private:
     
     DialogInstaller *installer;
     DialogUninstaller *uninstaller;
+    QX11EmbedContainer* m_preview;
+    KProcess* m_previewProcess;
+    KProcess* m_p;
 };
 
 #endif // MODULO_H
