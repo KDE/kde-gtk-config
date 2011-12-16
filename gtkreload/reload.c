@@ -1,10 +1,5 @@
-/*  Some code was extracted from lxappearance
- *      Copyright 2011 Aleix Pol Gonzalez <aleixpol@kde.org>
+/*      Copyright 2011 Aleix Pol Gonzalez <aleixpol@kde.org>
  * 
- *      lxappearance.c
- *
- *      Copyright 2010 PCMan <pcman.tw@gmail.com>
- *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
@@ -25,7 +20,7 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
 
-void reload_all_programs()
+GdkEventClient createEvent()
 {
     GdkEventClient event;
     event.type = GDK_CLIENT_EVENT;
@@ -33,14 +28,23 @@ void reload_all_programs()
     event.window = NULL;
     event.message_type = gdk_atom_intern("_GTK_READ_RCFILES", FALSE);
     event.data_format = 8;
-    gdk_event_send_clientmessage_toall((GdkEvent *)&event);
+    
+    return event;
 }
 
 int main(int argc, char** argv)
 {
     gtk_init(&argc, &argv);
+    int winid=0;
+    if(argc==2)
+        sscanf(argv[1], "%d", &winid);
     
-    printf("Reload all apps!!!!\n");
-    reload_all_programs();
+    GdkEventClient event = createEvent();
+    printf("Reload all apps!!!! %d\n", winid);
+// NOTE: not working for some reason...
+//     if(winid)
+//         gdk_event_send_client_message((GdkEvent *)&event, winid);
+    
+    gdk_event_send_clientmessage_toall((GdkEvent *)&event);
     return 0;
 }

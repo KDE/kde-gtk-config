@@ -252,15 +252,24 @@ void GTKConfigKCModule::save()
             << "toolbar style : " << appareance->getToolbarStyle() << "\n"
             << "icons in buttons : " << appareance->getShowIconsInButtons() << "\n"
             << "icons in menus : " << appareance->getShowIconsInMenus() << "\n"
-            
             << "********************************************************";
     
     if(!appareance->saveFileConfig())
         QMessageBox::warning(this, "ERROR", i18n("It was not possible to save the config"));
-    else
-        KProcess::startDetached(KStandardDirs::findExe("reload_gtk_apps"));
+    else {
+        KProcess::startDetached(KStandardDirs::findExe("reload_gtk_apps"), QStringList(QString::number(m_preview->winId())));
+        refreshPreview();
+    }
 }
 
+void GTKConfigKCModule::refreshPreview()
+{
+//TODO: sadly reload gtk is not working on the preview
+//      for the moment we recreate the process.
+//      **now, the dirty hack dance**
+    m_p->close();
+    m_p->start();
+}
 
 void GTKConfigKCModule::defaults()
 {

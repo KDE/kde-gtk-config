@@ -56,7 +56,8 @@ public slots:
     
     void previewOn();
     void previewOff();
-
+    void refreshPreview();
+    
 signals:
     void selectedIconTheme();
     
