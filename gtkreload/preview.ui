@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkAction" id="action1"/>
   <object class="GtkFrame" id="frame1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -28,6 +29,8 @@
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">_File</property>
+                        <property name="use_underline">True</property>
                         <child type="submenu">
                           <object class="GtkMenu" id="menuitem1_menu">
                             <property name="can_focus">False</property>
@@ -96,6 +99,8 @@
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">_Edit</property>
+                        <property name="use_underline">True</property>
                         <child type="submenu">
                           <object class="GtkMenu" id="menuitem2_menu">
                             <property name="can_focus">False</property>
@@ -148,6 +153,8 @@
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">_Help</property>
+                        <property name="use_underline">True</property>
                         <child type="submenu">
                           <object class="GtkMenu" id="menuitem4_menu">
                             <property name="can_focus">False</property>
