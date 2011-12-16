@@ -24,6 +24,7 @@
 #include "dialog_installer.h"
 #include "dialog_uninstaller.h"
 #include <knewstuff3/downloaddialog.h>
+#include <KTemporaryFile>
 
 class KProcess;
 class QX11EmbedContainer;
@@ -67,9 +68,9 @@ private:
     
     DialogInstaller *installer;
     DialogUninstaller *uninstaller;
-    QX11EmbedContainer* m_preview;
     KProcess* m_previewProcess;
     KProcess* m_p;
+    QString m_tempGtk2Preview;
 };
 
 #endif // MODULO_H

@@ -90,17 +90,14 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     connect(ui->but_theme_ghns, SIGNAL(clicked(bool)), this, SLOT(showThemeGHNS()));
     connect(ui->but_theme_gtk3_ghns, SIGNAL(clicked(bool)), this, SLOT(installThemeGTK3GHNS()));
     
-    m_preview = new QX11EmbedContainer(ui->widget_5);
-    m_preview->setMinimumSize(100,100);
-    m_preview->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-//     m_preview->show();
-    ui->widget_5->layout()->addWidget(m_preview);
-    connect(m_preview, SIGNAL(clientIsEmbedded()), SLOT(previewOn()));
-    connect(m_preview, SIGNAL(clientClosed()), SLOT(previewOff()));
+    connect(ui->preview, SIGNAL(clientIsEmbedded()), SLOT(previewOn()));
+    connect(ui->preview, SIGNAL(clientClosed()), SLOT(previewOff()));
     
-    qDebug() << "duuuuuuuu" << m_preview->winId();
+    m_tempGtk2Preview = KGlobal::dirs()->saveLocation("tmp", "gtkrc-2.0", false);
+    
     m_p = new KProcess(this);
-    *m_p << KStandardDirs::findExe("gtk_preview") << QString::number(m_preview->winId());
+    m_p->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);
+    *m_p << KStandardDirs::findExe("gtk_preview") << QString::number(ui->preview->winId());
     m_p->start();
 }
 
@@ -228,11 +225,6 @@ void GTKConfigKCModule::makePreviewIconTheme()
 
 void GTKConfigKCModule::appChanged()
 {
-   emit changed(true);
-}
-
-void GTKConfigKCModule::save()
-{
     appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
     appareance->setTheme(ui->cb_theme->currentText());
     appareance->setIcon(ui->cb_icon->currentText());
@@ -242,7 +234,14 @@ void GTKConfigKCModule::save()
     appareance->setToolbarStyle(gtkToolbar.key(ui->cb_toolbar_icons->currentIndex()));
     appareance->setShowIconsInButtons(ui->checkBox_icon_gtk_buttons->isChecked());
     appareance->setShowIconsInMenus(ui->checkBox_icon_gtk_menus->isChecked());
+    appareance->saveGTK2Config(m_tempGtk2Preview);
+    
+    refreshPreview();
+    emit changed(true);
+}
 
+void GTKConfigKCModule::save()
+{
     kDebug() << "******************************************* INSTALLATION :\n"
             << "theme : " << appareance->getTheme() << "\n"
             << "themeGTK3 : " << appareance->getThemeGtk3() << "\n"
@@ -256,10 +255,8 @@ void GTKConfigKCModule::save()
     
     if(!appareance->saveFileConfig())
         QMessageBox::warning(this, "ERROR", i18n("It was not possible to save the config"));
-    else {
-        KProcess::startDetached(KStandardDirs::findExe("reload_gtk_apps"), QStringList(QString::number(m_preview->winId())));
-        refreshPreview();
-    }
+    else
+        KProcess::startDetached(KStandardDirs::findExe("reload_gtk_apps"), QStringList(QString::number(ui-> preview->winId())));
 }
 
 void GTKConfigKCModule::refreshPreview()

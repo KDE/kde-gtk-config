@@ -252,9 +252,9 @@ QString AppearenceGTK::themesGtkrcFile(const QString& themeName) const
     return QString();
 }
 
-bool AppearenceGTK::saveGTK2Config() const
+bool AppearenceGTK::saveGTK2Config(const QString& gtkrcFile) const
 {
-    QFile gtkrc(QDir::homePath()+"/.gtkrc-2.0");
+    QFile gtkrc(gtkrcFile);
 
     if(!gtkrc.open(QIODevice::WriteOnly | QIODevice::Text)) {
         kDebug() << "There was unable to write the file .gtkrc-2.0";
@@ -297,12 +297,12 @@ bool AppearenceGTK::saveGTK2Config() const
     gtkrc.close();
     
     //TODO: do we really need the linked file?
-    if(QFile::remove(QDir::homePath()+"/.gtkrc-2.0-kde4"))
+    if(QFile::remove(gtkrcFile+"-kde4"))
         kDebug() << "ready to create the symbolic link";
     
     if(!QFile::link(
-       (QDir::homePath()+"/.gtkrc-2.0"),
-       (QDir::homePath()+"/.gtkrc-2.0-kde4")
+       (gtkrcFile),
+       (gtkrcFile+"-kde4")
     ))
         kDebug() << "Couldn't create the symboling link to .gtkrc-2.0-kde4 :(";
     else
@@ -311,13 +311,13 @@ bool AppearenceGTK::saveGTK2Config() const
     return true;
 }
 
-bool AppearenceGTK::saveGTK3Config() const
+bool AppearenceGTK::saveGTK3Config(const QString& rootDir) const
 {
     /////////GTK 3 support
     //Opening GTK3 config file $ENV{XDG_CONFIG_HOME}/gtk-3.0/settings.ini
     //TODO: use XDG_CONFIG_HOME, instead
-    QDir::home().mkpath(QDir::homePath()+"/.config/gtk-3.0/"); //we make sure the path exists
-    QFile file_gtk3(QDir::homePath()+"/.config/gtk-3.0/settings.ini");
+    QDir::home().mkpath(rootDir+"/.config/gtk-3.0/"); //we make sure the path exists
+    QFile file_gtk3(rootDir+"/.config/gtk-3.0/settings.ini");
     
     if(!file_gtk3.open(QIODevice::WriteOnly | QIODevice::Text)) {
         kDebug() << "Couldn't open GTK3 config file for writing at:" << file_gtk3.fileName();
@@ -339,5 +339,5 @@ bool AppearenceGTK::saveGTK3Config() const
 
 bool AppearenceGTK::saveFileConfig()
 {
-    return saveGTK2Config() && saveGTK3Config();
+    return saveGTK2Config(QDir::homePath()+"/.gtkrc-2.0") && saveGTK3Config(QDir::homePath());
 }

@@ -41,9 +41,9 @@ int main(int argc, char** argv)
     
     GdkEventClient event = createEvent();
     printf("Reload all apps!!!! %d\n", winid);
-// NOTE: not working for some reason...
-//     if(winid)
-//         gdk_event_send_client_message((GdkEvent *)&event, winid);
+/* NOTE: not working for some reason...
+    if(winid)
+        gdk_event_send_client_message((GdkEvent *)&event, winid);*/
     
     gdk_event_send_clientmessage_toall((GdkEvent *)&event);
     return 0;

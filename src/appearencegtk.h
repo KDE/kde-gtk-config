@@ -41,11 +41,11 @@ public:
 
     bool loadFileConfig();
     bool saveFileConfig();
+    bool saveGTK2Config(const QString& rootDir) const;
 
 private:
     QString themesGtkrcFile(const QString& themeName) const;
-    bool saveGTK2Config() const;
-    bool saveGTK3Config() const;
+    bool saveGTK3Config(const QString& rootDir) const;
     bool loadGTK2Config();
     bool loadGTK3Config();
     
