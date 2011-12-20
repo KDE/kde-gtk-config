@@ -77,6 +77,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     //preview updates
     connect(ui->cb_icon_fallback, SIGNAL(activated(QString)), this, SLOT(makePreviewIconTheme()));
     connect(ui->cb_icon, SIGNAL(activated(QString)), this, SLOT(makePreviewIconTheme()));
+    connect(ui->previewVersion, SIGNAL(activated(int)), this, SLOT(changePreview(int)));
 
     //installers connections
     connect(ui->clb_add_theme, SIGNAL(clicked(bool)), this, SLOT(showDialogForInstall()));
@@ -96,23 +97,30 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     connect(ui->preview, SIGNAL(clientClosed()), SLOT(previewOff()));
     
     m_tempGtk2Preview = KGlobal::dirs()->saveLocation("tmp", "gtkrc-2.0", false);
+    m_tempGtk3Preview = KGlobal::dirs()->saveLocation("tmp", "/gtk-3.0/settings.ini", false);
     QFile::copy(QDir::homePath()+"/.gtkrc-2.0", m_tempGtk2Preview);
     
-    m_p = new KProcess(this);
-    m_p->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);
-    *m_p << KStandardDirs::findExe("gtk_preview") << QString::number(ui->preview->winId());
-    m_p->start();
+    m_p2 = new KProcess(this);
+    m_p2->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);
+    *m_p2 << KStandardDirs::findExe("gtk_preview") << QString::number(ui->preview->winId());
+    m_p2->start();
+    
+    m_p3 = new KProcess(this);
+    m_p3->setEnv("GTK_DATA_PREFIX", KGlobal::dirs()->findDirs("tmp", QString()).first());
+    *m_p3 << KStandardDirs::findExe("gtk3_preview") << QString::number(ui->preview->winId());
 }
 
 GTKConfigKCModule::~GTKConfigKCModule()
 {
-    m_p->kill();
+    m_p2->kill();
+    m_p3->kill();
     
     QFile::remove(m_tempGtk2Preview);
     delete ui;
     delete appareance;
     
-    m_p->waitForFinished();
+    m_p2->waitForFinished();
+    m_p3->waitForFinished();
 }
 
 void GTKConfigKCModule::showThemeGHNS()
@@ -228,7 +236,7 @@ void GTKConfigKCModule::makePreviewIconTheme()
             QStringList() << "/48x48/actions/up.png" << "/actions/48/up.png" << "/actions/48/up.svg");
 }
 
-void GTKConfigKCModule::appChanged()
+void GTKConfigKCModule::savePreviewConfig()
 {
     appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
     appareance->setTheme(ui->cb_theme->currentText());
@@ -239,9 +247,16 @@ void GTKConfigKCModule::appChanged()
     appareance->setToolbarStyle(gtkToolbar.key(ui->cb_toolbar_icons->currentIndex()));
     appareance->setShowIconsInButtons(ui->checkBox_icon_gtk_buttons->isChecked());
     appareance->setShowIconsInMenus(ui->checkBox_icon_gtk_menus->isChecked());
+    
     appareance->saveGTK2Config(m_tempGtk2Preview);
+    appareance->saveGTK3Config(m_tempGtk3Preview);
     
     QTimer::singleShot(500, this, SLOT(refreshPreview()));
+}
+
+void GTKConfigKCModule::appChanged()
+{
+    savePreviewConfig();
     emit changed(true);
 }
 
@@ -339,4 +354,15 @@ void GTKConfigKCModule::previewOff()
 {
     kDebug() << "client disconnected!";
     //TODO: re-run
+}
+
+void GTKConfigKCModule::changePreview(int idx)
+{
+    if(idx==0) {
+        m_p3->kill();
+        m_p2->start();
+    } else {
+        m_p3->start();
+        m_p2->kill();
+    }
 }

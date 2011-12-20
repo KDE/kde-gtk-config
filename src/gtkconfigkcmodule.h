@@ -67,6 +67,7 @@ public slots:
     
     ///it is called whenever something in the UI has changed
     void appChanged();
+    void savePreviewConfig();
     
     void showThemeGHNS();
     void installThemeGTK3GHNS();
@@ -80,6 +81,7 @@ public slots:
     void previewOn();
     void previewOff();
     void refreshPreview();
+    void changePreview(int);
     
 signals:
     void selectedIconTheme();
@@ -90,9 +92,10 @@ private:
     
     DialogInstaller *installer;
     DialogUninstaller *uninstaller;
-    KProcess* m_previewProcess;
-    KProcess* m_p;
+    KProcess* m_p2;
+    KProcess* m_p3;
     QString m_tempGtk2Preview;
+    QString m_tempGtk3Preview;
 };
 
 #endif // MODULO_H

@@ -205,7 +205,7 @@ bool AppearenceGTK::loadGTK2Config()
 
 bool AppearenceGTK::loadGTK3Config()
 {
-    QFile fileGtk3(QDir::homePath()+"/.config/gtk-3.0/settings.ini");
+    QFile fileGtk3(qgetenv("XDG_CONFIG_HOME")+"/gtk-3.0/settings.ini");
     bool canRead=fileGtk3.open(QIODevice::ReadOnly | QIODevice::Text);
     
     if(canRead) {
@@ -322,10 +322,7 @@ bool AppearenceGTK::saveGTK2Config(const QString& gtkrcFile) const
     if(QFile::remove(gtkrcFile+"-kde4"))
         kDebug() << "ready to create the symbolic link";
     
-    if(!QFile::link(
-       (gtkrcFile),
-       (gtkrcFile+"-kde4")
-    ))
+    if( !QFile::link(gtkrcFile, gtkrcFile+"-kde4") )
         kDebug() << "Couldn't create the symboling link to .gtkrc-2.0-kde4 :(";
     else
         kDebug() << "Symbolic link created for .gtkrc-2.0-kde4 :D";
@@ -333,13 +330,12 @@ bool AppearenceGTK::saveGTK2Config(const QString& gtkrcFile) const
     return true;
 }
 
-bool AppearenceGTK::saveGTK3Config(const QString& rootDir) const
+bool AppearenceGTK::saveGTK3Config(const QString& file) const
 {
     /////////GTK 3 support
     //Opening GTK3 config file $ENV{XDG_CONFIG_HOME}/gtk-3.0/settings.ini
-    //TODO: use XDG_CONFIG_HOME, instead
-    QDir::home().mkpath(rootDir+"/.config/gtk-3.0/"); //we make sure the path exists
-    QFile file_gtk3(rootDir+"/.config/gtk-3.0/settings.ini");
+    QDir::home().mkpath(file.left(file.lastIndexOf('/'))); //we make sure the path exists
+    QFile file_gtk3(file);
     
     if(!file_gtk3.open(QIODevice::WriteOnly | QIODevice::Text)) {
         kDebug() << "Couldn't open GTK3 config file for writing at:" << file_gtk3.fileName();
@@ -347,7 +343,7 @@ bool AppearenceGTK::saveGTK3Config(const QString& rootDir) const
     }
     
     QTextStream flow3(&file_gtk3);
-    flow3 << "[Settings]" << "\n";
+    flow3 << "[Settings]\n";
     flow3 << "gtk-font-name=" << settings["font"] << "\n";
     flow3 << "gtk-theme-name=" << settings["themegtk3"] << "\n";
     flow3 << "gtk-icon-theme-name= "<< settings["icon"] << "\n";
@@ -361,5 +357,7 @@ bool AppearenceGTK::saveGTK3Config(const QString& rootDir) const
 
 bool AppearenceGTK::saveFileConfig()
 {
-    return saveGTK2Config(QDir::homePath()+"/.gtkrc-2.0") && saveGTK3Config(QDir::homePath());
+    QFile::remove(QDir::homePath()+"/.gtkrc-2.0");
+    
+    return saveGTK2Config(QDir::homePath()+"/.gtkrc-2.0") && saveGTK3Config(qgetenv("XDG_CONFIG_HOME")+"/gtk-3.0/settings.ini");
 }

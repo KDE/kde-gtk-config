@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>682</width>
+    <width>850</width>
     <height>564</height>
    </rect>
   </property>
@@ -304,7 +304,18 @@
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <item>
-              <widget class="QWidget" name="widget" native="true"/>
+              <widget class="QComboBox" name="previewVersion">
+               <item>
+                <property name="text">
+                 <string>GTK2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>GTK3</string>
+                </property>
+               </item>
+              </widget>
              </item>
              <item>
               <widget class="QX11EmbedContainer" name="preview" native="true">
@@ -329,8 +340,6 @@
         </widget>
        </item>
       </layout>
-      <zorder>widget_5</zorder>
-      <zorder></zorder>
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
