@@ -34,7 +34,7 @@ static void on_dlg_response(GtkDialog* dlg, int res, gpointer user_data)
     }
 }
 
-int initializeInotify(gchar* target)
+void initializeInotify(gchar* target)
 {
     inotifyDescriptor = inotify_init();
     if(inotifyDescriptor<0) {
