@@ -12,8 +12,6 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/ui 
     ${KDE4_INCLUDES} ${QT_INCLUDES})
 
-add_subdirectory(translations)
-
 set(kcm_SRCS 
      src/appearencegtk.cpp
      src/thread.cpp
