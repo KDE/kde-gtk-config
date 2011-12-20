@@ -43,4 +43,5 @@ install(FILES ${GHNS_FILES} DESTINATION ${CONFIG_INSTALL_DIR})
 install(FILES kde-gtk-config.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 
 add_subdirectory(gtkproxies)
+add_subdirectory(gtk3proxies)
 add_subdirectory(icons)
