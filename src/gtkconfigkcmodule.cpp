@@ -107,12 +107,12 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
 GTKConfigKCModule::~GTKConfigKCModule()
 {
     m_p->kill();
-    m_p->waitForFinished();
     
     QFile::remove(m_tempGtk2Preview);
-    
     delete ui;
     delete appareance;
+    
+    m_p->waitForFinished();
 }
 
 void GTKConfigKCModule::showThemeGHNS()
