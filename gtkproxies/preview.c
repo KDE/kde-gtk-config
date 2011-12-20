@@ -18,6 +18,12 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
 #include <stdio.h>
+#include <assert.h>
+#include <stdlib.h>
+
+#include <sys/inotify.h>
+
+int inotifyDescriptor;
 
 static void on_dlg_response(GtkDialog* dlg, int res, gpointer user_data)
 {
@@ -28,6 +34,33 @@ static void on_dlg_response(GtkDialog* dlg, int res, gpointer user_data)
     }
 }
 
+int initializeInotify(gchar* target)
+{
+    inotifyDescriptor = inotify_init();
+    if(inotifyDescriptor<0) {
+        perror("gtk-preview");
+        exit(123);
+    }
+    
+    int r = inotify_add_watch (inotifyDescriptor, target, IN_CLOSE_WRITE);
+    if(r<0) {
+        perror("gtk-preview");
+        exit(124);
+    }
+    fprintf(stderr, "watching %s\n", target);
+}
+
+void reloadstyle(GIOChannel *source,
+                    GIOCondition condition,
+                    gpointer data)
+{
+    fprintf(stderr, "changing settings...\n");
+    char buf[200];
+    ssize_t r = read(inotifyDescriptor, buf, 200);
+    
+    gtk_rc_reparse_all();
+    fprintf(stderr, "settings changed!! %d\n", r);
+}
 
 int main(int argc, char **argv)
 {
@@ -73,8 +106,23 @@ int main(int argc, char **argv)
     if(wid)
         fprintf(stderr, "--- is embedded: %d\n", gtk_plug_get_embedded(GTK_PLUG(window)));
     
+    gchar** files = gtk_rc_get_default_files();
+    initializeInotify(files[0]);
+    GIOChannel* channel = g_io_channel_unix_new(inotifyDescriptor);
+    guint ret = g_io_add_watch(channel, G_IO_IN, reloadstyle, NULL);
     g_object_unref( G_OBJECT( builder ) );
     
     gtk_main();
+    
+    g_io_channel_unref(channel);
+    
     return 0;
 }
+
+
+
+
+
+
+
+

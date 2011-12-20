@@ -96,6 +96,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     connect(ui->preview, SIGNAL(clientClosed()), SLOT(previewOff()));
     
     m_tempGtk2Preview = KGlobal::dirs()->saveLocation("tmp", "gtkrc-2.0", false);
+    QFile::copy(QDir::homePath()+"/.gtkrc-2.0", m_tempGtk2Preview);
     
     m_p = new KProcess(this);
     m_p->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);
@@ -107,6 +108,8 @@ GTKConfigKCModule::~GTKConfigKCModule()
 {
     m_p->kill();
     m_p->waitForFinished();
+    
+    QFile::remove(m_tempGtk2Preview);
     
     delete ui;
     delete appareance;
@@ -238,7 +241,7 @@ void GTKConfigKCModule::appChanged()
     appareance->setShowIconsInMenus(ui->checkBox_icon_gtk_menus->isChecked());
     appareance->saveGTK2Config(m_tempGtk2Preview);
     
-    refreshPreview();
+    QTimer::singleShot(500, this, SLOT(refreshPreview()));
     emit changed(true);
 }
 
@@ -263,11 +266,13 @@ void GTKConfigKCModule::save()
 
 void GTKConfigKCModule::refreshPreview()
 {
-//TODO: sadly reload gtk is not working on the preview
-//      for the moment we recreate the process.
+//TODO: sadly after refreshing the theme, the host window 
+//      doesn't resize to the needed size
 //      **now, the dirty hack dance**
-    m_p->close();
-    m_p->start();
+
+    static bool switchsize=false;
+    switchsize=!switchsize;
+    ui->preview->resize(ui->preview->size()+(switchsize ? QSize(1,0) : QSize(-1,0)));
 }
 
 void GTKConfigKCModule::defaults()
