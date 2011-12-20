@@ -31,7 +31,7 @@
 #include "ui_gui.h"
 
 K_PLUGIN_FACTORY(GTKConfigKCModuleFactory, registerPlugin<GTKConfigKCModule>();)
-K_EXPORT_PLUGIN(GTKConfigKCModuleFactory("cgc","kcm_cgc"))
+K_EXPORT_PLUGIN(GTKConfigKCModuleFactory("cgc","kde-gtk-config"))
 
 QMap<QString, int> gtkToolbarInit()
 {
