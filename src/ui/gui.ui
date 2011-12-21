@@ -587,7 +587,7 @@ Also you can download it from the opendesktop facilities as suggested below</str
           <item row="2" column="1">
            <widget class="QCommandLinkButton" name="but_theme_gtk3_ghns">
             <property name="text">
-             <string>Dowload new GTK+ 3 themes</string>
+             <string>Download new GTK+ 3 themes</string>
             </property>
             <property name="icon">
              <iconset>

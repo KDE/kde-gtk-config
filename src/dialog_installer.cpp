@@ -116,7 +116,7 @@ void DialogInstaller::checkThemeAnalisys()
 
 void DialogInstaller::themeIconAnalisys()
 {
-    ui->lb_icon_notice->setText(i18n("Parsing theme ... "));
+    ui->lb_icon_notice->setText(i18n("Parsing theme..."));
 
     ui->icon_file->setEnabled(false);
     ui->but_icon_install->setEnabled(false);
@@ -182,7 +182,7 @@ void DialogInstaller::refreshGUIIconTheme()
 void DialogInstaller::refreshGUITheme()
 {
     if(threadForTheme->isSuccess()) {
-        ui->lb_theme_notice->setText(i18n("Gtk Theme Sucessfully Installed"));
+        ui->lb_theme_notice->setText(i18n("Gtk Theme Successfully Installed"));
         emit themeInstalled();
     } else {
         ui->lb_theme_notice->setText(i18n("The Gtk theme cannot be installed"));
