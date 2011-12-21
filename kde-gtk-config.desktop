@@ -1,25 +1,9 @@
 [Desktop Entry]
 Categories=Qt;KDE;X-KDE-settings-looknfeel;
 Comment=Configuration of Gtk apps style
-Comment[ca]=Arranjament de l'estil de les aplicacions Gtk
-Comment[cs]=Nastavení stylu Gtk aplikací
-Comment[es]=Configuración del estilo de las apliaciones Gtk
-Comment[es]=Configuration du style des applications Gtk
-Comment[gl]=Configuración da aparencia dos aplicativos Gtk
-Comment[it]=Configurazione dello stile delle applicazioni Gtk
-Comment[zh_CN]=配置 Gtk 程序样式
-Comment[ru]=Настройка стиля приложений Gtk
 Exec=kcmshell4 kde-gtk-config
 Icon=gtkconfig
 Name=Gtk Configuration
-Name[ca]=Arranjament Gtk
-Name[cs]=Nastavení Gtk
-Name[es]=Configuración Gtk
-Name[fr]=Configuration Gtk
-Name[gl]=Configuración do Gtk
-Name[it]=Configurazione Gtk
-Name[zh_CN]=Gtk 配置
-Name[ru]=Настройка Gtk
 Type=Service
 X-KDE-Keywords=gtk qt settings
 X-KDE-Library=kcm_cgc
