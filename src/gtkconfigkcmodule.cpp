@@ -98,7 +98,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     connect(ui->preview, SIGNAL(clientClosed()), SLOT(previewOff()));
     
     m_tempGtk2Preview = KGlobal::dirs()->saveLocation("tmp", "gtkrc-2.0", false);
-    m_tempGtk3Preview = KGlobal::dirs()->saveLocation("tmp", "/gtk-3.0/settings.ini", false);
+    m_tempGtk3Preview = KGlobal::dirs()->saveLocation("tmp", ".config/gtk-3.0/settings.ini", false);
     QFile::copy(QDir::homePath()+"/.gtkrc-2.0", m_tempGtk2Preview);
     
     m_p2 = new KProcess(this);
@@ -107,7 +107,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     m_p2->start();
     
     m_p3 = new KProcess(this);
-    m_p3->setEnv("GTK_DATA_PREFIX", KGlobal::dirs()->findDirs("tmp", QString()).first());
+    m_p3->setEnv("XDG_CONFIG_HOME", KGlobal::dirs()->saveLocation("tmp", ".config"));
     *m_p3 << KStandardDirs::findExe("gtk3_preview") << QString::number(ui->preview->winId());
 }
 
@@ -126,16 +126,16 @@ GTKConfigKCModule::~GTKConfigKCModule()
 
 void GTKConfigKCModule::showThemeGHNS()
 {
-     KNS3::DownloadDialog dialogo("cgctheme.knsrc", this);
-     if(dialogo.exec()) {
+     KNS3::DownloadDialog d("cgctheme.knsrc", this);
+     if(d.exec()) {
           refreshLists();
      }
 }
 
 void GTKConfigKCModule::installThemeGTK3GHNS()
 {
-     KNS3::DownloadDialog dialogo("cgcgtk3.knsrc", this);
-     if(dialogo.exec()) {
+     KNS3::DownloadDialog d("cgcgtk3.knsrc", this);
+     if(d.exec()) {
           refreshLists();
      }
 }
@@ -249,8 +249,13 @@ void GTKConfigKCModule::savePreviewConfig()
     appareance->setShowIconsInButtons(ui->checkBox_icon_gtk_buttons->isChecked());
     appareance->setShowIconsInMenus(ui->checkBox_icon_gtk_menus->isChecked());
     
-    appareance->saveGTK2Config(m_tempGtk2Preview);
-    appareance->saveGTK3Config(m_tempGtk3Preview);
+    if(m_p3->state()==QProcess::Running) {
+        m_p3->kill();
+        appareance->saveGTK3Config(m_tempGtk3Preview);
+        m_p3->waitForFinished();
+        m_p3->start();
+    } else
+        appareance->saveGTK2Config(m_tempGtk2Preview);
     
     QTimer::singleShot(500, this, SLOT(refreshPreview()));
 }
@@ -360,8 +365,8 @@ void GTKConfigKCModule::previewOff()
 void GTKConfigKCModule::changePreview(int idx)
 {
     if(idx==0) {
-        m_p3->kill();
         m_p2->start();
+        m_p3->kill();
     } else {
         m_p3->start();
         m_p2->kill();

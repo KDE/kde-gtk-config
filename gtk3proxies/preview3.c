@@ -23,8 +23,6 @@
 
 #include <sys/inotify.h>
 
-int inotifyDescriptor;
-
 static void on_dlg_response(GtkDialog* dlg, int res, gpointer user_data)
 {
     switch(res)
@@ -34,42 +32,14 @@ static void on_dlg_response(GtkDialog* dlg, int res, gpointer user_data)
     }
 }
 
-void initializeInotify(gchar* target)
-{
-    inotifyDescriptor = inotify_init();
-    if(inotifyDescriptor<0) {
-        perror("gtk-preview");
-        exit(123);
-    }
-    
-    int r = inotify_add_watch (inotifyDescriptor, target, IN_CLOSE_WRITE);
-    if(r<0) {
-        perror("gtk-preview");
-        exit(124);
-    }
-    fprintf(stderr, "watching %s\n", target);
-}
-
-void reloadstyle(GIOChannel *source,
-                    GIOCondition condition,
-                    gpointer data)
-{
-    fprintf(stderr, "changing settings...\n");
-    char buf[200];
-    ssize_t r = read(inotifyDescriptor, buf, 200);
-    
-    gtk_rc_reparse_all();
-    fprintf(stderr, "settings changed!! %d\n", r);
-}
-
 int main(int argc, char **argv)
 {
     GError     *error = NULL;
     unsigned long wid=0;
+    gtk_init( &argc, &argv );
+    
     if(argc==2)
         sscanf(argv[1], "%ld", &wid);
-/*     fprintf(stderr, "holaaa %ld %s\n", argc, argv[1]);*/
-    gtk_init( &argc, &argv );
     const char* ui_file = DATA_DIR "/preview.ui";
  
     GtkBuilder *builder = gtk_builder_new();
@@ -107,26 +77,7 @@ int main(int argc, char **argv)
     if(wid)
         fprintf(stderr, "--- is embedded gtk3: %d\n", gtk_plug_get_embedded(GTK_PLUG(window)));
     
-    gchar** files = gtk_rc_get_default_files();
-    
-    GIOChannel* channel = 0;
-    if(files) {
-        initializeInotify(files[0]);
-        channel = g_io_channel_unix_new(inotifyDescriptor);
-        guint ret = g_io_add_watch(channel, G_IO_IN, reloadstyle, NULL);
-    }
-    
     gtk_main();
-    
-    g_io_channel_unref(channel);
     
     return 0;
 }
-
-
-
-
-
-
-
-
