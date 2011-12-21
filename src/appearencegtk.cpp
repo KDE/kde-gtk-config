@@ -176,7 +176,7 @@ QString readMapDefaultValue(const QMap<QString,QString>& map, const QString& key
 bool AppearenceGTK::loadGTK2Config()
 {
     
-    QFile configFile(QDir::homePath()+"/.gtkrc-2.0");
+    QFile configFile(gtkrcPath());
     
     bool canRead = configFile.open(QIODevice::ReadOnly | QIODevice::Text);
     
@@ -205,7 +205,7 @@ bool AppearenceGTK::loadGTK2Config()
 
 bool AppearenceGTK::loadGTK3Config()
 {
-    QFile fileGtk3(qgetenv("XDG_CONFIG_HOME")+"/gtk-3.0/settings.ini");
+    QFile fileGtk3(gtk3settingsPath());
     bool canRead=fileGtk3.open(QIODevice::ReadOnly | QIODevice::Text);
     
     if(canRead) {
@@ -357,7 +357,17 @@ bool AppearenceGTK::saveGTK3Config(const QString& file) const
 
 bool AppearenceGTK::saveFileConfig()
 {
-    QFile::remove(QDir::homePath()+"/.gtkrc-2.0");
+    QFile::remove(gtkrcPath());
     
-    return saveGTK2Config(QDir::homePath()+"/.gtkrc-2.0") && saveGTK3Config(qgetenv("XDG_CONFIG_HOME")+"/gtk-3.0/settings.ini");
+    return saveGTK2Config(gtkrcPath()) && saveGTK3Config(gtk3settingsPath());
+}
+
+QString AppearenceGTK::gtkrcPath()
+{
+    return QDir::homePath()+"/.gtkrc-2.0";
+}
+
+QString AppearenceGTK::gtk3settingsPath()
+{
+    return qgetenv("XDG_CONFIG_HOME")+"/gtk-3.0/settings.ini";
 }

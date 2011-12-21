@@ -35,7 +35,6 @@ public:
 
     void setTheme(const QString&);
     void setThemeGtk3(const QString &theme);
-    void setThemePath(const QString&);
     void setIcon(const QString&);
     void setIconFallBack(const QString&);
     void setFont(const QString&);
@@ -65,7 +64,9 @@ public:
     bool saveFileConfig();
     bool saveGTK2Config(const QString& rootDir) const;
     bool saveGTK3Config(const QString& rootDir) const;
-
+    
+    QString gtkrcPath();
+    QString gtk3settingsPath();
 private:
     QString themesGtkrcFile(const QString& themeName) const;
     bool loadGTK2Config();

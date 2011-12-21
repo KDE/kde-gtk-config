@@ -99,7 +99,8 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     
     m_tempGtk2Preview = KGlobal::dirs()->saveLocation("tmp", "gtkrc-2.0", false);
     m_tempGtk3Preview = KGlobal::dirs()->saveLocation("tmp", ".config/gtk-3.0/settings.ini", false);
-    QFile::copy(QDir::homePath()+"/.gtkrc-2.0", m_tempGtk2Preview);
+    QFile::copy(appareance->gtkrcPath(), m_tempGtk2Preview);
+    QFile::copy(appareance->gtk3settingsPath(), m_tempGtk3Preview);
     
     m_p2 = new KProcess(this);
     m_p2->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);
@@ -117,6 +118,7 @@ GTKConfigKCModule::~GTKConfigKCModule()
     m_p3->kill();
     
     QFile::remove(m_tempGtk2Preview);
+    QFile::remove(m_tempGtk3Preview);
     delete ui;
     delete appareance;
     
