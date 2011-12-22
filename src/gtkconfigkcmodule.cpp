@@ -181,31 +181,59 @@ void GTKConfigKCModule::refreshLists()
     ui->checkBox_icon_gtk_menus->setChecked(appareance->getShowIconsInMenus());
 }
 
-void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const QStringList& relativePaths)
+bool greatSizeIs48(const QString& a, const QString& b)
 {
-    label->setToolTip(relativePaths.first());
-    
-    foreach(const QString & relpath, relativePaths) {
-        QPixmap p(theme+relpath);
-        if(!p.isNull()) {
-            label->setPixmap(p);
-            return;
-        }
+    bool a48=a.contains("48"), b48=b.contains("48");
+    if((a48 && b48) || (!a48 && !b48))
+        return a<b;
+    else
+        return a48;
+}
+
+QStringList findFilesRecursively(const QStringList& wildcard, const QDir& directory)
+{
+    QStringList ret;
+    QFileInfoList entries = directory.entryInfoList(wildcard, QDir::Files);
+    foreach(const QFileInfo& f, entries) {
+        ret += f.absoluteFilePath();
     }
     
-    foreach(const QString & relpath, relativePaths) {
-        QPixmap pFallback(fallback+relpath);
-        if(!pFallback.isNull()) {
-            label->setPixmap(pFallback);
-            return;
-        }
+    QStringList subdirs = directory.entryList(QDir::AllDirs|QDir::NoDotAndDotDot);
+    qSort(subdirs.begin(), subdirs.end(), greatSizeIs48);
+    foreach(const QString& subdir, subdirs) {
+        ret += findFilesRecursively(wildcard, QDir(directory.filePath(subdir)));
+        if(!ret.isEmpty())
+            break;
+    }
+    
+    return ret;
+}
+
+void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const QString& iconName)
+{
+    label->setToolTip(iconName);
+    
+    QStringList ret = findFilesRecursively(QStringList(iconName+".*"), theme);
+    if(!ret.isEmpty()) {
+        QPixmap p(ret.first());
+        Q_ASSERT(!p.isNull());
+        label->setPixmap(p);
+        return;
+    }
+    
+    ret = findFilesRecursively(QStringList(iconName+'*'), fallback);
+    if(!ret.isEmpty()) {
+        QPixmap p(ret.first());
+        Q_ASSERT(!p.isNull());
+        label->setPixmap(p);
+        return;
     }
     
     KIcon notFoundIcon("application-x-zerosize");
     QPixmap noIcon(notFoundIcon.pixmap(48,48));
     label->setPixmap(noIcon);
     
-    kDebug() << "could not find icon" << relativePaths;
+    kDebug() << "could not find icon" << iconName;
 }
 
 void GTKConfigKCModule::makePreviewIconTheme()
@@ -220,36 +248,15 @@ void GTKConfigKCModule::makePreviewIconTheme()
     if(icon>=0)
         path_icon = appareance->getAvaliableIconsPaths()[icon];
 
-    tryIcon(ui->lb_prev_1, path_fallback, path_icon,
-            QStringList() << "/48x48/places/folder.png" << "/places/48/folder.png" << "/places/48/folder.svg"
-                          << "/scalable/places/folder.svg" << "/scalable/places/folder.svgz");
-    tryIcon(ui->lb_prev_2, path_fallback, path_icon,
-            QStringList() << "/48x48/places/user-trash.png" << "/places/48/user-trash.png" << "/places/48/user-trash.svg"
-                          << "/scalable/places/user-trash.svg" << "/scalable/places/user-trash.svgz");
-    tryIcon(ui->lb_prev_3, path_fallback, path_icon,
-            QStringList() << "/48x48/actions/document-print.png"<< "/actions/48/document-print.png" << "/actions/48/document-print.svg"
-                          << "/scalable/actions/document-print.svg" << "/scalable/actions/document-print.svgz");
-    tryIcon(ui->lb_prev_4, path_fallback, path_icon,
-            QStringList() << "/48x48/places/user-desktop.png" << "/places/48/user-desktop.png" << "/places/48/user-desktop.svg"
-                          << "/scalable/places/user-desktop.svg" << "/scalable/places/user-desktop.svgz");
-    tryIcon(ui->lb_prev_5, path_fallback, path_icon,
-            QStringList() << "/48x48/places/user-bookmarks.png" << "/places/48/user-bookmarks.png" << "/places/48/user-bookmarks.svg"
-                          << "/scalable/places/user-bookmarks.svg" << "/scalable/places/user-bookmarks.svgz"
-                          << "/mono/scalable/places/bookmarks.svgz"
-                          << "/48x48/places/bookmarks.png" << "/places/48/bookmarks.png" << "/places/48/bookmarks.svg");
-    tryIcon(ui->lb_prev_6, path_fallback, path_icon,
-            QStringList() << "/48x48/places/network-server.png" << "/places/48/network-server.png" << "/places/48/network-server.svg"
-                          << "/scalable/places/network-server.svg" << "/scalable/places/network-server.svgz");
-    tryIcon(ui->lb_prev_7, path_fallback, path_icon,
-            QStringList() << "/48x48/categories/system-help.png" << "/categories/48/system-help.png" << "/categories/48/system-help.svg"
-                          << "/scalable/actions/help-contents.svg" << "/scalable/actions/help-contents.svgz"
-                          << "/mono/scalable/categories/system-help.svgz");
-    tryIcon(ui->lb_prev_8, path_fallback, path_icon,
-            QStringList() << "/48x48/places/start-here.png" << "/places/48/start-here.png" << "/places/48/start-here.svg"
-                          << "/scalable/places/start-here.svg" << "/scalable/places/start-here.svgz");
-    tryIcon(ui->lb_prev_9, path_fallback, path_icon,
-            QStringList() << "/48x48/actions/go-up.png" << "/actions/48/go-up.png" << "/actions/48/go-up.svg"
-                          << "/scalable/actions/go-up.svg" << "/scalable/actions/go-up.svgzs");
+    tryIcon(ui->lb_prev_1, path_fallback, path_icon, "folder");
+    tryIcon(ui->lb_prev_2, path_fallback, path_icon, "user-trash");
+    tryIcon(ui->lb_prev_3, path_fallback, path_icon, "document-print");
+    tryIcon(ui->lb_prev_4, path_fallback, path_icon, "user-desktop");
+    tryIcon(ui->lb_prev_5, path_fallback, path_icon, "user-bookmarks");
+    tryIcon(ui->lb_prev_6, path_fallback, path_icon, "network-server");
+    tryIcon(ui->lb_prev_7, path_fallback, path_icon, "system-help");
+    tryIcon(ui->lb_prev_8, path_fallback, path_icon, "start-here");
+    tryIcon(ui->lb_prev_9, path_fallback, path_icon, "go-up");
 }
 
 void GTKConfigKCModule::savePreviewConfig()
