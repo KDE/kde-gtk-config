@@ -16,7 +16,6 @@
  */
 
 #include <gtk/gtk.h>
-#include <gdk/gdkx.h>
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
@@ -50,7 +49,7 @@ void initializeInotify(gchar* target)
     fprintf(stderr, "watching %s\n", target);
 }
 
-void reloadstyle(GIOChannel *source,
+gboolean reloadstyle(GIOChannel *source,
                     GIOCondition condition,
                     gpointer data)
 {
@@ -60,13 +59,15 @@ void reloadstyle(GIOChannel *source,
     
     gtk_rc_reparse_all();
     fprintf(stderr, "settings changed!! %d\n", r);
+    return 0;
 }
 
-void reloaderror(GIOChannel *source,
-                    GIOCondition condition,
-                    gpointer data)
+gboolean reloaderror(GIOChannel   *source,
+                  GIOCondition  condition,
+                 gpointer      data)
 {
     fprintf(stderr, "an error happened with the inotify identifier...\n");
+    return 0;
 }
 
 int main(int argc, char **argv)
