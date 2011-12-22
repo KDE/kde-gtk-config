@@ -66,13 +66,13 @@ QStringList AppearenceGTK::getAvaliableIconsPaths()
     //List existing folders in the root themes directory
     //TODO: Use KStandardDirs
     QDir root("/usr/share/icons");
-    QDirIterator iter(root.path(), QDir::AllDirs|QDir::NoDotAndDotDot);
+    QDirIterator iter(root.path(), QDir::AllDirs|QDir::NoDotAndDotDot|QDir::NoSymLinks);
     while(iter.hasNext()) {
-        QString urlActual = iter.next();
-
-        //we filter out the default and kde4 default
-        if(iter.fileName()!="default" && iter.fileName()!="default.kde4") {
-            availableIcons << urlActual;
+        QString currentPath = iter.next();
+        QDir dir(currentPath);
+        
+        if(!dir.exists("cursors") && dir.exists("index.theme")) {
+            availableIcons << currentPath;
         }
     }
 
@@ -86,7 +86,7 @@ QStringList AppearenceGTK::getAvaliableIconsPaths()
             QString currentPath = it.next();
             QDir dir(currentPath);
 
-            if(dir.entryInfoList(QStringList("*cursor*")).isEmpty() && !dir.entryInfoList(QStringList("index.theme")).isEmpty()) {
+            if(!dir.exists("cursors") && dir.exists("index.theme")) {
                 availableIcons << currentPath;
             }
         }
