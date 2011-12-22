@@ -62,6 +62,13 @@ void reloadstyle(GIOChannel *source,
     fprintf(stderr, "settings changed!! %d\n", r);
 }
 
+void reloaderror(GIOChannel *source,
+                    GIOCondition condition,
+                    gpointer data)
+{
+    fprintf(stderr, "an error happened with the inotify identifier...\n");
+}
+
 int main(int argc, char **argv)
 {
     GError     *error = NULL;
@@ -102,6 +109,7 @@ int main(int argc, char **argv)
                     &window);
     
     gtk_widget_show_all ( window );
+    g_object_unref( G_OBJECT( builder ) );
     
     if(wid)
         fprintf(stderr, "--- is embedded: %d\n", gtk_plug_get_embedded(GTK_PLUG(window)));
@@ -109,8 +117,8 @@ int main(int argc, char **argv)
     gchar** files = gtk_rc_get_default_files();
     initializeInotify(files[0]);
     GIOChannel* channel = g_io_channel_unix_new(inotifyDescriptor);
-    guint ret = g_io_add_watch(channel, G_IO_IN, reloadstyle, NULL);
-    g_object_unref( G_OBJECT( builder ) );
+    g_io_add_watch(channel, G_IO_IN, reloadstyle, NULL);
+    g_io_add_watch(channel, G_IO_HUP|G_IO_ERR, reloaderror, NULL);
     
     gtk_main();
     
@@ -118,11 +126,3 @@ int main(int argc, char **argv)
     
     return 0;
 }
-
-
-
-
-
-
-
-
