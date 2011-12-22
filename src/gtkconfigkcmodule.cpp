@@ -221,24 +221,35 @@ void GTKConfigKCModule::makePreviewIconTheme()
         path_icon = appareance->getAvaliableIconsPaths()[icon];
 
     tryIcon(ui->lb_prev_1, path_fallback, path_icon,
-            QStringList() << "/48x48/places/folder_home.png" << "/places/48/folder_home.png" << "/places/48/folder_home.svg");
+            QStringList() << "/48x48/places/folder.png" << "/places/48/folder.png" << "/places/48/folder.svg"
+                          << "/scalable/places/folder.svg" << "/scalable/places/folder.svgz");
     tryIcon(ui->lb_prev_2, path_fallback, path_icon,
-            QStringList() << "/48x48/places/user-trash.png" << "/places/48/user-trash.png" << "/places/48/user-trash.svg");
+            QStringList() << "/48x48/places/user-trash.png" << "/places/48/user-trash.png" << "/places/48/user-trash.svg"
+                          << "/scalable/places/user-trash.svg" << "/scalable/places/user-trash.svgz");
     tryIcon(ui->lb_prev_3, path_fallback, path_icon,
-            QStringList() << "/48x48/actions/document-print.png"<< "/actions/48/document-print.png" << "/actions/48/document-print.svg");
+            QStringList() << "/48x48/actions/document-print.png"<< "/actions/48/document-print.png" << "/actions/48/document-print.svg"
+                          << "/scalable/actions/document-print.svg" << "/scalable/actions/document-print.svgz");
     tryIcon(ui->lb_prev_4, path_fallback, path_icon,
-            QStringList() << "/48x48/places/user-desktop.png" << "/places/48/user-desktop.png" << "/places/48/user-desktop.svg");
+            QStringList() << "/48x48/places/user-desktop.png" << "/places/48/user-desktop.png" << "/places/48/user-desktop.svg"
+                          << "/scalable/places/user-desktop.svg" << "/scalable/places/user-desktop.svgz");
     tryIcon(ui->lb_prev_5, path_fallback, path_icon,
             QStringList() << "/48x48/places/user-bookmarks.png" << "/places/48/user-bookmarks.png" << "/places/48/user-bookmarks.svg"
+                          << "/scalable/places/user-bookmarks.svg" << "/scalable/places/user-bookmarks.svgz"
+                          << "/mono/scalable/places/bookmarks.svgz"
                           << "/48x48/places/bookmarks.png" << "/places/48/bookmarks.png" << "/places/48/bookmarks.svg");
     tryIcon(ui->lb_prev_6, path_fallback, path_icon,
-            QStringList() << "/48x48/places/network-server.png" << "/places/48/network-server.png" << "/places/48/network-server.svg");
+            QStringList() << "/48x48/places/network-server.png" << "/places/48/network-server.png" << "/places/48/network-server.svg"
+                          << "/scalable/places/network-server.svg" << "/scalable/places/network-server.svgz");
     tryIcon(ui->lb_prev_7, path_fallback, path_icon,
-            QStringList() << "/48x48/categories/system-help.png" << "/categories/48/system-help.png" << "/categories/48/system-help.svg");
+            QStringList() << "/48x48/categories/system-help.png" << "/categories/48/system-help.png" << "/categories/48/system-help.svg"
+                          << "/scalable/actions/help-contents.svg" << "/scalable/actions/help-contents.svgz"
+                          << "/mono/scalable/categories/system-help.svgz");
     tryIcon(ui->lb_prev_8, path_fallback, path_icon,
-            QStringList() << "/48x48/places/start-here.png" << "/places/48/start-here.png" << "/places/48/start-here.svg");
+            QStringList() << "/48x48/places/start-here.png" << "/places/48/start-here.png" << "/places/48/start-here.svg"
+                          << "/scalable/places/start-here.svg" << "/scalable/places/start-here.svgz");
     tryIcon(ui->lb_prev_9, path_fallback, path_icon,
-            QStringList() << "/48x48/actions/up.png" << "/actions/48/up.png" << "/actions/48/up.svg");
+            QStringList() << "/48x48/actions/go-up.png" << "/actions/48/go-up.png" << "/actions/48/go-up.svg"
+                          << "/scalable/actions/go-up.svg" << "/scalable/actions/go-up.svgzs");
 }
 
 void GTKConfigKCModule::savePreviewConfig()
