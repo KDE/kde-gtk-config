@@ -369,5 +369,9 @@ QString AppearenceGTK::gtkrcPath()
 
 QString AppearenceGTK::gtk3settingsPath()
 {
-    return qgetenv("XDG_CONFIG_HOME")+"/gtk-3.0/settings.ini";
+    QString root = qgetenv("XDG_CONFIG_HOME");
+    if(root.isEmpty())
+        root = QDir::homePath();
+    
+    return root+"/gtk-3.0/settings.ini";
 }
