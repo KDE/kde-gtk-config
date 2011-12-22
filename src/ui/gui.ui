@@ -113,10 +113,16 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_1">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>64</width>
-                 <height>64</height>
+                 <width>48</width>
+                 <height>48</height>
                 </size>
                </property>
                <property name="text">
@@ -129,10 +135,16 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>64</width>
-                 <height>0</height>
+                 <width>48</width>
+                 <height>48</height>
                 </size>
                </property>
                <property name="text">
@@ -145,10 +157,16 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>64</width>
-                 <height>0</height>
+                 <width>48</width>
+                 <height>48</height>
                 </size>
                </property>
                <property name="text">
@@ -161,10 +179,16 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_4">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>64</width>
-                 <height>0</height>
+                 <width>48</width>
+                 <height>48</height>
                 </size>
                </property>
                <property name="text">
@@ -177,10 +201,16 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_5">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>64</width>
-                 <height>0</height>
+                 <width>48</width>
+                 <height>48</height>
                 </size>
                </property>
                <property name="text">
@@ -193,10 +223,16 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_6">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>64</width>
-                 <height>0</height>
+                 <width>48</width>
+                 <height>48</height>
                 </size>
                </property>
                <property name="text">
@@ -209,10 +245,16 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_7">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>64</width>
-                 <height>0</height>
+                 <width>48</width>
+                 <height>48</height>
                 </size>
                </property>
                <property name="text">
@@ -225,10 +267,16 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_8">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>64</width>
-                 <height>0</height>
+                 <width>48</width>
+                 <height>48</height>
                 </size>
                </property>
                <property name="text">
@@ -241,10 +289,16 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_9">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>64</width>
-                 <height>0</height>
+                 <width>48</width>
+                 <height>48</height>
                 </size>
                </property>
                <property name="text">
