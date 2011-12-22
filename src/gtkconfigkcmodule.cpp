@@ -191,14 +191,15 @@ void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const
             label->setPixmap(p);
             return;
         }
-        
+    }
+    
+    foreach(const QString & relpath, relativePaths) {
         QPixmap pFallback(fallback+relpath);
         if(!pFallback.isNull()) {
             label->setPixmap(pFallback);
             return;
         }
     }
-    
     
     KIcon notFoundIcon("application-x-zerosize");
     QPixmap noIcon(notFoundIcon.pixmap(48,48));
@@ -228,11 +229,12 @@ void GTKConfigKCModule::makePreviewIconTheme()
     tryIcon(ui->lb_prev_4, path_fallback, path_icon,
             QStringList() << "/48x48/places/user-desktop.png" << "/places/48/user-desktop.png" << "/places/48/user-desktop.svg");
     tryIcon(ui->lb_prev_5, path_fallback, path_icon,
-            QStringList() << "/48x48/places/user-bookmarks.png" << "/places/48/user-bookmarks.png" << "/places/48/user-bookmarks.svg");
+            QStringList() << "/48x48/places/user-bookmarks.png" << "/places/48/user-bookmarks.png" << "/places/48/user-bookmarks.svg"
+                          << "/48x48/places/bookmarks.png" << "/places/48/bookmarks.png" << "/places/48/bookmarks.svg");
     tryIcon(ui->lb_prev_6, path_fallback, path_icon,
             QStringList() << "/48x48/places/network-server.png" << "/places/48/network-server.png" << "/places/48/network-server.svg");
     tryIcon(ui->lb_prev_7, path_fallback, path_icon,
-            QStringList() << "/48x48/actions/system-help.png" << "/actions/48/system-help.png" << "/actions/48/system-help.svg");
+            QStringList() << "/48x48/categories/system-help.png" << "/categories/48/system-help.png" << "/categories/48/system-help.svg");
     tryIcon(ui->lb_prev_8, path_fallback, path_icon,
             QStringList() << "/48x48/places/start-here.png" << "/places/48/start-here.png" << "/places/48/start-here.svg");
     tryIcon(ui->lb_prev_9, path_fallback, path_icon,
