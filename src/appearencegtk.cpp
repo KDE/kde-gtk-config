@@ -285,7 +285,7 @@ bool AppearenceGTK::saveGTK2Config(const QString& gtkrcFile) const
 
     QTextStream flow(&gtkrc);
 
-    flow << "# File created by Chakra Gtk Config" << "\n"
+    flow << "# File created by KDE Gtk Config" << "\n"
          << "# Configs for GTK2 programs \n\n";
 
     QString themeGtkrcFile=themesGtkrcFile(getTheme());
@@ -358,8 +358,12 @@ bool AppearenceGTK::saveGTK3Config(const QString& file) const
 bool AppearenceGTK::saveFileConfig()
 {
     QFile::remove(gtkrcPath());
+    bool savedgtk2 = saveGTK2Config(gtkrcPath());
+    bool savedgtk3 = saveGTK3Config(gtk3settingsPath());
     
-    return saveGTK2Config(gtkrcPath()) && saveGTK3Config(gtk3settingsPath());
+    qDebug() << "saved gtk2" << savedgtk2;
+    qDebug() << "saved gtk3" << savedgtk3;
+    return  savedgtk2 && savedgtk3;
 }
 
 QString AppearenceGTK::gtkrcPath()
