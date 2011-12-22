@@ -78,17 +78,13 @@ QStringList AppearenceGTK::getAvaliableIconsPaths()
 
 //  We verify if there are themes in the home folder
     QDir userIconsDir(QDir::homePath()+"/.icons");
+    QDirIterator it(userIconsDir.path(), QDir::NoDotAndDotDot|QDir::AllDirs);
+    while(it.hasNext()) {
+        QString currentPath = it.next();
+        QDir dir(currentPath);
 
-    //someties there's no .icons folder
-    if(userIconsDir.exists()) {
-        QDirIterator it(userIconsDir.path(), QDir::NoDotAndDotDot|QDir::AllDirs);
-        while(it.hasNext()) {
-            QString currentPath = it.next();
-            QDir dir(currentPath);
-
-            if(!dir.exists("cursors") && dir.exists("index.theme")) {
-                availableIcons << currentPath;
-            }
+        if(!dir.exists("cursors") && dir.exists("index.theme")) {
+            availableIcons << currentPath;
         }
     }
 
@@ -107,7 +103,7 @@ QStringList AppearenceGTK::getAvaliableThemesPaths() const
 
     //we just want actual themes
     QStringList paths;
-    for(QFileInfoList::iterator it=availableThemes.begin(); it!=availableThemes.end(); ++it) {
+    for(QFileInfoList::const_iterator it=availableThemes.constBegin(); it!=availableThemes.constEnd(); ++it) {
         bool hasGtkrc = QDir(it->filePath()).exists("gtk-2.0");
 
         //If it doesn't exist, we don't want it on the list
