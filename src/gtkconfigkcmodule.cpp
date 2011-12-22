@@ -232,7 +232,7 @@ void GTKConfigKCModule::makePreviewIconTheme()
     tryIcon(ui->lb_prev_6, path_fallback, path_icon,
             QStringList() << "/48x48/places/network-server.png" << "/places/48/network-server.png" << "/places/48/network-server.svg");
     tryIcon(ui->lb_prev_7, path_fallback, path_icon,
-            QStringList() << "/48x48/actions/help.png" << "/actions/48/help.png" << "/actions/48/help.svg");
+            QStringList() << "/48x48/actions/system-help.png" << "/actions/48/system-help.png" << "/actions/48/system-help.svg");
     tryIcon(ui->lb_prev_8, path_fallback, path_icon,
             QStringList() << "/48x48/places/start-here.png" << "/places/48/start-here.png" << "/places/48/start-here.svg");
     tryIcon(ui->lb_prev_9, path_fallback, path_icon,
