@@ -115,7 +115,7 @@
               <widget class="QLabel" name="lb_prev_1">
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
+                 <width>64</width>
                  <height>64</height>
                 </size>
                </property>
@@ -129,6 +129,12 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_2">
+               <property name="minimumSize">
+                <size>
+                 <width>64</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -139,6 +145,12 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_3">
+               <property name="minimumSize">
+                <size>
+                 <width>64</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -149,6 +161,12 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_4">
+               <property name="minimumSize">
+                <size>
+                 <width>64</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -159,6 +177,12 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_5">
+               <property name="minimumSize">
+                <size>
+                 <width>64</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -169,6 +193,12 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_6">
+               <property name="minimumSize">
+                <size>
+                 <width>64</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -179,6 +209,12 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_7">
+               <property name="minimumSize">
+                <size>
+                 <width>64</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -189,6 +225,12 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_8">
+               <property name="minimumSize">
+                <size>
+                 <width>64</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -199,6 +241,12 @@
              </item>
              <item>
               <widget class="QLabel" name="lb_prev_9">
+               <property name="minimumSize">
+                <size>
+                 <width>64</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string/>
                </property>

@@ -248,11 +248,11 @@ void GTKConfigKCModule::makePreviewIconTheme()
     if(icon>=0)
         path_icon = appareance->getAvaliableIconsPaths()[icon];
 
-    tryIcon(ui->lb_prev_1, path_fallback, path_icon, "folder");
-    tryIcon(ui->lb_prev_2, path_fallback, path_icon, "user-trash");
-    tryIcon(ui->lb_prev_3, path_fallback, path_icon, "document-print");
-    tryIcon(ui->lb_prev_4, path_fallback, path_icon, "user-desktop");
-    tryIcon(ui->lb_prev_5, path_fallback, path_icon, "user-bookmarks");
+    tryIcon(ui->lb_prev_1, path_fallback, path_icon, "user-home");
+    tryIcon(ui->lb_prev_2, path_fallback, path_icon, "folder");
+    tryIcon(ui->lb_prev_3, path_fallback, path_icon, "user-trash");
+    tryIcon(ui->lb_prev_4, path_fallback, path_icon, "document-print");
+    tryIcon(ui->lb_prev_5, path_fallback, path_icon, "user-desktop");
     tryIcon(ui->lb_prev_6, path_fallback, path_icon, "network-server");
     tryIcon(ui->lb_prev_7, path_fallback, path_icon, "system-help");
     tryIcon(ui->lb_prev_8, path_fallback, path_icon, "start-here");
