@@ -371,7 +371,7 @@ QString AppearenceGTK::gtk3settingsPath()
 {
     QString root = qgetenv("XDG_CONFIG_HOME");
     if(root.isEmpty())
-        root = QDir::homePath();
+        root = QFileInfo(QDir::home(), ".config").absolutePath();
     
     return root+"/gtk-3.0/settings.ini";
 }
