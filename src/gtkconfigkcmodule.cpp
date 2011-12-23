@@ -50,12 +50,12 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     , ui(new Ui::GUI)
 {
     Q_UNUSED(args);
-    KAboutData *acercade = new KAboutData("cgc","kcm_cgc",ki18n("KDE Gtk Config"), "1.7",
-                    ki18n("Config your Gtk Apps"),
+    KAboutData *acercade = new KAboutData("cgc","kcm_cgc",ki18n("KDE GTK Config"), "2.0",
+                    ki18n("Configure your GTK Applications"),
                     KAboutData::License_LGPL_V3,
                     ki18n("Copyright 2011 José Antonio Sánchez Reynaga"));
     acercade->addAuthor(ki18n("José Antonio Sánchez Reynaga (antonioJASR)"),ki18n("Main Developer"), "joanzare@gmail.com");
-    acercade->addAuthor(ki18n("Aleix Pol Gonzalez"), ki18n("Feature development. Previews, code refactoring."), "aleixpol@kde.org");
+    acercade->addAuthor(ki18n("Aleix Pol i Gonzalez"), ki18n("Feature development. Previews, code refactoring."), "aleixpol@kde.org");
     acercade->addCredit(ki18n("Manuel Tortosa (manutortosa)"), ki18n("Ideas, tester, internationalization"));
     acercade->addCredit(ki18n("Adrián Chaves Fernández (Gallaecio)"), ki18n("Internationalization"));
     setAboutData(acercade);
