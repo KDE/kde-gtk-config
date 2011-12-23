@@ -20,8 +20,6 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include <sys/inotify.h>
-
 static void on_dlg_response(GtkDialog* dlg, int res, gpointer user_data)
 {
     switch(res)
