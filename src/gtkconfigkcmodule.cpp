@@ -60,6 +60,9 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     acercade->addCredit(ki18n("Adrián Chaves Fernández (Gallaecio)"), ki18n("Internationalization"));
     setAboutData(acercade);
     
+    m_refreshTimer = new QTimer(this);
+    connect(m_refreshTimer, SIGNAL(timeout()), SLOT(refreshPreview()));
+    
     ui->setupUi(this);
     appareance = new AppearenceGTK;
     refreshLists();
@@ -279,7 +282,7 @@ void GTKConfigKCModule::savePreviewConfig()
     } else
         appareance->saveGTK2Config(m_tempGtk2Preview);
     
-    QTimer::singleShot(1000, this, SLOT(refreshPreview()));
+    m_refreshTimer->start(1200);
 }
 
 void GTKConfigKCModule::appChanged()
@@ -316,6 +319,7 @@ void GTKConfigKCModule::refreshPreview()
     static bool switchsize=false;
     switchsize=!switchsize;
     ui->preview->resize(ui->preview->size()+(switchsize ? QSize(1,0) : QSize(-1,0)));
+    m_refreshTimer->stop();
 }
 
 void GTKConfigKCModule::defaults()

@@ -96,6 +96,7 @@ private:
     KProcess* m_p3;
     QString m_tempGtk2Preview;
     QString m_tempGtk3Preview;
+    QTimer* m_refreshTimer;
 };
 
 #endif // MODULO_H
