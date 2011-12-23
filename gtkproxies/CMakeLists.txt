@@ -9,7 +9,7 @@ install(TARGETS reload_gtk_apps ${INSTALL_TARGETS_DEFAULT_ARGS})
 add_definitions("-DDATA_DIR=\\\"${DATA_INSTALL_DIR}/kcm-gtk-module/\\\"")
 
 add_executable(gtk_preview preview.c)
-target_link_libraries(gtk_preview ${GTK2_LIBRARIES})
+target_link_libraries(gtk_preview ${GTK2_LIBRARIES} ${GTK2_GIOMM_LIBRARY})
 install(TARGETS gtk_preview ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 # preview file used for the gtk3 version too

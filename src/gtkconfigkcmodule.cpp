@@ -279,7 +279,7 @@ void GTKConfigKCModule::savePreviewConfig()
     } else
         appareance->saveGTK2Config(m_tempGtk2Preview);
     
-    QTimer::singleShot(500, this, SLOT(refreshPreview()));
+    QTimer::singleShot(1000, this, SLOT(refreshPreview()));
 }
 
 void GTKConfigKCModule::appChanged()

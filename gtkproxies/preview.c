@@ -22,8 +22,6 @@
 
 #include <sys/inotify.h>
 
-int inotifyDescriptor;
-
 static void on_dlg_response(GtkDialog* dlg, int res, gpointer user_data)
 {
     switch(res)
@@ -33,41 +31,16 @@ static void on_dlg_response(GtkDialog* dlg, int res, gpointer user_data)
     }
 }
 
-void initializeInotify(gchar* target)
-{
-    inotifyDescriptor = inotify_init();
-    if(inotifyDescriptor<0) {
-        perror("gtk-preview");
-        exit(123);
-    }
-    
-    int r = inotify_add_watch (inotifyDescriptor, target, IN_CLOSE_WRITE);
-    if(r<0) {
-        perror("gtk-preview");
-        exit(124);
-    }
-    fprintf(stderr, "watching %s\n", target);
-}
-
-gboolean reloadstyle(GIOChannel *source,
-                    GIOCondition condition,
-                    gpointer data)
+void reloadstyle()
 {
     fprintf(stderr, "changing settings...\n");
-    char buf[200];
-    ssize_t r = read(inotifyDescriptor, buf, 200);
-    
     gtk_rc_reparse_all();
-    fprintf(stderr, "settings changed!! %d\n", r);
-    return 0;
+    fprintf(stderr, "settings changed!!\n");
 }
 
-gboolean reloaderror(GIOChannel   *source,
-                  GIOCondition  condition,
-                 gpointer      data)
+void reloaderror()
 {
     fprintf(stderr, "an error happened with the inotify identifier...\n");
-    return 0;
 }
 
 int main(int argc, char **argv)
@@ -116,14 +89,12 @@ int main(int argc, char **argv)
         fprintf(stderr, "--- is embedded: %d\n", gtk_plug_get_embedded(GTK_PLUG(window)));
     
     gchar** files = gtk_rc_get_default_files();
-    initializeInotify(files[0]);
-    GIOChannel* channel = g_io_channel_unix_new(inotifyDescriptor);
-    g_io_add_watch(channel, G_IO_IN, reloadstyle, NULL);
-    g_io_add_watch(channel, G_IO_HUP|G_IO_ERR, reloaderror, NULL);
+    GFile* file = g_file_new_for_path(files[0]);
+    GFileMonitor* monitor = g_file_monitor_file(file, G_FILE_MONITOR_NONE, NULL, NULL);
+    g_signal_connect (monitor, "changed",
+                    G_CALLBACK (reloadstyle), NULL);
     
     gtk_main();
-    
-    g_io_channel_unref(channel);
     
     return 0;
 }
