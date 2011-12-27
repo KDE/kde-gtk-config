@@ -29,16 +29,18 @@ static void on_dlg_response(GtkDialog* dlg, int res, gpointer user_data)
     }
 }
 
-void reloadstyle()
+void reloadstyle(GFileMonitor     *monitor,
+                 GFile            *file,
+                 GFile            *other_file,
+                 GFileMonitorEvent event_type,
+                 gpointer          user_data)
 {
-    fprintf(stderr, "changing settings...\n");
+    if(event_type!=G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
+        return;
+    
+    fprintf(stderr, "changing settings... %d\n", event_type);
     gtk_rc_reparse_all();
     fprintf(stderr, "settings changed!!\n");
-}
-
-void reloaderror()
-{
-    fprintf(stderr, "an error happened with the inotify identifier...\n");
 }
 
 int main(int argc, char **argv)
