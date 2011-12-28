@@ -29,7 +29,6 @@
 #include "dialog_installer.h"
 #include "dialog_uninstaller.h"
 #include <knewstuff3/downloaddialog.h>
-#include <KTemporaryFile>
 
 class KProcess;
 class QX11EmbedContainer;
@@ -61,10 +60,8 @@ public slots:
     void showDialogForInstall();
     void showDialogForUninstall();
     
-    void previewOn();
-    void previewOff();
-    void refreshPreview();
-    void changePreview(int);
+    void runIfNecessary();
+    void untogglePreview();
     
 signals:
     void selectedIconTheme();
@@ -79,7 +76,6 @@ private:
     KProcess* m_p3;
     QString m_tempGtk2Preview;
     QString m_tempGtk3Preview;
-    QTimer* m_refreshTimer;
 };
 
 #endif // MODULO_H

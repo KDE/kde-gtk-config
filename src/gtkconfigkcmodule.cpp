@@ -60,11 +60,11 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     acercade->addCredit(ki18n("Adrián Chaves Fernández (Gallaecio)"), ki18n("Internationalization"));
     setAboutData(acercade);
     
-    m_refreshTimer = new QTimer(this);
-    connect(m_refreshTimer, SIGNAL(timeout()), SLOT(refreshPreview()));
-    
     ui->setupUi(this);
     appareance = new AppearenceGTK;
+    installer =  new DialogInstaller(this);
+    uninstaller = new DialogUninstaller(this, appareance);
+    
     refreshLists();
     makePreviewIconTheme();
     
@@ -81,24 +81,18 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     //preview updates
     connect(ui->cb_icon_fallback, SIGNAL(activated(QString)), this, SLOT(makePreviewIconTheme()));
     connect(ui->cb_icon, SIGNAL(activated(QString)), this, SLOT(makePreviewIconTheme()));
-    connect(ui->previewVersion, SIGNAL(activated(int)), this, SLOT(changePreview(int)));
+    connect(ui->previewVersion, SIGNAL(activated(int)), this, SLOT(runIfNecessary()));
+    connect(ui->showPreview, SIGNAL(toggled(bool)), this, SLOT(runIfNecessary()));
 
     //installers connections
     connect(ui->clb_add_theme, SIGNAL(clicked(bool)), this, SLOT(showDialogForInstall()));
     connect(ui->clb_remove_theme, SIGNAL(clicked(bool)), this, SLOT(showDialogForUninstall()));
-    
-    installer =  new DialogInstaller(this);
-    uninstaller = new DialogUninstaller(this, appareance);
-    
     connect(installer, SIGNAL(themeInstalled()), SLOT(refreshLists()));
     connect(uninstaller, SIGNAL(themeUninstalled()), SLOT(refreshLists()));
     
     //GHNS connections
     connect(ui->but_theme_ghns, SIGNAL(clicked(bool)), this, SLOT(showThemeGHNS()));
     connect(ui->but_theme_gtk3_ghns, SIGNAL(clicked(bool)), this, SLOT(installThemeGTK3GHNS()));
-    
-    connect(ui->preview, SIGNAL(clientIsEmbedded()), SLOT(previewOn()));
-    connect(ui->preview, SIGNAL(clientClosed()), SLOT(previewOff()));
     
     m_tempGtk2Preview = KGlobal::dirs()->saveLocation("tmp", "gtkrc-2.0", false);
     m_tempGtk3Preview = KGlobal::dirs()->saveLocation("tmp", ".config/gtk-3.0/settings.ini", false);
@@ -107,12 +101,14 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     
     m_p2 = new KProcess(this);
     m_p2->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);
-    *m_p2 << KStandardDirs::findExe("gtk_preview") << QString::number(ui->preview->winId());
-    m_p2->start();
+    *m_p2 << KStandardDirs::findExe("gtk_preview");
     
     m_p3 = new KProcess(this);
     m_p3->setEnv("XDG_CONFIG_HOME", KGlobal::dirs()->saveLocation("tmp", ".config"));
-    *m_p3 << KStandardDirs::findExe("gtk3_preview") << QString::number(ui->preview->winId());
+    *m_p3 << KStandardDirs::findExe("gtk3_preview");
+    
+    connect(m_p2, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
+    connect(m_p3, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
 }
 
 GTKConfigKCModule::~GTKConfigKCModule()
@@ -281,8 +277,6 @@ void GTKConfigKCModule::savePreviewConfig()
         m_p3->start();
     } else
         appareance->saveGTK2Config(m_tempGtk2Preview);
-    
-    m_refreshTimer->start(1200);
 }
 
 void GTKConfigKCModule::appChanged()
@@ -290,6 +284,18 @@ void GTKConfigKCModule::appChanged()
     savePreviewConfig();
     emit changed(true);
 }
+
+void GTKConfigKCModule::runIfNecessary()
+{
+    KProcess* p = ui->previewVersion->currentIndex()==0 ? m_p2 : m_p3;
+    KProcess* np = ui->previewVersion->currentIndex()==1 ? m_p2 : m_p3;
+    if(ui->showPreview->isChecked()) {
+        if(p->state()!=KProcess::Running)
+            p->start();
+    }
+    np->kill();
+}
+
 
 void GTKConfigKCModule::save()
 {
@@ -307,19 +313,7 @@ void GTKConfigKCModule::save()
     if(!appareance->saveFileConfig())
         QMessageBox::warning(this, "ERROR", i18n("It was not possible to save the config"));
     else
-        KProcess::startDetached(KStandardDirs::findExe("reload_gtk_apps"), QStringList(QString::number(ui-> preview->winId())));
-}
-
-void GTKConfigKCModule::refreshPreview()
-{
-//TODO: sadly after refreshing the theme, the host window 
-//      doesn't resize to the needed size
-//      **now, the dirty hack dance**
-
-    static bool switchsize=false;
-    switchsize=!switchsize;
-    ui->preview->resize(ui->preview->size()+(switchsize ? QSize(1,0) : QSize(-1,0)));
-    m_refreshTimer->stop();
+        KProcess::startDetached(KStandardDirs::findExe("reload_gtk_apps"));
 }
 
 void GTKConfigKCModule::defaults()
@@ -377,24 +371,7 @@ void GTKConfigKCModule::showDialogForUninstall()
     refreshThemesUi();
 }
 
-void GTKConfigKCModule::previewOn()
+void GTKConfigKCModule::untogglePreview()
 {
-    kDebug() << "client connected!!";
-}
-
-void GTKConfigKCModule::previewOff()
-{
-    kDebug() << "client disconnected!";
-    //TODO: re-run
-}
-
-void GTKConfigKCModule::changePreview(int idx)
-{
-    if(idx==0) {
-        m_p2->start();
-        m_p3->kill();
-    } else {
-        m_p3->start();
-        m_p2->kill();
-    }
+    ui->showPreview->setChecked(false);
 }
