@@ -224,7 +224,7 @@ void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const
         return;
     }
     
-    ret = findFilesRecursively(QStringList(iconName+'*'), fallback);
+    ret = findFilesRecursively(QStringList(iconName+".*"), fallback);
     if(!ret.isEmpty()) {
         QPixmap p(ret.first());
         Q_ASSERT(!p.isNull());
