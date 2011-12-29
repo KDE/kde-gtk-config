@@ -277,6 +277,7 @@ void GTKConfigKCModule::savePreviewConfig()
         appareance->gtk3Appearance()->saveSettings(m_tempGtk3Preview);
         m_p3->waitForFinished();
         m_p3->start();
+        ui->showPreview->setChecked(true);
     } else
         appareance->gtk2Appearance()->saveSettings(m_tempGtk2Preview);
 }
@@ -291,11 +292,17 @@ void GTKConfigKCModule::runIfNecessary()
 {
     KProcess* p = ui->previewVersion->currentIndex()==0 ? m_p2 : m_p3;
     KProcess* np = ui->previewVersion->currentIndex()==1 ? m_p2 : m_p3;
-    if(ui->showPreview->isChecked()) {
+    np->kill();
+    
+    bool checked = ui->showPreview->isChecked();
+    if(checked) {
         if(p->state()!=KProcess::Running)
             p->start();
     }
-    np->kill();
+    np->waitForFinished();
+    
+    if(checked)
+        ui->showPreview->setChecked(checked);
 }
 
 
