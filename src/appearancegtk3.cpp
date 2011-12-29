@@ -40,7 +40,7 @@ bool AppearanceGTK3::saveSettings(const QString& file)
     QTextStream flow3(&file_gtk3);
     flow3 << "[Settings]\n";
     flow3 << "gtk-font-name=" << m_settings["font"] << "\n";
-    flow3 << "gtk-theme-name=" << m_settings["themegtk3"] << "\n";
+    flow3 << "gtk-theme-name=" << m_settings["theme"] << "\n";
     flow3 << "gtk-icon-theme-name= "<< m_settings["icon"] << "\n";
     flow3 << "gtk-fallback-icon-theme=" << m_settings["icon_fallback"] << "\n";
     flow3 << "gtk-toolbar-style=" << m_settings["toolbar_style"] << "\n";
@@ -60,7 +60,7 @@ bool AppearanceGTK3::loadSettings(const QString& path)
 
         QMap<QString, QString> foundSettings = readSettingsTuples(flow.readAll());
         
-        m_settings["themegtk3"] = foundSettings["gtk-theme-name"];
+        m_settings["theme"] = foundSettings["gtk-theme-name"];
         m_settings["icon"] = foundSettings["gtk-icon-theme-name"];
         m_settings["icon_fallback"] = foundSettings["gtk-fallback-icon-theme"];
         m_settings["font"] = foundSettings["gtk-font-name"];

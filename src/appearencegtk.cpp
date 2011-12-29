@@ -44,10 +44,10 @@ PROPERTY_IMPLEMENTATION(QString, ToolbarStyle, "toolbar_style")
 PROPERTY_IMPLEMENTATION(bool, ShowIconsInButtons, "show_icons_buttons")
 PROPERTY_IMPLEMENTATION(bool, ShowIconsInMenus, "show_icons_menus")
 
-QString AppearenceGTK::getTheme() const { return m_app.first()->getTheme(); }
-void AppearenceGTK::setTheme(const QString& name) {  return m_app.first()->setTheme(name); }
-QString AppearenceGTK::getThemeGtk3() const { return m_app.last()->getTheme(); }
-void AppearenceGTK::setThemeGtk3(const QString& name) {  return m_app.last()->setTheme(name); }
+QString AppearenceGTK::getTheme() const { return gtk2Appearance()->getTheme(); }
+void AppearenceGTK::setTheme(const QString& name) {  return gtk2Appearance()->setTheme(name); }
+QString AppearenceGTK::getThemeGtk3() const { return gtk3Appearance()->getTheme(); }
+void AppearenceGTK::setThemeGtk3(const QString& name) {  return gtk3Appearance()->setTheme(name); }
 
 QStringList AppearenceGTK::getAvaliableIcons()
 {
