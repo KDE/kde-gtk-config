@@ -60,7 +60,7 @@ public:
     static QStringList getAvaliableIconsPaths();
     static QStringList getAvaliableIcons();
 
-    void loadFileConfig();
+    bool loadFileConfig();
     bool saveFileConfig();
     
     AbstractAppearance* gtk2Appearance() const { return m_app.first(); }

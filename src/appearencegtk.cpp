@@ -95,14 +95,15 @@ QStringList AppearenceGTK::getAvaliableIconsPaths()
 ////////////////////////////////////
 // Methods responsible of file creation
 
-void AppearenceGTK::loadFileConfig()
+bool AppearenceGTK::loadFileConfig()
 {
-    bool correct = true;
+    bool correct = false;
     foreach(AbstractAppearance* app, m_app) {
         bool c = app->loadSettings(app->defaultConfigFile());
-        correct = correct && c;
+        correct = correct || c;
     }
     kDebug() << "loading..." << correct;
+    return correct;
 }
 
 bool AppearenceGTK::saveFileConfig()

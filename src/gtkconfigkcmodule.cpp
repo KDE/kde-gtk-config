@@ -261,6 +261,7 @@ void GTKConfigKCModule::savePreviewConfig()
 {
     if(!m_saveEnabled)
         return;
+    kDebug() << "saving UI...";
     
     appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
     appareance->setTheme(ui->cb_theme->currentText());
@@ -323,59 +324,91 @@ void GTKConfigKCModule::save()
         QMessageBox::warning(this, "ERROR", i18n("It was not possible to save the config"));
 }
 
+void setComboItem(QComboBox* combo, const QStringList& texts)
+{
+    foreach(const QString& text, texts) {
+        int pos = combo->findText(text);
+        qDebug() << "fooooound " << pos << text << texts;
+        if(pos>=0) {
+            combo->setCurrentIndex(pos);
+            break;
+        }
+    }
+}
+
 void GTKConfigKCModule::defaults()
 {
-    appareance->setFont(fontToString(font()));
-    appareance->setTheme("oxygen-gtk"); //TODO: review, should use system's settings, for better integration
-    appareance->setIcon("oxygen-refit-2-2.5.0");
-    appareance->setIconFallback("oxygen");
+    kDebug() << "loading defaults...";
+    m_saveEnabled = false;
+    ui->font->setFont(font());
+    bool showIcons = !QCoreApplication::testAttribute(Qt::AA_DontShowIconsInMenus);
+    ui->checkBox_icon_gtk_buttons->setChecked(showIcons);
+    ui->checkBox_icon_gtk_menus->setChecked(showIcons);
     
-    refreshLists();
+    setComboItem(ui->cb_theme, QStringList("oxygen-gtk") << "Clearlooks");
+    setComboItem(ui->cb_theme_gtk3, QStringList("oxygen-gtk") << "Adwaita");
+    
+    QStringList icons;
+    icons << "oxygen-refit-2-2.5.0" << "oxygen" << "gnome";
+    setComboItem(ui->cb_icon, icons);
+    
+    int idx = ui->cb_icon->currentIndex();
+    if(idx>=0) {
+        setComboItem(ui->cb_icon_fallback, icons.mid(idx+2));
+    }
+    m_saveEnabled = true;
+    
     makePreviewIconTheme();
+    appChanged();
 }
 
 void GTKConfigKCModule::load()
 {
     m_saveEnabled = false;
+    refreshThemesUi();
     
-    appareance->loadFileConfig();
-    refreshLists();
-    makePreviewIconTheme();
+    bool someCorrect = appareance->loadFileConfig();
+    if(someCorrect) {
+        refreshLists();
+        makePreviewIconTheme();
+    } else
+        defaults();
     
     m_saveEnabled = true;
+}
+
+void refreshComboSameCurrentValue(QComboBox* combo, const QString& temp, const QStringList& texts)
+{
+    combo->clear();
+    combo->addItems(texts);
+    combo->setCurrentIndex(combo->findText(temp));
 }
 
 void GTKConfigKCModule::refreshThemesUi(bool useConfig)
 {
     //theme gtk2
-    QString temp;
     bool wasenabled = m_saveEnabled;
     m_saveEnabled = false;
     
-    temp = useConfig ? appareance->getTheme() : ui->cb_theme->currentText(); //The currently selected theme
-    ui->cb_theme->clear();
-    ui->cb_theme->addItems(appareance->gtk2Appearance()->installedThemesNames());
-    ui->cb_theme->setCurrentIndex(ui->cb_theme->findText(temp));
+    refreshComboSameCurrentValue(ui->cb_theme,
+        useConfig ? appareance->getTheme() : ui->cb_theme->currentText(),
+        appareance->gtk2Appearance()->installedThemesNames());
     
     //theme gtk3
-    temp = useConfig ? appareance->getThemeGtk3() : ui->cb_theme_gtk3->currentText();
-    QStringList themes=appareance->gtk3Appearance()->installedThemesNames();
-    ui->cb_theme_gtk3->clear();
-    ui->cb_theme_gtk3->addItems(themes);
-    ui->cb_theme_gtk3->setCurrentIndex(ui->cb_theme_gtk3->findText(temp));
+    refreshComboSameCurrentValue(ui->cb_theme_gtk3,
+        useConfig ? appareance->getThemeGtk3() : ui->cb_theme_gtk3->currentText(),
+        appareance->gtk3Appearance()->installedThemesNames());
     
     //icons
     QStringList icons = appareance->getAvaliableIcons();
-    temp = useConfig ? appareance->getIcon() : ui->cb_icon->currentText();
-    ui->cb_icon->clear();
-    ui->cb_icon->addItems(icons);
-    ui->cb_icon->setCurrentIndex(ui->cb_icon->findText(temp));
+    refreshComboSameCurrentValue(ui->cb_icon,
+        useConfig ? appareance->getIcon() : ui->cb_icon->currentText(),
+        icons);
     
     //fallback icons
-    temp = useConfig ? appareance->getIconFallback() : ui->cb_icon_fallback->currentText();
-    ui->cb_icon_fallback->clear();
-    ui->cb_icon_fallback->addItems(icons);
-    ui->cb_icon_fallback->setCurrentIndex(ui->cb_icon_fallback->findText(temp));
+    refreshComboSameCurrentValue(ui->cb_icon_fallback,
+        useConfig ? appareance->getIconFallback() : ui->cb_icon_fallback->currentText(),
+        icons);
     
     m_saveEnabled = wasenabled;
 }
