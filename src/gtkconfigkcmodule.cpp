@@ -328,7 +328,6 @@ void setComboItem(QComboBox* combo, const QStringList& texts)
 {
     foreach(const QString& text, texts) {
         int pos = combo->findText(text);
-        qDebug() << "fooooound " << pos << text << texts;
         if(pos>=0) {
             combo->setCurrentIndex(pos);
             break;
