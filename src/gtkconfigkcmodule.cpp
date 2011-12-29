@@ -49,6 +49,7 @@ static QMap<QString, int> gtkToolbar = gtkToolbarInit();
 GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     : KCModule(GTKConfigKCModuleFactory::componentData(), parent)
     , ui(new Ui::GUI)
+    , m_saveEnabled(true)
 {
     Q_UNUSED(args);
     KAboutData *acercade = new KAboutData("cgc","kcm_cgc",ki18n("KDE GTK Config"), "2.0",
@@ -258,6 +259,9 @@ void GTKConfigKCModule::makePreviewIconTheme()
 
 void GTKConfigKCModule::savePreviewConfig()
 {
+    if(!m_saveEnabled)
+        return;
+    
     appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
     appareance->setTheme(ui->cb_theme->currentText());
     appareance->setIcon(ui->cb_icon->currentText());
@@ -325,17 +329,22 @@ void GTKConfigKCModule::defaults()
 
 void GTKConfigKCModule::load()
 {
+    m_saveEnabled = false;
+    
     appareance->loadFileConfig();
     refreshLists();
     makePreviewIconTheme();
+    
+    m_saveEnabled = true;
 }
 
 void GTKConfigKCModule::refreshThemesUi(bool useConfig)
 {
     //theme gtk2
     QString temp;
-    bool wasenabled = appareance->isSaveEnabled();
-    appareance->setSaveEnabled(false);
+    bool wasenabled = m_saveEnabled;
+    m_saveEnabled = false;
+    
     temp = useConfig ? appareance->getTheme() : ui->cb_theme->currentText(); //The currently selected theme
     ui->cb_theme->clear();
     ui->cb_theme->addItems(appareance->gtk2Appearance()->installedThemesNames());
@@ -360,7 +369,8 @@ void GTKConfigKCModule::refreshThemesUi(bool useConfig)
     ui->cb_icon_fallback->clear();
     ui->cb_icon_fallback->addItems(icons);
     ui->cb_icon_fallback->setCurrentIndex(ui->cb_icon_fallback->findText(temp));
-    appareance->setSaveEnabled(wasenabled);
+    
+    m_saveEnabled = wasenabled;
 }
 
 void GTKConfigKCModule::showDialogForInstall()

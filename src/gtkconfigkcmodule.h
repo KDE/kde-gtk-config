@@ -77,6 +77,7 @@ private:
     KProcess* m_p3;
     QString m_tempGtk2Preview;
     QString m_tempGtk3Preview;
+    bool m_saveEnabled;
 };
 
 #endif // MODULO_H
