@@ -69,8 +69,6 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     
     m_tempGtk2Preview = KGlobal::dirs()->saveLocation("tmp", "gtkrc-2.0", false);
     m_tempGtk3Preview = KGlobal::dirs()->saveLocation("tmp", ".config/gtk-3.0/settings.ini", false);
-    QFile::copy(appareance->gtk2Appearance()->defaultConfigFile(), m_tempGtk2Preview);
-    QFile::copy(appareance->gtk3Appearance()->defaultConfigFile(), m_tempGtk3Preview);
     
     m_p2 = new KProcess(this);
     m_p2->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);
@@ -259,7 +257,7 @@ void GTKConfigKCModule::makePreviewIconTheme()
 
 void GTKConfigKCModule::savePreviewConfig()
 {
-    if(!m_saveEnabled)
+    if(!m_saveEnabled || !ui->showPreview->isChecked())
         return;
     kDebug() << "saving UI...";
     
@@ -273,12 +271,18 @@ void GTKConfigKCModule::savePreviewConfig()
     appareance->setShowIconsInButtons(ui->checkBox_icon_gtk_buttons->isChecked());
     appareance->setShowIconsInMenus(ui->checkBox_icon_gtk_menus->isChecked());
     
-    if(m_p3->state()==QProcess::Running) {
+    if(ui->previewVersion->currentIndex()==1) {
+        //we don't want to recursively loop between savePreviewConfig and runIfNecessary
+        m_saveEnabled = false;
         m_p3->kill();
         appareance->gtk3Appearance()->saveSettings(m_tempGtk3Preview);
+        
+        //need to make sure runIfNecessary() to know that it's not running
         m_p3->waitForFinished();
-        m_p3->start();
+        
+        //it will trigger runIfNecessary slot eventually
         ui->showPreview->setChecked(true);
+        m_saveEnabled = true;
     } else
         appareance->gtk2Appearance()->saveSettings(m_tempGtk2Preview);
 }
@@ -291,19 +295,22 @@ void GTKConfigKCModule::appChanged()
 
 void GTKConfigKCModule::runIfNecessary()
 {
-    KProcess* p = ui->previewVersion->currentIndex()==0 ? m_p2 : m_p3;
-    KProcess* np = ui->previewVersion->currentIndex()==1 ? m_p2 : m_p3;
-    np->kill();
-    
+    int idx = ui->previewVersion->currentIndex();
+    KProcess* p  = idx==0 ? m_p2 : m_p3;
+    KProcess* np = idx==1 ? m_p2 : m_p3;
     bool checked = ui->showPreview->isChecked();
+    
+    np->kill();
     if(checked) {
+        savePreviewConfig();
         if(p->state()!=KProcess::Running)
             p->start();
+        
+        np->waitForFinished();
+        
+        if(checked)
+            ui->showPreview->setChecked(checked);
     }
-    np->waitForFinished();
-    
-    if(checked)
-        ui->showPreview->setChecked(checked);
 }
 
 
