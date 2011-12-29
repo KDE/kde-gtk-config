@@ -21,6 +21,7 @@
  */
 
 #include "dialog_uninstaller.h"
+#include "abstractappearance.h"
 DialogUninstaller::DialogUninstaller(QWidget* parent, AppearenceGTK *app)
     : QDialog(parent)
     , ui(new Ui::dialog_uninstaller)
@@ -56,7 +57,7 @@ void DialogUninstaller::refresthListsForUninstall()
     ui->lb_notice_uninstall_icon->clear();
     ui->lb_notice_uninstall_theme->clear();
     
-    QStringList themes = appareance->getAvaliableThemesPaths();
+    QStringList themes = appareance->gtk2Appearance()->installedThemes();
     themes = themes.filter(QDir::homePath()); //we only one the locally installed themes
     
     //Just leave the theme name
@@ -84,7 +85,7 @@ void DialogUninstaller::uninstallTheme()
 
     QString tema = ui->cb_uninstall_theme->currentText();
 
-    QStringList themes = appareance->getAvaliableThemesPaths();
+    QStringList themes = appareance->gtk2Appearance()->installedThemes();
     themes = themes.filter(QRegExp('/'+tema+'$'));
 
     Q_ASSERT(themes.size()==1);

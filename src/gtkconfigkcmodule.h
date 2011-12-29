@@ -43,6 +43,10 @@ public:
     
     void refreshThemesUi(bool useConfig=false);
     
+    virtual void save();
+    virtual void defaults();
+    virtual void load();
+    
 public slots:
     void refreshLists();
     void makePreviewIconTheme();
@@ -53,9 +57,6 @@ public slots:
     
     void showThemeGHNS();
     void installThemeGTK3GHNS();
-  
-    virtual void save();
-    virtual void defaults();
     
     void showDialogForInstall();
     void showDialogForUninstall();

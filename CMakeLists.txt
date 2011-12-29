@@ -12,8 +12,11 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/ui 
     ${KDE4_INCLUDES} ${QT_INCLUDES})
 
-set(kcm_SRCS 
+set(kcm_SRCS
+     src/appearancegtk3.cpp
+     src/appearancegtk2.cpp
      src/appearencegtk.cpp
+     src/abstractappearance.cpp
      src/thread.cpp
      src/installer.cpp 
      src/gtkconfigkcmodule.cpp

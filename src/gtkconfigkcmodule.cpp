@@ -29,6 +29,7 @@
 #include <QtGui>
 #include <QX11EmbedContainer>
 #include "ui_gui.h"
+#include "abstractappearance.h"
 
 K_PLUGIN_FACTORY(GTKConfigKCModuleFactory, registerPlugin<GTKConfigKCModule>();)
 K_EXPORT_PLUGIN(GTKConfigKCModuleFactory("cgc","kde-gtk-config"))
@@ -65,8 +66,18 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     installer =  new DialogInstaller(this);
     uninstaller = new DialogUninstaller(this, appareance);
     
-    refreshLists();
-    makePreviewIconTheme();
+    m_tempGtk2Preview = KGlobal::dirs()->saveLocation("tmp", "gtkrc-2.0", false);
+    m_tempGtk3Preview = KGlobal::dirs()->saveLocation("tmp", ".config/gtk-3.0/settings.ini", false);
+    QFile::copy(appareance->gtk2Appearance()->defaultConfigFile(), m_tempGtk2Preview);
+    QFile::copy(appareance->gtk3Appearance()->defaultConfigFile(), m_tempGtk3Preview);
+    
+    m_p2 = new KProcess(this);
+    m_p2->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);
+    *m_p2 << KStandardDirs::findExe("gtk_preview");
+    
+    m_p3 = new KProcess(this);
+    m_p3->setEnv("XDG_CONFIG_HOME", KGlobal::dirs()->saveLocation("tmp", ".config"));
+    *m_p3 << KStandardDirs::findExe("gtk3_preview");
     
     //UI changes
     connect(ui->cb_theme, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
@@ -93,19 +104,6 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     //GHNS connections
     connect(ui->but_theme_ghns, SIGNAL(clicked(bool)), this, SLOT(showThemeGHNS()));
     connect(ui->but_theme_gtk3_ghns, SIGNAL(clicked(bool)), this, SLOT(installThemeGTK3GHNS()));
-    
-    m_tempGtk2Preview = KGlobal::dirs()->saveLocation("tmp", "gtkrc-2.0", false);
-    m_tempGtk3Preview = KGlobal::dirs()->saveLocation("tmp", ".config/gtk-3.0/settings.ini", false);
-    QFile::copy(appareance->gtkrcPath(), m_tempGtk2Preview);
-    QFile::copy(appareance->gtk3settingsPath(), m_tempGtk3Preview);
-    
-    m_p2 = new KProcess(this);
-    m_p2->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);
-    *m_p2 << KStandardDirs::findExe("gtk_preview");
-    
-    m_p3 = new KProcess(this);
-    m_p3->setEnv("XDG_CONFIG_HOME", KGlobal::dirs()->saveLocation("tmp", ".config"));
-    *m_p3 << KStandardDirs::findExe("gtk3_preview");
     
     connect(m_p2, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
     connect(m_p3, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
@@ -263,7 +261,7 @@ void GTKConfigKCModule::savePreviewConfig()
     appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
     appareance->setTheme(ui->cb_theme->currentText());
     appareance->setIcon(ui->cb_icon->currentText());
-    appareance->setIconFallBack(ui->cb_icon_fallback->currentText());
+    appareance->setIconFallback(ui->cb_icon_fallback->currentText());
     appareance->setFont(fontToString(ui->font->font()));
 
     appareance->setToolbarStyle(gtkToolbar.key(ui->cb_toolbar_icons->currentIndex()));
@@ -272,11 +270,11 @@ void GTKConfigKCModule::savePreviewConfig()
     
     if(m_p3->state()==QProcess::Running) {
         m_p3->kill();
-        appareance->saveGTK3Config(m_tempGtk3Preview);
+        appareance->gtk3Appearance()->saveSettings(m_tempGtk3Preview);
         m_p3->waitForFinished();
         m_p3->start();
     } else
-        appareance->saveGTK2Config(m_tempGtk2Preview);
+        appareance->gtk2Appearance()->saveSettings(m_tempGtk2Preview);
 }
 
 void GTKConfigKCModule::appChanged()
@@ -303,7 +301,7 @@ void GTKConfigKCModule::save()
             << "theme : " << appareance->getTheme() << "\n"
             << "themeGTK3 : " << appareance->getThemeGtk3() << "\n"
             << "icons : " << appareance->getIcon() << "\n"
-            << "fallback icons : " << appareance->getIconFallBack() << "\n"
+            << "fallback icons : " << appareance->getIconFallback() << "\n"
             << "font family : " << appareance->getFont() << "\n"
             << "toolbar style : " << appareance->getToolbarStyle() << "\n"
             << "icons in buttons : " << appareance->getShowIconsInButtons() << "\n"
@@ -312,8 +310,6 @@ void GTKConfigKCModule::save()
     
     if(!appareance->saveFileConfig())
         QMessageBox::warning(this, "ERROR", i18n("It was not possible to save the config"));
-    else
-        KProcess::startDetached(KStandardDirs::findExe("reload_gtk_apps"));
 }
 
 void GTKConfigKCModule::defaults()
@@ -321,23 +317,33 @@ void GTKConfigKCModule::defaults()
     appareance->setFont(fontToString(font()));
     appareance->setTheme("oxygen-gtk"); //TODO: review, should use system's settings, for better integration
     appareance->setIcon("oxygen-refit-2-2.5.0");
-    appareance->setIconFallBack("oxygen");
+    appareance->setIconFallback("oxygen");
     
     refreshLists();
+    makePreviewIconTheme();
+}
+
+void GTKConfigKCModule::load()
+{
+    appareance->loadFileConfig();
+    refreshLists();
+    makePreviewIconTheme();
 }
 
 void GTKConfigKCModule::refreshThemesUi(bool useConfig)
 {
     //theme gtk2
     QString temp;
+    bool wasenabled = appareance->isSaveEnabled();
+    appareance->setSaveEnabled(false);
     temp = useConfig ? appareance->getTheme() : ui->cb_theme->currentText(); //The currently selected theme
     ui->cb_theme->clear();
-    ui->cb_theme->addItems(appareance->getAvaliableThemes());
+    ui->cb_theme->addItems(appareance->gtk2Appearance()->installedThemesNames());
     ui->cb_theme->setCurrentIndex(ui->cb_theme->findText(temp));
     
     //theme gtk3
     temp = useConfig ? appareance->getThemeGtk3() : ui->cb_theme_gtk3->currentText();
-    QStringList themes=appareance->getAvaliableGtk3Themes();
+    QStringList themes=appareance->gtk3Appearance()->installedThemesNames();
     ui->cb_theme_gtk3->clear();
     ui->cb_theme_gtk3->addItems(themes);
     ui->cb_theme_gtk3->setCurrentIndex(ui->cb_theme_gtk3->findText(temp));
@@ -350,10 +356,11 @@ void GTKConfigKCModule::refreshThemesUi(bool useConfig)
     ui->cb_icon->setCurrentIndex(ui->cb_icon->findText(temp));
     
     //fallback icons
-    temp = useConfig ? appareance->getIconFallBack() : ui->cb_icon_fallback->currentText();
+    temp = useConfig ? appareance->getIconFallback() : ui->cb_icon_fallback->currentText();
     ui->cb_icon_fallback->clear();
     ui->cb_icon_fallback->addItems(icons);
     ui->cb_icon_fallback->setCurrentIndex(ui->cb_icon_fallback->findText(temp));
+    appareance->setSaveEnabled(wasenabled);
 }
 
 void GTKConfigKCModule::showDialogForInstall()

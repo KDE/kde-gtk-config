@@ -23,11 +23,15 @@
 #ifndef APARIENCIAGTK_H
 #define APARIENCIAGTK_H
 
-#include <QtCore>
+#include <QString>
+#include <QMap>
+#include <qvector.h>
+
+class AbstractAppearance;
 /**
  * This class is responsible of administrating the GTK themes. It loads the 
  * configurations from the .gtkrc-2.0 file.
-  */
+ */
 class AppearenceGTK
 {
 public:
@@ -36,43 +40,33 @@ public:
     void setTheme(const QString&);
     void setThemeGtk3(const QString &theme);
     void setIcon(const QString&);
-    void setIconFallBack(const QString&);
+    void setIconFallback(const QString&);
     void setFont(const QString&);
     
-    //New features
     void setToolbarStyle(const QString&);
-    void setShowIconsInMenus(bool show);
-    void setShowIconsInButtons(bool show);
+    void setShowIconsInMenus(const bool& show);
+    void setShowIconsInButtons(const bool& show);
 
-    QString getTheme() const; //Obtiene el nombre del tema actualmente utilizado
+    QString getTheme() const;
     QString getThemeGtk3() const;
    
-    QString getIcon() const; //Obtiene el nombre del tema de iconos utilizado actualmente
-    QString getFont() const; //Obtiene el tipo de letra que se esta utilizando
-    QString getIconFallBack() const; // Obtiene el tema de iconos fallback
-    QString getToolbarStyle() const; //Obtiene el estilo de la barra de herramientas
+    QString getIcon() const;
+    QString getFont() const;
+    QString getIconFallback() const;
+    QString getToolbarStyle() const;
     bool getShowIconsInMenus() const;
     bool getShowIconsInButtons() const;
     
-    static QStringList getAvaliableIconsPaths();//Obtiene las rutas absolutas de los temas de iconos disponibles en el sistema
-    static QStringList getAvaliableIcons(); //Obtiene temas de icono disponibles en el sistema
-    QStringList getAvaliableThemes() const;
-    QStringList getAvaliableGtk3Themes();
-    QStringList getAvaliableThemesPaths() const;
+    static QStringList getAvaliableIconsPaths();
+    static QStringList getAvaliableIcons();
 
-    bool loadFileConfig();
+    void loadFileConfig();
     bool saveFileConfig();
-    bool saveGTK2Config(const QString& rootDir) const;
-    bool saveGTK3Config(const QString& rootDir) const;
     
-    QString gtkrcPath();
-    QString gtk3settingsPath();
+    AbstractAppearance* gtk2Appearance() const { return m_app.first(); }
+    AbstractAppearance* gtk3Appearance() const { return m_app.last(); }
 private:
-    QString themesGtkrcFile(const QString& themeName) const;
-    bool loadGTK2Config();
-    bool loadGTK3Config();
-    
-    QMap <QString, QString> settings;
+    QVector<AbstractAppearance*> m_app;
 };
 
 #endif // APARIENCIAGTK_H
