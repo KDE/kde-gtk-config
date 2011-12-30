@@ -229,8 +229,6 @@ void GTKConfigKCModule::makePreviewIconTheme()
     int icon = ui->cb_icon->currentIndex();
     QString path_icon = ui->cb_icon->itemData(icon, IconThemesModel::PathRole).toString();
     
-    qDebug() << "lalalala" << path_icon << path_fallback << IconThemesModel::PathRole<< IconThemesModel::DirNameRole;
-
     tryIcon(ui->lb_prev_1, path_fallback, path_icon, "user-home");
     tryIcon(ui->lb_prev_2, path_fallback, path_icon, "folder");
     tryIcon(ui->lb_prev_3, path_fallback, path_icon, "user-trash");
