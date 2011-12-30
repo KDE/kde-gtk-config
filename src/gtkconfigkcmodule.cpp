@@ -223,14 +223,11 @@ void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const
 
 void GTKConfigKCModule::makePreviewIconTheme()
 {
-    QString path_icon, path_fallback;
     int icon_fallback = ui->cb_icon_fallback->currentIndex();
-    if(icon_fallback>=0)
-        path_fallback = m_iconsModel->index(icon_fallback, 0).data(IconThemesModel::PathRole).toString();
+    QString path_fallback = ui->cb_icon->itemData(icon_fallback, IconThemesModel::PathRole).toString();
     
     int icon = ui->cb_icon->currentIndex();
-    if(icon>=0)
-        path_icon = m_iconsModel->index(icon, 0).data(IconThemesModel::PathRole).toString();
+    QString path_icon = ui->cb_icon->itemData(icon, IconThemesModel::PathRole).toString();
     
     qDebug() << "lalalala" << path_icon << path_fallback << IconThemesModel::PathRole<< IconThemesModel::DirNameRole;
 
@@ -391,8 +388,8 @@ void GTKConfigKCModule::refreshThemesUi(bool useConfig)
     //icons
     QString currentIcon = useConfig ? appareance->getIcon() : ui->cb_icon->currentText(),
             currentFallback = useConfig ? appareance->getIconFallback() : ui->cb_icon_fallback->currentText();
-    ui->cb_icon->setCurrentIndex(ui->cb_icon->findText(currentIcon));
-    ui->cb_icon_fallback->setCurrentIndex(ui->cb_icon_fallback->findText(currentFallback));
+    ui->cb_icon->setCurrentIndex(ui->cb_icon->findData(currentIcon, IconThemesModel::DirNameRole));
+    ui->cb_icon_fallback->setCurrentIndex(ui->cb_icon_fallback->findData(currentFallback, IconThemesModel::DirNameRole));
     
     m_saveEnabled = wasenabled;
 }
