@@ -16,9 +16,6 @@
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabs">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
      <property name="tabPosition">
       <enum>QTabWidget::North</enum>
      </property>
@@ -33,7 +30,7 @@
        <item>
         <widget class="QWidget" name="widget_5" native="true">
          <layout class="QGridLayout" name="gridLayout">
-          <item row="2" column="0">
+          <item row="1" column="0">
            <widget class="QGroupBox" name="groupBox_6">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -428,83 +425,103 @@
             </layout>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QGroupBox" name="groupBox_3">
-            <property name="title">
-             <string>Actions Display</string>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Look &amp;&amp; Feel</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>Actions Display</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Gtk style toolbar</string>
             </property>
-            <layout class="QFormLayout" name="formLayout">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label">
-               <property name="text">
-                <string>Gtk style toolbar</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QComboBox" name="cb_toolbar_icons">
-               <item>
-                <property name="text">
-                 <string>Icons only</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Text only</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Text under icons</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Text after icons</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item row="1" column="0" colspan="2">
-              <widget class="Line" name="line">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_22">
-               <property name="text">
-                <string>Show Icons in Gtk Buttons</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QCheckBox" name="checkBox_icon_gtk_buttons">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_23">
-               <property name="text">
-                <string>Show Icons in Gtk Menus</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QCheckBox" name="checkBox_icon_gtk_menus">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-            </layout>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="cb_toolbar_icons">
+            <item>
+             <property name="text">
+              <string>Icons only</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Text only</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Text under icons</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Text after icons</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="2">
+           <widget class="Line" name="line">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_22">
+            <property name="text">
+             <string>Show Icons in Gtk Buttons</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="checkBox_icon_gtk_buttons">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_23">
+            <property name="text">
+             <string>Show Icons in Gtk Menus</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="checkBox_icon_gtk_menus">
+            <property name="text">
+             <string/>
+            </property>
            </widget>
           </item>
          </layout>
         </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
