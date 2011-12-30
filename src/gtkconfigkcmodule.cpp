@@ -122,6 +122,19 @@ GTKConfigKCModule::~GTKConfigKCModule()
     m_p3->waitForFinished();
 }
 
+void GTKConfigKCModule::syncUI()
+{
+    appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
+    appareance->setTheme(ui->cb_theme->currentText());
+    appareance->setIcon(ui->cb_icon->currentText());
+    appareance->setIconFallback(ui->cb_icon_fallback->currentText());
+    appareance->setFont(fontToString(ui->font->font()));
+
+    appareance->setToolbarStyle(gtkToolbar.key(ui->cb_toolbar_icons->currentIndex()));
+    appareance->setShowIconsInButtons(ui->checkBox_icon_gtk_buttons->isChecked());
+    appareance->setShowIconsInMenus(ui->checkBox_icon_gtk_menus->isChecked());
+}
+
 void GTKConfigKCModule::showThemeGHNS()
 {
      KNS3::DownloadDialog d("cgctheme.knsrc", this);
@@ -168,7 +181,7 @@ void GTKConfigKCModule::refreshLists()
     refreshThemesUi(true);
 
     QString font = appareance->getFont();
-    Q_ASSERT(!font.isEmpty());
+//     Q_ASSERT(!font.isEmpty());
     ui->font->setFont(stringToFont(font));
     
     ui->cb_toolbar_icons->setCurrentIndex(gtkToolbar[appareance->getToolbarStyle()]);
@@ -261,15 +274,7 @@ void GTKConfigKCModule::savePreviewConfig()
         return;
     kDebug() << "saving UI...";
     
-    appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
-    appareance->setTheme(ui->cb_theme->currentText());
-    appareance->setIcon(ui->cb_icon->currentText());
-    appareance->setIconFallback(ui->cb_icon_fallback->currentText());
-    appareance->setFont(fontToString(ui->font->font()));
-
-    appareance->setToolbarStyle(gtkToolbar.key(ui->cb_toolbar_icons->currentIndex()));
-    appareance->setShowIconsInButtons(ui->checkBox_icon_gtk_buttons->isChecked());
-    appareance->setShowIconsInMenus(ui->checkBox_icon_gtk_menus->isChecked());
+    syncUI();
     
     if(ui->previewVersion->currentIndex()==1) {
         //we don't want to recursively loop between savePreviewConfig and runIfNecessary
@@ -313,7 +318,6 @@ void GTKConfigKCModule::runIfNecessary()
     }
 }
 
-
 void GTKConfigKCModule::save()
 {
     kDebug() << "******************************************* INSTALLATION :\n"
@@ -326,7 +330,7 @@ void GTKConfigKCModule::save()
             << "icons in buttons : " << appareance->getShowIconsInButtons() << "\n"
             << "icons in menus : " << appareance->getShowIconsInMenus() << "\n"
             << "********************************************************";
-    
+    syncUI();
     if(!appareance->saveFileConfig())
         QMessageBox::warning(this, "ERROR", i18n("It was not possible to save the config"));
 }

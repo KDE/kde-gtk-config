@@ -68,6 +68,8 @@ signals:
     void selectedIconTheme();
     
 private:
+    void syncUI();
+    
     Ui::GUI *ui;
     AppearenceGTK *appareance;
     
