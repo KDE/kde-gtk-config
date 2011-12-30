@@ -122,6 +122,18 @@ GTKConfigKCModule::~GTKConfigKCModule()
     m_p3->waitForFinished();
 }
 
+QString fontToString(const QFont& f)
+{
+    QString style;
+
+    if(f.bold())
+        style += " bold";
+    if(f.italic())
+        style += " italic";
+    
+    return f.family() + style + ' ' + QString::number(f.pointSize());
+}
+
 void GTKConfigKCModule::syncUI()
 {
     appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
@@ -162,18 +174,6 @@ QFont stringToFont(const QString& font)
     int fontSize = fontRx.cap(3).toInt();
     
     return QFont(fontFamily, fontSize, bold, italic);
-}
-
-QString fontToString(const QFont& f)
-{
-    QString style;
-
-    if(f.bold())
-        style += " bold";
-    if(f.italic())
-        style += " italic";
-    
-    return f.family() + style + ' ' + QString::number(f.pointSize());
 }
 
 void GTKConfigKCModule::refreshLists()
