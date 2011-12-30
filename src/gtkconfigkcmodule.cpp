@@ -30,6 +30,7 @@
 #include <QX11EmbedContainer>
 #include "ui_gui.h"
 #include "abstractappearance.h"
+#include "iconthemesmodel.h"
 
 K_PLUGIN_FACTORY(GTKConfigKCModuleFactory, registerPlugin<GTKConfigKCModule>();)
 K_EXPORT_PLUGIN(GTKConfigKCModuleFactory("cgc","kde-gtk-config"))
@@ -66,6 +67,9 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     appareance = new AppearenceGTK;
     installer =  new DialogInstaller(this);
     uninstaller = new DialogUninstaller(this, appareance);
+    m_iconsModel = new IconThemesModel(false, this);
+    ui->cb_icon->setModel(m_iconsModel);
+    ui->cb_icon_fallback->setModel(m_iconsModel);
     
     m_tempGtk2Preview = KGlobal::dirs()->saveLocation("tmp", "gtkrc-2.0", false);
     m_tempGtk3Preview = KGlobal::dirs()->saveLocation("tmp", ".config/gtk-3.0/settings.ini", false);
@@ -250,12 +254,12 @@ void GTKConfigKCModule::makePreviewIconTheme()
     int icon_fallback = ui->cb_icon_fallback->currentIndex();
     QString path_fallback;
     if(icon_fallback>=0)
-        path_fallback = appareance->getAvaliableIconsPaths()[icon_fallback];
+        path_fallback = m_iconsModel->index(icon_fallback, 0).data(IconThemesModel::PathRole).toString();
     
     int icon = ui->cb_icon->currentIndex();
     QString path_icon;
     if(icon>=0)
-        path_icon = appareance->getAvaliableIconsPaths()[icon];
+        path_icon = m_iconsModel->index(icon, 0).data(IconThemesModel::PathRole).toString();
 
     tryIcon(ui->lb_prev_1, path_fallback, path_icon, "user-home");
     tryIcon(ui->lb_prev_2, path_fallback, path_icon, "folder");
@@ -391,7 +395,9 @@ void refreshComboSameCurrentValue(QComboBox* combo, const QString& temp, const Q
 {
     combo->clear();
     combo->addItems(texts);
-    combo->setCurrentIndex(combo->findText(temp));
+    int idx = combo->findText(temp);
+    if(idx>=0)
+        combo->setCurrentIndex(idx);
 }
 
 void GTKConfigKCModule::refreshThemesUi(bool useConfig)
@@ -410,15 +416,11 @@ void GTKConfigKCModule::refreshThemesUi(bool useConfig)
         appareance->gtk3Appearance()->installedThemesNames());
     
     //icons
-    QStringList icons = appareance->getAvaliableIcons();
-    refreshComboSameCurrentValue(ui->cb_icon,
-        useConfig ? appareance->getIcon() : ui->cb_icon->currentText(),
-        icons);
-    
-    //fallback icons
-    refreshComboSameCurrentValue(ui->cb_icon_fallback,
-        useConfig ? appareance->getIconFallback() : ui->cb_icon_fallback->currentText(),
-        icons);
+    QString currentIcon = useConfig ? appareance->getIcon() : ui->cb_icon->currentText(),
+            currentFallback = useConfig ? appareance->getIconFallback() : ui->cb_icon_fallback->currentText();
+    m_iconsModel->reload();
+    ui->cb_icon->setCurrentIndex(ui->cb_icon->findText(currentIcon));
+    ui->cb_icon_fallback->setCurrentIndex(ui->cb_icon_fallback->findText(currentFallback));
     
     m_saveEnabled = wasenabled;
 }

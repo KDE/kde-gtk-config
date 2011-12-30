@@ -49,49 +49,6 @@ void AppearenceGTK::setTheme(const QString& name) {  return gtk2Appearance()->se
 QString AppearenceGTK::getThemeGtk3() const { return gtk3Appearance()->getTheme(); }
 void AppearenceGTK::setThemeGtk3(const QString& name) {  return gtk3Appearance()->setTheme(name); }
 
-QStringList AppearenceGTK::getAvaliableIcons()
-{
-    QStringList paths = getAvaliableIconsPaths();
-    QStringList ret;
-    
-    foreach(const QString& s, paths)
-        ret << QDir(s).dirName();
-
-    return ret;
-}
-
-QStringList AppearenceGTK::getAvaliableIconsPaths()
-{
-    QStringList availableIcons;
-
-    //List existing folders in the root themes directory
-    //TODO: Use KStandardDirs
-    QDir root("/usr/share/icons");
-    QDirIterator iter(root.path(), QDir::AllDirs|QDir::NoDotAndDotDot|QDir::NoSymLinks);
-    while(iter.hasNext()) {
-        QString currentPath = iter.next();
-        QDir dir(currentPath);
-        
-        if(!dir.exists("cursors") && dir.exists("index.theme")) {
-            availableIcons << currentPath;
-        }
-    }
-
-//  We verify if there are themes in the home folder
-    QDir userIconsDir(QDir::homePath()+"/.icons");
-    QDirIterator it(userIconsDir.path(), QDir::NoDotAndDotDot|QDir::AllDirs);
-    while(it.hasNext()) {
-        QString currentPath = it.next();
-        QDir dir(currentPath);
-
-        if(!dir.exists("cursors") && dir.exists("index.theme")) {
-            availableIcons << currentPath;
-        }
-    }
-
-    return availableIcons;
-}
-
 ////////////////////////////////////
 // Methods responsible of file creation
 

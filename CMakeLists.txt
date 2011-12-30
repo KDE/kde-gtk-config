@@ -13,6 +13,7 @@ include_directories(
     ${KDE4_INCLUDES} ${QT_INCLUDES})
 
 set(kcm_SRCS
+     src/iconthemesmodel.cpp
      src/appearancegtk3.cpp
      src/appearancegtk2.cpp
      src/appearencegtk.cpp

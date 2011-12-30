@@ -57,9 +57,6 @@ public:
     bool getShowIconsInMenus() const;
     bool getShowIconsInButtons() const;
     
-    static QStringList getAvaliableIconsPaths();
-    static QStringList getAvaliableIcons();
-
     bool loadFileConfig();
     bool saveFileConfig();
     

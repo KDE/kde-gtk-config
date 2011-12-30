@@ -22,6 +22,7 @@
 
 #include "dialog_uninstaller.h"
 #include "abstractappearance.h"
+#include "iconthemesmodel.h"
 DialogUninstaller::DialogUninstaller(QWidget* parent, AppearenceGTK *app)
     : QDialog(parent)
     , ui(new Ui::dialog_uninstaller)
@@ -67,15 +68,7 @@ void DialogUninstaller::refresthListsForUninstall()
     ui->cb_uninstall_theme->clear();
     ui->cb_uninstall_theme->addItems(themes);
 
-    //now the same for icons
-    QStringList icons = appareance->getAvaliableIconsPaths();
-    icons = icons.filter(QDir::homePath());
-    
-    for(QStringList::iterator it=icons.begin(); it!=icons.end(); ++it)
-        *it = QDir(*it).dirName();
-
-    ui->cb_uninstall_icon->clear();
-    ui->cb_uninstall_icon->addItems(icons);
+    ui->cb_uninstall_icon->setModel(new IconThemesModel(true));
 }
 
 void DialogUninstaller::uninstallTheme()
@@ -101,21 +94,19 @@ void DialogUninstaller::uninstallTheme()
 
 void DialogUninstaller::uninstallIcon()
 {
-    if(ui->cb_uninstall_icon->currentIndex() < 0)
+    int themeIndex = ui->cb_uninstall_icon->currentIndex();
+    if(themeIndex<0)
         return;
-
-    QString icono = ui->cb_uninstall_icon->currentText();
-    QStringList icons=appareance->getAvaliableIconsPaths();
-    icons = icons.filter(QRegExp("/"+icono+"$"));
-
-    Q_ASSERT(icons.size()==1);
+    
+    QAbstractItemModel* model = ui->cb_uninstall_icon->model();
+    QString theme = model->data(model->index(themeIndex, 0), IconThemesModel::PathRole).toString();
 
     ui->cb_uninstall_icon->setEnabled(false);
     ui->but_uninstall_icon->setEnabled(false);
 
     ui->lb_notice_uninstall_icon->setText(i18n("Uninstalling icons..."));
 
-    threadEraseIcon->setThemeForErase(icons.first());
+    threadEraseIcon->setThemeForErase(theme);
     threadEraseIcon->start();
 }
 
