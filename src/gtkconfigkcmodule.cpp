@@ -142,8 +142,8 @@ void GTKConfigKCModule::syncUI()
 {
     appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
     appareance->setTheme(ui->cb_theme->currentText());
-    appareance->setIcon(ui->cb_icon->currentText());
-    appareance->setIconFallback(ui->cb_icon_fallback->currentText());
+    appareance->setIcon(ui->cb_icon->itemData(ui->cb_icon->currentIndex(), IconThemesModel::DirNameRole).toString());
+    appareance->setIconFallback(ui->cb_icon_fallback->itemData(ui->cb_icon_fallback->currentIndex(), IconThemesModel::DirNameRole).toString());
     appareance->setFont(fontToString(ui->font->font()));
 
     appareance->setToolbarStyle(gtkToolbar.key(ui->cb_toolbar_icons->currentIndex()));
@@ -194,49 +194,21 @@ void GTKConfigKCModule::refreshLists()
     ui->checkBox_icon_gtk_menus->setChecked(appareance->getShowIconsInMenus());
 }
 
-bool greatSizeIs48(const QString& a, const QString& b)
-{
-    bool a48=a.contains("48"), b48=b.contains("48");
-    if((a48 && b48) || (!a48 && !b48))
-        return a<b;
-    else
-        return a48;
-}
-
-QStringList findFilesRecursively(const QStringList& wildcard, const QDir& directory)
-{
-    QStringList ret;
-    QFileInfoList entries = directory.entryInfoList(wildcard, QDir::Files);
-    foreach(const QFileInfo& f, entries) {
-        ret += f.absoluteFilePath();
-    }
-    
-    QStringList subdirs = directory.entryList(QDir::AllDirs|QDir::NoDotAndDotDot);
-    qSort(subdirs.begin(), subdirs.end(), greatSizeIs48);
-    foreach(const QString& subdir, subdirs) {
-        ret += findFilesRecursively(wildcard, QDir(directory.filePath(subdir)));
-        if(!ret.isEmpty())
-            break;
-    }
-    
-    return ret;
-}
-
 void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const QString& iconName)
 {
     label->setToolTip(iconName);
     
-    QStringList ret = findFilesRecursively(QStringList(iconName+".*"), theme);
+    QString ret = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), theme);
     if(!ret.isEmpty()) {
-        QPixmap p(ret.first());
+        QPixmap p(ret);
         Q_ASSERT(!p.isNull());
         label->setPixmap(p);
         return;
     }
     
-    ret = findFilesRecursively(QStringList(iconName+".*"), fallback);
+    ret = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), fallback);
     if(!ret.isEmpty()) {
-        QPixmap p(ret.first());
+        QPixmap p(ret);
         Q_ASSERT(!p.isNull());
         label->setPixmap(p);
         return;
@@ -251,15 +223,16 @@ void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const
 
 void GTKConfigKCModule::makePreviewIconTheme()
 {
+    QString path_icon, path_fallback;
     int icon_fallback = ui->cb_icon_fallback->currentIndex();
-    QString path_fallback;
     if(icon_fallback>=0)
         path_fallback = m_iconsModel->index(icon_fallback, 0).data(IconThemesModel::PathRole).toString();
     
     int icon = ui->cb_icon->currentIndex();
-    QString path_icon;
     if(icon>=0)
         path_icon = m_iconsModel->index(icon, 0).data(IconThemesModel::PathRole).toString();
+    
+    qDebug() << "lalalala" << path_icon << path_fallback << IconThemesModel::PathRole<< IconThemesModel::DirNameRole;
 
     tryIcon(ui->lb_prev_1, path_fallback, path_icon, "user-home");
     tryIcon(ui->lb_prev_2, path_fallback, path_icon, "folder");
@@ -418,7 +391,6 @@ void GTKConfigKCModule::refreshThemesUi(bool useConfig)
     //icons
     QString currentIcon = useConfig ? appareance->getIcon() : ui->cb_icon->currentText(),
             currentFallback = useConfig ? appareance->getIconFallback() : ui->cb_icon_fallback->currentText();
-    m_iconsModel->reload();
     ui->cb_icon->setCurrentIndex(ui->cb_icon->findText(currentIcon));
     ui->cb_icon_fallback->setCurrentIndex(ui->cb_icon_fallback->findText(currentFallback));
     

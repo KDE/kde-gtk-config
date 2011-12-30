@@ -29,11 +29,12 @@ class QDir;
 class IconThemesModel : public QStandardItemModel
 {
     public:
-        enum ThemesRoles { PathRole=Qt::UserRole+1 };
+        enum ThemesRoles { PathRole=Qt::UserRole+1, InheritsRole, DirNameRole };
         
         explicit IconThemesModel(bool onlyHome=false, QObject* parent = 0);
         
         void reload();
+        static QString findFilesRecursively(const QStringList& wildcard, const QDir& directory);
         
     private:
         QList<QDir> installedThemesPaths();

@@ -23,6 +23,10 @@
 #include "iconthemesmodel.h"
 #include <QDir>
 #include <QDirIterator>
+#include <KDebug>
+#include <KDesktopFile>
+#include <kconfiggroup.h>
+#include <kicon.h>
 
 IconThemesModel::IconThemesModel(bool onlyHome, QObject* parent)
     : QStandardItemModel(parent)
@@ -65,6 +69,47 @@ QList<QDir> IconThemesModel::installedThemesPaths()
     return availableIcons;
 }
 
+bool greatSizeIs48(const QString& a, const QString& b)
+{
+    bool a48=a.contains("48"), b48=b.contains("48");
+    if((a48 && b48) || (!a48 && !b48))
+        return a<b;
+    else
+        return a48;
+}
+
+QString IconThemesModel::findFilesRecursively(const QStringList& wildcard, const QDir& directory)
+{
+    QFileInfoList entries = directory.entryInfoList(wildcard, QDir::Files);
+    foreach(const QFileInfo& f, entries) {
+        return f.absoluteFilePath();
+    }
+    
+    QStringList subdirs = directory.entryList(QDir::AllDirs|QDir::NoDotAndDotDot);
+    qSort(subdirs.begin(), subdirs.end(), greatSizeIs48);
+    foreach(const QString& subdir, subdirs) {
+        QString ret = findFilesRecursively(wildcard, QDir(directory.filePath(subdir)));
+        if(!ret.isEmpty())
+            return ret;
+    }
+    
+    return QString();
+}
+
+void fillItem(const QString& dir, QStandardItem* item)
+{
+    KDesktopFile f(QDir(dir).filePath("index.theme"));
+    KConfigGroup g=f.group("Icon Theme");
+    if(g.hasKey("Name")) item->setText(g.readEntry("Name", QString()));
+    if(g.hasKey("Comment")) item->setToolTip(g.readEntry("Comment", QString()));
+    if(g.hasKey("Inherits")) item->setData(g.readEntry("Inherits", QString()), IconThemesModel::InheritsRole);
+    if(g.hasKey("Example")) {
+        QString iconName = g.readEntry("Example", QString());
+        QString path = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), dir);
+        item->setIcon(QIcon(path));
+    }
+}
+
 void IconThemesModel::reload()
 {
     clear();
@@ -73,6 +118,8 @@ void IconThemesModel::reload()
     Q_FOREACH(const QDir& dir, paths) {
         QStandardItem* themeit = new QStandardItem(dir.dirName());
         themeit->setData(dir.path(), PathRole);
+        themeit->setData(dir.dirName(), DirNameRole);
+        fillItem(dir.path(), themeit);
         appendRow(themeit);
     }
 }
