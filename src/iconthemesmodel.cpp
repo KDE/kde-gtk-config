@@ -104,9 +104,12 @@ void fillItem(const QString& dir, QStandardItem* item)
     if(g.hasKey("Comment")) item->setToolTip(g.readEntry("Comment", QString()));
     if(g.hasKey("Inherits")) item->setData(g.readEntry("Inherits", QString()), IconThemesModel::InheritsRole);
     if(g.hasKey("Example")) {
-        QString iconName = g.readEntry("Example", QString());
-        QString path = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), dir);
-        item->setIcon(QIcon(path));
+        QString iconName = g.readEntry("Example", QString("folder"));
+        
+        if(!iconName.isEmpty()) {
+            QString path = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), dir);
+            item->setIcon(QIcon(path));
+        }
     }
     
     if(item->icon().isNull()) {
