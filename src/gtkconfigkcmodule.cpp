@@ -31,6 +31,7 @@
 #include "ui_gui.h"
 #include "abstractappearance.h"
 #include "iconthemesmodel.h"
+#include <kicontheme.h>
 
 K_PLUGIN_FACTORY(GTKConfigKCModuleFactory, registerPlugin<GTKConfigKCModule>();)
 K_EXPORT_PLUGIN(GTKConfigKCModuleFactory("cgc","kde-gtk-config"))
@@ -313,7 +314,7 @@ void setComboItem(QComboBox* combo, const QStringList& texts)
         int pos = combo->findText(text);
         if(pos>=0) {
             combo->setCurrentIndex(pos);
-            break;
+            return;
         }
     }
 }
@@ -331,12 +332,12 @@ void GTKConfigKCModule::defaults()
     setComboItem(ui->cb_theme_gtk3, QStringList("oxygen-gtk") << "Adwaita");
     
     QStringList icons;
-    icons << "oxygen-refit-2-2.5.0" << "oxygen" << "gnome";
+    icons << KIconTheme(KIconTheme::current()).name() << "GNOME";
     setComboItem(ui->cb_icon, icons);
     
     int idx = ui->cb_icon->currentIndex();
     if(idx>=0) {
-        setComboItem(ui->cb_icon_fallback, icons.mid(idx+2));
+        setComboItem(ui->cb_icon_fallback, icons.mid(icons.indexOf(ui->cb_icon->currentText())+1));
     }
     m_saveEnabled = true;
     

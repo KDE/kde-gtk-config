@@ -24,9 +24,7 @@
 #include <QDir>
 #include <QDirIterator>
 #include <KDebug>
-#include <KDesktopFile>
-#include <kconfiggroup.h>
-#include <kicon.h>
+#include <KIconTheme>
 
 IconThemesModel::IconThemesModel(bool onlyHome, QObject* parent)
     : QStandardItemModel(parent)
@@ -96,24 +94,22 @@ QString IconThemesModel::findFilesRecursively(const QStringList& wildcard, const
     return QString();
 }
 
-void fillItem(const QString& dir, QStandardItem* item)
+void fillItem(const QDir& dir, QStandardItem* item)
 {
-    KDesktopFile f(QDir(dir).filePath("index.theme"));
-    KConfigGroup g=f.group("Icon Theme");
-    if(g.hasKey("Name")) item->setText(g.readEntry("Name", QString()));
-    if(g.hasKey("Comment")) item->setToolTip(g.readEntry("Comment", QString()));
-    if(g.hasKey("Inherits")) item->setData(g.readEntry("Inherits", QString()), IconThemesModel::InheritsRole);
-    if(g.hasKey("Example")) {
-        QString iconName = g.readEntry("Example", QString("folder"));
-        
-        if(!iconName.isEmpty()) {
-            QString path = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), dir);
-            item->setIcon(QIcon(path));
-        }
+    KIconTheme theme(dir.dirName());
+    
+    item->setText(theme.name());
+    item->setToolTip(theme.description());
+    item->setData(theme.inherits(), IconThemesModel::InheritsRole);
+    QString iconName = theme.example();
+    
+    if(!iconName.isEmpty()) {
+        QString path = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), dir.path());
+        item->setIcon(QIcon(path));
     }
     
     if(item->icon().isNull()) {
-        QString path = IconThemesModel::findFilesRecursively(QStringList("*.png") << "*.svg" << "*.svgz", dir);
+        QString path = IconThemesModel::findFilesRecursively(QStringList("*.png") << "*.svg" << "*.svgz", dir.path());
         item->setIcon(QIcon(path));        
     }
 }
@@ -127,7 +123,7 @@ void IconThemesModel::reload()
         QStandardItem* themeit = new QStandardItem(dir.dirName());
         themeit->setData(dir.path(), PathRole);
         themeit->setData(dir.dirName(), DirNameRole);
-        fillItem(dir.path(), themeit);
+        fillItem(dir, themeit);
         appendRow(themeit);
     }
 }
