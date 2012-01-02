@@ -108,6 +108,11 @@ void fillItem(const QString& dir, QStandardItem* item)
         QString path = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), dir);
         item->setIcon(QIcon(path));
     }
+    
+    if(item->icon().isNull()) {
+        QString path = IconThemesModel::findFilesRecursively(QStringList("*.png") << "*.svg" << "*.svgz", dir);
+        item->setIcon(QIcon(path));        
+    }
 }
 
 void IconThemesModel::reload()
