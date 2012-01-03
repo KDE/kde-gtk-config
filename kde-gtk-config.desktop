@@ -12,6 +12,7 @@ Exec=kcmshell4 kde-gtk-config
 Icon=gtkconfig
 Name=Gtk Configuration
 Name[hu]=GTK beállítás
+Name[nds]=GTK-Instellen
 Name[nl]=Gtk-instellingen
 Name[pt]=Configuração do Gtk
 Name[pt_BR]=Configuração do Gtk
