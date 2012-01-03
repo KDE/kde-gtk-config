@@ -51,6 +51,8 @@ static QMap<QString, int> gtkToolbar = gtkToolbarInit();
 GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     : KCModule(GTKConfigKCModuleFactory::componentData(), parent)
     , ui(new Ui::GUI)
+    , installer(0)
+    , uninstaller(0)
     , m_saveEnabled(true)
 {
     Q_UNUSED(args);
@@ -66,8 +68,6 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     
     ui->setupUi(this);
     appareance = new AppearenceGTK;
-    installer =  new DialogInstaller(this);
-    uninstaller = new DialogUninstaller(this, appareance);
     m_iconsModel = new IconThemesModel(false, this);
     ui->cb_icon->setModel(m_iconsModel);
     ui->cb_icon_fallback->setModel(m_iconsModel);
@@ -102,8 +102,6 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     //installers connections
     connect(ui->clb_add_theme, SIGNAL(clicked(bool)), this, SLOT(showDialogForInstall()));
     connect(ui->clb_remove_theme, SIGNAL(clicked(bool)), this, SLOT(showDialogForUninstall()));
-    connect(installer, SIGNAL(themeInstalled()), SLOT(refreshLists()));
-    connect(uninstaller, SIGNAL(themeUninstalled()), SLOT(refreshLists()));
     
     //GHNS connections
     connect(ui->but_theme_ghns, SIGNAL(clicked(bool)), this, SLOT(showThemeGHNS()));
@@ -395,13 +393,22 @@ void GTKConfigKCModule::refreshThemesUi(bool useConfig)
 
 void GTKConfigKCModule::showDialogForInstall()
 {
-    installer->exec();
+    if(!installer) {
+        installer =  new DialogInstaller(this);
+        connect(installer, SIGNAL(themeInstalled()), SLOT(refreshLists()));
+    }
     
+    installer->exec();
     refreshThemesUi();
 }
 
 void GTKConfigKCModule::showDialogForUninstall()
 {
+    if(!uninstaller) {
+        uninstaller = new DialogUninstaller(this, appareance);
+        connect(uninstaller, SIGNAL(themeUninstalled()), SLOT(refreshLists()));
+    }
+    
     uninstaller->refresthListsForUninstall();
     uninstaller->exec();
     
