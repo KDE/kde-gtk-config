@@ -98,17 +98,17 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     connect(ui->cb_icon, SIGNAL(activated(QString)), this, SLOT(makePreviewIconTheme()));
     connect(ui->previewVersion, SIGNAL(activated(int)), this, SLOT(runIfNecessary()));
     connect(ui->showPreview, SIGNAL(toggled(bool)), this, SLOT(runIfNecessary()));
-
-    //installers connections
-    connect(ui->clb_add_theme, SIGNAL(clicked(bool)), this, SLOT(showDialogForInstall()));
-    connect(ui->clb_remove_theme, SIGNAL(clicked(bool)), this, SLOT(showDialogForUninstall()));
-    
-    //GHNS connections
-    connect(ui->but_theme_ghns, SIGNAL(clicked(bool)), this, SLOT(showThemeGHNS()));
-    connect(ui->but_theme_gtk3_ghns, SIGNAL(clicked(bool)), this, SLOT(installThemeGTK3GHNS()));
     
     connect(m_p2, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
     connect(m_p3, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
+    
+    QMenu* m = new QMenu(this);
+    m->addAction(KIcon("get-hot-new-stuff"), i18n("Download GTK+ themes..."), this, SLOT(showThemeGHNS()));
+    m->addAction(KIcon("get-hot-new-stuff"), i18n("Download GTK3 themes..."), this, SLOT(installThemeGTK3GHNS()));
+    m->addAction(KIcon("archive-insert"), i18n("Install a local theme..."), this, SLOT(showDialogForInstall()));
+    m->addAction(KIcon("archive-remove"), i18n("Uninstall a local theme..."), this, SLOT(showDialogForUninstall()));
+    ui->newThemes->setMenu(m);
+    ui->newThemes->setIcon(KIcon("download"));
 }
 
 GTKConfigKCModule::~GTKConfigKCModule()
