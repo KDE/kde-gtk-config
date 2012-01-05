@@ -62,7 +62,8 @@ public slots:
     void showDialogForInstall();
     void showDialogForUninstall();
     
-    void runIfNecessary();
+    void runGtk2IfNecessary(bool);
+    void runGtk3IfNecessary(bool);
     void untogglePreview();
     
 signals:

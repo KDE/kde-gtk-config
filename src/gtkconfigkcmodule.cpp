@@ -75,6 +75,9 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     m_tempGtk2Preview = KGlobal::dirs()->saveLocation("tmp", "gtkrc-2.0", false);
     m_tempGtk3Preview = KGlobal::dirs()->saveLocation("tmp", ".config/gtk-3.0/settings.ini", false);
     
+    ui->gtk2Preview->setIcon(KIcon("document-preview")); //!! for some reason it doesn't work with QIcon::fromTheme
+    ui->gtk3Preview->setIcon(KIcon("document-preview"));
+    
     m_p2 = new KProcess(this);
     m_p2->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);
     *m_p2 << KStandardDirs::findExe("gtk_preview");
@@ -96,14 +99,14 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     //preview updates
     connect(ui->cb_icon_fallback, SIGNAL(activated(QString)), this, SLOT(makePreviewIconTheme()));
     connect(ui->cb_icon, SIGNAL(activated(QString)), this, SLOT(makePreviewIconTheme()));
-    connect(ui->previewVersion, SIGNAL(activated(int)), this, SLOT(runIfNecessary()));
-    connect(ui->showPreview, SIGNAL(toggled(bool)), this, SLOT(runIfNecessary()));
+    connect(ui->gtk2Preview, SIGNAL(clicked(bool)), this, SLOT(runGtk2IfNecessary(bool)));
+    connect(ui->gtk3Preview, SIGNAL(clicked(bool)), this, SLOT(runGtk3IfNecessary(bool)));
     
     connect(m_p2, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
     connect(m_p3, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
     
     QMenu* m = new QMenu(this);
-    m->addAction(KIcon("get-hot-new-stuff"), i18n("Download GTK+ themes..."), this, SLOT(showThemeGHNS()));
+    m->addAction(KIcon("get-hot-new-stuff"), i18n("Download GTK2 themes..."), this, SLOT(showThemeGHNS()));
     m->addAction(KIcon("get-hot-new-stuff"), i18n("Download GTK3 themes..."), this, SLOT(installThemeGTK3GHNS()));
     m->addAction(KIcon("archive-insert"), i18n("Install a local theme..."), this, SLOT(showDialogForInstall()));
     m->addAction(KIcon("archive-remove"), i18n("Uninstall a local theme..."), this, SLOT(showDialogForUninstall()));
@@ -118,11 +121,11 @@ GTKConfigKCModule::~GTKConfigKCModule()
     
     QFile::remove(m_tempGtk2Preview);
     QFile::remove(m_tempGtk3Preview);
-    delete ui;
     delete appareance;
     
     m_p2->waitForFinished();
     m_p3->waitForFinished();
+    delete ui;
 }
 
 QString fontToString(const QFont& f)
@@ -239,15 +242,22 @@ void GTKConfigKCModule::makePreviewIconTheme()
     tryIcon(ui->lb_prev_9, path_fallback, path_icon, "go-up");
 }
 
+void GTKConfigKCModule::appChanged()
+{
+    savePreviewConfig();
+    emit changed(true);
+}
+
+
 void GTKConfigKCModule::savePreviewConfig()
 {
-    if(!m_saveEnabled || !ui->showPreview->isChecked())
+    if(!m_saveEnabled || !(ui->gtk2Preview->isChecked() || ui->gtk3Preview->isChecked()))
         return;
     kDebug() << "saving UI...";
     
     syncUI();
     
-    if(ui->previewVersion->currentIndex()==1) {
+    if(ui->gtk3Preview->isChecked()) {
         //we don't want to recursively loop between savePreviewConfig and runIfNecessary
         m_saveEnabled = false;
         m_p3->kill();
@@ -256,36 +266,44 @@ void GTKConfigKCModule::savePreviewConfig()
         //need to make sure runIfNecessary() to know that it's not running
         m_p3->waitForFinished();
         
-        //it will trigger runIfNecessary slot eventually
-        ui->showPreview->setChecked(true);
+        m_p3->start();
+        ui->gtk3Preview->setChecked(true);
         m_saveEnabled = true;
-    } else
+    } else if(ui->gtk2Preview->isChecked())
         appareance->gtk2Appearance()->saveSettings(m_tempGtk2Preview);
 }
 
-void GTKConfigKCModule::appChanged()
+void GTKConfigKCModule::runGtk2IfNecessary(bool checked)
 {
-    savePreviewConfig();
-    emit changed(true);
-}
-
-void GTKConfigKCModule::runIfNecessary()
-{
-    int idx = ui->previewVersion->currentIndex();
-    KProcess* p  = idx==0 ? m_p2 : m_p3;
-    KProcess* np = idx==1 ? m_p2 : m_p3;
-    bool checked = ui->showPreview->isChecked();
+    KProcess* p = m_p2;
+    KProcess* np = m_p3;
     
-    np->kill();
     if(checked) {
+        np->kill();
+        np->waitForFinished();
         savePreviewConfig();
         if(p->state()!=KProcess::Running)
             p->start();
-        
+    } else {
+        p->kill();
+        p->waitForFinished();
+    }
+}
+
+void GTKConfigKCModule::runGtk3IfNecessary(bool checked)
+{
+    KProcess* p = m_p3;
+    KProcess* np = m_p2;
+    
+    if(checked) {
+        np->kill();
         np->waitForFinished();
-        
-        if(checked)
-            ui->showPreview->setChecked(checked);
+        savePreviewConfig();
+        if(p->state()!=KProcess::Running)
+            p->start();
+    } else {
+        p->kill();
+        p->waitForFinished();
     }
 }
 
@@ -417,5 +435,8 @@ void GTKConfigKCModule::showDialogForUninstall()
 
 void GTKConfigKCModule::untogglePreview()
 {
-    ui->showPreview->setChecked(false);
+    if(sender()==m_p2)
+        ui->gtk2Preview->setChecked(false);
+    else
+        ui->gtk3Preview->setChecked(false);
 }
