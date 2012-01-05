@@ -47,11 +47,6 @@
           <property name="toolTip">
            <string>Preview theme</string>
           </property>
-          <property name="icon">
-           <iconset theme="document-preview">
-            <normaloff/>
-           </iconset>
-          </property>
           <property name="checkable">
            <bool>true</bool>
           </property>
@@ -85,11 +80,6 @@
          <widget class="QToolButton" name="gtk3Preview">
           <property name="toolTip">
            <string>Preview theme</string>
-          </property>
-          <property name="icon">
-           <iconset theme="document-preview">
-            <normaloff/>
-           </iconset>
           </property>
           <property name="checkable">
            <bool>true</bool>
