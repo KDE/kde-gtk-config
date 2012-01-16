@@ -1,6 +1,7 @@
 [Desktop Entry]
 Categories=Qt;KDE;X-KDE-settings-looknfeel;
 Comment=Configuration of Gtk apps style
+Comment[da]=Konfiguration af GTK-programmers stil
 Comment[es]=Configuración del estilo de aplicaciones Gtk
 Comment[hu]=A GTK-s alkalmazások megjelenésének beállítás
 Comment[nl]=Instellingen van de stijl van Gtk-apps
@@ -14,6 +15,7 @@ Exec=kcmshell4 kde-gtk-config
 Icon=gtkconfig
 Name=Gtk Configuration
 Name[cs]=Nastavení GTK
+Name[da]=Konfiguration af GTK
 Name[es]=Configuración Gtk
 Name[hu]=GTK beállítás
 Name[nds]=GTK-Instellen
@@ -27,6 +29,7 @@ Name[x-test]=xxGtk Configurationxx
 Type=Service
 X-KDE-Keywords=gtk qt settings
 X-KDE-Keywords[cs]=nastavení gtk qt
+X-KDE-Keywords[da]=GTK Qt-indstillinger
 X-KDE-Keywords[es]=Preferencias Qt para Gtk
 X-KDE-Keywords[hu]=gtk qt beállítások
 X-KDE-Keywords[nl]=gtk qt-instellingen
