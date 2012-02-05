@@ -69,7 +69,7 @@ p, li { white-space: pre-wrap; }
       <item>
        <widget class="QPushButton" name="but_accept">
         <property name="text">
-         <string>    Ok   </string>
+         <string>Ok</string>
         </property>
        </widget>
       </item>
