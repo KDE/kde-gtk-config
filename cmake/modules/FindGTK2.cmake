@@ -183,6 +183,8 @@ function(_GTK2_FIND_INCLUDE_DIR _var _hdr)
                        "include suffixes = ${_suffixes}")
     endif()
 
+    execute_process(COMMAND uname -i OUTPUT_VARIABLE platform)
+    string(REPLACE "\n" "" platform "${patform}" "${patform}")
     find_path(${_var} ${_hdr}
         PATHS
             /usr/local/lib64
@@ -197,7 +199,7 @@ function(_GTK2_FIND_INCLUDE_DIR _var _hdr)
             /sw/lib
             /opt/local/include
             /opt/local/lib
-            /usr/lib/i386-linux-gnu/ #hackhackhack
+            /usr/lib/${platform}-linux-gnu/ #hackhackhack
             $ENV{GTKMM_BASEPATH}/include
             $ENV{GTKMM_BASEPATH}/lib
             [HKEY_CURRENT_USER\\SOFTWARE\\gtkmm\\2.4;Path]/include
@@ -417,9 +419,9 @@ endif()
 # Find all components
 #
 
-find_package(Freetype)
-list(APPEND GTK2_INCLUDE_DIRS ${FREETYPE_INCLUDE_DIRS})
-list(APPEND GTK2_LIBRARIES ${FREETYPE_LIBRARIES})
+# find_package(Freetype)
+# list(APPEND GTK2_INCLUDE_DIRS ${FREETYPE_INCLUDE_DIRS})
+# list(APPEND GTK2_LIBRARIES ${FREETYPE_LIBRARIES})
 
 foreach(_GTK2_component ${GTK2_FIND_COMPONENTS})
     if(_GTK2_component STREQUAL "gtk")
