@@ -1,18 +1,16 @@
 CHAKRA GTK CONFIG v1.7
 ----------------------
 
-Copyright (c) 2011 - Jose Antonio Sánchez Reynaga <joanzare@gmail.com>
-and the Team behind Chakra
+Copyright (c) 2011 - Jose Antonio Sánchez Reynaga <joanzare@gmail.com> and the Team behind Chakra
+Copyright (c) 2011 - Aleix Pol Gonzalez <aleixpol@kde.org>
 
-This program it's licensed under GPL 
-
+This program it's licensed under GPLv3
 
 Compilation:
-
-mkdir build && cd build
-cmake -DCMAKE_INSTALL_PREFIX=/usr ..
-make 
-sudo make install
+$ mkdir build && cd build
+$ cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+$ make 
+# make install
 
 Features:
 
@@ -24,35 +22,3 @@ Features:
 > fonts selection
 
 enjoy !
-
-
-ChangeLog:
--------------------------------
-V1.0
-* Port to Module KCM
-* change tr() to i18n(), make it translatable, complete translation to english, complete intergation in Apperance module
-
-V1.1
-* Adding SVG preview suport, add Spanish, Galician and Italian
-
-v1.2
-* Fix a bug in the layout for some Qt themes
-
-v1.3 
-* Symlink .gtkrc-2.0-kde4
-
-v1.4
-* Bug Fixing
-
-v1.5
-* Add support for the toolbar style 
-
-v1.6
-* Support for GHNS in gtk themes, added Euskara
-
-v1.7 
-* Added Russian
-
-v1.7
-* Added Gtk3 Support, You can install gtk3 themes through GHNS API and manual installation.
-
