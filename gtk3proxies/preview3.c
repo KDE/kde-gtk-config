@@ -26,6 +26,17 @@
 #include <stdlib.h>
 
 #include <sys/inotify.h>
+#include <string.h>
+
+void printHelp(const char* bin)
+{
+    printf(
+        "%s <args>\n"
+        "  -h|--help\tShows this help\n"
+        "  -v|--version\tPrints the program version\n"
+        "  <winid>\t Creates a window that can be embedded using XEmbed\n", bin
+    );
+}
 
 static void on_dlg_response(GtkDialog* dlg, int res, gpointer user_data)
 {
@@ -41,9 +52,18 @@ int main(int argc, char **argv)
     GError     *error = NULL;
     unsigned long wid=0;
     gtk_init( &argc, &argv );
+    int i;
+    for(i=0; i<argc; i++) {
+        if(strcmp("-h", argv[i])==0 || strcmp("--help", argv[i])==0) {
+            printHelp(argv[0]);
+            return 0;
+        }
+        else if(strcmp("-v", argv[i])==0 || strcmp("--version", argv[i])==0)
+            printf("%s version 1.0\n", argv[0]);
+        else
+            sscanf(argv[1], "%ld", &wid);
+    }
     
-    if(argc==2)
-        sscanf(argv[1], "%ld", &wid);
     const char* ui_file = DATA_DIR "/preview.ui";
  
     GtkBuilder *builder = gtk_builder_new();

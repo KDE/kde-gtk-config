@@ -22,7 +22,17 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 #include <stdio.h>
+#include <string.h>
 
+void printHelp(const char* bin)
+{
+    printf(
+        "%s <args>\n"
+        "  -h|--help\tShows this help\n"
+        "  -v|--version\tPrints the program version\n"
+        "  <winid>\t Creates a window that can be embedded using XEmbed\n", bin
+    );
+}
 GdkEventClient createEvent()
 {
     GdkEventClient event;
@@ -38,16 +48,17 @@ GdkEventClient createEvent()
 int main(int argc, char** argv)
 {
     gtk_init(&argc, &argv);
-    int winid=0;
-    if(argc==2)
-        sscanf(argv[1], "%d", &winid);
+    int i;
+    for(i=0; i<argc; i++) {
+        if(strcmp("-h", argv[i])==0 || strcmp("--help", argv[i])==0) {
+            printHelp(argv[0]);
+            return 0;
+        }
+        else if(strcmp("-v", argv[i])==0 || strcmp("--version", argv[i])==0)
+            printf("%s version 1.0\n", argv[0]);
+    }
     
     GdkEventClient event = createEvent();
-    printf("Reload all apps!!!! %d\n", winid);
-/* NOTE: not working for some reason...
-    if(winid)
-        gdk_event_send_client_message((GdkEvent *)&event, winid);*/
-    
     gdk_event_send_clientmessage_toall((GdkEvent *)&event);
     return 0;
 }
