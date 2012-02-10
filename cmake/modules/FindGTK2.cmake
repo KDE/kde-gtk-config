@@ -183,8 +183,6 @@ function(_GTK2_FIND_INCLUDE_DIR _var _hdr)
                        "include suffixes = ${_suffixes}")
     endif()
 
-    execute_process(COMMAND uname -i OUTPUT_VARIABLE platform)
-    string(REPLACE "\n" "" platform "${patform}" "${patform}")
     find_path(${_var} ${_hdr}
         PATHS
             /usr/local/lib64
@@ -199,7 +197,7 @@ function(_GTK2_FIND_INCLUDE_DIR _var _hdr)
             /sw/lib
             /opt/local/include
             /opt/local/lib
-            /usr/lib/${platform}-linux-gnu/ #hackhackhack
+            /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/
             $ENV{GTKMM_BASEPATH}/include
             $ENV{GTKMM_BASEPATH}/lib
             [HKEY_CURRENT_USER\\SOFTWARE\\gtkmm\\2.4;Path]/include
