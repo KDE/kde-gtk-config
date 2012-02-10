@@ -69,9 +69,10 @@ int main(int argc, char **argv)
             printHelp(argv[0]);
             return 0;
         }
-        else if(strcmp("-v", argv[i])==0 || strcmp("--version", argv[i])==0)
+        else if(strcmp("-v", argv[i])==0 || strcmp("--version", argv[i])==0) {
             printf("%s version 1.0\n", argv[0]);
-        else
+            return 0;
+        } else
             sscanf(argv[1], "%ld", &wid);
     }
     const char* ui_file = DATA_DIR "/preview.ui";
