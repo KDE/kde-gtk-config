@@ -25,13 +25,17 @@
 #include <stdio.h>
 #include <string.h>
 
-void printHelp(const char* bin)
+void printHelp()
 {
     printf(
-        "%s <args>\n"
-        "  -h|--help\tShows this help\n"
-        "  -v|--version\tPrints the program version\n"
-        "  <winid>\t Creates a window that can be embedded using XEmbed\n", bin
+        "Small utility for sending signal to reload theme in Gtk programs.\n"
+        "\n"
+        "Using:\n"
+        "reload_gtk_apps <args>\n"
+        "\n"
+        "Arguments:\n"
+        "  -h, --help\tShows this help\n"
+        "  -V, --version\tPrints the program version\n"
     );
 }
 GdkEventClient createEvent()
@@ -52,11 +56,11 @@ int main(int argc, char** argv)
     int i;
     for(i=0; i<argc; i++) {
         if(strcmp("-h", argv[i])==0 || strcmp("--help", argv[i])==0) {
-            printHelp(argv[0]);
+            printHelp();
             return 0;
         }
-        else if(strcmp("-v", argv[i])==0 || strcmp("--version", argv[i])==0) {
-            printf("%s version 1.0\n", argv[0]);
+        else if(strcmp("-V", argv[i])==0 || strcmp("--version", argv[i])==0) {
+            printf("reload_gtk_apps version 1.0\n");
             return 0;
         }
     }
