@@ -61,7 +61,7 @@ int main(int argc, char **argv)
         else if(strcmp("-v", argv[i])==0 || strcmp("--version", argv[i])==0) {
             printf("%s version 1.0\n", argv[0]);
             return 0;
-        } else
+        } else if(argc>1)
             sscanf(argv[1], "%ld", &wid);
     }
     
