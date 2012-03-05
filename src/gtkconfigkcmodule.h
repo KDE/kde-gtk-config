@@ -1,7 +1,7 @@
 /* KDE GTK Configuration Module
  * 
  * Copyright 2011 José Antonio Sanchez Reynaga <joanzare@gmail.com>
- * Copyright 2011 Aleix Pol Gonzalez <aleixpol@kde.org>
+ * Copyright 2011 Aleix Pol Gonzalez <aleixpol@blue-systems.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
