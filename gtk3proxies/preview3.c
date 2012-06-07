@@ -24,8 +24,6 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
-
-#include <sys/inotify.h>
 #include <string.h>
 
 void printHelp()
