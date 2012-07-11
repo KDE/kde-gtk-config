@@ -78,6 +78,7 @@ bool greatSizeIs48(const QString& a, const QString& b)
 
 QString IconThemesModel::findFilesRecursively(const QStringList& wildcard, const QDir& directory)
 {
+    Q_ASSERT(directory.isAbsolute());
     QFileInfoList entries = directory.entryInfoList(wildcard, QDir::Files);
     foreach(const QFileInfo& f, entries) {
         return f.absoluteFilePath();

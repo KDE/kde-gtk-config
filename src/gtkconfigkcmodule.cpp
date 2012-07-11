@@ -200,7 +200,9 @@ void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const
 {
     label->setToolTip(iconName);
     
-    QString ret = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), theme);
+    QString ret;
+    if(!theme.isEmpty())
+        ret = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), theme);
     if(!ret.isEmpty()) {
         QPixmap p(ret);
         Q_ASSERT(!p.isNull());
@@ -208,7 +210,9 @@ void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const
         return;
     }
     
-    ret = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), fallback);
+    if(!fallback.isEmpty())
+        ret = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), fallback);
+    
     if(!ret.isEmpty()) {
         QPixmap p(ret);
         Q_ASSERT(!p.isNull());
