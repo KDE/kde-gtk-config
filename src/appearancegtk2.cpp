@@ -37,14 +37,7 @@ bool AppearanceGTK2::loadSettings(const QString& path)
     
     if(canRead) {
         kDebug() << "The gtk2 config file exists...";
-        
-        //we read the file and put it to a string list
-        //TODO: when we don't need the theme path this won't be needed anymore
-        QTextStream flow(&configFile);
-        QString allText = flow.readAll();
-        QStringList text = allText.split('\n');
-        
-        QMap<QString, QString> foundSettings = readSettingsTuples(allText);
+        QMap<QString, QString> foundSettings = readSettingsTuples(&configFile);
 
         m_settings["theme"] = foundSettings["gtk-theme-name"];
         m_settings["icon"] = foundSettings["gtk-icon-theme-name"];

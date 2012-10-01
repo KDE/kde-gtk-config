@@ -33,9 +33,14 @@ AppearenceGTK::AppearenceGTK()
     m_app << new AppearanceGTK3;
 }
 
+AppearenceGTK::~AppearenceGTK()
+{
+    qDeleteAll(m_app);
+}
+
 #define PROPERTY_IMPLEMENTATION(type, name, propname)\
 void AppearenceGTK::set##name(const type& a) { foreach(AbstractAppearance* app, m_app) app->set##name(a); }\
-type AppearenceGTK::get##name() const { return m_app.first()->get##name(); }
+type AppearenceGTK::get##name() const { foreach(AbstractAppearance* app, m_app) { if(app->hasProperty(propname)) return app->get##name(); } Q_ASSERT(false); return type (); }
 
 PROPERTY_IMPLEMENTATION(QString, Icon, "icon")
 PROPERTY_IMPLEMENTATION(QString, IconFallback, "icon_fallback")
@@ -45,9 +50,9 @@ PROPERTY_IMPLEMENTATION(bool, ShowIconsInButtons, "show_icons_buttons")
 PROPERTY_IMPLEMENTATION(bool, ShowIconsInMenus, "show_icons_menus")
 
 QString AppearenceGTK::getTheme() const { return gtk2Appearance()->getTheme(); }
-void AppearenceGTK::setTheme(const QString& name) {  return gtk2Appearance()->setTheme(name); }
+void AppearenceGTK::setTheme(const QString& name) { return gtk2Appearance()->setTheme(name); }
 QString AppearenceGTK::getThemeGtk3() const { return gtk3Appearance()->getTheme(); }
-void AppearenceGTK::setThemeGtk3(const QString& name) {  return gtk3Appearance()->setTheme(name); }
+void AppearenceGTK::setThemeGtk3(const QString& name) { return gtk3Appearance()->setTheme(name); }
 
 ////////////////////////////////////
 // Methods responsible of file creation

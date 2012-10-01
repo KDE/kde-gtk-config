@@ -54,8 +54,9 @@ class AbstractAppearance
         bool getShowIconsInMenus() const;
         
         QStringList installedThemesNames() const;
+        bool hasProperty(const QString& key);
         
-        static QMap<QString,QString> readSettingsTuples(const QString& allText);
+        static QMap<QString,QString> readSettingsTuples(QIODevice* device);
         
     protected:
         QMap<QString, QString> m_settings;

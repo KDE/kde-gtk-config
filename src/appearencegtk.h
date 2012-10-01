@@ -36,6 +36,7 @@ class AppearenceGTK
 {
 public:
     AppearenceGTK();
+    ~AppearenceGTK();
 
     void setTheme(const QString&);
     void setThemeGtk3(const QString &theme);

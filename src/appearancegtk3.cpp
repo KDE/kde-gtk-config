@@ -78,9 +78,7 @@ bool AppearanceGTK3::loadSettings(const QString& path)
     bool canRead=fileGtk3.open(QIODevice::ReadOnly | QIODevice::Text);
     
     if(canRead) {
-        QTextStream flow(&fileGtk3);
-
-        QMap<QString, QString> foundSettings = readSettingsTuples(flow.readAll());
+        QMap<QString, QString> foundSettings = readSettingsTuples(&fileGtk3);
         
         m_settings["theme"] = foundSettings["gtk-theme-name"];
         m_settings["icon"] = foundSettings["gtk-icon-theme-name"];

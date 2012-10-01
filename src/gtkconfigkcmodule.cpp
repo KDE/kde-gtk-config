@@ -202,7 +202,8 @@ void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const
     
     QString ret;
     if(!theme.isEmpty())
-        ret = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), theme);
+        ret = IconThemesModel::findIconRecursivelyByName(iconName, theme);
+    
     if(!ret.isEmpty()) {
         QPixmap p(ret);
         Q_ASSERT(!p.isNull());
@@ -211,7 +212,7 @@ void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const
     }
     
     if(!fallback.isEmpty())
-        ret = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), fallback);
+        ret = IconThemesModel::findIconRecursivelyByName(iconName, fallback);
     
     if(!ret.isEmpty()) {
         QPixmap p(ret);

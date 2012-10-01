@@ -76,6 +76,11 @@ bool greatSizeIs48(const QString& a, const QString& b)
         return a48;
 }
 
+QString IconThemesModel::findIconRecursivelyByName(const QString& name, const QDir& directory)
+{
+    return findFilesRecursively(QStringList() << (name+".png") << (name+".svg") << (name+".svgz"), directory);
+}
+
 QString IconThemesModel::findFilesRecursively(const QStringList& wildcard, const QDir& directory)
 {
     Q_ASSERT(directory.isAbsolute());
@@ -95,7 +100,7 @@ QString IconThemesModel::findFilesRecursively(const QStringList& wildcard, const
     return QString();
 }
 
-void fillItem(const QDir& dir, QStandardItem* item)
+void IconThemesModel::fillItem(const QDir& dir, QStandardItem* item)
 {
     KIconTheme theme(dir.dirName());
     
@@ -105,7 +110,7 @@ void fillItem(const QDir& dir, QStandardItem* item)
     QString iconName = theme.example();
     
     if(!iconName.isEmpty()) {
-        QString path = IconThemesModel::findFilesRecursively(QStringList(iconName+".*"), dir.path());
+        QString path = IconThemesModel::findIconRecursivelyByName(iconName, dir.path());
         item->setIcon(QIcon(path));
     }
     

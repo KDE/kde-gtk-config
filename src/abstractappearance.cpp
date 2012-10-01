@@ -22,6 +22,7 @@
 #include "abstractappearance.h"
 #include <qregexp.h>
 #include <QDir>
+#include <KDebug>
 
 //SETTERS
 void AbstractAppearance::setTheme(const QString& name) { m_settings["theme"] = name;}
@@ -42,12 +43,25 @@ QString AbstractAppearance::getToolbarStyle() const { return m_settings["toolbar
 bool AbstractAppearance::getShowIconsInButtons() const { return m_settings["show_icons_buttons"]=="1"; }
 bool AbstractAppearance::getShowIconsInMenus() const { return m_settings["show_icons_menus"]=="1"; }
 
-QRegExp valueRx("([a-zA-Z\\-]+) *= *\"?([^\"\\n]+)\"?\\n", Qt::CaseSensitive, QRegExp::RegExp2);
-QMap<QString,QString> AbstractAppearance::readSettingsTuples(const QString& allText)
+QRegExp valueRx(" *([a-zA-Z\\-]+) *= *\"?([^\"\\n]+)\"?", Qt::CaseSensitive, QRegExp::RegExp2);
+QMap<QString,QString> AbstractAppearance::readSettingsTuples(QIODevice* device)
 {
-    QMap<QString,QString> ret;
-    for(int offset=0; offset>=0; offset=valueRx.indexIn(allText, offset+valueRx.cap(0).size())) {
-        ret[valueRx.cap(1)] = valueRx.cap(2);
+    QMap<QString, QString> ret;
+    QTextStream flow(device);
+    for(QString line = flow.readLine(); !flow.atEnd(); line = flow.readLine()) {
+        if(valueRx.exactMatch(line))
+            ret[valueRx.cap(1)] = valueRx.cap(2);
+        else if(line.startsWith("include \"")) {
+            QString filename = line.mid(9);
+            filename.chop(1);
+            qDebug() << "including: " << filename;
+            QFile f(filename);
+            if(f.open(QFile::Text|QFile::ReadOnly)) {
+                ret.unite(readSettingsTuples(&f));
+            } else
+                kWarning() << "couldn't include " << filename;
+        } else
+            kDebug() << "misinterpreted line" << line;
     }
     return ret;
 }
@@ -61,4 +75,9 @@ QStringList AbstractAppearance::installedThemesNames() const
         ret += QDir(theme).dirName();
     
     return ret;
+}
+
+bool AbstractAppearance::hasProperty(const QString& key)
+{
+    return m_settings.value(key)!=QString();
 }
