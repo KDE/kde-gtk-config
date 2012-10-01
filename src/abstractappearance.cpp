@@ -52,11 +52,6 @@ QMap<QString,QString> AbstractAppearance::readSettingsTuples(const QString& allT
     return ret;
 }
 
-QString AbstractAppearance::readMapDefaultValue(const QMap<QString,QString>& map, const QString& key, const QString& defaultValue)
-{
-    return map.contains(key) ? map[key] : defaultValue;
-}
-
 QStringList AbstractAppearance::installedThemesNames() const
 {
     QStringList themes = installedThemes();

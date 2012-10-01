@@ -87,9 +87,9 @@ bool AppearanceGTK3::loadSettings(const QString& path)
         m_settings["icon_fallback"] = foundSettings["gtk-fallback-icon-theme"];
         m_settings["font"] = foundSettings["gtk-font-name"];
         
-        m_settings["toolbar_style"] = readMapDefaultValue(foundSettings, "gtk-toolbar-style", "GTK_TOOLBAR_ICONS");
-        m_settings["show_icons_buttons"] = readMapDefaultValue(foundSettings, "gtk-button-images", "0");
-        m_settings["show_icons_menus"] = readMapDefaultValue(foundSettings, "gtk-menu-images", "0");
+        m_settings["toolbar_style"] = foundSettings.value("gtk-toolbar-style", "GTK_TOOLBAR_ICONS");
+        m_settings["show_icons_buttons"] = foundSettings.value("gtk-button-images", "0");
+        m_settings["show_icons_menus"] = foundSettings.value("gtk-menu-images", "0");
     } else
         kDebug() << "Cannot open the GTK3 config file" << path;
     

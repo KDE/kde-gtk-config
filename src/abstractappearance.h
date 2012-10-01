@@ -56,7 +56,6 @@ class AbstractAppearance
         QStringList installedThemesNames() const;
         
         static QMap<QString,QString> readSettingsTuples(const QString& allText);
-        static QString readMapDefaultValue(const QMap<QString,QString>& map, const QString& key, const QString& defaultValue);
         
     protected:
         QMap<QString, QString> m_settings;
