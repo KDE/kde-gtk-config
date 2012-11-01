@@ -63,7 +63,7 @@ bool AppearanceGTK3::saveSettings(const QString& file)
     flow3 << "[Settings]\n";
     flow3 << "gtk-font-name=" << m_settings["font"] << "\n";
     flow3 << "gtk-theme-name=" << m_settings["theme"] << "\n";
-    flow3 << "gtk-icon-theme-name= "<< m_settings["icon"] << "\n";
+    flow3 << "gtk-icon-theme-name="<< m_settings["icon"] << "\n";
     flow3 << "gtk-fallback-icon-theme=" << m_settings["icon_fallback"] << "\n";
     flow3 << "gtk-toolbar-style=" << m_settings["toolbar_style"] << "\n";
     flow3 << "gtk-menu-images=" << m_settings["show_icons_buttons"] << "\n";
