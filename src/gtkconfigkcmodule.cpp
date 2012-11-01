@@ -61,7 +61,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
                     KAboutData::License_LGPL_V3,
                     ki18n("Copyright 2011 José Antonio Sánchez Reynaga"));
     acercade->addAuthor(ki18n("José Antonio Sánchez Reynaga (antonioJASR)"),ki18n("Main Developer"), "joanzare@gmail.com");
-    acercade->addAuthor(ki18n("Aleix Pol i Gonzalez"), ki18n("Feature development. Previews, code refactoring."), "aleixpol@kde.org");
+    acercade->addAuthor(ki18n("Aleix Pol i Gonzalez"), ki18n("Feature development. Previews, code refactoring."), "aleixpol@blue-systems.com");
     acercade->addCredit(ki18n("Manuel Tortosa (manutortosa)"), ki18n("Ideas, tester, internationalization"));
     acercade->addCredit(ki18n("Adrián Chaves Fernández (Gallaecio)"), ki18n("Internationalization"));
     setAboutData(acercade);
