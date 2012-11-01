@@ -33,34 +33,36 @@ IconThemesModel::IconThemesModel(bool onlyHome, QObject* parent)
     reload();
 }
 
+QSet<QString> findXdgIconDirectories()
+{
+    QSet<QString> ret;
+    QList< QByteArray > dirs = qgetenv("XDG_DATA_DIRS").split(':');
+    foreach(const QString& dir, dirs) {
+        ret += dir+"/icons";
+    }
+    return ret;
+}
+
 QList<QDir> IconThemesModel::installedThemesPaths()
 {
     QList<QDir> availableIcons;
 
-    //List existing folders in the root themes directory
-    //TODO: Use KStandardDirs
-    if(!m_onlyHome) {
-        QDir root("/usr/share/icons");
-        QDirIterator iter(root.path(), QDir::AllDirs|QDir::NoDotAndDotDot|QDir::NoSymLinks);
-        while(iter.hasNext()) {
-            QString currentPath = iter.next();
+    QSet<QString> dirs;
+    dirs += QDir::home().filePath("/.icons");
+    if(!m_onlyHome)
+        dirs += "/usr/share/icons";
+    dirs += findXdgIconDirectories();
+
+    foreach(const QString& dir, dirs) {
+        QDir userIconsDir(dir);
+        QDirIterator it(userIconsDir.path(), QDir::NoDotAndDotDot|QDir::AllDirs|QDir::NoSymLinks);
+        while(it.hasNext()) {
+            QString currentPath = it.next();
             QDir dir(currentPath);
             
-            if(!dir.exists("cursors") && dir.exists("index.theme")) {
+            if(dir.exists() && !dir.exists("cursors") && dir.exists("index.theme")) {
                 availableIcons << dir;
             }
-        }
-    }
-
-//  We verify if there are themes in the home folder
-    QDir userIconsDir(QDir::home().filePath("/.icons"));
-    QDirIterator it(userIconsDir.path(), QDir::NoDotAndDotDot|QDir::AllDirs);
-    while(it.hasNext()) {
-        QString currentPath = it.next();
-        QDir dir(currentPath);
-
-        if(!dir.exists("cursors") && dir.exists("index.theme")) {
-            availableIcons << dir;
         }
     }
 
