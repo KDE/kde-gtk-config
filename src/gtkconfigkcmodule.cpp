@@ -353,7 +353,7 @@ void GTKConfigKCModule::defaults()
     setComboItem(ui->cb_theme_gtk3, QStringList("oxygen-gtk") << "Adwaita");
     
     QStringList icons;
-    icons << KIconTheme(KIconTheme::current()).name() << "GNOME";
+    icons << KIconLoader::global()->theme()->name() << "GNOME";
     setComboItem(ui->cb_icon, icons);
     
     int idx = ui->cb_icon->currentIndex();
