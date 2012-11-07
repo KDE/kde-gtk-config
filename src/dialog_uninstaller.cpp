@@ -23,6 +23,12 @@
 #include "dialog_uninstaller.h"
 #include "abstractappearance.h"
 #include "iconthemesmodel.h"
+#include "ui_dialog_uninstaller.h"
+#include "thread.h"
+#include "appearencegtk.h"
+#include "klocale.h"
+#include <QDir>
+
 DialogUninstaller::DialogUninstaller(QWidget* parent, AppearenceGTK *app)
     : QDialog(parent)
     , ui(new Ui::dialog_uninstaller)

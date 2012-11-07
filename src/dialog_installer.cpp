@@ -18,8 +18,16 @@
  * You should have received a copy of the GNU Lesser General Public 
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "dialog_installer.h"
+#include "ui_dialog_installer.h"
 #include <kdebug.h>
+#include <KMessageBox>
+#include <KMimeType>
+#include "installer.h"
+#include "thread.h"
+#include "klocale.h"
+#include <QFile>
 
 DialogInstaller::DialogInstaller(QWidget *parent): QDialog(parent), ui(new Ui::dialog_installer)
 {
@@ -63,9 +71,8 @@ void DialogInstaller::installTheme()
     QString file = ui->theme_file->text();
 
     kDebug()<< "File to install" << file;
-    QFileInfo fileinfo(file);
-    if(!fileinfo.exists() || !(fileinfo.completeSuffix()=="tar" || fileinfo.completeSuffix()=="tar.gz")) {
-        QMessageBox::critical(this, i18n("Cannot install theme"), i18n("Could not install the %1 theme.", file));
+    if(!fileIsTar(file)) {
+        KMessageBox::error(this, i18n("Could not install the %1 theme.", file), i18n("Cannot install theme"));
         return;
     }
 
@@ -78,9 +85,8 @@ void DialogInstaller::installThemeIcon()
     QString file = ui->icon_file->text();
 
     kDebug()<< "File to install" << file;
-    QFileInfo fileinfo(file);
-    if(!fileinfo.exists() || !(fileinfo.completeSuffix()=="tar" || fileinfo.completeSuffix()=="tar.gz")) {
-        QMessageBox::critical(this, i18n("Cannot install theme"), i18n("Could not install the %1 theme.", file));
+    if(!fileIsTar(file)) {
+        KMessageBox::error(this, i18n("Could not install the %1 theme.", file), i18n("Cannot install theme"));
         return;
     }
 

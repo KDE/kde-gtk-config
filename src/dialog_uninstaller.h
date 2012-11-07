@@ -22,15 +22,12 @@
 
 #ifndef DIALOGUNINSTALLER_H
 #define DIALOGUNINSTALLER_H
-#include <QtCore>
-#include <QtGui>
-#include "installer.h"
-#include "ui_dialog_uninstaller.h"
-#include "thread.h"
-#include "appearencegtk.h"
-#include "klocale.h"
+#include <QDialog>
+
+class AppearenceGTK;
+class ThreadErase;
 namespace Ui{
-    class DialogUninstaller;
+    class dialog_uninstaller;
 }
 
 /**

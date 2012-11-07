@@ -21,26 +21,30 @@
  */
 
 #include "installer.h"
+#include <QDir>
+#include <QProcess>
+#include <KTar>
 
 bool Installer::installTheme(const QString &urlPackage)
 {
-    QString destino(QDir::homePath()+"/.themes");
-    QDir::home().mkpath(destino);
+    QString dest(QDir::homePath()+"/.themes");
+    QDir::home().mkpath(dest);
 
-    //TODO: Port to KArchive
-    QStringList argumentos;
-    argumentos << "-xvf" << urlPackage << "-C" << destino;
-    return QProcess::execute("tar", argumentos) == 0;
+    KTar package(urlPackage);
+    if(!package.open(QIODevice::ReadOnly))
+        return false;
+    package.directory()->copyTo(dest);
+    return true;
 }
 
 bool Installer::installIconTheme(const QString &urlPackage)
 {
+    QString dest(QDir::homePath()+"/.icons");
+    QDir::home().mkpath(dest);
 
-    QString destino(QDir::homePath()+"/.icons");
-    QDir::home().mkpath(destino);
-    
-    //TODO: Port to KArchive
-    QStringList argumentos;
-    argumentos << "-xvf" << urlPackage << "-C" << destino;
-    return QProcess::execute("tar", argumentos) == 0;
+    KTar package(urlPackage);
+    if(!package.open(QIODevice::ReadOnly))
+        return false;
+    package.directory()->copyTo(dest);
+    return true;
 }

@@ -22,19 +22,35 @@
 
 #include "thread.h"
 #include <kdebug.h>
+#include <QFileInfo>
+#include <QDir>
+#include <QProcess>
+#include <QDirIterator>
+#include <kio/deletejob.h>
+#include <kio/netaccess.h>
+#include <KMimeType>
+
+bool fileIsTar(const QString& path)
+{
+    QFileInfo file(path);
+    if(file.isDir() || !file.exists())
+        return false;
+    
+    KMimeType::Ptr type = KMimeType::findByPath(path);
+    return type && (type->is("application/x-tar") || type->is("application/x-bzip-compressed-tar") || type->is("application/x-compressed-tar"));
+}
 
 Thread::Thread(const QString& accion)
     : action(accion)
+    , success(false)
 {}
 
 void Thread::run()
 {
+    success = false;
     if(urlPackage.isEmpty()) {
         kDebug() << "*** ERROR: There's nothing to do";
-        return;
-    }
-
-    if(action == "icon") {
+    } else if(action == "icon") {
         kDebug() << "Installing icons theme";
         success = Installer::installIconTheme(urlPackage);
     } else if(action == "theme") {
@@ -55,13 +71,11 @@ bool Thread::isSuccess() const
 
 void ThreadAnalisysTheme::run()
 {
+    success = false;
     kDebug()<< "File to install" << packageTheme;
 
-    //TODO: port to KArchive
-    QFileInfo file(packageTheme);
-    if(!file.exists() || file.isDir() || !(file.completeSuffix()=="tar" || file.completeSuffix()=="tar.gz")) {
+    if(!fileIsTar(packageTheme)) {
         kDebug() << "ERROR: " << packageTheme << "is not a valid theme.";
-        success = false;
         return;
     }
 
@@ -79,7 +93,6 @@ void ThreadAnalisysTheme::run()
     //TODO: port to KArchive
     if(QProcess::execute("tar", argus) != 0) {
         kDebug() << "ERROR: executing command";
-        success = false;
         return;
     }
 
@@ -92,7 +105,6 @@ void ThreadAnalisysTheme::run()
     //We know the path of the folder to analyze
     QDirIterator it(temporal.path()+'/'+folder);
 
-    bool found = false;
     while(it.hasNext()) {
 
         QString file = it.next();
@@ -100,46 +112,21 @@ void ThreadAnalisysTheme::run()
 
         if(it.fileName()=="gtkrc") {
             kDebug() << "FILE : " << file;
-            found = true;
+            success = true;
             break;
         }
     }
 
-    kDebug() << "\n*************************\n\n\n\n";
-    success = found;
-
-    //TODO: really? looks to me the if does the same as the else
-    if(!found) {
-        kDebug() << ">>>> Invalid file";
-
-        //Al final borra los archivos
-//TODO: Use KIO
-        kDebug() << "Deleting temps";
-        QStringList args;
-        args << "-rf" << temporal.path();
-        if(QProcess::execute("rm", args) != 0) {
-            kDebug() << "There was not cleanning";
-        }
-
-        kDebug() << "Cleanning complete"<< temporal.entryList();
-        return;
-    }
-
-    //Al final borra los archivos
-    kDebug() << "Deleting temps";
-    QStringList args;
-    args << "-rf" << temporal.path();
-    if(QProcess::execute("rm", args) != 0) {
+    kDebug() << "Deleting temps. Successful:" << success;
+    if(KIO::NetAccess::synchronousRun(KIO::del(KUrl::fromLocalFile(temporal.path()), KIO::HideProgressInfo), 0))
         kDebug() << "There was not cleanning";
-    }
-
-    kDebug() << "Cleanning complete";
-    kDebug()<< temporal.entryList();
+    else
+        kDebug() << "Cleanning complete" << temporal.path();
 }
 
 void ThreadAnalisysTheme::setPackageTheme(const QString& theme)
 {
-  packageTheme = theme;
+    packageTheme = theme;
 }
 
 bool ThreadAnalisysTheme::isSuccess() const
@@ -149,14 +136,13 @@ bool ThreadAnalisysTheme::isSuccess() const
 
 void ThreadAnalisysThemeIcon::run()
 {
+    success = false;
     kDebug()<< "*************** GTK THEME INSTALLATION";
     kDebug()<< "File to install" << packageTheme;
 
 //     TODO: port to KArchive
-    QFileInfo file(packageTheme);
-    if(!file.exists() || file.isDir() || !(file.completeSuffix()=="tar" || file.completeSuffix()=="tar.gz")) {
+    if(!fileIsTar(packageTheme)) {
         kDebug() << "ERROR: " << packageTheme << "is not a valid theme.";
-        success = false;
         return;
     }
 
@@ -171,7 +157,6 @@ void ThreadAnalisysThemeIcon::run()
 
     if(QProcess::execute("tar", argus) != 0) {
         kDebug() << "ERROR: executing command";
-        success = false;
         return;
     }
 
@@ -182,7 +167,6 @@ void ThreadAnalisysThemeIcon::run()
 
     QDirIterator it(temporal.path()+'/'+folder);
 
-    bool found = false;
     while(it.hasNext()) {
 
         QString file = it.next();
@@ -190,43 +174,17 @@ void ThreadAnalisysThemeIcon::run()
         if(it.fileName()=="index.theme") {
             //archivo index.theme
             kDebug() << "FILE : " << file;
-            found = true;
+            success = true;
             break;
         }
 
     }
 
-    kDebug() << "\n*************************\n\n\n\n";
-
-    if(!found) {
-        kDebug() << ">>>> Invalid file";
-
-        //Al final borra los archivos
-        kDebug() << "Deleting temps";
-        QStringList args;
-        args << "-rf" << temporal.path();
-        if(QProcess::execute("rm", args) != 0) {
-            kDebug() << "There was not cleanning";
-        }
-
-        kDebug() << "Cleanning complete";
-        kDebug()<< temporal.entryList();
-
-        return;
-    }
-
-    //Clean it up
-//     TODO: port to KIO
-    kDebug() << "Deleting temps";
-    QStringList args;
-    args << "-rf" << temporal.path();
-    if(QProcess::execute("rm", args) != 0) {
+    kDebug() << "Deleting temps. Successful:" << success;
+    if(KIO::NetAccess::synchronousRun(KIO::del(KUrl::fromLocalFile(temporal.path()), KIO::HideProgressInfo), 0)) {
         kDebug() << "There was not cleanning";
-    }
-
-    kDebug() << "Cleanning complete";
-    kDebug()<< temporal.entryList();
-    success=found;
+    } else
+        kDebug() << "Cleanning complete." << temporal.path();
 }
 
 void ThreadAnalisysThemeIcon::setPackageTheme(const QString& theme)
@@ -253,9 +211,5 @@ void ThreadErase::run()
 {
     QThread::sleep(3);
 
-//  TODO: use kio
-    QStringList argumentos;
-    argumentos << "-rf" << themeForErase;
-
-    success = QProcess::execute("rm", argumentos) != 0;
+    success = KIO::NetAccess::synchronousRun(KIO::del(KUrl::fromLocalFile(themeForErase), KIO::HideProgressInfo), 0);
 }

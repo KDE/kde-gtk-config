@@ -23,7 +23,7 @@
 #ifndef INSTALLER_H
 #define INSTALLER_H
 
-#include <QtCore>
+#include <QString>
 
 class Installer
 {

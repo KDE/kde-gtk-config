@@ -23,8 +23,10 @@
 #ifndef THREAD_H
 #define THREAD_H
 
-#include <QtCore>
 #include <installer.h>
+#include <QThread>
+
+bool fileIsTar(const QString& path);
 
 /**
  Used so that we don't block the GUI when we install the themes

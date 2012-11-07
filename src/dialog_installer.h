@@ -21,15 +21,15 @@
 
 #ifndef DIALOGINSTALLER_H
 #define DIALOGINSTALLER_H
-#include <QtCore>
-#include <QtGui>
-#include "installer.h"
-#include "thread.h"
-#include "ui_dialog_installer.h"
-#include "klocale.h"
+#include <QDialog>
+
+class ThreadAnalisysThemeIcon;
+class ThreadAnalisysTheme;
+class Thread;
 namespace Ui {
-    class DialogInstaller;
+    class dialog_installer;
 }
+
 /**
  * GUI to install icons and gtk themes
  */
