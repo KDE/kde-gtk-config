@@ -105,10 +105,10 @@ void DialogInstaller::checkThemeAnalisys()
     ui->theme_file->setEnabled(true);
 
     if(threadAnalisysTheme->isSuccess()) {
-        ui->lb_theme_notice->setText(i18n("This Gtk theme can be installed"));
+        ui->lb_theme_notice->setText(i18n("This GTK theme can be installed"));
         ui->but_theme_install->setEnabled(true);
     } else {
-        ui->lb_theme_notice->setText(i18n("This Gtk theme cannot be installed"));
+        ui->lb_theme_notice->setText(i18n("This GTK theme cannot be installed"));
         ui->but_theme_install->setEnabled(false);
     }
 
@@ -154,7 +154,7 @@ void DialogInstaller::enableGUIThemeIconInstaller()
 
 void DialogInstaller::disableGUIThemeInstaller()
 {
-    ui->lb_theme_notice->setText(i18n("Installing Gtk theme..."));
+    ui->lb_theme_notice->setText(i18n("Installing GTK theme..."));
     ui->but_theme_install->setEnabled(false);
     ui->theme_file->setEnabled(false);
 }
@@ -182,10 +182,10 @@ void DialogInstaller::refreshGUIIconTheme()
 void DialogInstaller::refreshGUITheme()
 {
     if(threadForTheme->isSuccess()) {
-        ui->lb_theme_notice->setText(i18n("Gtk Theme Successfully Installed"));
+        ui->lb_theme_notice->setText(i18n("GTK Theme Successfully Installed"));
         emit themeInstalled();
     } else {
-        ui->lb_theme_notice->setText(i18n("The Gtk theme cannot be installed"));
+        ui->lb_theme_notice->setText(i18n("The GTK theme cannot be installed"));
     }
     ui->theme_file->clear();
 }
