@@ -75,8 +75,9 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     m_tempGtk2Preview = KGlobal::dirs()->saveLocation("tmp", "gtkrc-2.0", false);
     m_tempGtk3Preview = KGlobal::dirs()->saveLocation("tmp", ".config/gtk-3.0/settings.ini", false);
     
-    ui->gtk2Preview->setIcon(KIcon("document-preview")); //!! for some reason it doesn't work with QIcon::fromTheme
-    ui->gtk3Preview->setIcon(KIcon("document-preview"));
+    const KIcon previewIcon("document-preview");
+    ui->gtk2Preview->setIcon(previewIcon);
+    ui->gtk3Preview->setIcon(previewIcon);
     
     m_p2 = new KProcess(this);
     m_p2->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);
