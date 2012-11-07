@@ -136,10 +136,12 @@ QString AppearanceGTK2::defaultConfigFile() const
 
 QStringList AppearanceGTK2::installedThemes() const
 {
-    //TODO: Port to KStandardDirs
-    QDir root("/usr/share/themes");
-    QFileInfoList availableThemes = root.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);
-
+    QFileInfoList availableThemes;
+    foreach(const QString& themesDir, KGlobal::dirs()->findDirs("xdgdata-apps", "../themes")) {
+        QDir root(themesDir);
+        availableThemes += root.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);
+    }
+    
     //Check if there are themes installed by the user
     QDir user(QDir::homePath()+"/.themes");
     availableThemes += user.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);

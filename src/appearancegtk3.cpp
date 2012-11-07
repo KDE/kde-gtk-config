@@ -22,14 +22,17 @@
 
 #include "appearancegtk3.h"
 #include <KDebug>
+#include <KStandardDirs>
 #include <QFile>
 #include <QDir>
 
 QStringList AppearanceGTK3::installedThemes() const
 {
-    //TODO: port to kstandarddirs
-    QDir root("/usr/share/themes");
-    QFileInfoList availableThemes = root.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);
+    QFileInfoList availableThemes;
+    foreach(const QString& themesDir, KGlobal::dirs()->findDirs("xdgdata-apps", "../themes")) {
+        QDir root(themesDir);
+        availableThemes += root.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);
+    }
 
     //Also show the user-installed themes
     QDir user(QDir::homePath()+"/.themes");
@@ -96,7 +99,7 @@ bool AppearanceGTK3::loadSettings(const QString& path)
 
 QString AppearanceGTK3::defaultConfigFile() const
 {
-    QString root = qgetenv("XDG_CONFIG_HOME");
+    QString root = KGlobal::dirs()->localxdgconfdir();
     if(root.isEmpty())
         root = QFileInfo(QDir::home(), ".config").absoluteFilePath();
     

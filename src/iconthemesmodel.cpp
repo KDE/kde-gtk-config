@@ -25,6 +25,7 @@
 #include <QDirIterator>
 #include <KDebug>
 #include <KIconTheme>
+#include <KStandardDirs>
 
 IconThemesModel::IconThemesModel(bool onlyHome, QObject* parent)
     : QStandardItemModel(parent)
@@ -33,26 +34,16 @@ IconThemesModel::IconThemesModel(bool onlyHome, QObject* parent)
     reload();
 }
 
-QSet<QString> findXdgIconDirectories()
-{
-    QSet<QString> ret;
-    QList< QByteArray > dirs = qgetenv("XDG_DATA_DIRS").split(':');
-    foreach(const QString& dir, dirs) {
-        ret += dir+"/icons";
-    }
-    return ret;
-}
-
 QList<QDir> IconThemesModel::installedThemesPaths()
 {
     QList<QDir> availableIcons;
 
     QSet<QString> dirs;
-    dirs += QDir::home().filePath("/.icons");
-    if(!m_onlyHome)
-        dirs += "/usr/share/icons";
-    dirs += findXdgIconDirectories();
-
+    dirs += QDir::home().filePath(".icons");
+    if(!m_onlyHome) {
+        dirs += KGlobal::dirs()->findDirs("xdgdata-icon", QString()).toSet();
+    }
+    
     foreach(const QString& dir, dirs) {
         QDir userIconsDir(dir);
         QDirIterator it(userIconsDir.path(), QDir::NoDotAndDotDot|QDir::AllDirs|QDir::NoSymLinks);
