@@ -107,6 +107,9 @@
       <string>Behaviour</string>
      </property>
      <layout class="QFormLayout" name="formLayout">
+      <property name="fieldGrowthPolicy">
+       <enum>QFormLayout::ExpandingFieldsGrow</enum>
+      </property>
       <item row="0" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
@@ -138,35 +141,28 @@
         </item>
        </widget>
       </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
+      <item row="1" column="0">
        <widget class="QLabel" name="label_22">
         <property name="text">
          <string>Show Icons in GTK Buttons:</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
+      <item row="1" column="1">
        <widget class="QCheckBox" name="checkBox_icon_gtk_buttons">
         <property name="text">
          <string/>
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
+      <item row="2" column="0">
        <widget class="QLabel" name="label_23">
         <property name="text">
          <string>Show Icons in GTK Menus:</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+      <item row="2" column="1">
        <widget class="QCheckBox" name="checkBox_icon_gtk_menus">
         <property name="text">
          <string/>
