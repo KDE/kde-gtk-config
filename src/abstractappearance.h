@@ -54,7 +54,7 @@ class AbstractAppearance
         bool getShowIconsInMenus() const;
         
         QStringList installedThemesNames() const;
-        bool hasProperty(const QString& key);
+        bool hasProperty(const QString& key) const;
         
         static QMap<QString,QString> readSettingsTuples(QIODevice* device);
         

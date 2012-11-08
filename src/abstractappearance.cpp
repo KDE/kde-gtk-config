@@ -77,7 +77,7 @@ QStringList AbstractAppearance::installedThemesNames() const
     return ret;
 }
 
-bool AbstractAppearance::hasProperty(const QString& key)
+bool AbstractAppearance::hasProperty(const QString& key) const
 {
-    return m_settings.value(key)!=QString();
+    return m_settings.value(key).isEmpty();
 }
