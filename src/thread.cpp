@@ -29,6 +29,7 @@
 #include <kio/deletejob.h>
 #include <kio/netaccess.h>
 #include <KMimeType>
+#include <KTar>
 
 bool fileIsTar(const QString& path)
 {
@@ -86,16 +87,13 @@ void ThreadAnalisysTheme::run()
     //Make sure it's already created
     temporal.mkpath(temporal.path());
     
-    QStringList argus;
-    argus << "-xf" << packageTheme  << "-C"  << temporal.path();
-    kDebug()<< "** Command to exec " << "tar " << argus.join(" ");
-
-    //TODO: port to KArchive
-    if(QProcess::execute("tar", argus) != 0) {
-        kDebug() << "ERROR: executing command";
+    KTar package(packageTheme);
+    if(!package.open(QIODevice::ReadOnly)) {
+        kDebug() << "ERROR extracting the package theme" << packageTheme;
         return;
     }
-
+    package.directory()->copyTo(temporal.path());
+    
     // Package extracted in the temp dir. Now we want to know the name
     QString folder=temporal.entryList(QDir::AllDirs|QDir::NoDotAndDotDot).first();
 
@@ -140,7 +138,6 @@ void ThreadAnalisysThemeIcon::run()
     kDebug()<< "*************** GTK THEME INSTALLATION";
     kDebug()<< "File to install" << packageTheme;
 
-//     TODO: port to KArchive
     if(!fileIsTar(packageTheme)) {
         kDebug() << "ERROR: " << packageTheme << "is not a valid theme.";
         return;
@@ -150,15 +147,12 @@ void ThreadAnalisysThemeIcon::run()
     QDir temporal(QDir::tempPath()+"/CGC/icon");
     temporal.mkpath(temporal.path());
 
-//     TODO: port to KArchive
-    QStringList argus;
-    argus << "-xf" << packageTheme  << "-C"  << temporal.path();
-    kDebug()<< "** Command to exec " << "tar " << argus.join(" ");
-
-    if(QProcess::execute("tar", argus) != 0) {
-        kDebug() << "ERROR: executing command";
+    KTar package(packageTheme);
+    if(!package.open(QIODevice::ReadOnly)) {
+        kDebug() << "ERROR extracting the package theme" << packageTheme;
         return;
     }
+    package.directory()->copyTo(temporal.path());
 
     //archive extracted in the temp directory
     QString folder= temporal.entryList(QDir::AllDirs|QDir::NoDotAndDotDot).first();
