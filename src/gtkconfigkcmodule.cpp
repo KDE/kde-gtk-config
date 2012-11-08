@@ -371,8 +371,6 @@ void GTKConfigKCModule::defaults()
 void GTKConfigKCModule::load()
 {
     m_saveEnabled = false;
-    refreshThemesUi();
-    
     bool someCorrect = appareance->loadFileConfig();
     if(someCorrect) {
         refreshLists();
