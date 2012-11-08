@@ -21,7 +21,7 @@
 
 #ifndef DIALOGINSTALLER_H
 #define DIALOGINSTALLER_H
-#include <QDialog>
+#include <KDialog>
 
 class ThreadAnalisysThemeIcon;
 class ThreadAnalisysTheme;
@@ -33,7 +33,7 @@ namespace Ui {
 /**
  * GUI to install icons and gtk themes
  */
-class DialogInstaller: public QDialog
+class DialogInstaller: public KDialog
 {
 Q_OBJECT
 public:

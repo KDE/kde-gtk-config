@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>dialog_uninstaller</class>
- <widget class="QDialog" name="dialog_uninstaller">
+ <widget class="QWidget" name="dialog_uninstaller">
   <property name="geometry">
    <rect>
     <x>0</x>

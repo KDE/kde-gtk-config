@@ -29,9 +29,13 @@
 #include "klocale.h"
 #include <QFile>
 
-DialogInstaller::DialogInstaller(QWidget *parent): QDialog(parent), ui(new Ui::dialog_installer)
+DialogInstaller::DialogInstaller(QWidget *parent)
+    : KDialog(parent), ui(new Ui::dialog_installer)
 {
-    ui->setupUi(this);
+    QWidget* w = new QWidget(this);
+    ui->setupUi(w);
+    setMainWidget(w);
+    setButtons(KDialog::Close);
     
     //TODO: make sure it's a good idea to have the threads always instanciated
     threadForTheme = new Thread("theme");
@@ -155,7 +159,7 @@ void DialogInstaller::enableGUIThemeIconInstaller()
 {
     ui->but_icon_install->setEnabled(true);
     ui->icon_file->setEnabled(true);
-    ui->but_accepted->setEnabled(true);
+    button(KDialog::Close)->setEnabled(true);
 }
 
 void DialogInstaller::disableGUIThemeInstaller()
@@ -169,7 +173,7 @@ void DialogInstaller::disableGUIThemeIconInstaller()
     ui->lb_icon_notice->setText(i18n("Installing icons..."));
     ui->but_icon_install->setEnabled(false);
     ui->icon_file->setEnabled(false);
-    ui->but_accepted->setEnabled(false);
+    button(KDialog::Close)->setEnabled(false);
 }
 
 void DialogInstaller::refreshGUIIconTheme()
