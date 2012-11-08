@@ -265,9 +265,6 @@
           <property name="text">
            <string/>
           </property>
-          <property name="pixmap">
-           <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
-          </property>
          </widget>
         </item>
         <item>
@@ -286,9 +283,6 @@
           </property>
           <property name="text">
            <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
           </property>
          </widget>
         </item>
@@ -309,9 +303,6 @@
           <property name="text">
            <string/>
           </property>
-          <property name="pixmap">
-           <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
-          </property>
          </widget>
         </item>
         <item>
@@ -330,9 +321,6 @@
           </property>
           <property name="text">
            <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
           </property>
          </widget>
         </item>
@@ -353,9 +341,6 @@
           <property name="text">
            <string/>
           </property>
-          <property name="pixmap">
-           <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
-          </property>
          </widget>
         </item>
         <item>
@@ -374,9 +359,6 @@
           </property>
           <property name="text">
            <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
           </property>
          </widget>
         </item>
@@ -397,9 +379,6 @@
           <property name="text">
            <string/>
           </property>
-          <property name="pixmap">
-           <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
-          </property>
          </widget>
         </item>
         <item>
@@ -419,9 +398,6 @@
           <property name="text">
            <string/>
           </property>
-          <property name="pixmap">
-           <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
-          </property>
          </widget>
         </item>
         <item>
@@ -440,9 +416,6 @@
           </property>
           <property name="text">
            <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap>../../../../../../../usr/share/icons/oxygen/48x48/mimetypes/application-x-zerosize.png</pixmap>
           </property>
          </widget>
         </item>
