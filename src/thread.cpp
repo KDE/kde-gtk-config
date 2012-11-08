@@ -204,6 +204,7 @@ bool ThreadErase::isSuccess()
 
 void ThreadErase::setThemeForErase(const QString& theme)
 {
+    Q_ASSERT(!theme.isEmpty());
     themeForErase = theme;
 }
 
