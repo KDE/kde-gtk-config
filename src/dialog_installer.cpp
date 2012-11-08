@@ -29,6 +29,16 @@
 #include "klocale.h"
 #include <QFile>
 
+static bool fileIsTar(const QString& path)
+{
+    QFileInfo file(path);
+    if(file.isDir() || !file.exists())
+        return false;
+    
+    KMimeType::Ptr type = KMimeType::findByPath(path);
+    return type && (type->is("application/x-tar") || type->is("application/x-bzip-compressed-tar") || type->is("application/x-compressed-tar"));
+}
+
 DialogInstaller::DialogInstaller(QWidget *parent)
     : KDialog(parent), ui(new Ui::dialog_installer)
 {

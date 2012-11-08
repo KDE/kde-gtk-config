@@ -31,16 +31,6 @@
 #include <KMimeType>
 #include <KTar>
 
-bool fileIsTar(const QString& path)
-{
-    QFileInfo file(path);
-    if(file.isDir() || !file.exists())
-        return false;
-    
-    KMimeType::Ptr type = KMimeType::findByPath(path);
-    return type && (type->is("application/x-tar") || type->is("application/x-bzip-compressed-tar") || type->is("application/x-compressed-tar"));
-}
-
 Thread::Thread(const QString& accion)
     : action(accion)
     , success(false)
