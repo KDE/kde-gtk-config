@@ -35,7 +35,7 @@
          <item row="1" column="0" colspan="2">
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Select an GTK theme to uninstall</string>
+            <string>Select a GTK theme to uninstall</string>
            </property>
           </widget>
          </item>
@@ -118,7 +118,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Remove Icon Themes</string>
+            <string>Remove Icon Theme</string>
            </property>
           </widget>
          </item>

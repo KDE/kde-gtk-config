@@ -88,7 +88,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>Font</string>
+         <string>Font:</string>
         </property>
        </widget>
       </item>
@@ -118,22 +118,22 @@
        <widget class="QComboBox" name="cb_toolbar_icons">
         <item>
          <property name="text">
-          <string>Icons only</string>
+          <string>Icons Only</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Text only</string>
+          <string>Text Only</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Text under icons</string>
+          <string>Text Under Icons</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Text after icons</string>
+          <string>Text After Icons</string>
          </property>
         </item>
        </widget>
@@ -141,7 +141,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="label_22">
         <property name="text">
-         <string>Show Icons in GTK Buttons:</string>
+         <string>Show icons in GTK buttons:</string>
         </property>
        </widget>
       </item>
@@ -155,7 +155,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="label_23">
         <property name="text">
-         <string>Show Icons in GTK Menus:</string>
+         <string>Show icons in GTK menus:</string>
         </property>
        </widget>
       </item>
@@ -196,7 +196,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="label_10">
         <property name="text">
-         <string>Icons Theme:</string>
+         <string>Icon theme:</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -216,7 +216,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Fallback Theme:</string>
+         <string>Fallback theme:</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
