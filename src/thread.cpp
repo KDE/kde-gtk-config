@@ -75,11 +75,11 @@ void ThreadAnalisysTheme::run()
     success = false;
     kDebug()<< "File to install" << packageTheme;
 
-    if(!fileIsTar(packageTheme)) {
-        kDebug() << "ERROR: " << packageTheme << "is not a valid theme.";
+    KTar package(packageTheme);
+    if(!package.open(QIODevice::ReadOnly)) {
+        kDebug() << "ERROR extracting the package theme" << packageTheme;
         return;
     }
-
     kDebug() << "** EXTRACTING ICONS TO A TEMPORAL FOLDER";
     //We proceed unpacking the package in a temporal directory
     QDir temporal(QDir::tempPath()+"/CGC/theme");
@@ -87,11 +87,6 @@ void ThreadAnalisysTheme::run()
     //Make sure it's already created
     temporal.mkpath(temporal.path());
     
-    KTar package(packageTheme);
-    if(!package.open(QIODevice::ReadOnly)) {
-        kDebug() << "ERROR extracting the package theme" << packageTheme;
-        return;
-    }
     package.directory()->copyTo(temporal.path());
     
     // Package extracted in the temp dir. Now we want to know the name
@@ -138,20 +133,15 @@ void ThreadAnalisysThemeIcon::run()
     kDebug()<< "*************** GTK THEME INSTALLATION";
     kDebug()<< "File to install" << packageTheme;
 
-    if(!fileIsTar(packageTheme)) {
-        kDebug() << "ERROR: " << packageTheme << "is not a valid theme.";
-        return;
-    }
-
-    kDebug() << "** EXTRACTING ICONS TO A TEMPORAL FOLDER";
-    QDir temporal(QDir::tempPath()+"/CGC/icon");
-    temporal.mkpath(temporal.path());
-
     KTar package(packageTheme);
     if(!package.open(QIODevice::ReadOnly)) {
         kDebug() << "ERROR extracting the package theme" << packageTheme;
         return;
     }
+    kDebug() << "** EXTRACTING ICONS TO A TEMPORAL FOLDER";
+    QDir temporal(QDir::tempPath()+"/CGC/icon");
+    temporal.mkpath(temporal.path());
+
     package.directory()->copyTo(temporal.path());
 
     //archive extracted in the temp directory
