@@ -22,7 +22,7 @@
 
 #ifndef DIALOGUNINSTALLER_H
 #define DIALOGUNINSTALLER_H
-#include <QDialog>
+#include <KDialog>
 
 class AppearenceGTK;
 class ThreadErase;
@@ -33,7 +33,7 @@ namespace Ui{
 /**
  * GUI to uninstall GTK themes and icon themes
  */
-class DialogUninstaller: public QDialog
+class DialogUninstaller: public KDialog
 {
     Q_OBJECT
 public:

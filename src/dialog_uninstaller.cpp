@@ -28,13 +28,17 @@
 #include "appearencegtk.h"
 #include "klocale.h"
 #include <QDir>
+#include <QDebug>
 
 DialogUninstaller::DialogUninstaller(QWidget* parent, AppearenceGTK *app)
-    : QDialog(parent)
+    : KDialog(parent)
     , ui(new Ui::dialog_uninstaller)
     , appareance(app)
 {
-    ui->setupUi(this);
+    QWidget* w = new QWidget(this);
+    ui->setupUi(w);
+    setMainWidget(w);
+    setButtons(KDialog::Close);
     
     refresthListsForUninstall();
     
