@@ -40,30 +40,18 @@ DialogUninstaller::DialogUninstaller(QWidget* parent, AppearenceGTK *app)
     setMainWidget(w);
     setButtons(KDialog::Close);
     
-    refresthListsForUninstall();
+    refreshListsForUninstall();
     
-    //EVENTOS
     connect(ui->but_uninstall_theme, SIGNAL(clicked()), this, SLOT(uninstallTheme()));
     connect(ui->but_uninstall_icon, SIGNAL(clicked()), this, SLOT(uninstallIcon()));
-
-    threadEraseIcon = new ThreadErase;
-    threadEraseTheme = new ThreadErase;
-
-    connect(threadEraseIcon, SIGNAL(started()), this, SLOT(uninstallIcon()));
-    connect(threadEraseTheme, SIGNAL(started()), this, SLOT(uninstallTheme()));
-
-    connect(threadEraseIcon, SIGNAL(finished()), this, SLOT(threadUninstalledThemeIconFinished()));
-    connect(threadEraseTheme, SIGNAL(finished()), this, SLOT(threadUninstalledThemeFinished()));
 }
 
 DialogUninstaller::~DialogUninstaller()
 {
     delete ui;
-    delete threadEraseIcon;
-    delete threadEraseTheme;
 }
 
-void DialogUninstaller::refresthListsForUninstall()
+void DialogUninstaller::refreshListsForUninstall()
 {
     ui->lb_notice_uninstall_icon->clear();
     ui->lb_notice_uninstall_theme->clear();
@@ -98,7 +86,9 @@ void DialogUninstaller::uninstallTheme()
 
     ui->lb_notice_uninstall_theme->setText(i18n("Uninstalling GTK theme..."));
 
+    ThreadErase* threadEraseTheme = new ThreadErase;
     threadEraseTheme->setThemeForErase(themes.first());
+    connect(threadEraseTheme, SIGNAL(finished(KJob*)), this, SLOT(threadUninstalledThemeFinished(KJob*)));
     threadEraseTheme->start();
 }
 
@@ -116,13 +106,15 @@ void DialogUninstaller::uninstallIcon()
 
     ui->lb_notice_uninstall_icon->setText(i18n("Uninstalling icons..."));
 
+    ThreadErase* threadEraseIcon = new ThreadErase;
     threadEraseIcon->setThemeForErase(theme);
+    connect(threadEraseIcon, SIGNAL(finished(KJob*)), this, SLOT(threadUninstalledThemeIconFinished(KJob*)));
     threadEraseIcon->start();
 }
 
-void DialogUninstaller::threadUninstalledThemeFinished()
+void DialogUninstaller::threadUninstalledThemeFinished(KJob* job)
 {
-    if(threadEraseTheme->isSuccess()) {
+    if(job->error()==0) {
         ui->lb_notice_uninstall_theme->setText(i18n("GTK theme successfully uninstalled."));
         emit(themeUninstalled());
     } else {
@@ -132,12 +124,12 @@ void DialogUninstaller::threadUninstalledThemeFinished()
     ui->cb_uninstall_theme->setEnabled(true);
     ui->but_uninstall_theme->setEnabled(true);
 
-    refresthListsForUninstall();
+    refreshListsForUninstall();
 }
 
-void DialogUninstaller::threadUninstalledThemeIconFinished()
+void DialogUninstaller::threadUninstalledThemeIconFinished(KJob* job)
 {
-    if(threadEraseTheme->isSuccess()) {
+    if(job->error()==0) {
         ui->lb_notice_uninstall_icon->setText(i18n("Icons successfully uninstalled."));
         emit(themeUninstalled());
     } else {
@@ -147,5 +139,5 @@ void DialogUninstaller::threadUninstalledThemeIconFinished()
     ui->cb_uninstall_icon->setEnabled(true);
     ui->but_uninstall_icon->setEnabled(true);
 
-    refresthListsForUninstall();
+    refreshListsForUninstall();
 }

@@ -24,16 +24,16 @@
 #define THREAD_H
 
 #include <installer.h>
-#include <QThread>
+#include <kjob.h>
 
 /**
  Used so that we don't block the GUI when we install the themes
   */
-class Thread: public QThread
+class Thread: public KJob
 {
 public:
     Thread(const QString& );
-    virtual void run();
+    virtual void start();
     
     ///sets the icon path
     void setUrlPackage(const QString& );
@@ -43,13 +43,12 @@ public:
 private:
     QString action;
     QString urlPackage;
-    bool success;
 };
 
-class ThreadAnalisysTheme: public QThread
+class ThreadAnalisysTheme: public KJob
 {
 public:
-    virtual void run();
+    virtual void start();
     
     ///@returns whether the theme is correct
     bool isSuccess() const;
@@ -57,14 +56,13 @@ public:
     ///sets the theme to analyze
     void setPackageTheme(const QString& );
 private:
-    bool success;
     QString packageTheme;
 };
 
-class ThreadAnalisysThemeIcon: public QThread
+class ThreadAnalisysThemeIcon: public KJob
 {
 public:
-    virtual void run();
+    virtual void start();
     
     ///@returns whether the theme is correct
     bool isSuccess();
@@ -72,23 +70,25 @@ public:
     ///sets what theme to use
     void setPackageTheme(const QString& );
 private:
-    bool success;
     QString packageTheme;
 };
 
 /**
   Thread to erase the icons
   */
-class ThreadErase: public QThread
+class ThreadErase: public KJob
 {
+Q_OBJECT
 public:
-    virtual void run();
+    virtual void start();
+    
     bool isSuccess();
     void setThemeForErase(const QString& theme );
 private:
-    bool success;
     QString themeForErase;
 
+public slots:
+    void deleted(KJob*);
 };
 
 #endif // THREAD_H

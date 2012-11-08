@@ -33,12 +33,11 @@
 
 Thread::Thread(const QString& accion)
     : action(accion)
-    , success(false)
 {}
 
-void Thread::run()
+void Thread::start()
 {
-    success = false;
+    bool success = false;
     if(urlPackage.isEmpty()) {
         kDebug() << "*** ERROR: There's nothing to do";
     } else if(action == "icon") {
@@ -48,6 +47,8 @@ void Thread::run()
         kDebug() << "Installing GTK theme";
         success = Installer::installTheme(urlPackage);
     }
+    setError(success);
+    emitResult();
 }
 
 void Thread::setUrlPackage(const QString& package)
@@ -57,17 +58,19 @@ void Thread::setUrlPackage(const QString& package)
 
 bool Thread::isSuccess() const
 {
-    return success;
+    return error()==0;
 }
 
-void ThreadAnalisysTheme::run()
+void ThreadAnalisysTheme::start()
 {
-    success = false;
+    bool success = false;
     kDebug()<< "File to install" << packageTheme;
 
     KTar package(packageTheme);
     if(!package.open(QIODevice::ReadOnly)) {
         kDebug() << "ERROR extracting the package theme" << packageTheme;
+        setError(1);
+        emitResult();
         return;
     }
     kDebug() << "** EXTRACTING ICONS TO A TEMPORAL FOLDER";
@@ -105,6 +108,10 @@ void ThreadAnalisysTheme::run()
         kDebug() << "There was not cleanning";
     else
         kDebug() << "Cleanning complete" << temporal.path();
+    
+    if(!success)
+        setError(2);
+    emitResult();
 }
 
 void ThreadAnalisysTheme::setPackageTheme(const QString& theme)
@@ -114,12 +121,12 @@ void ThreadAnalisysTheme::setPackageTheme(const QString& theme)
 
 bool ThreadAnalisysTheme::isSuccess() const
 {
-    return success;
+    return error()==0;
 }
 
-void ThreadAnalisysThemeIcon::run()
+void ThreadAnalisysThemeIcon::start()
 {
-    success = false;
+    bool success = false;
     kDebug()<< "*************** GTK THEME INSTALLATION";
     kDebug()<< "File to install" << packageTheme;
 
@@ -159,6 +166,9 @@ void ThreadAnalisysThemeIcon::run()
         kDebug() << "There was not cleanning";
     } else
         kDebug() << "Cleanning complete." << temporal.path();
+    if(!success)
+        setError(2);
+    emitResult();
 }
 
 void ThreadAnalisysThemeIcon::setPackageTheme(const QString& theme)
@@ -168,12 +178,12 @@ void ThreadAnalisysThemeIcon::setPackageTheme(const QString& theme)
 
 bool ThreadAnalisysThemeIcon::isSuccess()
 {
-    return success;
+    return error()==0;
 }
 
 bool ThreadErase::isSuccess()
 {
-    return success;
+    return error()==0;
 }
 
 void ThreadErase::setThemeForErase(const QString& theme)
@@ -182,9 +192,15 @@ void ThreadErase::setThemeForErase(const QString& theme)
     themeForErase = theme;
 }
 
-void ThreadErase::run()
+void ThreadErase::start()
 {
-    QThread::sleep(3);
+    KIO::DeleteJob* job = KIO::del(KUrl::fromLocalFile(themeForErase), KIO::HideProgressInfo);
+    connect(job, SIGNAL(finished(KJob*)), SLOT(deleted(KJob*)));
+}
 
-    success = KIO::NetAccess::synchronousRun(KIO::del(KUrl::fromLocalFile(themeForErase), KIO::HideProgressInfo), 0);
+void ThreadErase::deleted(KJob* job)
+{
+    setError(job->error());
+    setErrorText(job->errorText());
+    emitResult();
 }

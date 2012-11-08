@@ -437,7 +437,7 @@ void GTKConfigKCModule::showDialogForUninstall()
         connect(uninstaller, SIGNAL(themeUninstalled()), SLOT(refreshLists()));
     }
     
-    uninstaller->refresthListsForUninstall();
+    uninstaller->refreshListsForUninstall();
     uninstaller->exec();
     
     refreshThemesUi();

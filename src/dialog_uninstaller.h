@@ -24,6 +24,7 @@
 #define DIALOGUNINSTALLER_H
 #include <KDialog>
 
+class KJob;
 class AppearenceGTK;
 class ThreadErase;
 namespace Ui{
@@ -44,21 +45,15 @@ signals:
     void themeUninstalled();
     
 public slots:
-    void refresthListsForUninstall();
+    void refreshListsForUninstall();
     void uninstallTheme();
     void uninstallIcon();
-    void threadUninstalledThemeFinished();
-    void threadUninstalledThemeIconFinished();
+    void threadUninstalledThemeFinished(KJob* job);
+    void threadUninstalledThemeIconFinished(KJob* job);
  
 private:
     Ui::dialog_uninstaller *ui;
     AppearenceGTK *appareance;
-    
-    ///Thread that uninstalls icons
-    ThreadErase *threadEraseIcon;
-    
-    ///Thread that uninstalls themes
-    ThreadErase *threadEraseTheme;
 };
 
 #endif //dialog_installer.h 
