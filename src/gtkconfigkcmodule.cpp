@@ -196,6 +196,8 @@ void GTKConfigKCModule::refreshLists()
     
     ui->checkBox_icon_gtk_buttons->setChecked(appareance->getShowIconsInButtons());
     ui->checkBox_icon_gtk_menus->setChecked(appareance->getShowIconsInMenus());
+    
+    makePreviewIconTheme();
 }
 
 void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const QString& iconName)
@@ -374,7 +376,6 @@ void GTKConfigKCModule::load()
     bool someCorrect = appareance->loadFileConfig();
     if(someCorrect) {
         refreshLists();
-        makePreviewIconTheme();
     } else
         defaults();
     
