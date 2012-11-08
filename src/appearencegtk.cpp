@@ -40,7 +40,7 @@ AppearenceGTK::~AppearenceGTK()
 
 #define PROPERTY_IMPLEMENTATION(type, name, propname)\
 void AppearenceGTK::set##name(const type& a) { foreach(AbstractAppearance* app, m_app) app->set##name(a); }\
-type AppearenceGTK::get##name() const { foreach(AbstractAppearance* app, m_app) { if(app->hasProperty(propname)) return app->get##name(); } qDebug() << "alalala" << propname << m_app; /*Q_ASSERT(false);*/ return type (); }
+type AppearenceGTK::get##name() const { foreach(AbstractAppearance* app, m_app) { if(app->hasProperty(propname)) return app->get##name(); } /*Q_ASSERT(false);*/ return type (); }
 
 PROPERTY_IMPLEMENTATION(QString, Icon, "icon")
 PROPERTY_IMPLEMENTATION(QString, IconFallback, "icon_fallback")
