@@ -26,6 +26,7 @@
 #include <KPluginFactory>
 #include <KProcess>
 #include <KStandardDirs>
+#include <KMessageBox>
 #include <QtGui>
 #include <QX11EmbedContainer>
 #include "ui_gui.h"
@@ -327,7 +328,7 @@ void GTKConfigKCModule::save()
             << "********************************************************";
     syncUI();
     if(!appareance->saveFileConfig())
-        QMessageBox::warning(this, "ERROR", i18n("It was not possible to save the config"));
+        KMessageBox::error(this, i18n("It was not possible to save the config"));
 }
 
 void setComboItem(QComboBox* combo, const QStringList& texts)
