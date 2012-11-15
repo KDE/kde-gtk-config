@@ -80,13 +80,25 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     ui->gtk2Preview->setIcon(previewIcon);
     ui->gtk3Preview->setIcon(previewIcon);
     
+    QString gtk2Preview = KStandardDirs::findExe("gtk_preview");
+    QString gtk3Preview = KStandardDirs::findExe("gtk3_preview");
+    
     m_p2 = new KProcess(this);
     m_p2->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);
-    *m_p2 << KStandardDirs::findExe("gtk_preview");
+    if(!gtk2Preview.isEmpty()) {
+        *m_p2 << gtk2Preview;
+        connect(m_p2, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
+    }
     
     m_p3 = new KProcess(this);
     m_p3->setEnv("XDG_CONFIG_HOME", KGlobal::dirs()->saveLocation("tmp", ".config"));
-    *m_p3 << KStandardDirs::findExe("gtk3_preview");
+    if(gtk3Preview.isEmpty()) {
+        *m_p3 << gtk3Preview;
+        connect(m_p3, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
+    }
+    
+    ui->gtk2Preview->setVisible(!gtk2Preview.isEmpty());
+    ui->gtk3Preview->setVisible(!gtk3Preview.isEmpty());
     
     //UI changes
     connect(ui->cb_theme, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
@@ -103,9 +115,6 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     connect(ui->cb_icon, SIGNAL(activated(QString)), this, SLOT(makePreviewIconTheme()));
     connect(ui->gtk2Preview, SIGNAL(clicked(bool)), this, SLOT(runGtk2IfNecessary(bool)));
     connect(ui->gtk3Preview, SIGNAL(clicked(bool)), this, SLOT(runGtk3IfNecessary(bool)));
-    
-    connect(m_p2, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
-    connect(m_p3, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
     
     QMenu* m = new QMenu(this);
     m->addAction(KIcon("get-hot-new-stuff"), i18n("Download GTK2 themes..."), this, SLOT(showThemeGHNS()));
