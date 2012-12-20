@@ -141,14 +141,7 @@ GTKConfigKCModule::~GTKConfigKCModule()
 
 QString fontToString(const QFont& f)
 {
-    QString style;
-
-    if(f.bold())
-        style += " bold";
-    if(f.italic())
-        style += " italic";
-    
-    return f.family() + style + ' ' + QString::number(f.pointSize());
+    return f.family() + ' ' + f.styleName() + ' ' + QString::number(f.pointSize());
 }
 
 void GTKConfigKCModule::syncUI()
@@ -182,15 +175,23 @@ void GTKConfigKCModule::installThemeGTK3GHNS()
 
 QFont stringToFont(const QString& font)
 {
-    QRegExp fontRx(QString(" (italic)? *(bold)? *([0-9]+)$"));
-    int pos = fontRx.indexIn(font);
-    QString fontFamily = font.left(pos);
+    QFontDatabase fdb;
+    QString fontFamily;
+    int familyIdx=-1;
+    for(int idx=font.indexOf(' '); idx<font.size(); idx=font.indexOf(' ', idx+1)) {
+        QString testFont = font.left(idx);
+        if(!fdb.hasFamily(testFont))
+            break;
+        fontFamily = testFont;
+        familyIdx = idx;
+    }
+    QRegExp fontRx(QString("( [a-zA-Z ]*) +([0-9]+)$"));
+    int pos = fontRx.indexIn(font, familyIdx);
 
-    bool italic = !fontRx.cap(1).isEmpty();
-    QFont::Weight bold = fontRx.cap(2).isEmpty() ? QFont::Normal : QFont::Bold;
-    int fontSize = fontRx.cap(3).toInt();
+    QString fontStyle = fontRx.cap(1).trimmed();
+    int fontSize = fontRx.cap(2).toInt();
     
-    return QFont(fontFamily, fontSize, bold, italic);
+    return fdb.font(fontFamily, fontStyle, fontSize);
 }
 
 void GTKConfigKCModule::refreshLists()
