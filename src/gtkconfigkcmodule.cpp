@@ -302,7 +302,7 @@ void GTKConfigKCModule::runGtk2IfNecessary(bool checked)
         np->kill();
         np->waitForFinished();
         savePreviewConfig();
-        if(p->state()!=KProcess::Running)
+        if(p->state() == QProcess::NotRunning)
             p->start();
     } else {
         p->kill();
@@ -319,7 +319,7 @@ void GTKConfigKCModule::runGtk3IfNecessary(bool checked)
         np->kill();
         np->waitForFinished();
         savePreviewConfig();
-        if(p->state()!=KProcess::Running)
+        if(p->state() == QProcess::NotRunning)
             p->start();
     } else {
         p->kill();
