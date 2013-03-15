@@ -357,6 +357,8 @@ void setComboItem(QComboBox* combo, const QStringList& texts)
 
 void GTKConfigKCModule::defaults()
 {
+    refreshThemesUi(false);
+
     kDebug() << "loading defaults...";
     m_saveEnabled = false;
     ui->font->setFont(font());
@@ -387,8 +389,9 @@ void GTKConfigKCModule::load()
     bool someCorrect = appareance->loadFileConfig();
     if(someCorrect) {
         refreshLists();
-    } else
+    } else {
         defaults();
+    }
     
     m_saveEnabled = true;
 }
