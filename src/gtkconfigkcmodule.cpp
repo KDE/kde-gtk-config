@@ -92,7 +92,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     
     m_p3 = new KProcess(this);
     m_p3->setEnv("XDG_CONFIG_HOME", KGlobal::dirs()->saveLocation("tmp", ".config"));
-    if(gtk3Preview.isEmpty()) {
+    if(!gtk3Preview.isEmpty()) {
         *m_p3 << gtk3Preview;
         connect(m_p3, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
     }
