@@ -186,7 +186,7 @@ QFont stringToFont(const QString& font)
         familyIdx = idx;
     }
     QRegExp fontRx(QString("( [a-zA-Z ]*) +([0-9]+)$"));
-    int pos = fontRx.indexIn(font, familyIdx);
+    fontRx.indexIn(font, familyIdx);
 
     QString fontStyle = fontRx.cap(1).trimmed();
     int fontSize = fontRx.cap(2).toInt();
@@ -288,8 +288,9 @@ void GTKConfigKCModule::savePreviewConfig()
         m_p3->start();
         ui->gtk3Preview->setChecked(true);
         m_saveEnabled = true;
-    } else if(ui->gtk2Preview->isChecked())
+    } else if(ui->gtk2Preview->isChecked()) {
         appareance->gtk2Appearance()->saveSettings(m_tempGtk2Preview);
+    }
 }
 
 void GTKConfigKCModule::runGtk2IfNecessary(bool checked)
