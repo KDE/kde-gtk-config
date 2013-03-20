@@ -23,6 +23,7 @@ set(kcm_SRCS
      src/gtkconfigkcmodule.cpp
      src/dialog_installer.cpp 
      src/dialog_uninstaller.cpp 
+     src/fontshelpers.cpp
 )
 
 set(GHNS_FILES 
@@ -47,3 +48,4 @@ install(FILES kde-gtk-config.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 add_subdirectory(gtkproxies)
 add_subdirectory(gtk3proxies)
 add_subdirectory(icons)
+add_subdirectory(tests)
