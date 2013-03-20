@@ -32,6 +32,7 @@
 #include "ui_gui.h"
 #include "abstractappearance.h"
 #include "iconthemesmodel.h"
+#include "fontshelpers.h"
 #include <kicontheme.h>
 
 K_PLUGIN_FACTORY(GTKConfigKCModuleFactory, registerPlugin<GTKConfigKCModule>();)
@@ -139,11 +140,6 @@ GTKConfigKCModule::~GTKConfigKCModule()
     delete ui;
 }
 
-QString fontToString(const QFont& f)
-{
-    return f.family() + ' ' + f.styleName() + ' ' + QString::number(f.pointSize());
-}
-
 void GTKConfigKCModule::syncUI()
 {
     appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
@@ -171,27 +167,6 @@ void GTKConfigKCModule::installThemeGTK3GHNS()
      if(d.exec()) {
           refreshLists();
      }
-}
-
-QFont stringToFont(const QString& font)
-{
-    QFontDatabase fdb;
-    QString fontFamily;
-    int familyIdx=-1;
-    for(int idx=font.indexOf(' '); idx<font.size(); idx=font.indexOf(' ', idx+1)) {
-        QString testFont = font.left(idx);
-        if(!fdb.hasFamily(testFont))
-            break;
-        fontFamily = testFont;
-        familyIdx = idx;
-    }
-    QRegExp fontRx(QString("( [a-zA-Z ]*) +([0-9]+)$"));
-    fontRx.indexIn(font, familyIdx);
-
-    QString fontStyle = fontRx.cap(1).trimmed();
-    int fontSize = fontRx.cap(2).toInt();
-    
-    return fdb.font(fontFamily, fontStyle, fontSize);
 }
 
 void GTKConfigKCModule::refreshLists()
