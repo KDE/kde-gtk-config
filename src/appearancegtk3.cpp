@@ -61,7 +61,6 @@ bool AppearanceGTK3::saveSettings(const QString& file) const
         kDebug() << "Couldn't open GTK3 config file for writing at:" << file_gtk3.fileName();
         return false;
     }
-    
     QTextStream flow3(&file_gtk3);
     flow3 << "[Settings]\n";
     flow3 << "gtk-font-name=" << m_settings["font"] << "\n";
@@ -69,9 +68,8 @@ bool AppearanceGTK3::saveSettings(const QString& file) const
     flow3 << "gtk-icon-theme-name="<< m_settings["icon"] << "\n";
     flow3 << "gtk-fallback-icon-theme=" << m_settings["icon_fallback"] << "\n";
     flow3 << "gtk-toolbar-style=" << m_settings["toolbar_style"] << "\n";
-    flow3 << "gtk-menu-images=" << m_settings["show_icons_buttons"] << "\n";
-    flow3 << "gtk-button-images=" << m_settings["show_icons_menus"] << "\n";
-    
+    flow3 << "gtk-menu-images=" << m_settings["show_icons_menus"] << "\n";
+    flow3 << "gtk-button-images=" << m_settings["show_icons_buttons"] << "\n";
     return true;
 }
 
