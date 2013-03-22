@@ -37,7 +37,7 @@ bool AppearanceGTK2::loadSettings(const QString& path)
     
     if(canRead) {
         kDebug() << "The gtk2 config file exists...";
-        QMap<QString, QString> foundSettings = readSettingsTuples(&configFile);
+        const QMap<QString, QString> foundSettings = readSettingsTuples(&configFile);
 
         m_settings["theme"] = foundSettings["gtk-theme-name"];
         m_settings["icon"] = foundSettings["gtk-icon-theme-name"];
@@ -69,7 +69,7 @@ QString AppearanceGTK2::themesGtkrcFile(const QString& themeName) const
     return QString();
 }
 
-bool AppearanceGTK2::saveSettings(const QString& gtkrcFile)
+bool AppearanceGTK2::saveSettings(const QString& gtkrcFile) const
 {
     QFile gtkrc(gtkrcFile);
     gtkrc.remove();

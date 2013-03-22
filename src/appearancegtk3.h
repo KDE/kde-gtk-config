@@ -30,7 +30,7 @@ class AppearanceGTK3 : public AbstractAppearance
 
 public:
     virtual QStringList installedThemes() const;
-    virtual bool saveSettings(const QString& file);
+    virtual bool saveSettings(const QString& file) const;
     virtual bool loadSettings(const QString& path);
     virtual QString defaultConfigFile() const;
 };

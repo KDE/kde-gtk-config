@@ -51,7 +51,7 @@ QStringList AppearanceGTK3::installedThemes() const
     return themes;
 }
 
-bool AppearanceGTK3::saveSettings(const QString& file)
+bool AppearanceGTK3::saveSettings(const QString& file) const
 {
     //Opening GTK3 config file $ENV{XDG_CONFIG_HOME}/gtk-3.0/m_settings.ini
     QDir::home().mkpath(file.left(file.lastIndexOf('/'))); //we make sure the path exists
@@ -81,7 +81,7 @@ bool AppearanceGTK3::loadSettings(const QString& path)
     bool canRead=fileGtk3.open(QIODevice::ReadOnly | QIODevice::Text);
     
     if(canRead) {
-        QMap<QString, QString> foundSettings = readSettingsTuples(&fileGtk3);
+        const QMap<QString, QString> foundSettings = readSettingsTuples(&fileGtk3);
         
         m_settings["theme"] = foundSettings["gtk-theme-name"];
         m_settings["icon"] = foundSettings["gtk-icon-theme-name"];

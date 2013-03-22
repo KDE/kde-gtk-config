@@ -31,7 +31,7 @@ class AbstractAppearance
         virtual ~AbstractAppearance() {}
         virtual QString defaultConfigFile() const = 0;
         virtual bool loadSettings(const QString& path) = 0;
-        virtual bool saveSettings(const QString& path) = 0;
+        virtual bool saveSettings(const QString& path) const = 0;
         
         /** @returns the installed themes' paths*/
         virtual QStringList installedThemes() const = 0;

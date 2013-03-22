@@ -28,7 +28,7 @@
 class AppearanceGTK2 : public AbstractAppearance
 {
     virtual bool loadSettings(const QString& path);
-    virtual bool saveSettings(const QString& path);
+    virtual bool saveSettings(const QString& path) const;
     virtual QString defaultConfigFile() const;
     virtual QStringList installedThemes() const;
     
