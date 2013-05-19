@@ -108,8 +108,8 @@ bool AppearanceGTK2::saveSettings(const QString& gtkrcFile)
     flow << "gtk-icon-theme-name=\""<< m_settings["icon"] << "\"\n";
     flow << "gtk-fallback-icon-theme=\"" << m_settings["icon_fallback"] << "\"\n";
     flow << "gtk-toolbar-style=" << m_settings["toolbar_style"] << "\n";
-    flow << "gtk-menu-images=" << m_settings["show_icons_buttons"] << "\n";
-    flow << "gtk-button-images=" << m_settings["show_icons_menus"] << "\n";
+    flow << "gtk-menu-images=" << m_settings["show_icons_menus"] << "\n";
+    flow << "gtk-button-images=" << m_settings["show_icons_buttons"] << "\n";
     
     //we're done with the  ~/.gtk-2.0 file
     gtkrc.close();
