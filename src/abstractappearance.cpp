@@ -48,7 +48,8 @@ QMap<QString,QString> AbstractAppearance::readSettingsTuples(QIODevice* device)
 {
     QMap<QString, QString> ret;
     QTextStream flow(device);
-    for(QString line = flow.readLine(); !flow.atEnd(); line = flow.readLine()) {
+    for(QString line; !flow.atEnd() ;) {
+        line = flow.readLine();
         if(valueRx.exactMatch(line))
             ret[valueRx.cap(1)] = valueRx.cap(2);
         else if(line.startsWith("include \"")) {
