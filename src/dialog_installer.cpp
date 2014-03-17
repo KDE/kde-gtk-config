@@ -21,7 +21,6 @@
 
 #include "dialog_installer.h"
 #include "ui_dialog_installer.h"
-#include <kdebug.h>
 #include <KMessageBox>
 #include <KMimeType>
 #include "installer.h"
@@ -84,7 +83,7 @@ void DialogInstaller::installTheme()
 {
     QString file = ui->theme_file->text();
 
-    kDebug()<< "File to install" << file;
+//     qDebug()<< "File to install" << file;
     if(!fileIsTar(file)) {
         KMessageBox::error(this, i18n("Could not install the %1 theme.", file), i18n("Cannot install theme"));
         return;
@@ -98,7 +97,7 @@ void DialogInstaller::installThemeIcon()
 {
     QString file = ui->icon_file->text();
 
-    kDebug()<< "File to install" << file;
+//     qDebug()<< "File to install" << file;
     if(!fileIsTar(file)) {
         KMessageBox::error(this, i18n("Could not install the %1 theme.", file), i18n("Cannot install theme"));
         return;

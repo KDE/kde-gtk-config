@@ -25,18 +25,17 @@
 #include <KGenericFactory>
 #include <KPluginFactory>
 #include <KProcess>
-#include <KStandardDirs>
 #include <KMessageBox>
 #include <QtGui>
-#include <QX11EmbedContainer>
+#include <QStandardPaths>
 #include "ui_gui.h"
 #include "abstractappearance.h"
 #include "iconthemesmodel.h"
 #include "fontshelpers.h"
 #include <kicontheme.h>
+#include <QMenu>
 
-K_PLUGIN_FACTORY(GTKConfigKCModuleFactory, registerPlugin<GTKConfigKCModule>();)
-K_EXPORT_PLUGIN(GTKConfigKCModuleFactory("cgc","kde-gtk-config"))
+K_PLUGIN_FACTORY_WITH_JSON(GTKConfigKCModuleFactory, "kde-gtk-config.json", registerPlugin<GTKConfigKCModule>();)
 
 QMap<QString, int> gtkToolbarInit()
 {
@@ -51,21 +50,21 @@ QMap<QString, int> gtkToolbarInit()
 static QMap<QString, int> gtkToolbar = gtkToolbarInit();
 
 GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
-    : KCModule(GTKConfigKCModuleFactory::componentData(), parent)
+    : KCModule(parent)
     , ui(new Ui::GUI)
     , installer(0)
     , uninstaller(0)
     , m_saveEnabled(true)
 {
     Q_UNUSED(args);
-    KAboutData *acercade = new KAboutData("cgc","kcm_cgc",ki18n("KDE GTK Config"), "2.2.1",
-                    ki18n("Configure your GTK Applications"),
+    KAboutData *acercade = new KAboutData("cgc","kcm_cgc",i18n("KDE GTK Config"), "2.2.1",
+                    i18n("Configure your GTK Applications"),
                     KAboutData::License_LGPL_V3,
-                    ki18n("Copyright 2011 José Antonio Sánchez Reynaga"));
-    acercade->addAuthor(ki18n("José Antonio Sánchez Reynaga (antonioJASR)"),ki18n("Main Developer"), "joanzare@gmail.com");
-    acercade->addAuthor(ki18n("Aleix Pol i Gonzalez"), ki18n("Feature development. Previews, code refactoring."), "aleixpol@blue-systems.com");
-    acercade->addCredit(ki18n("Manuel Tortosa (manutortosa)"), ki18n("Ideas, tester, internationalization"));
-    acercade->addCredit(ki18n("Adrián Chaves Fernández (Gallaecio)"), ki18n("Internationalization"));
+                    i18n("Copyright 2011 José Antonio Sánchez Reynaga"));
+    acercade->addAuthor(i18n("José Antonio Sánchez Reynaga (antonioJASR)"),i18n("Main Developer"), "joanzare@gmail.com");
+    acercade->addAuthor(i18n("Aleix Pol i Gonzalez"), i18n("Feature development. Previews, code refactoring."), "aleixpol@blue-systems.com");
+    acercade->addCredit(i18n("Manuel Tortosa (manutortosa)"), i18n("Ideas, tester, internationalization"));
+    acercade->addCredit(i18n("Adrián Chaves Fernández (Gallaecio)"), i18n("Internationalization"));
     setAboutData(acercade);
     
     ui->setupUi(this);
@@ -74,15 +73,15 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     ui->cb_icon->setModel(m_iconsModel);
     ui->cb_icon_fallback->setModel(m_iconsModel);
     
-    m_tempGtk2Preview = KGlobal::dirs()->saveLocation("tmp", "gtkrc-2.0", false);
-    m_tempGtk3Preview = KGlobal::dirs()->saveLocation("tmp", ".config/gtk-3.0/settings.ini", false);
+    m_tempGtk2Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation)+ "/gtkrc-2.0";
+    m_tempGtk3Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation)+ ".config/gtk-3.0/settings.ini";
     
-    const KIcon previewIcon("document-preview");
+    const QIcon previewIcon = QIcon::fromTheme("document-preview");
     ui->gtk2Preview->setIcon(previewIcon);
     ui->gtk3Preview->setIcon(previewIcon);
     
-    QString gtk2Preview = KStandardDirs::findExe("gtk_preview");
-    QString gtk3Preview = KStandardDirs::findExe("gtk3_preview");
+    QString gtk2Preview = QStandardPaths::findExecutable("gtk_preview");
+    QString gtk3Preview = QStandardPaths::findExecutable("gtk3_preview");
     
     m_p2 = new KProcess(this);
     m_p2->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);
@@ -92,7 +91,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     }
     
     m_p3 = new KProcess(this);
-    m_p3->setEnv("XDG_CONFIG_HOME", KGlobal::dirs()->saveLocation("tmp", ".config"));
+    m_p3->setEnv("XDG_CONFIG_HOME", QStandardPaths::writableLocation(QStandardPaths::TempLocation)+"/.config");
     if(!gtk3Preview.isEmpty()) {
         *m_p3 << gtk3Preview;
         connect(m_p3, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
@@ -118,12 +117,12 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     connect(ui->gtk3Preview, SIGNAL(clicked(bool)), this, SLOT(runGtk3IfNecessary(bool)));
     
     QMenu* m = new QMenu(this);
-    m->addAction(KIcon("get-hot-new-stuff"), i18n("Download GTK2 themes..."), this, SLOT(showThemeGHNS()));
-    m->addAction(KIcon("get-hot-new-stuff"), i18n("Download GTK3 themes..."), this, SLOT(installThemeGTK3GHNS()));
-    m->addAction(KIcon("archive-insert"), i18n("Install a local theme..."), this, SLOT(showDialogForInstall()));
-    m->addAction(KIcon("archive-remove"), i18n("Uninstall a local theme..."), this, SLOT(showDialogForUninstall()));
+    m->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Download GTK2 themes..."), this, SLOT(showThemeGHNS()));
+    m->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Download GTK3 themes..."), this, SLOT(installThemeGTK3GHNS()));
+    m->addAction(QIcon::fromTheme("archive-insert"), i18n("Install a local theme..."), this, SLOT(showDialogForInstall()));
+    m->addAction(QIcon::fromTheme("archive-remove"), i18n("Uninstall a local theme..."), this, SLOT(showDialogForUninstall()));
     ui->newThemes->setMenu(m);
-    ui->newThemes->setIcon(KIcon("download"));
+    ui->newThemes->setIcon(QIcon::fromTheme("download"));
 }
 
 GTKConfigKCModule::~GTKConfigKCModule()
@@ -210,11 +209,11 @@ void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const
         return;
     }
     
-    KIcon notFoundIcon("application-x-zerosize");
+    QIcon notFoundIcon = QIcon::fromTheme("application-x-zerosize");
     QPixmap noIcon(notFoundIcon.pixmap(48,48));
     label->setPixmap(noIcon);
     
-    kDebug() << "could not find icon" << iconName;
+    qWarning() << "could not find icon" << iconName;
 }
 
 void GTKConfigKCModule::makePreviewIconTheme()
@@ -247,7 +246,7 @@ void GTKConfigKCModule::savePreviewConfig()
 {
     if(!m_saveEnabled || !(ui->gtk2Preview->isChecked() || ui->gtk3Preview->isChecked()))
         return;
-    kDebug() << "saving UI...";
+//     qDebug() << "saving UI...";
     
     syncUI();
     
@@ -304,7 +303,7 @@ void GTKConfigKCModule::runGtk3IfNecessary(bool checked)
 
 void GTKConfigKCModule::save()
 {
-    kDebug() << "******************************************* INSTALLATION :\n"
+/*    qDebug() << "******************************************* INSTALLATION :\n"
             << "theme : " << appareance->getTheme() << "\n"
             << "themeGTK3 : " << appareance->getThemeGtk3() << "\n"
             << "icons : " << appareance->getIcon() << "\n"
@@ -314,6 +313,7 @@ void GTKConfigKCModule::save()
             << "icons in buttons : " << appareance->getShowIconsInButtons() << "\n"
             << "icons in menus : " << appareance->getShowIconsInMenus() << "\n"
             << "********************************************************";
+    */
     syncUI();
     if(!appareance->saveFileConfig())
         KMessageBox::error(this, i18n("It was not possible to save the config"));
@@ -334,7 +334,7 @@ void GTKConfigKCModule::defaults()
 {
     refreshThemesUi(false);
 
-    kDebug() << "loading defaults...";
+//     qDebug() << "loading defaults...";
     m_saveEnabled = false;
     ui->font->setFont(font());
     bool showIcons = !QCoreApplication::testAttribute(Qt::AA_DontShowIconsInMenus);
@@ -439,3 +439,5 @@ void GTKConfigKCModule::untogglePreview()
     else
         ui->gtk3Preview->setChecked(false);
 }
+
+#include "gtkconfigkcmodule.moc"

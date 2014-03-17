@@ -21,8 +21,7 @@
  */
 
 #include "appearencegtk.h"
-#include <kdebug.h>
-#include <qdiriterator.h>
+#include <QDirIterator>
 #include "abstractappearance.h"
 #include "appearancegtk2.h"
 #include "appearancegtk3.h"
@@ -64,7 +63,7 @@ bool AppearenceGTK::loadFileConfig()
         bool c = app->loadSettings(app->defaultConfigFile());
         correct = correct || c;
     }
-    kDebug() << "loading..." << correct;
+//     qDebug() << "loading..." << correct;
     return correct;
 }
 
@@ -75,6 +74,6 @@ bool AppearenceGTK::saveFileConfig()
         bool c = app->saveSettings(app->defaultConfigFile());
         correct = correct && c;
     }
-    kDebug() << "saving..." << correct;
+//     qDebug() << "saving..." << correct;
     return correct;
 }

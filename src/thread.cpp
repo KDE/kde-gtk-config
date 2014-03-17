@@ -21,11 +21,12 @@
  */
 
 #include "thread.h"
-#include <kdebug.h>
 #include <QFileInfo>
 #include <QDir>
 #include <QProcess>
 #include <QDirIterator>
+#include <QDebug>
+#include <QUrl>
 #include <kio/deletejob.h>
 #include <kio/netaccess.h>
 #include <KMimeType>
@@ -39,12 +40,12 @@ void Thread::start()
 {
     bool success = false;
     if(urlPackage.isEmpty()) {
-        kDebug() << "*** ERROR: There's nothing to do";
+        qWarning() << "*** ERROR: There's nothing to do";
     } else if(action == "icon") {
-        kDebug() << "Installing icons theme";
+//         qDebug() << "Installing icons theme";
         success = Installer::installIconTheme(urlPackage);
     } else if(action == "theme") {
-        kDebug() << "Installing GTK theme";
+//         qDebug() << "Installing GTK theme";
         success = Installer::installTheme(urlPackage);
     }
     setError(success);
@@ -64,16 +65,16 @@ bool Thread::isSuccess() const
 void ThreadAnalisysTheme::start()
 {
     bool success = false;
-    kDebug()<< "File to install" << packageTheme;
+//     qDebug()<< "File to install" << packageTheme;
 
     KTar package(packageTheme);
     if(!package.open(QIODevice::ReadOnly)) {
-        kDebug() << "ERROR extracting the package theme" << packageTheme;
+//         qDebug() << "ERROR extracting the package theme" << packageTheme;
         setError(1);
         emitResult();
         return;
     }
-    kDebug() << "** EXTRACTING ICONS TO A TEMPORAL FOLDER";
+//     qDebug() << "** EXTRACTING ICONS TO A TEMPORAL FOLDER";
     //We proceed unpacking the package in a temporal directory
     QDir temporal(QDir::tempPath()+"/CGC/theme");
 
@@ -85,8 +86,8 @@ void ThreadAnalisysTheme::start()
     // Package extracted in the temp dir. Now we want to know the name
     QString folder=temporal.entryList(QDir::AllDirs|QDir::NoDotAndDotDot).first();
 
-    kDebug() << "FOUND THEME FOLDER = " << folder;
-    kDebug() << "\n******* THEME " << temporal.path()+'/'+folder;
+//     qDebug() << "FOUND THEME FOLDER = " << folder;
+//     qDebug() << "\n******* THEME " << temporal.path()+'/'+folder;
 
     //We know the path of the folder to analyze
     QDirIterator it(temporal.path()+'/'+folder);
@@ -94,20 +95,21 @@ void ThreadAnalisysTheme::start()
     while(it.hasNext()) {
 
         QString file = it.next();
-        kDebug() << "trying file" << file;
+//         qDebug() << "trying file" << file;
 
         if(it.fileName()=="gtkrc") {
-            kDebug() << "FILE : " << file;
+//             qDebug() << "FILE : " << file;
             success = true;
             break;
         }
     }
 
-    kDebug() << "Deleting temps. Successful:" << success;
-    if(KIO::NetAccess::synchronousRun(KIO::del(KUrl::fromLocalFile(temporal.path()), KIO::HideProgressInfo), 0))
-        kDebug() << "There was not cleanning";
-    else
-        kDebug() << "Cleanning complete" << temporal.path();
+    QUrl tempUrl = QUrl::fromLocalFile(temporal.path());
+//     qDebug() << "Deleting temps. Successful:" << success;
+    if(!KIO::del(tempUrl, KIO::HideProgressInfo)->exec())
+        qWarning() << "There was not cleanning";
+//     else
+//         qDebug() << "Cleanning complete" << temporal.path();
     
     if(!success)
         setError(2);
@@ -127,15 +129,15 @@ bool ThreadAnalisysTheme::isSuccess() const
 void ThreadAnalisysThemeIcon::start()
 {
     bool success = false;
-    kDebug()<< "*************** GTK THEME INSTALLATION";
-    kDebug()<< "File to install" << packageTheme;
+//     qDebug()<< "*************** GTK THEME INSTALLATION";
+//     qDebug()<< "File to install" << packageTheme;
 
     KTar package(packageTheme);
     if(!package.open(QIODevice::ReadOnly)) {
-        kDebug() << "ERROR extracting the package theme" << packageTheme;
+        qWarning() << "ERROR extracting the package theme" << packageTheme;
         return;
     }
-    kDebug() << "** EXTRACTING ICONS TO A TEMPORAL FOLDER";
+//     qDebug() << "** EXTRACTING ICONS TO A TEMPORAL FOLDER";
     QDir temporal(QDir::tempPath()+"/CGC/icon");
     temporal.mkpath(temporal.path());
 
@@ -143,8 +145,8 @@ void ThreadAnalisysThemeIcon::start()
 
     //archive extracted in the temp directory
     QString folder= temporal.entryList(QDir::AllDirs|QDir::NoDotAndDotDot).first();
-    kDebug() << "FOUND THEME FOLDER = " << folder;
-    kDebug() << "\n******* THEME " << temporal.path()+'/'+folder;
+//     qDebug() << "FOUND THEME FOLDER = " << folder;
+//     qDebug() << "\n******* THEME " << temporal.path()+'/'+folder;
 
     QDirIterator it(temporal.path()+'/'+folder);
 
@@ -154,18 +156,20 @@ void ThreadAnalisysThemeIcon::start()
 
         if(it.fileName()=="index.theme") {
             //archivo index.theme
-            kDebug() << "FILE : " << file;
+//             qDebug() << "FILE : " << file;
             success = true;
             break;
         }
 
     }
 
-    kDebug() << "Deleting temps. Successful:" << success;
-    if(KIO::NetAccess::synchronousRun(KIO::del(KUrl::fromLocalFile(temporal.path()), KIO::HideProgressInfo), 0)) {
-        kDebug() << "There was not cleanning";
-    } else
-        kDebug() << "Cleanning complete." << temporal.path();
+    QUrl tempUrl = QUrl::fromLocalFile(temporal.path());
+//     qDebug() << "Deleting temps. Successful:" << success;
+    if(KIO::del(tempUrl, KIO::HideProgressInfo)->exec()) {
+        qWarning() << "Cleaning was not succesful";
+    }
+//     else
+//         qDebug() << "Cleanning complete." << temporal.path();
     if(!success)
         setError(2);
     emitResult();
@@ -194,7 +198,7 @@ void ThreadErase::setThemeForErase(const QString& theme)
 
 void ThreadErase::start()
 {
-    KIO::DeleteJob* job = KIO::del(KUrl::fromLocalFile(themeForErase), KIO::HideProgressInfo);
+    KIO::DeleteJob* job = KIO::del(QUrl::fromLocalFile(themeForErase), KIO::HideProgressInfo);
     connect(job, SIGNAL(finished(KJob*)), SLOT(deleted(KJob*)));
 }
 

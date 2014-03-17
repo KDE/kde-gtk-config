@@ -22,12 +22,12 @@
 
 #include "appearancegtk2.h"
 #include <QFile>
-#include <KDebug>
 #include <QStringList>
 #include <QDir>
-#include <qdiriterator.h>
-#include <KProcess>
-#include <KStandardDirs>
+#include <QDirIterator>
+#include <QDebug>
+#include <QProcess>
+#include <QStandardPaths>
 
 bool AppearanceGTK2::loadSettings(const QString& path)
 {
@@ -36,7 +36,7 @@ bool AppearanceGTK2::loadSettings(const QString& path)
     bool canRead = configFile.open(QIODevice::ReadOnly | QIODevice::Text);
     
     if(canRead) {
-        kDebug() << "The gtk2 config file exists...";
+//         qDebug() << "The gtk2 config file exists...";
         const QMap<QString, QString> foundSettings = readSettingsTuples(&configFile);
 
         m_settings["theme"] = foundSettings["gtk-theme-name"];
@@ -60,7 +60,7 @@ QString AppearanceGTK2::themesGtkrcFile(const QString& themeName) const
         while(it.hasNext()) {
             it.next();
             if(it.fileName()=="gtkrc") {
-                kDebug() << "\tgtkrc file found at : " << it.filePath();
+//                 qDebug() << "\tgtkrc file found at : " << it.filePath();
                 return it.filePath();
             }
         }
@@ -75,7 +75,7 @@ bool AppearanceGTK2::saveSettings(const QString& gtkrcFile) const
     gtkrc.remove();
 
     if(!gtkrc.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        kDebug() << "There was unable to write the file .gtkrc-2.0";
+        qWarning() << "There was unable to write the file .gtkrc-2.0";
         return false;
     }
 
@@ -116,15 +116,15 @@ bool AppearanceGTK2::saveSettings(const QString& gtkrcFile) const
     
     //TODO: do we really need the linked file?
     if(QFile::remove(gtkrcFile+"-kde4"))
-        kDebug() << "ready to create the symbolic link";
+        qDebug() << "ready to create the symbolic link";
     
     if( !QFile::link(gtkrcFile, gtkrcFile+"-kde4") )
-        kDebug() << "Couldn't create the symboling link to .gtkrc-2.0-kde4 :(";
-    else
-        kDebug() << "Symbolic link created for .gtkrc-2.0-kde4 :D";
+        qWarning() << "Couldn't create the symboling link to .gtkrc-2.0-kde4 :(";
+//     else
+//         qDebug() << "Symbolic link created for .gtkrc-2.0-kde4 :D";
     
     if(gtkrcFile==defaultConfigFile())
-        KProcess::startDetached(KStandardDirs::findExe("reload_gtk_apps"));
+        QProcess::startDetached(QStandardPaths::findExecutable("reload_gtk_apps"));
     
     return true;
 }
@@ -137,7 +137,7 @@ QString AppearanceGTK2::defaultConfigFile() const
 QStringList AppearanceGTK2::installedThemes() const
 {
     QFileInfoList availableThemes;
-    foreach(const QString& themesDir, KGlobal::dirs()->findDirs("xdgdata-apps", "../themes")) {
+    foreach(const QString& themesDir, QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "themes", QStandardPaths::LocateDirectory)) {
         QDir root(themesDir);
         availableThemes += root.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);
     }

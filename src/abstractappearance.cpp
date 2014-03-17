@@ -22,7 +22,7 @@
 #include "abstractappearance.h"
 #include <qregexp.h>
 #include <QDir>
-#include <KDebug>
+#include <QDebug>
 
 //SETTERS
 void AbstractAppearance::setTheme(const QString& name) { m_settings["theme"] = name;}
@@ -60,9 +60,9 @@ QMap<QString,QString> AbstractAppearance::readSettingsTuples(QIODevice* device)
             if(f.open(QFile::Text|QFile::ReadOnly)) {
                 ret.unite(readSettingsTuples(&f));
             } else
-                kWarning() << "couldn't include " << filename;
+                qWarning() << "couldn't include " << filename;
         } else
-            kDebug() << "misinterpreted line" << line;
+            qDebug() << "misinterpreted line" << line;
     }
     return ret;
 }

@@ -23,9 +23,9 @@
 #include <fontshelpers.h>
 #include <QFontDatabase>
 #include <QStringList>
-#include <qtest_kde.h>
+#include <qtest.h>
 
-QTEST_KDEMAIN( FontsTest, GUI )
+QTEST_MAIN( FontsTest )
 
 void FontsTest::testBruteForce()
 {

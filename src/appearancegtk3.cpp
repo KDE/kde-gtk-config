@@ -21,15 +21,15 @@
  */
 
 #include "appearancegtk3.h"
-#include <KDebug>
-#include <KStandardDirs>
 #include <QFile>
 #include <QDir>
+#include <QDebug>
+#include <QStandardPaths>
 
 QStringList AppearanceGTK3::installedThemes() const
 {
     QFileInfoList availableThemes;
-    foreach(const QString& themesDir, KGlobal::dirs()->findDirs("xdgdata-apps", "../themes")) {
+    foreach(const QString& themesDir, QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "themes", QStandardPaths::LocateDirectory)) {
         QDir root(themesDir);
         availableThemes += root.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);
     }
@@ -58,7 +58,7 @@ bool AppearanceGTK3::saveSettings(const QString& file) const
     QFile file_gtk3(file);
     
     if(!file_gtk3.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        kDebug() << "Couldn't open GTK3 config file for writing at:" << file_gtk3.fileName();
+        qWarning() << "Couldn't open GTK3 config file for writing at:" << file_gtk3.fileName();
         return false;
     }
     QTextStream flow3(&file_gtk3);
@@ -90,14 +90,14 @@ bool AppearanceGTK3::loadSettings(const QString& path)
         m_settings["show_icons_buttons"] = foundSettings.value("gtk-button-images", "0");
         m_settings["show_icons_menus"] = foundSettings.value("gtk-menu-images", "0");
     } else
-        kDebug() << "Cannot open the GTK3 config file" << path;
+        qWarning() << "Cannot open the GTK3 config file" << path;
     
     return canRead;
 }
 
 QString AppearanceGTK3::defaultConfigFile() const
 {
-    QString root = KGlobal::dirs()->localxdgconfdir();
+    QString root = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
     if(root.isEmpty())
         root = QFileInfo(QDir::home(), ".config").absoluteFilePath();
     

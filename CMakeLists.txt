@@ -1,16 +1,26 @@
-project(kdegtkconfig)
-cmake_minimum_required(VERSION 2.6)
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
+project(kde-gtk-config)
+cmake_minimum_required(VERSION 2.8.12)
 
-find_package(KDE4 REQUIRED)
-include(KDE4Defaults)
+find_package(ECM 0.0.9 REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_PATH})
 
-add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Widgets Xml Test Sql X11Extras)
+find_package(KF5 REQUIRED NO_MODULE COMPONENTS KDE4Support ConfigWidgets NewStuff Archive KCMUtils Auth)
+
 include_directories(
     ${CMAKE_SOURCE_DIR} 
     ${CMAKE_SOURCE_DIR}/src 
     ${CMAKE_SOURCE_DIR}/src/ui 
-    ${KDE4_INCLUDES} ${QT_INCLUDES})
+)
+
+include(ECMSetupVersion)
+include(ECMInstallIcons)
+include(ECMMarkAsTest)
+include(GenerateExportHeader)
+include(FeatureSummary)
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
 
 set(kcm_SRCS
      src/iconthemesmodel.cpp
@@ -32,16 +42,17 @@ set(GHNS_FILES
      cgcgtk3.knsrc
 )
 
-kde4_add_ui_files(kcm_SRCS 
+qt5_wrap_ui(kcm_SRCS 
      src/ui/gui.ui 
      src/ui/dialog_installer.ui 
      src/ui/dialog_uninstaller.ui
 )
-kde4_add_plugin(kcm_cgc ${kcm_SRCS})
+add_library(kcm_kdegtkconfig MODULE ${kcm_SRCS})
+target_link_libraries(kcm_kdegtkconfig Qt5::X11Extras KF5::KIOWidgets KF5::NewStuff KF5::Archive KF5::NewStuff KF5::ConfigWidgets KF5::IconThemes KF5::KDE4Support)
 
-target_link_libraries(kcm_cgc ${KDE4_KIO_LIBS} ${KDE4_KNEWSTUFF3_LIBS})
+kservice_desktop_to_json(kcm_kdegtkconfig kde-gtk-config.desktop)
 
-install(TARGETS kcm_cgc DESTINATION ${PLUGIN_INSTALL_DIR})
+install(TARGETS kcm_kdegtkconfig DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES ${GHNS_FILES} DESTINATION ${CONFIG_INSTALL_DIR})
 install(FILES kde-gtk-config.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 
