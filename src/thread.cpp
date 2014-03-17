@@ -28,8 +28,6 @@
 #include <QDebug>
 #include <QUrl>
 #include <kio/deletejob.h>
-#include <kio/netaccess.h>
-#include <KMimeType>
 #include <KTar>
 
 Thread::Thread(const QString& accion)
@@ -38,6 +36,8 @@ Thread::Thread(const QString& accion)
 
 void Thread::start()
 {
+    emit started();
+
     bool success = false;
     if(urlPackage.isEmpty()) {
         qWarning() << "*** ERROR: There's nothing to do";

@@ -22,11 +22,11 @@
 #include "dialog_installer.h"
 #include "ui_dialog_installer.h"
 #include <KMessageBox>
-#include <KMimeType>
 #include "installer.h"
 #include "thread.h"
-#include "klocale.h"
 #include <QFile>
+#include <QMimeDatabase>
+#include <klocalizedstring.h>
 
 static bool fileIsTar(const QString& path)
 {
@@ -34,17 +34,15 @@ static bool fileIsTar(const QString& path)
     if(file.isDir() || !file.exists())
         return false;
     
-    KMimeType::Ptr type = KMimeType::findByPath(path);
-    return type && (type->is("application/x-tar") || type->is("application/x-bzip-compressed-tar") || type->is("application/x-compressed-tar"));
+    QMimeDatabase db;
+    QMimeType type = db.mimeTypeForUrl(QUrl::fromLocalFile(path));
+    return type.isValid() && (type.inherits("application/x-tar") || type.inherits("application/x-bzip-compressed-tar") || type.inherits("application/x-compressed-tar"));
 }
 
 DialogInstaller::DialogInstaller(QWidget *parent)
-    : KDialog(parent), ui(new Ui::dialog_installer)
+    : QDialog(parent), ui(new Ui::dialog_installer)
 {
-    QWidget* w = new QWidget(this);
-    ui->setupUi(w);
-    setMainWidget(w);
-    setButtons(KDialog::Close);
+    ui->setupUi(this);
     
     //TODO: make sure it's a good idea to have the threads always instanciated
     threadForTheme = new Thread("theme");
@@ -56,17 +54,17 @@ DialogInstaller::DialogInstaller(QWidget *parent)
     connect(ui->but_icon_install, SIGNAL(clicked()), this, SLOT(installThemeIcon()));
     connect(ui->but_theme_install, SIGNAL(clicked()), this, SLOT(installTheme()));
 
-    connect(threadAnalisysTheme, SIGNAL(finished()), this, SLOT(checkThemeAnalisys()));
-    connect(threadAnalisysThemeIcon, SIGNAL(finished()), this, SLOT(checkThemeIconAnalisys()));
+    connect(threadAnalisysTheme, &KJob::finished, this, &DialogInstaller::checkThemeAnalisys);
+    connect(threadAnalisysThemeIcon, &KJob::finished, this, &DialogInstaller::checkThemeIconAnalisys);
 
-    connect(threadForTheme, SIGNAL(started()), this, SLOT(disableGUIThemeInstaller()));
-    connect(threadForIcon, SIGNAL(started()), this, SLOT(disableGUIThemeIconInstaller()));
-    connect(threadForTheme, SIGNAL(finished()), this, SLOT(enableGUIThemeInstaller()));
-    connect(threadForIcon, SIGNAL(finished()), this, SLOT(enableGUIThemeIconInstaller()));
+    connect(threadForTheme, &Thread::started, this, &DialogInstaller::disableGUIThemeInstaller);
+    connect(threadForIcon, &Thread::started, this, &DialogInstaller::disableGUIThemeIconInstaller);
+    connect(threadForTheme, &KJob::finished, this, &DialogInstaller::enableGUIThemeInstaller);
+    connect(threadForIcon, &KJob::finished, this, &DialogInstaller::enableGUIThemeIconInstaller);
 
     //ui refresh
-    connect(threadForTheme, SIGNAL(finished()), this, SLOT(refreshGUITheme()));
-    connect(threadForIcon, SIGNAL(finished()), this, SLOT(refreshGUIIconTheme()));
+    connect(threadForTheme, &KJob::finished, this, &DialogInstaller::refreshGUITheme);
+    connect(threadForIcon, &KJob::finished, this, &DialogInstaller::refreshGUIIconTheme);
 
 }
 
@@ -168,7 +166,7 @@ void DialogInstaller::enableGUIThemeIconInstaller()
 {
     ui->but_icon_install->setEnabled(true);
     ui->icon_file->setEnabled(true);
-    button(KDialog::Close)->setEnabled(true);
+    ui->buttonBox->button(QDialogButtonBox::Close)->setEnabled(true);
 }
 
 void DialogInstaller::disableGUIThemeInstaller()
@@ -182,7 +180,7 @@ void DialogInstaller::disableGUIThemeIconInstaller()
     ui->lb_icon_notice->setText(i18n("Installing icons..."));
     ui->but_icon_install->setEnabled(false);
     ui->icon_file->setEnabled(false);
-    button(KDialog::Close)->setEnabled(false);
+    ui->buttonBox->button(QDialogButtonBox::Close)->setEnabled(false);
 }
 
 void DialogInstaller::refreshGUIIconTheme()

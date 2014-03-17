@@ -22,18 +22,20 @@
 
 #include "gtkconfigkcmodule.h"
 #include <kaboutdata.h>
-#include <KGenericFactory>
 #include <KPluginFactory>
 #include <KProcess>
 #include <KMessageBox>
-#include <QtGui>
+#include <KIconTheme>
+#include <KLocalizedString>
 #include <QStandardPaths>
+#include <QFile>
+#include <QMenu>
+#include <QDebug>
+#include <QDir>
 #include "ui_gui.h"
 #include "abstractappearance.h"
 #include "iconthemesmodel.h"
 #include "fontshelpers.h"
-#include <kicontheme.h>
-#include <QMenu>
 
 K_PLUGIN_FACTORY_WITH_JSON(GTKConfigKCModuleFactory, "kde-gtk-config.json", registerPlugin<GTKConfigKCModule>();)
 
@@ -190,7 +192,7 @@ void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const
     
     QString ret;
     if(!theme.isEmpty())
-        ret = IconThemesModel::findIconRecursivelyByName(iconName, theme);
+        ret = IconThemesModel::findIconRecursivelyByName(iconName, QDir(theme));
     
     if(!ret.isEmpty()) {
         QPixmap p(ret);
