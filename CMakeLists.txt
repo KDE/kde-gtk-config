@@ -5,7 +5,7 @@ find_package(ECM 0.0.9 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_PATH})
 
 find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Widgets Xml Test Sql X11Extras)
-find_package(KF5 REQUIRED NO_MODULE COMPONENTS I18n ConfigWidgets NewStuff Archive KCMUtils Auth)
+find_package(KF5 REQUIRED COMPONENTS I18n ConfigWidgets NewStuff Archive KCMUtils Auth)
 
 include_directories(
     ${CMAKE_SOURCE_DIR} 
