@@ -23,9 +23,9 @@
 #include "iconthemesmodel.h"
 #include <QDir>
 #include <QDirIterator>
-#include <KDebug>
+#include <QSet>
 #include <KIconTheme>
-#include <KStandardDirs>
+#include <QStandardPaths>
 
 IconThemesModel::IconThemesModel(bool onlyHome, QObject* parent)
     : QStandardItemModel(parent)
@@ -41,7 +41,7 @@ QList<QDir> IconThemesModel::installedThemesPaths()
     QSet<QString> dirs;
     dirs += QDir::home().filePath(".icons");
     if(!m_onlyHome) {
-        dirs += KGlobal::dirs()->findDirs("xdgdata-icon", QString()).toSet();
+        dirs += QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "icons", QStandardPaths::LocateDirectory).toSet();
     }
     
     foreach(const QString& dir, dirs) {

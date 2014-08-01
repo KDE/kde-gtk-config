@@ -26,19 +26,16 @@
 #include "ui_dialog_uninstaller.h"
 #include "thread.h"
 #include "appearencegtk.h"
-#include "klocale.h"
 #include <QDir>
 #include <QDebug>
+#include <KLocalizedString>
 
 DialogUninstaller::DialogUninstaller(QWidget* parent, AppearenceGTK *app)
-    : KDialog(parent)
+    : QDialog(parent)
     , ui(new Ui::dialog_uninstaller)
     , appareance(app)
 {
-    QWidget* w = new QWidget(this);
-    ui->setupUi(w);
-    setMainWidget(w);
-    setButtons(KDialog::Close);
+    ui->setupUi(this);
     
     refreshListsForUninstall();
     

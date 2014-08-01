@@ -31,6 +31,7 @@
   */
 class Thread: public KJob
 {
+Q_OBJECT
 public:
     Thread(const QString& );
     virtual void start();
@@ -40,6 +41,10 @@ public:
     
     ///@returns whether it was successful
     bool isSuccess() const;
+
+signals:
+    void started();
+
 private:
     QString action;
     QString urlPackage;

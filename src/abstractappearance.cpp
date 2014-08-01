@@ -22,7 +22,7 @@
 #include "abstractappearance.h"
 #include <qregexp.h>
 #include <QDir>
-#include <KDebug>
+#include <QDebug>
 
 //SETTERS
 void AbstractAppearance::setTheme(const QString& name) { m_settings["theme"] = name;}
@@ -43,26 +43,31 @@ QString AbstractAppearance::getToolbarStyle() const { return m_settings["toolbar
 bool AbstractAppearance::getShowIconsInButtons() const { return m_settings["show_icons_buttons"]=="1"; }
 bool AbstractAppearance::getShowIconsInMenus() const { return m_settings["show_icons_menus"]=="1"; }
 
-QRegExp valueRx(" *([a-zA-Z\\-]+) *= *\"?([^\"\\n]+)\"?", Qt::CaseSensitive, QRegExp::RegExp2);
+QRegExp valueRx(" *([a-zA-Z\\-_]+) *= *\"?([^\"\\n]+)\"?", Qt::CaseSensitive, QRegExp::RegExp2);
 QMap<QString,QString> AbstractAppearance::readSettingsTuples(QIODevice* device)
 {
     QMap<QString, QString> ret;
     QTextStream flow(device);
-    for(QString line; !flow.atEnd() ;) {
-        line = flow.readLine();
+    for(; !flow.atEnd() ;) {
+        QString line = flow.readLine();
+        int idxComment = line.indexOf('#');
+        if(idxComment>=0)
+            line = line.left(idxComment).simplified();
+
         if(valueRx.exactMatch(line))
             ret[valueRx.cap(1)] = valueRx.cap(2);
         else if(line.startsWith("include \"")) {
             QString filename = line.mid(9);
             filename.chop(1);
-            qDebug() << "including: " << filename;
+//             qDebug() << "including: " << filename;
             QFile f(filename);
             if(f.open(QFile::Text|QFile::ReadOnly)) {
                 ret.unite(readSettingsTuples(&f));
             } else
-                kWarning() << "couldn't include " << filename;
-        } else
-            kDebug() << "misinterpreted line" << line;
+                qWarning() << "couldn't include " << filename;
+        }
+//         else if(!line.isEmpty())
+//             qWarning() << "misinterpreted line" << line;
     }
     return ret;
 }

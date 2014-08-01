@@ -28,7 +28,7 @@
 #include "appearencegtk.h"
 #include "dialog_installer.h"
 #include "dialog_uninstaller.h"
-#include <knewstuff3/downloaddialog.h>
+#include <kns3/downloaddialog.h>
 
 class IconThemesModel;
 class KProcess;
