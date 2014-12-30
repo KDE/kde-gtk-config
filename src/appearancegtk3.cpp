@@ -81,14 +81,30 @@ bool AppearanceGTK3::loadSettings(const QString& path)
     if(canRead) {
         const QMap<QString, QString> foundSettings = readSettingsTuples(&fileGtk3);
         
-        m_settings["theme"] = foundSettings["gtk-theme-name"];
-        m_settings["icon"] = foundSettings["gtk-icon-theme-name"];
-        m_settings["icon_fallback"] = foundSettings["gtk-fallback-icon-theme"];
-        m_settings["font"] = foundSettings["gtk-font-name"];
-        
-        m_settings["toolbar_style"] = foundSettings.value("gtk-toolbar-style", "GTK_TOOLBAR_ICONS");
-        m_settings["show_icons_buttons"] = foundSettings.value("gtk-button-images", "0");
-        m_settings["show_icons_menus"] = foundSettings.value("gtk-menu-images", "0");
+        m_settings = QMap<QString, QString> {
+            {"toolbar_style", "GTK_TOOLBAR_ICONS"},
+            {"show_icons_buttons", "0"},
+            {"show_icons_menus", "0"}
+        };
+
+        for(auto it = foundSettings.constBegin(), itEnd = foundSettings.constEnd(); it!=itEnd; ++it) {
+            if (it.key() == "gtk-theme-name")
+                m_settings["theme"] = *it;
+            else if (it.key() == "gtk-icon-theme-name")
+                m_settings["icon"] = *it;
+            else if (it.key() == "gtk-fallback-icon-theme")
+                m_settings["icon_fallback"] = *it;
+            else if (it.key() == "gtk-font-name")
+                m_settings["font"] = *it;
+            else if (it.key() == "gtk-toolbar-style")
+                m_settings["toolbar_style"] = *it;
+            else if (it.key() == "gtk-button-images")
+                m_settings["show_icons_buttons"] = *it;
+            else if (it.key() == "gtk-menu-images")
+                m_settings["show_icons_menus"] = *it;
+            else
+                qWarning() << "unknown field" << it.key();
+        }
     } else
         qWarning() << "Cannot open the GTK3 config file" << path;
     
