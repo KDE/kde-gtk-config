@@ -59,7 +59,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     , m_saveEnabled(true)
 {
     Q_UNUSED(args);
-    KAboutData *acercade = new KAboutData("cgc", i18n("KDE GTK Config"), "2.2.1",
+    KAboutData *acercade = new KAboutData("cgc", i18n("KDE GTK Config"), PROJECT_VERSION,
                     i18n("Configure your GTK Applications"),
                     KAboutLicense::LGPL_V3,
                     i18n("Copyright 2011 José Antonio Sánchez Reynaga"));
