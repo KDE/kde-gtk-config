@@ -43,6 +43,9 @@ void FontsTest::testBruteForce()
                 qDebug() << "faulty font:" << str << f << f2;
             }
             QCOMPARE(str, fontToString(f2));
+            if(f != f2) {
+                qDebug() << "faulty font:" << f << f2;
+            }
             QCOMPARE(f, f2);
         }
     }
