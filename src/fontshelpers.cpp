@@ -43,7 +43,7 @@ QFont stringToFont(const QString& font)
             familyIdx = idx;
         }
     }
-    QRegExp fontRx(QString("( [a-zA-Z ]*) +([0-9]+)$"));
+    QRegExp fontRx(QString("( [a-zA-Z0-9 ]*) +([0-9]+)$"));
     fontRx.indexIn(font, familyIdx);
 
     QString fontStyle = fontRx.cap(1).trimmed();
