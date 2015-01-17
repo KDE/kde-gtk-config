@@ -24,6 +24,7 @@
 
 #include <QStringList>
 #include <QMap>
+#include <QIODevice>
 
 class AbstractAppearance
 {
