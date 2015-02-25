@@ -1,6 +1,7 @@
 [Desktop Entry]
 Categories=Qt;KDE;X-KDE-settings-looknfeel;
 Comment=Widget Style of GNOME/GTK Applications
+Comment[bs]=Stil kontrola za GNOME/GTK aplikacije
 Comment[ca]=Estri per a l'estil de les aplicacions GNOME/GTK
 Comment[cs]=Styl widgetu aplikací GNOME/GTK
 Comment[da]=Kontrolstil for GNOME-/GTK-programmer
@@ -38,6 +39,7 @@ Comment[zh_TW]=Gnome/GTK 應用程式的元件樣式
 Exec=kcmshell5 kde-gtk-config
 Icon=kde-gtk-config
 Name=GNOME Application Style (GTK)
+Name[bs]=GNOME stil aplikacija (GTK)
 Name[ca]=Estil de les aplicacions GNOME (GTK)
 Name[cs]=Styl aplikací GNOME (GTK)
 Name[da]=Programstil for GNOME (GTK)
