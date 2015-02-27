@@ -21,7 +21,7 @@
 
 #include "fontshelpers.h"
 #include <QFontDatabase>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QDebug>
 #include <QStringList>
 
@@ -43,15 +43,18 @@ QFont stringToFont(const QString& font)
             familyIdx = idx;
         }
     }
-    QRegExp fontRx(QString("( [a-zA-Z0-9 ]*) +([0-9]+)$"));
-    fontRx.indexIn(font, familyIdx);
-
-    QString fontStyle = fontRx.cap(1).trimmed();
-    int fontSize = fontRx.cap(2).toInt();
 
     QFont f;
     f.setFamily(fontFamily);
-    f.setStyleName(fontStyle);
-    f.setPointSize(fontSize);
+    QRegularExpression fontRx(QStringLiteral("( [a-zA-Z0-9\\- ]*) +([0-9]+)$"));
+    QRegularExpressionMatch match = fontRx.match(font, familyIdx);
+    if (match.isValid()) {
+        QString fontStyle = match.captured(1).trimmed();
+        int fontSize = match.captured(2).toInt();
+        f.setStyleName(fontStyle);
+        f.setPointSize(fontSize);
+    } else {
+        qWarning() << "Couldn't figure out syle and size" << font;
+    }
     return f;
 }
