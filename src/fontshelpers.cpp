@@ -46,7 +46,7 @@ QFont stringToFont(const QString& font)
 
     QFont f;
     f.setFamily(fontFamily);
-    QRegularExpression fontRx(QStringLiteral("( [a-zA-Z0-9\\- ]*) +([0-9]+)$"));
+    QRegularExpression fontRx(QStringLiteral(" (.*) +([0-9]+)$"));
     QRegularExpressionMatch match = fontRx.match(font, familyIdx);
     if (match.isValid()) {
         QString fontStyle = match.captured(1).trimmed();
