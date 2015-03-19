@@ -52,7 +52,7 @@ add_library(kcm_kdegtkconfig MODULE ${kcm_SRCS})
 target_compile_definitions(kcm_kdegtkconfig PRIVATE -DPROJECT_VERSION="${PROJECT_VERSION}")
 target_link_libraries(kcm_kdegtkconfig KF5::I18n KF5::KIOWidgets KF5::NewStuff KF5::Archive KF5::NewStuff KF5::ConfigWidgets KF5::IconThemes)
 
-kservice_desktop_to_json(kcm_kdegtkconfig kde-gtk-config.desktop)
+kcoreaddons_desktop_to_json(kcm_kdegtkconfig kde-gtk-config.desktop)
 
 install(TARGETS kcm_kdegtkconfig DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES ${GHNS_FILES} DESTINATION ${CONFIG_INSTALL_DIR})
