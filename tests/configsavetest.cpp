@@ -7,7 +7,7 @@
 
 #include <QtTest>
 
-QTEST_MAIN(ConfigSaveTest);
+QTEST_GUILESS_MAIN(ConfigSaveTest);
 
 void ConfigSaveTest::fillValues(AbstractAppearance* a)
 {
