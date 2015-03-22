@@ -62,3 +62,5 @@ add_subdirectory(gtkproxies)
 add_subdirectory(gtk3proxies)
 add_subdirectory(icons)
 add_subdirectory(tests)
+
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
