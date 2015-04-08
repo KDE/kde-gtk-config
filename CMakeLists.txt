@@ -23,6 +23,9 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings)
 
+# Set KI18n translation domain
+add_definitions(-DTRANSLATION_DOMAIN=\"kde-gtk-config\")
+
 set(kcm_SRCS
      src/iconthemesmodel.cpp
      src/appearancegtk3.cpp
@@ -43,7 +46,7 @@ set(GHNS_FILES
      cgcgtk3.knsrc
 )
 
-qt5_wrap_ui(kcm_SRCS 
+ki18n_wrap_ui(kcm_SRCS 
      src/ui/gui.ui 
      src/ui/dialog_installer.ui 
      src/ui/dialog_uninstaller.ui
