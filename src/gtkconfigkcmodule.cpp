@@ -68,7 +68,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     acercade->addCredit(i18n("Manuel Tortosa (manutortosa)"), i18n("Ideas, tester, internationalization"));
     acercade->addCredit(i18n("Adrián Chaves Fernández (Gallaecio)"), i18n("Internationalization"));
     setAboutData(acercade);
-    
+    setButtons(KCModule::Default | KCModule::Apply);
     ui->setupUi(this);
     appareance = new AppearenceGTK;
     m_iconsModel = new IconThemesModel(false, this);
