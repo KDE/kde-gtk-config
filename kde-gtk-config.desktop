@@ -2,7 +2,7 @@
 Categories=Qt;KDE;X-KDE-settings-looknfeel;
 Comment=Widget Style of GNOME/GTK Applications
 Comment[ar]=نمط ودجات تطبيقات جنوم/جتك
-Comment[ast]=Estilu de widget d'aplicaciones GNOME/GTK
+Comment[ast]=Estilu de widgets d'aplicaciones GNOME/GTK
 Comment[bs]=Stil kontrola za GNOME/GTK aplikacije
 Comment[ca]=Estil pels estris de les aplicacions GNOME/GTK
 Comment[ca@valencia]=Estil pels estris de les aplicacions GNOME/GTK
@@ -47,7 +47,7 @@ Exec=kcmshell5 kde-gtk-config
 Icon=kde-gtk-config
 Name=GNOME Application Style (GTK)
 Name[ar]=نمط تطبيقات جنوم (جتك)
-Name[ast]=Estilu d'aplicación GNOME (GTK)
+Name[ast]=Estilu d'aplicaciones GNOME (GTK)
 Name[bs]=GNOME stil aplikacija (GTK)
 Name[ca]=Estil de les aplicacions GNOME (GTK)
 Name[ca@valencia]=Estil de les aplicacions GNOME (GTK)
