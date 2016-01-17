@@ -26,6 +26,7 @@
 
 //SETTERS
 void AbstractAppearance::setTheme(const QString& name) { m_settings["theme"] = name;}
+void AbstractAppearance::setCursor(const QString& cur) { m_settings["cursor"] = cur;}
 void AbstractAppearance::setIcon(const QString& ic) { m_settings["icon"] = ic;}
 void AbstractAppearance::setIconFallback(const QString& fall) { m_settings["icon_fallback"] = fall; }
 void AbstractAppearance::setFont(const QString& fo) { m_settings["font"] = fo;}
@@ -35,6 +36,7 @@ void AbstractAppearance::setToolbarStyle(const QString& toolbar_style) { m_setti
 
 // GETTERS
 QString AbstractAppearance::getTheme() const { return m_settings["theme"];}
+QString AbstractAppearance::getCursor() const { return m_settings["cursor"];}
 QString AbstractAppearance::getIcon() const { return m_settings["icon"];}
 QString AbstractAppearance::getIconFallback() const { return m_settings["icon_fallback"]; }
 QString AbstractAppearance::getFont() const { return m_settings["font"]; }

@@ -28,6 +28,7 @@ add_definitions(-DTRANSLATION_DOMAIN=\"kde-gtk-config\")
 
 set(kcm_SRCS
      src/iconthemesmodel.cpp
+     src/cursorthemesmodel.cpp
      src/appearancegtk3.cpp
      src/appearancegtk2.cpp
      src/appearencegtk.cpp

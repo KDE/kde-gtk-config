@@ -29,8 +29,9 @@
 #include "dialog_installer.h"
 #include "dialog_uninstaller.h"
 #include <kns3/downloaddialog.h>
+#include "iconthemesmodel.h"
+#include "cursorthemesmodel.h"
 
-class IconThemesModel;
 class KProcess;
 class QX11EmbedContainer;
 namespace Ui { class Modulo; class GUI; }
@@ -82,6 +83,7 @@ private:
     QString m_tempGtk2Preview;
     QString m_tempGtk3Preview;
     bool m_saveEnabled;
+    CursorThemesModel* m_cursorsModel;
     IconThemesModel* m_iconsModel;
 };
 

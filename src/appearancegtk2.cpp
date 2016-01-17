@@ -51,6 +51,8 @@ bool AppearanceGTK2::loadSettings(const QString& path)
                 m_settings["icon"] = *it;
             else if (it.key() == "gtk-fallback-icon-theme")
                 m_settings["icon_fallback"] = *it;
+            else if (it.key() == "gtk-cursor-theme-name")
+                m_settings["cursor"] = *it;
             else if (it.key() == "gtk-font-name")
                 m_settings["font"] = *it;
             else if (it.key() == "gtk-toolbar-style")
@@ -124,6 +126,7 @@ bool AppearanceGTK2::saveSettings(const QString& gtkrcFile) const
     flow << "gtk-theme-name=\"" << m_settings["theme"] << "\"\n";
     flow << "gtk-icon-theme-name=\""<< m_settings["icon"] << "\"\n";
     flow << "gtk-fallback-icon-theme=\"" << m_settings["icon_fallback"] << "\"\n";
+    flow << "gtk-cursor-theme-name=\"" << m_settings["cursor"] << "\"\n";
     flow << "gtk-toolbar-style=" << m_settings["toolbar_style"] << "\n";
     flow << "gtk-menu-images=" << m_settings["show_icons_menus"] << "\n";
     flow << "gtk-button-images=" << m_settings["show_icons_buttons"] << "\n";

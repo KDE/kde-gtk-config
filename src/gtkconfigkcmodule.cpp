@@ -71,6 +71,8 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     setButtons(KCModule::Default | KCModule::Apply);
     ui->setupUi(this);
     appareance = new AppearenceGTK;
+    m_cursorsModel = new CursorThemesModel(false, this);
+    ui->cb_cursor->setModel(m_cursorsModel);
     m_iconsModel = new IconThemesModel(false, this);
     ui->cb_icon->setModel(m_iconsModel);
     ui->cb_icon_fallback->setModel(m_iconsModel);
@@ -105,6 +107,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     //UI changes
     connect(ui->cb_theme, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_theme_gtk3, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
+    connect(ui->cb_cursor, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_icon, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_icon_fallback ,SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->font, SIGNAL(fontSelected(QFont)), this, SLOT(appChanged()));
@@ -145,6 +148,7 @@ void GTKConfigKCModule::syncUI()
 {
     appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
     appareance->setTheme(ui->cb_theme->currentText());
+    appareance->setCursor(ui->cb_cursor->itemData(ui->cb_cursor->currentIndex(), CursorThemesModel::DirNameRole).toString());
     appareance->setIcon(ui->cb_icon->itemData(ui->cb_icon->currentIndex(), IconThemesModel::DirNameRole).toString());
     appareance->setIconFallback(ui->cb_icon_fallback->itemData(ui->cb_icon_fallback->currentIndex(), IconThemesModel::DirNameRole).toString());
     appareance->setFont(fontToString(ui->font->font()));
@@ -310,6 +314,7 @@ void GTKConfigKCModule::save()
             << "themeGTK3 : " << appareance->getThemeGtk3() << "\n"
             << "icons : " << appareance->getIcon() << "\n"
             << "fallback icons : " << appareance->getIconFallback() << "\n"
+            << "cursors : " << appareance->getCursor() << "\n"
             << "font family : " << appareance->getFont() << "\n"
             << "toolbar style : " << appareance->getToolbarStyle() << "\n"
             << "icons in buttons : " << appareance->getShowIconsInButtons() << "\n"
@@ -396,6 +401,11 @@ void GTKConfigKCModule::refreshThemesUi(bool useConfig)
     refreshComboSameCurrentValue(ui->cb_theme_gtk3,
         useConfig ? appareance->getThemeGtk3() : ui->cb_theme_gtk3->currentText(),
         appareance->gtk3Appearance()->installedThemesNames());
+
+    //cursors
+    QString currentCursor = useConfig ? appareance->getCursor() : ui->cb_cursor->currentText();
+    int currentCursorIdx = ui->cb_cursor->findData(currentCursor, CursorThemesModel::DirNameRole);
+    ui->cb_cursor->setCurrentIndex(qMax(currentCursorIdx, 0));
     
     //icons
     QString currentIcon = useConfig ? appareance->getIcon() : ui->cb_icon->currentText(),
@@ -406,7 +416,7 @@ void GTKConfigKCModule::refreshThemesUi(bool useConfig)
     ui->cb_icon_fallback->setCurrentIndex(qMax(currentFallbackIdx, 0));
     
     m_saveEnabled = wasenabled;
-    if(currentIconIdx<0 || currentFallbackIdx<0)
+    if(currentCursorIdx<0 || currentIconIdx<0 || currentFallbackIdx<0)
         emit changed(true);
 }
 

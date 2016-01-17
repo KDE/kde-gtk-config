@@ -41,6 +41,7 @@ AppearenceGTK::~AppearenceGTK()
 void AppearenceGTK::set##name(const type& a) { foreach(AbstractAppearance* app, m_app) app->set##name(a); }\
 type AppearenceGTK::get##name() const { foreach(AbstractAppearance* app, m_app) { if(app->hasProperty(propname)) return app->get##name(); } /*Q_ASSERT(false);*/ return type (); }
 
+PROPERTY_IMPLEMENTATION(QString, Cursor, "cursor")
 PROPERTY_IMPLEMENTATION(QString, Icon, "icon")
 PROPERTY_IMPLEMENTATION(QString, IconFallback, "icon_fallback")
 PROPERTY_IMPLEMENTATION(QString, Font, "font")

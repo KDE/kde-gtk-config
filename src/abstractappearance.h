@@ -38,6 +38,7 @@ class AbstractAppearance
         virtual QStringList installedThemes() const = 0;
         
         void setTheme(const QString& name);
+        void setCursor(const QString& name);
         void setIcon(const QString& name);
         void setIconFallback(const QString& name);
         void setFont(const QString& font);
@@ -46,6 +47,7 @@ class AbstractAppearance
         void setToolbarStyle(const QString& style);
         
         QString getTheme() const;
+        QString getCursor() const;
         QString getIcon() const;
         QString getIconFallback() const;
         QString getFont() const;
