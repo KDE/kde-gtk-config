@@ -21,7 +21,7 @@ include(GenerateExportHeader)
 include(FeatureSummary)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
-include(KDECompilerSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
 
 # Set KI18n translation domain
 add_definitions(-DTRANSLATION_DOMAIN=\"kde-gtk-config\")
