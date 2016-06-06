@@ -127,7 +127,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     m->addAction(QIcon::fromTheme("archive-insert"), i18n("Install a local theme..."), this, SLOT(showDialogForInstall()));
     m->addAction(QIcon::fromTheme("archive-remove"), i18n("Uninstall a local theme..."), this, SLOT(showDialogForUninstall()));
     ui->newThemes->setMenu(m);
-    ui->newThemes->setIcon(QIcon::fromTheme("download"));
+    ui->newThemes->setIcon(QIcon::fromTheme("get-hot-new-stuff"));
 }
 
 GTKConfigKCModule::~GTKConfigKCModule()
