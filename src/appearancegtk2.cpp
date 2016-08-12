@@ -41,7 +41,8 @@ bool AppearanceGTK2::loadSettings(const QString& path)
         m_settings = QMap<QString, QString> {
             {"toolbar_style", "GTK_TOOLBAR_ICONS"},
             {"show_icons_buttons", "0"},
-            {"show_icons_menus", "0"}
+            {"show_icons_menus", "0"},
+            {"primary_button_warps_slider", "false"}
         };
 
         for(auto it = foundSettings.constBegin(), itEnd = foundSettings.constEnd(); it!=itEnd; ++it) {
@@ -61,6 +62,8 @@ bool AppearanceGTK2::loadSettings(const QString& path)
                 m_settings["show_icons_buttons"] = *it;
             else if(it.key() == "gtk-menu-images")
                 m_settings["show_icons_menus"] = *it;
+            else if (it.key() == "gtk-primary-button-warps-slider")
+                m_settings["primary_button_warps_slider"] = *it;
             else
                 qWarning() << "unknown field" << it.key();
         }
@@ -130,6 +133,7 @@ bool AppearanceGTK2::saveSettings(const QString& gtkrcFile) const
     flow << "gtk-toolbar-style=" << m_settings["toolbar_style"] << "\n";
     flow << "gtk-menu-images=" << m_settings["show_icons_menus"] << "\n";
     flow << "gtk-button-images=" << m_settings["show_icons_buttons"] << "\n";
+    flow << "gtk-primary-button-warps-slider=" << m_settings["primary_button_warps_slider"] << "\n";
     
     //we're done with the  ~/.gtk-2.0 file
     gtkrc.close();

@@ -44,6 +44,7 @@ class AbstractAppearance
         void setFont(const QString& font);
         void setShowIconsInMenus(bool show);
         void setShowIconsInButtons(bool show);
+        void setPrimaryButtonWarpsSlider(bool enabled);
         void setToolbarStyle(const QString& style);
         
         QString getTheme() const;
@@ -55,6 +56,7 @@ class AbstractAppearance
         QString getToolbarStyle() const;
         bool getShowIconsInButtons() const;
         bool getShowIconsInMenus() const;
+        bool getPrimaryButtonWarpsSlider() const;
         
         QStringList installedThemesNames() const;
         bool hasProperty(const QString& key) const;

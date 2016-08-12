@@ -48,6 +48,7 @@ PROPERTY_IMPLEMENTATION(QString, Font, "font")
 PROPERTY_IMPLEMENTATION(QString, ToolbarStyle, "toolbar_style")
 PROPERTY_IMPLEMENTATION(bool, ShowIconsInButtons, "show_icons_buttons")
 PROPERTY_IMPLEMENTATION(bool, ShowIconsInMenus, "show_icons_menus")
+PROPERTY_IMPLEMENTATION(bool, PrimaryButtonWarpsSlider, "primary_button_warps_slider")
 
 QString AppearenceGTK::getTheme() const { return gtk2Appearance()->getTheme(); }
 void AppearenceGTK::setTheme(const QString& name) { return gtk2Appearance()->setTheme(name); }

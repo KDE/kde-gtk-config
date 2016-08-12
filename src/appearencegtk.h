@@ -48,6 +48,7 @@ public:
     void setToolbarStyle(const QString&);
     void setShowIconsInMenus(const bool& show);
     void setShowIconsInButtons(const bool& show);
+    void setPrimaryButtonWarpsSlider(const bool &enable);
 
     QString getTheme() const;
     QString getThemeGtk3() const;
@@ -59,6 +60,7 @@ public:
     QString getToolbarStyle() const;
     bool getShowIconsInMenus() const;
     bool getShowIconsInButtons() const;
+    bool getPrimaryButtonWarpsSlider() const;
     
     bool loadFileConfig();
     bool saveFileConfig();

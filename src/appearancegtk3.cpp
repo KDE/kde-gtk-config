@@ -71,6 +71,8 @@ bool AppearanceGTK3::saveSettings(const QString& file) const
     flow3 << "gtk-toolbar-style=" << m_settings["toolbar_style"] << "\n";
     flow3 << "gtk-menu-images=" << m_settings["show_icons_menus"] << "\n";
     flow3 << "gtk-button-images=" << m_settings["show_icons_buttons"] << "\n";
+    flow3 << "gtk-primary-button-warps-slider=" << m_settings["primary_button_warps_slider"] << "\n";
+
     return true;
 }
 
@@ -85,7 +87,8 @@ bool AppearanceGTK3::loadSettings(const QString& path)
         m_settings = QMap<QString, QString> {
             {"toolbar_style", "GTK_TOOLBAR_ICONS"},
             {"show_icons_buttons", "0"},
-            {"show_icons_menus", "0"}
+            {"show_icons_menus", "0"},
+            {"primary_button_warps_slider", "false"}
         };
 
         for(auto it = foundSettings.constBegin(), itEnd = foundSettings.constEnd(); it!=itEnd; ++it) {
@@ -105,6 +108,8 @@ bool AppearanceGTK3::loadSettings(const QString& path)
                 m_settings["show_icons_buttons"] = *it;
             else if (it.key() == "gtk-menu-images")
                 m_settings["show_icons_menus"] = *it;
+            else if (it.key() == "gtk-primary-button-warps-slider")
+                m_settings["primary_button_warps_slider"] = *it;
             else
                 qWarning() << "unknown field" << it.key();
         }

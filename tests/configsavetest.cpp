@@ -18,6 +18,7 @@ void ConfigSaveTest::fillValues(AbstractAppearance* a)
     a->setIconFallback("a");
     a->setShowIconsInButtons(true);
     a->setShowIconsInMenus(true);
+    a->setPrimaryButtonWarpsSlider(true);
 }
 
 bool compareAppearances(AbstractAppearance* a, AbstractAppearance* b)
@@ -28,7 +29,8 @@ bool compareAppearances(AbstractAppearance* a, AbstractAppearance* b)
         && a->getToolbarStyle() == b->getToolbarStyle()
         && a->getIconFallback() == b->getIconFallback()
         && a->getShowIconsInButtons() == b->getShowIconsInButtons()
-        && a->getShowIconsInMenus() == b->getShowIconsInMenus();
+        && a->getShowIconsInMenus() == b->getShowIconsInMenus()
+        && a->getPrimaryButtonWarpsSlider() == b->getPrimaryButtonWarpsSlider();
 }
 
 QByteArray readFile(const QString& path)

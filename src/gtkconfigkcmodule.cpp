@@ -114,6 +114,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     connect(ui->cb_toolbar_icons, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->checkBox_icon_gtk_menus, SIGNAL(clicked(bool)), this, SLOT(appChanged()));
     connect(ui->checkBox_icon_gtk_buttons, SIGNAL(clicked(bool)), this, SLOT(appChanged()));
+    connect(ui->checkBox_primary_button_warps_slider, SIGNAL(clicked(bool)), this, SLOT(appChanged()));
 
     //preview updates
     connect(ui->cb_icon_fallback, SIGNAL(activated(QString)), this, SLOT(makePreviewIconTheme()));
@@ -156,6 +157,7 @@ void GTKConfigKCModule::syncUI()
     appareance->setToolbarStyle(gtkToolbar.key(ui->cb_toolbar_icons->currentIndex()));
     appareance->setShowIconsInButtons(ui->checkBox_icon_gtk_buttons->isChecked());
     appareance->setShowIconsInMenus(ui->checkBox_icon_gtk_menus->isChecked());
+    appareance->setPrimaryButtonWarpsSlider(ui->checkBox_primary_button_warps_slider->isChecked());
 }
 
 void GTKConfigKCModule::showThemeGHNS()
@@ -186,6 +188,7 @@ void GTKConfigKCModule::refreshLists()
     
     ui->checkBox_icon_gtk_buttons->setChecked(appareance->getShowIconsInButtons());
     ui->checkBox_icon_gtk_menus->setChecked(appareance->getShowIconsInMenus());
+    ui->checkBox_primary_button_warps_slider->setChecked(appareance->getPrimaryButtonWarpsSlider());
     
     makePreviewIconTheme();
 }
@@ -347,6 +350,9 @@ void GTKConfigKCModule::defaults()
     bool showIcons = !QCoreApplication::testAttribute(Qt::AA_DontShowIconsInMenus);
     ui->checkBox_icon_gtk_buttons->setChecked(showIcons);
     ui->checkBox_icon_gtk_menus->setChecked(showIcons);
+
+    // this makes it consistent with Qt apps and restores the old Gtk behavior
+    ui->checkBox_primary_button_warps_slider->setChecked(false);
     
     setComboItem(ui->cb_theme, QStringList("oxygen-gtk") << "Clearlooks");
     setComboItem(ui->cb_theme_gtk3, QStringList("oxygen-gtk") << "Adwaita");

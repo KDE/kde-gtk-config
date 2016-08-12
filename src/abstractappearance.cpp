@@ -32,6 +32,7 @@ void AbstractAppearance::setIconFallback(const QString& fall) { m_settings["icon
 void AbstractAppearance::setFont(const QString& fo) { m_settings["font"] = fo;}
 void AbstractAppearance::setShowIconsInButtons(bool show) { m_settings["show_icons_buttons"] = show ? "1" : "0"; }
 void AbstractAppearance::setShowIconsInMenus(bool show) { m_settings["show_icons_menus"] = show ? "1" : "0"; }
+void AbstractAppearance::setPrimaryButtonWarpsSlider(bool enabled) { m_settings["primary_button_warps_slider"] = enabled ? "true" : "false"; }
 void AbstractAppearance::setToolbarStyle(const QString& toolbar_style) { m_settings["toolbar_style"] = toolbar_style; }
 
 // GETTERS
@@ -44,6 +45,7 @@ QString AbstractAppearance::getThemeGtk3() const { return m_settings["themegtk3"
 QString AbstractAppearance::getToolbarStyle() const { return m_settings["toolbar_style"]; }
 bool AbstractAppearance::getShowIconsInButtons() const { return m_settings["show_icons_buttons"]=="1"; }
 bool AbstractAppearance::getShowIconsInMenus() const { return m_settings["show_icons_menus"]=="1"; }
+bool AbstractAppearance::getPrimaryButtonWarpsSlider() const { return m_settings["primary_button_warps_slider"] == "true"; }
 
 QRegExp valueRx(" *([a-zA-Z\\-_]+) *= *\"?([^\"\\n]+)\"?", Qt::CaseSensitive, QRegExp::RegExp2);
 QMap<QString,QString> AbstractAppearance::readSettingsTuples(QIODevice* device)
