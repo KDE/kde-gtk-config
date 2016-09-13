@@ -1,5 +1,6 @@
 /* KDE GTK Configuration Module
  * 
+ * Copyright 2016 Jason A. Donenfeld <Jason@zx2c4.com>
  * Copyright 2016 Andrey Bondrov <andrey.bondrov@rosalab.ru>
  * Copyright 2011 Aleix Pol Gonzalez <aleixpol@blue-systems.com>
  *
