@@ -27,9 +27,17 @@
 #include <KIconTheme>
 #include <QStandardPaths>
 
-CursorThemesModel::CursorThemesModel(bool onlyHome, QObject* parent)
+#include <X11/Xlib.h>
+#include <X11/Xcursor/Xcursor.h>
+
+// Check for older version
+#if !defined(XCURSOR_LIB_MAJOR) && defined(XCURSOR_MAJOR)
+#  define XCURSOR_LIB_MAJOR XCURSOR_MAJOR
+#  define XCURSOR_LIB_MINOR XCURSOR_MINOR
+#endif
+
+CursorThemesModel::CursorThemesModel(QObject* parent)
     : IconThemesModel(parent)
-    , m_onlyHome(onlyHome)
 {
     reload();
 }
@@ -37,13 +45,38 @@ CursorThemesModel::CursorThemesModel(bool onlyHome, QObject* parent)
 QList<QDir> CursorThemesModel::installedThemesPaths()
 {
     QList<QDir> availableIcons;
+    QStringList dirs;
 
-    QSet<QString> dirs;
-    dirs += QDir::home().filePath(".icons");
-    if(!m_onlyHome) {
-        dirs += QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "icons", QStandardPaths::LocateDirectory).toSet();
+#if XCURSOR_LIB_MAJOR == 1 && XCURSOR_LIB_MINOR < 1
+    // These are the default paths Xcursor will scan for cursor themes
+    QString path("~/.icons:/usr/share/icons:/usr/share/pixmaps:/usr/X11R6/lib/X11/icons");
+
+    // If XCURSOR_PATH is set, use that instead of the default path
+    char *xcursorPath = std::getenv("XCURSOR_PATH");
+    if (xcursorPath)
+        path = xcursorPath;
+#else
+    // Get the search path from Xcursor
+    QString path = XcursorLibraryPath();
+#endif
+
+    // Separate the paths
+    dirs = path.split(':', QString::SkipEmptyParts);
+
+    // Remove duplicates
+    QMutableStringListIterator i(dirs);
+    while (i.hasNext())
+    {
+        const QString path = i.next();
+        QMutableStringListIterator j(i);
+        while (j.hasNext())
+            if (j.next() == path)
+                j.remove();
     }
-    
+
+    // Expand all occurrences of ~/ to the home dir
+    dirs.replaceInStrings(QRegExp(QStringLiteral("^~\\/")), QDir::home().path() + '/');
+ 
     foreach(const QString& dir, dirs) {
         QDir userIconsDir(dir);
         QDirIterator it(userIconsDir.path(), QDir::NoDotAndDotDot|QDir::AllDirs|QDir::NoSymLinks);
