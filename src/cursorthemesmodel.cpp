@@ -24,12 +24,14 @@
 #include <QDir>
 #include <QDirIterator>
 #include <QSet>
-#include <KIconTheme>
 #include <QStandardPaths>
+#include <KIconTheme>
+#include <KShell>
 
-CursorThemesModel::CursorThemesModel(bool onlyHome, QObject* parent)
+#include <X11/Xcursor/Xcursor.h>
+
+CursorThemesModel::CursorThemesModel(QObject* parent)
     : IconThemesModel(parent)
-    , m_onlyHome(onlyHome)
 {
     reload();
 }
@@ -37,13 +39,11 @@ CursorThemesModel::CursorThemesModel(bool onlyHome, QObject* parent)
 QList<QDir> CursorThemesModel::installedThemesPaths()
 {
     QList<QDir> availableIcons;
+    QStringList dirs(QString(XcursorLibraryPath()).split(':', QString::SkipEmptyParts));
 
-    QSet<QString> dirs;
-    dirs += QDir::home().filePath(".icons");
-    if(!m_onlyHome) {
-        dirs += QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "icons", QStandardPaths::LocateDirectory).toSet();
-    }
-    
+    std::transform(dirs.begin(), dirs.end(), dirs.begin(), KShell::tildeExpand);
+    dirs.removeDuplicates();
+
     foreach(const QString& dir, dirs) {
         QDir userIconsDir(dir);
         QDirIterator it(userIconsDir.path(), QDir::NoDotAndDotDot|QDir::AllDirs|QDir::NoSymLinks);
