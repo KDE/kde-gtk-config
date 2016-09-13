@@ -71,7 +71,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     setButtons(KCModule::Default | KCModule::Apply);
     ui->setupUi(this);
     appareance = new AppearenceGTK;
-    m_cursorsModel = new CursorThemesModel(this);
+    m_cursorsModel = new CursorThemesModel(false, this);
     ui->cb_cursor->setModel(m_cursorsModel);
     m_iconsModel = new IconThemesModel(false, this);
     ui->cb_icon->setModel(m_iconsModel);
