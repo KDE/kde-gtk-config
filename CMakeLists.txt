@@ -7,7 +7,6 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_P
 
 find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Widgets Test)
 find_package(KF5 REQUIRED COMPONENTS I18n KIO ConfigWidgets NewStuff Archive KCMUtils IconThemes)
-find_package(X11)
 
 include_directories(
     ${CMAKE_SOURCE_DIR} 
