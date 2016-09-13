@@ -7,6 +7,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_P
 
 find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Widgets Test)
 find_package(KF5 REQUIRED COMPONENTS I18n KIO ConfigWidgets NewStuff Archive KCMUtils IconThemes)
+find_package(X11 REQUIRED)
 
 include_directories(
     ${CMAKE_SOURCE_DIR} 
@@ -54,7 +55,7 @@ ki18n_wrap_ui(kcm_SRCS
 )
 add_library(kcm_kdegtkconfig MODULE ${kcm_SRCS})
 target_compile_definitions(kcm_kdegtkconfig PRIVATE -DPROJECT_VERSION="${PROJECT_VERSION}")
-target_link_libraries(kcm_kdegtkconfig KF5::I18n KF5::KIOWidgets KF5::NewStuff KF5::Archive KF5::NewStuff KF5::ConfigWidgets KF5::IconThemes)
+target_link_libraries(kcm_kdegtkconfig ${X11_Xcursor_LIB} KF5::I18n KF5::KIOWidgets KF5::NewStuff KF5::Archive KF5::NewStuff KF5::ConfigWidgets KF5::IconThemes)
 
 kcoreaddons_desktop_to_json(kcm_kdegtkconfig kde-gtk-config.desktop)
 

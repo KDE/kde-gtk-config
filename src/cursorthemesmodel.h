@@ -29,14 +29,13 @@ class QDir;
 class CursorThemesModel : public IconThemesModel
 {
     public:
-        explicit CursorThemesModel(bool onlyHome=false, QObject* parent = 0);
+        explicit CursorThemesModel(QObject* parent = 0);
 
         void reload();
         
     private:
         static void fillItem(const QDir& dir, QStandardItem* item);
         QList<QDir> installedThemesPaths();
-        bool m_onlyHome;
 };
 
 #endif // CURSORTHEMESMODEL_H
