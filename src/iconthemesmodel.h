@@ -37,7 +37,6 @@ class IconThemesModel : public QStandardItemModel
         static QString findIconRecursivelyByName(const QString& name, const QDir& directory);
         
     private:
-        static void fillItem(const QDir& dir, QStandardItem* item);
         static QString findFilesRecursively(const QStringList& wildcard, const QDir& directory);
         QList<QDir> installedThemesPaths();
         bool m_onlyHome;

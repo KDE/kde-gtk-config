@@ -1,5 +1,5 @@
 /* KDE GTK Configuration Module
- * 
+ *
  * Copyright 2011 José Antonio Sanchez Reynaga <joanzare@gmail.com>
  * Copyright 2011 Aleix Pol Gonzalez <aleixpol@blue-systems.com>
  *
@@ -10,13 +10,13 @@
  * later version accepted by the membership of KDE e.V. (or its
  * successor approved by the membership of KDE e.V.), which shall
  * act as a proxy defined in Section 6 of version 3 of the license.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public 
+ *
+ * You should have received a copy of the GNU Lesser General Public
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
@@ -44,14 +44,14 @@ QList<QDir> IconThemesModel::installedThemesPaths()
     if(!m_onlyHome) {
         dirs += QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "icons", QStandardPaths::LocateDirectory).toSet();
     }
-    
+
     foreach(const QString& dir, dirs) {
         QDir userIconsDir(dir);
         QDirIterator it(userIconsDir.path(), QDir::NoDotAndDotDot|QDir::AllDirs|QDir::NoSymLinks);
         while(it.hasNext()) {
             QString currentPath = it.next();
             QDir dir(currentPath);
-            
+
             if(dir.exists() && dir.exists("index.theme")) {
                 availableIcons << dir;
             }
@@ -82,7 +82,7 @@ QString IconThemesModel::findFilesRecursively(const QStringList& wildcard, const
     foreach(const QFileInfo& f, entries) {
         return f.absoluteFilePath();
     }
-    
+
     QStringList subdirs = directory.entryList(QDir::AllDirs|QDir::NoDotAndDotDot);
     qSort(subdirs.begin(), subdirs.end(), greatSizeIs48);
     foreach(const QString& subdir, subdirs) {
@@ -90,40 +90,36 @@ QString IconThemesModel::findFilesRecursively(const QStringList& wildcard, const
         if(!ret.isEmpty())
             return ret;
     }
-    
-    return QString();
-}
 
-void IconThemesModel::fillItem(const QDir& dir, QStandardItem* item)
-{
-    KIconTheme theme(dir.dirName());
-    
-    item->setText(theme.name());
-    item->setToolTip(theme.description());
-    item->setData(theme.inherits(), IconThemesModel::InheritsRole);
-    QString iconName = theme.example();
-    
-    if(!iconName.isEmpty()) {
-        QString path = IconThemesModel::findIconRecursivelyByName(iconName, dir.path());
-        item->setIcon(QIcon(path));
-    }
-    
-    if(item->icon().isNull()) {
-        QString path = IconThemesModel::findFilesRecursively(QStringList("*.png") << "*.svg" << "*.svgz", dir.path());
-        item->setIcon(QIcon(path));        
-    }
+    return QString();
 }
 
 void IconThemesModel::reload()
 {
     clear();
-    
+
     QList<QDir> paths = installedThemesPaths();
     Q_FOREACH(const QDir& dir, paths) {
-        QStandardItem* themeit = new QStandardItem(dir.dirName());
-        themeit->setData(dir.path(), PathRole);
-        themeit->setData(dir.dirName(), DirNameRole);
-        fillItem(dir, themeit);
-        appendRow(themeit);
+        KIconTheme theme(dir.dirName());
+        if (!theme.isValid()) {
+            qWarning() << "invalid theme" << dir.dirName();
+            continue;
+        }
+
+        QStandardItem* item = new QStandardItem(dir.dirName());
+        item->setData(dir.path(), PathRole);
+        item->setData(dir.dirName(), DirNameRole);
+
+        item->setText(theme.name());
+        item->setToolTip(theme.description());
+        item->setData(theme.inherits(), IconThemesModel::InheritsRole);
+        QString iconName = theme.example();
+        if (iconName.isEmpty())
+            iconName = QStringLiteral("folder");
+
+        QString path = theme.iconPathByName(iconName, 16, KIconLoader::MatchBest);
+        item->setIcon(QIcon(path));
+
+        appendRow(item);
     }
 }
