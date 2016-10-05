@@ -23,6 +23,7 @@
 #include "iconthemesmodel.h"
 #include <QDir>
 #include <QDirIterator>
+#include <QDebug>
 #include <QSet>
 #include <KIconTheme>
 #include <QStandardPaths>
@@ -51,7 +52,7 @@ QList<QDir> IconThemesModel::installedThemesPaths()
             QString currentPath = it.next();
             QDir dir(currentPath);
             
-            if(dir.exists() && !dir.exists("cursors") && dir.exists("index.theme")) {
+            if(dir.exists() && dir.exists("index.theme")) {
                 availableIcons << dir;
             }
         }
