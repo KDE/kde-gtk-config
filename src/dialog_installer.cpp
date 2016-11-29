@@ -51,6 +51,9 @@ DialogInstaller::DialogInstaller(QWidget *parent)
     threadAnalisysThemeIcon = new ThreadAnalisysThemeIcon;
     
     //installation ui
+    connect(ui->theme_file, &KUrlRequester::textChanged, this, &DialogInstaller::themeAnalisys);
+    connect(ui->icon_file, &KUrlRequester::textChanged, this, &DialogInstaller::themeIconAnalisys);
+
     connect(ui->but_icon_install, SIGNAL(clicked()), this, SLOT(installThemeIcon()));
     connect(ui->but_theme_install, SIGNAL(clicked()), this, SLOT(installTheme()));
 
