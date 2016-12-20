@@ -1,4 +1,6 @@
 [KNewStuff3]
+Name=Icon Themes
+
 Categories=Xfce Icon Theme
 Uncompress=always
 InstallPath=.icons

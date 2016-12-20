@@ -1,4 +1,6 @@
 [KNewStuff3]
+Name=GTK 3.x Themes
+
 Categories=GTK 3.x Theme/Style
 Uncompress=always
 InstallPath=.themes
