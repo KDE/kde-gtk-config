@@ -1,5 +1,11 @@
 [KNewStuff3]
 Name=GTK 2.x Themes
+Name[ca]=Temes GTK 2.x
+Name[nl]=GTK 2.x thema's
+Name[pt]=Temas do GTK 2.x
+Name[sv]=GTK 2.x-teman
+Name[uk]=Теми GTK 2.x
+Name[x-test]=xxGTK 2.x Themesxx
 
 Categories=GTK 2.x Theme/Style
 Uncompress=always

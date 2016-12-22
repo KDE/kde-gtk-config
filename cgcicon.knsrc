@@ -1,5 +1,11 @@
 [KNewStuff3]
 Name=Icon Themes
+Name[ca]=Temes d'icones
+Name[nl]=Pictogramthema's
+Name[pt]=Temas de Ícones
+Name[sv]=Ikonteman
+Name[uk]=Теми піктограм
+Name[x-test]=xxIcon Themesxx
 
 Categories=Xfce Icon Theme
 Uncompress=always
