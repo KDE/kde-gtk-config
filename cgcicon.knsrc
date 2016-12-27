@@ -1,11 +1,17 @@
 [KNewStuff3]
 Name=Icon Themes
 Name[ca]=Temes d'icones
+Name[en_GB]=Icon Themes
 Name[es]=Temas de iconos
 Name[it]=Temi di icone
 Name[nl]=Pictogramthema's
 Name[pl]=Zestawy ikon
 Name[pt]=Temas de Ícones
+Name[sk]=Témy ikon
+Name[sr]=Теме иконица
+Name[sr@ijekavian]=Теме иконица
+Name[sr@ijekavianlatin]=Teme ikonica
+Name[sr@latin]=Teme ikonica
 Name[sv]=Ikonteman
 Name[uk]=Теми піктограм
 Name[x-test]=xxIcon Themesxx
