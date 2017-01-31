@@ -45,6 +45,7 @@ Comment[tr]=GNOME/GTK Uygulamaları için Gereç Biçemi
 Comment[uk]=Налаштування стилю програм на основі GNOME/GTK
 Comment[x-test]=xxWidget Style of GNOME/GTK Applicationsxx
 Comment[zh_CN]=GNOME/GTK 程序的部件风格
+Comment[zh_TW]=Gnome/GTK 應用程式的元件樣式
 Exec=kcmshell5 kde-gtk-config
 Icon=kde-gtk-config
 Name=GNOME Application Style (GTK)
