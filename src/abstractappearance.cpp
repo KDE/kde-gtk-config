@@ -24,6 +24,11 @@
 #include <QDir>
 #include <QDebug>
 
+static bool isTrue(const QString& value)
+{
+    return value == "1" || value == "true";
+}
+
 //SETTERS
 void AbstractAppearance::setTheme(const QString& name) { m_settings["theme"] = name;}
 void AbstractAppearance::setCursor(const QString& cur) { m_settings["cursor"] = cur;}
@@ -45,7 +50,7 @@ QString AbstractAppearance::getThemeGtk3() const { return m_settings["themegtk3"
 QString AbstractAppearance::getToolbarStyle() const { return m_settings["toolbar_style"]; }
 bool AbstractAppearance::getShowIconsInButtons() const { return m_settings["show_icons_buttons"]=="1"; }
 bool AbstractAppearance::getShowIconsInMenus() const { return m_settings["show_icons_menus"]=="1"; }
-bool AbstractAppearance::getPrimaryButtonWarpsSlider() const { return m_settings["primary_button_warps_slider"] == "1"; }
+bool AbstractAppearance::getPrimaryButtonWarpsSlider() const { return isTrue(m_settings["primary_button_warps_slider"]); }
 
 QRegExp valueRx(" *([a-zA-Z\\-_]+) *= *\"?([^\"\\n]+)\"?", Qt::CaseSensitive, QRegExp::RegExp2);
 QMap<QString,QString> AbstractAppearance::readSettingsTuples(QIODevice* device)
