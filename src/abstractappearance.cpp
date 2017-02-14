@@ -48,8 +48,8 @@ QString AbstractAppearance::getIconFallback() const { return m_settings["icon_fa
 QString AbstractAppearance::getFont() const { return m_settings["font"]; }
 QString AbstractAppearance::getThemeGtk3() const { return m_settings["themegtk3"]; }
 QString AbstractAppearance::getToolbarStyle() const { return m_settings["toolbar_style"]; }
-bool AbstractAppearance::getShowIconsInButtons() const { return m_settings["show_icons_buttons"]=="1"; }
-bool AbstractAppearance::getShowIconsInMenus() const { return m_settings["show_icons_menus"]=="1"; }
+bool AbstractAppearance::getShowIconsInButtons() const { return isTrue(m_settings["show_icons_buttons"]); }
+bool AbstractAppearance::getShowIconsInMenus() const { return isTrue(m_settings["show_icons_menus"]); }
 bool AbstractAppearance::getPrimaryButtonWarpsSlider() const { return isTrue(m_settings["primary_button_warps_slider"]); }
 
 QRegExp valueRx(" *([a-zA-Z\\-_]+) *= *\"?([^\"\\n]+)\"?", Qt::CaseSensitive, QRegExp::RegExp2);
