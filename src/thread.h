@@ -34,7 +34,7 @@ class Thread: public KJob
 Q_OBJECT
 public:
     Thread(const QString& );
-    virtual void start();
+    void start() Q_DECL_OVERRIDE;
     
     ///sets the icon path
     void setUrlPackage(const QString& );
@@ -53,7 +53,7 @@ private:
 class ThreadAnalisysTheme: public KJob
 {
 public:
-    virtual void start();
+    void start() Q_DECL_OVERRIDE;
     
     ///@returns whether the theme is correct
     bool isSuccess() const;
@@ -67,7 +67,7 @@ private:
 class ThreadAnalisysThemeIcon: public KJob
 {
 public:
-    virtual void start();
+    void start() Q_DECL_OVERRIDE;
     
     ///@returns whether the theme is correct
     bool isSuccess();
@@ -85,7 +85,7 @@ class ThreadErase: public KJob
 {
 Q_OBJECT
 public:
-    virtual void start();
+    void start() Q_DECL_OVERRIDE;
     
     bool isSuccess();
     void setThemeForErase(const QString& theme );
