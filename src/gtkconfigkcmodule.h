@@ -45,9 +45,9 @@ public:
     
     void refreshThemesUi(bool useConfig=false);
     
-    void save() Q_DECL_OVERRIDE;
-    void defaults() Q_DECL_OVERRIDE;
-    void load() Q_DECL_OVERRIDE;
+    void save() override;
+    void defaults() override;
+    void load() override;
     
 public slots:
     void refreshLists();

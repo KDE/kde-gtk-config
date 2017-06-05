@@ -27,10 +27,10 @@
 
 class AppearanceGTK2 : public AbstractAppearance
 {
-    bool loadSettings(const QString& path) Q_DECL_OVERRIDE;
-    bool saveSettings(const QString& path) const Q_DECL_OVERRIDE;
-    QString defaultConfigFile() const Q_DECL_OVERRIDE;
-    QStringList installedThemes() const Q_DECL_OVERRIDE;
+    bool loadSettings(const QString& path) override;
+    bool saveSettings(const QString& path) const override;
+    QString defaultConfigFile() const override;
+    QStringList installedThemes() const override;
     
     QString themesGtkrcFile(const QString& themeName) const;
 };

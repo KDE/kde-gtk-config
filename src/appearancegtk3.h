@@ -29,10 +29,10 @@ class AppearanceGTK3 : public AbstractAppearance
 {
 
 public:
-    QStringList installedThemes() const Q_DECL_OVERRIDE;
-    bool saveSettings(const QString& file) const Q_DECL_OVERRIDE;
-    bool loadSettings(const QString& path) Q_DECL_OVERRIDE;
-    QString defaultConfigFile() const Q_DECL_OVERRIDE;
+    QStringList installedThemes() const override;
+    bool saveSettings(const QString& file) const override;
+    bool loadSettings(const QString& path) override;
+    QString defaultConfigFile() const override;
 };
 
 #endif // APPEARANCEGTK3_H
