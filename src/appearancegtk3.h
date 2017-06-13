@@ -33,6 +33,8 @@ public:
     bool saveSettings(const QString& file) const override;
     bool loadSettings(const QString& path) override;
     QString defaultConfigFile() const override;
+    bool getApplicationPreferDarkTheme() const;
+    void setApplicationPreferDarkTheme(const bool& enable);
 };
 
 #endif // APPEARANCEGTK3_H

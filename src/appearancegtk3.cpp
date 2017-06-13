@@ -72,6 +72,7 @@ bool AppearanceGTK3::saveSettings(const QString& file) const
     flow3 << "gtk-menu-images=" << m_settings["show_icons_menus"] << "\n";
     flow3 << "gtk-button-images=" << m_settings["show_icons_buttons"] << "\n";
     flow3 << "gtk-primary-button-warps-slider=" << m_settings["primary_button_warps_slider"] << "\n";
+    flow3 << "gtk-application-prefer-dark-theme=" << m_settings["application_prefer_dark_theme"] << "\n";
 
     return true;
 }
@@ -88,7 +89,8 @@ bool AppearanceGTK3::loadSettings(const QString& path)
             {"toolbar_style", "GTK_TOOLBAR_ICONS"},
             {"show_icons_buttons", "0"},
             {"show_icons_menus", "0"},
-            {"primary_button_warps_slider", "false"}
+            {"primary_button_warps_slider", "false"},
+            {"application_prefer_dark_theme", "false"}
         };
 
         for(auto it = foundSettings.constBegin(), itEnd = foundSettings.constEnd(); it!=itEnd; ++it) {
@@ -110,6 +112,8 @@ bool AppearanceGTK3::loadSettings(const QString& path)
                 m_settings["show_icons_menus"] = *it;
             else if (it.key() == "gtk-primary-button-warps-slider")
                 m_settings["primary_button_warps_slider"] = *it;
+            else if (it.key() == "gtk-application-prefer-dark-theme")
+                m_settings["application_prefer_dark_theme"] = *it;
             else
                 qWarning() << "unknown field" << it.key();
         }
@@ -126,4 +130,14 @@ QString AppearanceGTK3::defaultConfigFile() const
         root = QFileInfo(QDir::home(), ".config").absoluteFilePath();
     
     return root+"/gtk-3.0/settings.ini";
+}
+
+bool AppearanceGTK3::getApplicationPreferDarkTheme() const
+{
+    return m_settings["application_prefer_dark_theme"] == "1" || m_settings["application_prefer_dark_theme"] == "true";
+}
+
+void AppearanceGTK3::setApplicationPreferDarkTheme(const bool& enable)
+{
+    m_settings["application_prefer_dark_theme"] = enable ? "true" : "false";
 }

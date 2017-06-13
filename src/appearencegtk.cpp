@@ -54,6 +54,8 @@ QString AppearenceGTK::getTheme() const { return gtk2Appearance()->getTheme(); }
 void AppearenceGTK::setTheme(const QString& name) { return gtk2Appearance()->setTheme(name); }
 QString AppearenceGTK::getThemeGtk3() const { return gtk3Appearance()->getTheme(); }
 void AppearenceGTK::setThemeGtk3(const QString& name) { return gtk3Appearance()->setTheme(name); }
+bool AppearenceGTK::getApplicationPreferDarkTheme() const { return ((AppearanceGTK3*)gtk3Appearance())->getApplicationPreferDarkTheme(); }
+void AppearenceGTK::setApplicationPreferDarkTheme(const bool& enable) { return ((AppearanceGTK3*)gtk3Appearance())->setApplicationPreferDarkTheme(enable); }
 
 ////////////////////////////////////
 // Methods responsible of file creation

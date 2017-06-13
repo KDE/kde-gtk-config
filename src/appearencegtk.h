@@ -40,6 +40,7 @@ public:
 
     void setTheme(const QString&);
     void setThemeGtk3(const QString &theme);
+    void setApplicationPreferDarkTheme(const bool& enable);
     void setCursor(const QString&);
     void setIcon(const QString&);
     void setIconFallback(const QString&);
@@ -52,6 +53,7 @@ public:
 
     QString getTheme() const;
     QString getThemeGtk3() const;
+    bool getApplicationPreferDarkTheme() const;
    
     QString getCursor() const;
     QString getIcon() const;

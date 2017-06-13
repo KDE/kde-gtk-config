@@ -107,6 +107,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     //UI changes
     connect(ui->cb_theme, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_theme_gtk3, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
+    connect(ui->checkBox_theme_gtk3_prefer_dark, SIGNAL(clicked(bool)), this, SLOT(appChanged()));
     connect(ui->cb_cursor, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_icon, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_icon_fallback ,SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
@@ -149,6 +150,7 @@ void GTKConfigKCModule::syncUI()
 {
     appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
     appareance->setTheme(ui->cb_theme->currentText());
+    appareance->setApplicationPreferDarkTheme(ui->checkBox_theme_gtk3_prefer_dark->isChecked());
     appareance->setCursor(ui->cb_cursor->itemData(ui->cb_cursor->currentIndex(), CursorThemesModel::DirNameRole).toString());
     appareance->setIcon(ui->cb_icon->itemData(ui->cb_icon->currentIndex(), IconThemesModel::DirNameRole).toString());
     appareance->setIconFallback(ui->cb_icon_fallback->itemData(ui->cb_icon_fallback->currentIndex(), IconThemesModel::DirNameRole).toString());
@@ -409,6 +411,9 @@ void GTKConfigKCModule::refreshThemesUi(bool useConfig)
     refreshComboSameCurrentValue(ui->cb_theme_gtk3,
         useConfig ? appareance->getThemeGtk3() : ui->cb_theme_gtk3->currentText(),
         appareance->gtk3Appearance()->installedThemesNames());
+
+    // dark theme for gtk3
+    ui->checkBox_theme_gtk3_prefer_dark->setChecked(appareance->getApplicationPreferDarkTheme());
 
     //cursors
     QString currentCursor = useConfig ? appareance->getCursor() : ui->cb_cursor->currentText();
