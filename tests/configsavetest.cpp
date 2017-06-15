@@ -19,6 +19,11 @@ void ConfigSaveTest::fillValues(AbstractAppearance* a)
     a->setShowIconsInButtons(true);
     a->setShowIconsInMenus(true);
     a->setPrimaryButtonWarpsSlider(true);
+
+    auto a3 = dynamic_cast<AppearanceGTK3*>(a);
+    if (a3) {
+        a3->setApplicationPreferDarkTheme(false);
+    }
 }
 
 bool compareAppearances(AbstractAppearance* a, AbstractAppearance* b)
