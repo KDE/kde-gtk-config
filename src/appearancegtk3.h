@@ -23,6 +23,7 @@
 #ifndef APPEARANCEGTK3_H
 #define APPEARANCEGTK3_H
 
+#include <KSharedConfig>
 #include "abstractappearance.h"
 
 class AppearanceGTK3 : public AbstractAppearance
@@ -33,6 +34,14 @@ public:
     virtual bool saveSettings(const QString& file) const;
     virtual bool loadSettings(const QString& path);
     virtual QString defaultConfigFile() const;
+
+    bool saveSettings() const override;
+    bool loadSettings() override;
+
+private:
+    QString configFileName() const;
+    bool saveSettings(const KSharedConfig::Ptr& file) const;
+    bool loadSettings(const KSharedConfig::Ptr& file);
 };
 
 #endif // APPEARANCEGTK3_H
