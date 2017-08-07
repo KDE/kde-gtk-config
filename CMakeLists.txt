@@ -42,12 +42,6 @@ set(kcm_SRCS
      src/fontshelpers.cpp
 )
 
-set(GHNS_FILES 
-     cgcicon.knsrc
-     cgctheme.knsrc
-     cgcgtk3.knsrc
-)
-
 ki18n_wrap_ui(kcm_SRCS 
      src/ui/gui.ui 
      src/ui/dialog_installer.ui 
@@ -60,7 +54,7 @@ target_link_libraries(kcm_kdegtkconfig ${X11_Xcursor_LIB} KF5::ConfigCore KF5::I
 kcoreaddons_desktop_to_json(kcm_kdegtkconfig kde-gtk-config.desktop)
 
 install(TARGETS kcm_kdegtkconfig DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES ${GHNS_FILES} DESTINATION ${CONFIG_INSTALL_DIR})
+install(FILES cgctheme.knsrc cgcgtk3.knsrc DESTINATION ${CONFIG_INSTALL_DIR})
 install(FILES kde-gtk-config.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 
 add_subdirectory(gtkproxies)
