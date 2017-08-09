@@ -24,6 +24,8 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
+
 # Set KI18n translation domain
 add_definitions(-DTRANSLATION_DOMAIN=\"kde-gtk-config\")
 

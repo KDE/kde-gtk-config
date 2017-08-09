@@ -32,6 +32,7 @@
 #include <QMenu>
 #include <QDebug>
 #include <QDir>
+#include <config.h>
 #include "ui_gui.h"
 #include "abstractappearance.h"
 #include "iconthemesmodel.h"
@@ -84,8 +85,8 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     ui->gtk2Preview->setIcon(previewIcon);
     ui->gtk3Preview->setIcon(previewIcon);
     
-    QString gtk2Preview = QStandardPaths::findExecutable("gtk_preview");
-    QString gtk3Preview = QStandardPaths::findExecutable("gtk3_preview");
+    QString gtk2Preview = QStandardPaths::findExecutable("gtk_preview",  {CMAKE_INSTALL_FULL_LIBEXECDIR});
+    QString gtk3Preview = QStandardPaths::findExecutable("gtk3_preview", {CMAKE_INSTALL_FULL_LIBEXECDIR});
     
     m_p2 = new KProcess(this);
     m_p2->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);

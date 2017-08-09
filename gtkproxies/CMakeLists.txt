@@ -8,7 +8,7 @@ install(TARGETS reload_gtk_apps RUNTIME DESTINATION "${LIBEXEC_INSTALL_DIR}")
 
 
 add_executable(gtk_preview preview.c)
-target_compile_definitions(gtk_preview PRIVATE "-DDATA_DIR=\"${DATA_INSTALL_DIR}/kcm-gtk-module/\"")
+target_compile_definitions(gtk_preview PRIVATE "-DDATA_DIR=\"${KDE_INSTALL_FULL_DATADIR}/kcm-gtk-module/\"")
 target_link_libraries(gtk_preview ${GTK2_LIBRARIES} ${GTK2_GIOMM_LIBRARY})
 install(TARGETS gtk_preview RUNTIME DESTINATION "${LIBEXEC_INSTALL_DIR}")
 

@@ -28,6 +28,7 @@
 #include <QDebug>
 #include <QProcess>
 #include <QStandardPaths>
+#include <config.h>
 
 bool AppearanceGTK2::loadSettingsPrivate(const QString& path)
 {
@@ -138,7 +139,7 @@ bool AppearanceGTK2::saveSettingsPrivate(const QString& gtkrcFile) const
 //         qDebug() << "Symbolic link created for .gtkrc-2.0-kde4 :D";
     
     if(gtkrcFile==defaultConfigFile())
-        QProcess::startDetached(QStandardPaths::findExecutable("reload_gtk_apps"));
+        QProcess::startDetached(QStandardPaths::findExecutable("reload_gtk_apps", {CMAKE_INSTALL_FULL_LIBEXECDIR}));
     
     return true;
 }

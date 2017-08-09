@@ -86,7 +86,7 @@ int main(int argc, char **argv)
     GtkBuilder *builder = gtk_builder_new();
     if( ! gtk_builder_add_from_file( builder, ui_file, &error ) ) {
         g_warning( "%s", error->message );
-        g_free( error );
+        g_object_unref( error );
         return 1;
     }
     
