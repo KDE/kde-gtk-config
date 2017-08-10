@@ -95,6 +95,7 @@ Name[uk]=Стиль програм GNOME (GTK)
 Name[x-test]=xxGNOME Application Style (GTK)xx
 Name[zh_CN]=GNOME 程序风格 (GTK)
 Name[zh_TW]=Gnome 應用程式樣式（GTK）
+X-KDE-Keywords=gnome,style,gtk
 Type=Service
 X-KDE-Library=kcm_kdegtkconfig
 # X-KDE-ParentApp=kcontrol
