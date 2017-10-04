@@ -6,5 +6,4 @@ macro(add_kgc_test name)
     target_include_directories(${name} PRIVATE ${CMAKE_BINARY_DIR})
 endmacro(add_kgc_test)
 
-add_kgc_test(fontstest ../src/fontshelpers.cpp)
 add_kgc_test(configsavetest ../src/abstractappearance.cpp ../src/appearancegtk2.cpp ../src/appearancegtk3.cpp)
