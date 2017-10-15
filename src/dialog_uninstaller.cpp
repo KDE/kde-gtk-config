@@ -130,7 +130,7 @@ void DialogUninstaller::threadUninstalledThemeIconFinished(KJob* job)
         ui->lb_notice_uninstall_icon->setText(i18n("Icons successfully uninstalled."));
         emit(themeUninstalled());
     } else {
-        ui->lb_notice_uninstall_icon->setText(i18n("Could not uninstall the icons theme."));
+        ui->lb_notice_uninstall_icon->setText(i18n("Could not uninstall the icon theme."));
     }
 
     ui->cb_uninstall_icon->setEnabled(true);
