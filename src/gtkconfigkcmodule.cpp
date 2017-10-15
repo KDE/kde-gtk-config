@@ -331,7 +331,7 @@ void GTKConfigKCModule::save()
     */
     syncUI();
     if(!appareance->saveFileConfig())
-        KMessageBox::error(this, i18n("It was not possible to save the config"));
+        KMessageBox::error(this, i18n("Failed to save configuration."));
 }
 
 void setComboItem(QComboBox* combo, const QStringList& texts)
