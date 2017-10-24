@@ -135,26 +135,24 @@ void AppearanceGTK3::setApplicationPreferDarkTheme(const bool& enable)
 
 bool AppearanceGTK3::saveSettings(const QString& file) const
 {
-    auto cfg = KSharedConfig::openConfig(file);
+    auto cfg = KSharedConfig::openConfig(file, KConfig::NoGlobals);
     return saveSettings(cfg);
 }
 
 bool AppearanceGTK3::loadSettings(const QString& path)
 {
-    auto cfg = KSharedConfig::openConfig(path);
+    auto cfg = KSharedConfig::openConfig(path, KConfig::NoGlobals);
     return loadSettings(cfg);
 }
 
 bool AppearanceGTK3::loadSettings()
 {
-    auto cfg = KSharedConfig::openConfig(configFileName());
-    cfg->setReadDefaults(true);
+    auto cfg = KSharedConfig::openConfig(configFileName(), KConfig::NoGlobals);
     return loadSettings(cfg);
 }
 
 bool AppearanceGTK3::saveSettings() const
 {
-    auto cfg = KSharedConfig::openConfig(configFileName());
-    cfg->setReadDefaults(true);
+    auto cfg = KSharedConfig::openConfig(configFileName(), KConfig::NoGlobals);
     return saveSettings(cfg);
 }
