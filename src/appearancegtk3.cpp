@@ -25,6 +25,8 @@
 #include <QDir>
 #include <QDebug>
 #include <QStandardPaths>
+#include <KSharedConfig>
+#include <KConfigGroup>
 
 QStringList AppearanceGTK3::installedThemes() const
 {
@@ -51,76 +53,65 @@ QStringList AppearanceGTK3::installedThemes() const
     return themes;
 }
 
-bool AppearanceGTK3::saveSettings(const QString& file) const
+bool AppearanceGTK3::saveSettings(const KSharedConfig::Ptr& file) const
 {
-    //Opening GTK3 config file $ENV{XDG_CONFIG_HOME}/gtk-3.0/m_settings.ini
-    QDir::home().mkpath(file.left(file.lastIndexOf('/'))); //we make sure the path exists
-    QFile file_gtk3(file);
-    
-    if(!file_gtk3.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qWarning() << "Couldn't open GTK3 config file for writing at:" << file_gtk3.fileName();
-        return false;
-    }
-    QTextStream flow3(&file_gtk3);
-    flow3 << "[Settings]\n";
-    flow3 << "gtk-font-name=" << m_settings["font"] << "\n";
-    flow3 << "gtk-theme-name=" << m_settings["theme"] << "\n";
-    flow3 << "gtk-icon-theme-name="<< m_settings["icon"] << "\n";
-    flow3 << "gtk-fallback-icon-theme=" << m_settings["icon_fallback"] << "\n";
-    flow3 << "gtk-cursor-theme-name=" << m_settings["cursor"] << "\n";
-    flow3 << "gtk-toolbar-style=" << m_settings["toolbar_style"] << "\n";
-    flow3 << "gtk-menu-images=" << m_settings["show_icons_menus"] << "\n";
-    flow3 << "gtk-button-images=" << m_settings["show_icons_buttons"] << "\n";
-    flow3 << "gtk-primary-button-warps-slider=" << m_settings["primary_button_warps_slider"] << "\n";
-    flow3 << "gtk-application-prefer-dark-theme=" << m_settings["application_prefer_dark_theme"] << "\n";
+    KConfigGroup group(file, "Settings");
 
+    group.writeEntry("gtk-font-name", m_settings["font"]);
+    group.writeEntry("gtk-theme-name", m_settings["theme"]);
+    group.writeEntry("gtk-icon-theme-name", m_settings["icon"]);
+    group.writeEntry("gtk-fallback-icon-theme", m_settings["icon_fallback"]);
+    group.writeEntry("gtk-cursor-theme-name", m_settings["cursor"]);
+    group.writeEntry("gtk-toolbar-style", m_settings["toolbar_style"]);
+    group.writeEntry("gtk-menu-images", m_settings["show_icons_menus"]);
+    group.writeEntry("gtk-button-images", m_settings["show_icons_buttons"]);
+    group.writeEntry("gtk-primary-button-warps-slider", m_settings["primary_button_warps_slider"]);
+    group.writeEntry("gtk-application-prefer-dark-theme", m_settings["application_prefer_dark_theme"]);
+
+    const bool sync = group.sync();
+    Q_ASSERT(sync);
     return true;
 }
 
-bool AppearanceGTK3::loadSettings(const QString& path)
+bool AppearanceGTK3::loadSettings(const KSharedConfig::Ptr& file)
 {
-    QFile fileGtk3(path);
-    bool canRead=fileGtk3.open(QIODevice::ReadOnly | QIODevice::Text);
-    
-    if(canRead) {
-        const QMap<QString, QString> foundSettings = readSettingsTuples(&fileGtk3);
-        
-        m_settings = QMap<QString, QString> {
-            {"toolbar_style", "GTK_TOOLBAR_ICONS"},
-            {"show_icons_buttons", "0"},
-            {"show_icons_menus", "0"},
-            {"primary_button_warps_slider", "false"},
-            {"application_prefer_dark_theme", "false"}
-        };
+    KConfigGroup group(file, "Settings");
 
-        for(auto it = foundSettings.constBegin(), itEnd = foundSettings.constEnd(); it!=itEnd; ++it) {
-            if (it.key() == "gtk-theme-name")
-                m_settings["theme"] = *it;
-            else if (it.key() == "gtk-icon-theme-name")
-                m_settings["icon"] = *it;
-            else if (it.key() == "gtk-fallback-icon-theme")
-                m_settings["icon_fallback"] = *it;
-            else if (it.key() == "gtk-cursor-theme-name")
-                m_settings["cursor"] = *it;
-            else if (it.key() == "gtk-font-name")
-                m_settings["font"] = *it;
-            else if (it.key() == "gtk-toolbar-style")
-                m_settings["toolbar_style"] = *it;
-            else if (it.key() == "gtk-button-images")
-                m_settings["show_icons_buttons"] = *it;
-            else if (it.key() == "gtk-menu-images")
-                m_settings["show_icons_menus"] = *it;
-            else if (it.key() == "gtk-primary-button-warps-slider")
-                m_settings["primary_button_warps_slider"] = *it;
-            else if (it.key() == "gtk-application-prefer-dark-theme")
-                m_settings["application_prefer_dark_theme"] = *it;
-            else
-                qWarning() << "unknown field" << it.key();
-        }
-    } else
-        qWarning() << "Cannot open the GTK3 config file" << path;
-    
-    return canRead;
+    if (!file || !group.isValid()) {
+        qWarning() << "Cannot open the GTK3 config file" << file;
+        return false;
+    }
+
+    m_settings = QMap<QString, QString> {
+        {"toolbar_style", "GTK_TOOLBAR_ICONS"},
+        {"show_icons_buttons", "0"},
+        {"show_icons_menus", "0"},
+        {"primary_button_warps_slider", "false"},
+        {"application_prefer_dark_theme", "false"}
+    };
+
+    m_settings["theme"] = group.readEntry("gtk-theme-name");
+    m_settings["icon"] = group.readEntry("gtk-icon-theme-name");
+    m_settings["icon_fallback"] = group.readEntry("gtk-fallback-icon-theme");
+    m_settings["cursor"] = group.readEntry("gtk-cursor-theme-name");
+    m_settings["font"] = group.readEntry("gtk-font-name");
+    m_settings["toolbar_style"] = group.readEntry("gtk-toolbar-style");
+    m_settings["show_icons_buttons"] = group.readEntry("gtk-button-images");
+    m_settings["show_icons_menus"] = group.readEntry("gtk-menu-images");
+    m_settings["primary_button_warps_slider"] = group.readEntry("gtk-primary-button-warps-slider");
+    m_settings["application_prefer_dark_theme"] = group.readEntry("gtk-application-prefer-dark-theme");
+    for(auto it = m_settings.begin(); it != m_settings.end(); ) {
+        if (it.value().isEmpty())
+            it = m_settings.erase(it);
+        else
+            ++it;
+    }
+    return true;
+}
+
+QString AppearanceGTK3::configFileName() const
+{
+    return QStringLiteral("gtk-3.0/settings.ini");
 }
 
 QString AppearanceGTK3::defaultConfigFile() const
@@ -129,7 +120,7 @@ QString AppearanceGTK3::defaultConfigFile() const
     if(root.isEmpty())
         root = QFileInfo(QDir::home(), ".config").absoluteFilePath();
     
-    return root+"/gtk-3.0/settings.ini";
+    return root + '/' + configFileName();
 }
 
 bool AppearanceGTK3::getApplicationPreferDarkTheme() const
@@ -140,4 +131,30 @@ bool AppearanceGTK3::getApplicationPreferDarkTheme() const
 void AppearanceGTK3::setApplicationPreferDarkTheme(const bool& enable)
 {
     m_settings["application_prefer_dark_theme"] = enable ? "true" : "false";
+}
+
+bool AppearanceGTK3::saveSettings(const QString& file) const
+{
+    auto cfg = KSharedConfig::openConfig(file);
+    return saveSettings(cfg);
+}
+
+bool AppearanceGTK3::loadSettings(const QString& path)
+{
+    auto cfg = KSharedConfig::openConfig(path);
+    return loadSettings(cfg);
+}
+
+bool AppearanceGTK3::loadSettings()
+{
+    auto cfg = KSharedConfig::openConfig(configFileName());
+    cfg->setReadDefaults(true);
+    return loadSettings(cfg);
+}
+
+bool AppearanceGTK3::saveSettings() const
+{
+    auto cfg = KSharedConfig::openConfig(configFileName());
+    cfg->setReadDefaults(true);
+    return saveSettings(cfg);
 }
