@@ -64,7 +64,7 @@ bool AppearenceGTK::loadFileConfig()
 {
     bool correct = false;
     foreach(AbstractAppearance* app, m_app) {
-        bool c = app->loadSettings();
+        bool c = app->loadSettings(app->defaultConfigFile());
         correct = correct || c;
     }
 //     qDebug() << "loading..." << correct;
@@ -75,7 +75,7 @@ bool AppearenceGTK::saveFileConfig()
 {
     bool correct = true;
     foreach(AbstractAppearance* app, m_app) {
-        bool c = app->saveSettings();
+        bool c = app->saveSettings(app->defaultConfigFile());
         correct = correct && c;
     }
 //     qDebug() << "saving..." << correct;
