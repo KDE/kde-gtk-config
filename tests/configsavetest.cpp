@@ -9,40 +9,33 @@
 
 QTEST_GUILESS_MAIN(ConfigSaveTest);
 
-ConfigSaveTest::ConfigSaveTest()
-{
-    QStandardPaths::setTestModeEnabled(true);
-}
-
-static void fillValues(QScopedPointer<AbstractAppearance>& a)
+void ConfigSaveTest::fillValues(AbstractAppearance* a)
 {
     a->setFont("a");
     a->setIcon("a");
     a->setTheme("a");
     a->setToolbarStyle("a");
     a->setIconFallback("a");
-    a->setCursor("a");
     a->setShowIconsInButtons(true);
     a->setShowIconsInMenus(true);
     a->setPrimaryButtonWarpsSlider(true);
 
-    auto a3 = dynamic_cast<AppearanceGTK3*>(a.data());
+    auto a3 = dynamic_cast<AppearanceGTK3*>(a);
     if (a3) {
         a3->setApplicationPreferDarkTheme(false);
     }
 }
 
-void compareAppearances(QScopedPointer<AbstractAppearance>& reloaded, QScopedPointer<AbstractAppearance>& instance)
+bool compareAppearances(AbstractAppearance* a, AbstractAppearance* b)
 {
-    QCOMPARE(reloaded->getFont(), instance->getFont());
-    QCOMPARE(reloaded->getIcon(), instance->getIcon());
-    QCOMPARE(reloaded->getTheme(), instance->getTheme());
-    QCOMPARE(reloaded->getCursor(), instance->getCursor());
-    QCOMPARE(reloaded->getToolbarStyle(), instance->getToolbarStyle());
-    QCOMPARE(reloaded->getIconFallback(), instance->getIconFallback());
-    QCOMPARE(reloaded->getShowIconsInButtons(), instance->getShowIconsInButtons());
-    QCOMPARE(reloaded->getShowIconsInMenus(), instance->getShowIconsInMenus());
-    QCOMPARE(reloaded->getPrimaryButtonWarpsSlider(), instance->getPrimaryButtonWarpsSlider());
+    return a->getFont() == b->getFont()
+        && a->getIcon() == b->getIcon()
+        && a->getTheme() == b->getTheme()
+        && a->getToolbarStyle() == b->getToolbarStyle()
+        && a->getIconFallback() == b->getIconFallback()
+        && a->getShowIconsInButtons() == b->getShowIconsInButtons()
+        && a->getShowIconsInMenus() == b->getShowIconsInMenus()
+        && a->getPrimaryButtonWarpsSlider() == b->getPrimaryButtonWarpsSlider();
 }
 
 QByteArray readFile(const QString& path)
@@ -53,35 +46,23 @@ QByteArray readFile(const QString& path)
     return f.readAll();
 }
 
-void ConfigSaveTest::testGtk2()
+void ConfigSaveTest::testOpen()
 {
-    const QString pathA = QDir::current().absoluteFilePath("test-gtk2")
-                , pathB = QDir::current().absoluteFilePath("testB-gtk2");
+    QVector<AbstractAppearance*> instances;
+    instances << new AppearanceGTK2 << new AppearanceGTK3;
+    fillValues(instances[0]);
+    fillValues(instances[1]);
+    QVERIFY(instances[0]->saveSettings("test-gtk2"));
+    QVERIFY(instances[1]->saveSettings("test-gtk3"));
 
-    QScopedPointer<AbstractAppearance> instance(new AppearanceGTK2);
-    fillValues(instance);
-    QVERIFY(instance->saveSettings(pathA));
-
-    QScopedPointer<AbstractAppearance> reloaded(new AppearanceGTK2);
-    QVERIFY(reloaded->loadSettings(pathA));
-    compareAppearances(reloaded, instance);
-    QVERIFY(reloaded->saveSettings(pathB));
-    QCOMPARE(readFile(pathA), readFile(pathB));
-}
-
-void ConfigSaveTest::testGtk3()
-{
-    QScopedPointer<AbstractAppearance> instance(new AppearanceGTK3);
-    fillValues(instance);
-    const QString pathA = QDir::current().absoluteFilePath("test-gtk3")
-                , pathB = QDir::current().absoluteFilePath("testB-gtk3");
-    QVERIFY(instance->saveSettings(pathA));
-
-    QScopedPointer<AbstractAppearance> reloaded(new AppearanceGTK3);
-    QVERIFY(QFile::exists(pathA));
-    QVERIFY(reloaded->loadSettings(pathA));
-    compareAppearances(reloaded, instance);
-    QVERIFY(reloaded->saveSettings(pathB));
-
-    QCOMPARE(readFile(pathA), readFile(pathB));
+    QVector<AbstractAppearance*> reloaded;
+    reloaded << new AppearanceGTK2 << new AppearanceGTK3;
+    QVERIFY(reloaded[0]->loadSettings("test-gtk2"));
+    QVERIFY(reloaded[1]->loadSettings("test-gtk3"));
+    QVERIFY(compareAppearances(reloaded[0], instances[0]));
+    QVERIFY(compareAppearances(reloaded[1], instances[1]));
+    QVERIFY(reloaded[0]->saveSettings("testB-gtk2"));
+    QVERIFY(reloaded[1]->saveSettings("testB-gtk3"));
+    QCOMPARE(readFile("test-gtk2"), readFile("testB-gtk2"));
+    QCOMPARE(readFile("test-gtk3"), readFile("testB-gtk3"));
 }

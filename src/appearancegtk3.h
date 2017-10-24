@@ -23,7 +23,6 @@
 #ifndef APPEARANCEGTK3_H
 #define APPEARANCEGTK3_H
 
-#include <KSharedConfig>
 #include "abstractappearance.h"
 
 class AppearanceGTK3 : public AbstractAppearance
@@ -31,18 +30,11 @@ class AppearanceGTK3 : public AbstractAppearance
 
 public:
     QStringList installedThemes() const override;
-    bool saveSettings() const override;
-    bool loadSettings() override;
     bool saveSettings(const QString& file) const override;
     bool loadSettings(const QString& path) override;
+    QString defaultConfigFile() const override;
     bool getApplicationPreferDarkTheme() const;
     void setApplicationPreferDarkTheme(const bool& enable);
-
-private:
-    QString defaultConfigFile() const;
-    QString configFileName() const;
-    bool saveSettings(const KSharedConfig::Ptr& file) const;
-    bool loadSettings(const KSharedConfig::Ptr& file);
 };
 
 #endif // APPEARANCEGTK3_H

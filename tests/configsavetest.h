@@ -11,11 +11,11 @@ class AbstractAppearance;
 class ConfigSaveTest : public QObject
 {
     Q_OBJECT
-public:
-    ConfigSaveTest();
 private slots:
-    void testGtk2();
-    void testGtk3();
+    void testOpen();
+
+private:
+    void fillValues(AbstractAppearance* a);
 };
 
 #endif // CONFIGSAVETEST_H
