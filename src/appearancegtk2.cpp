@@ -188,7 +188,9 @@ bool AppearanceGTK2::loadSettings()
 {
     reset();
 
-    return loadSettingsPrivate("/etc/gtk-2.0/gtkrc") && loadSettingsPrivate(defaultConfigFile());
+    bool b = loadSettingsPrivate("/etc/gtk-2.0/gtkrc");
+    b |= loadSettingsPrivate(defaultConfigFile());
+    return b;
 }
 
 bool AppearanceGTK2::saveSettings() const
