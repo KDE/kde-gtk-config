@@ -30,48 +30,38 @@
 #include <QStandardPaths>
 #include <config.h>
 
-bool AppearanceGTK2::loadSettings(const QString& path)
+bool AppearanceGTK2::loadSettingsPrivate(const QString& path)
 {
     QFile configFile(path);
     
-    bool canRead = configFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    if (!configFile.open(QIODevice::ReadOnly | QIODevice::Text))
+        return false;
     
-    if(canRead) {
-//         qDebug() << "The gtk2 config file exists...";
-        const QMap<QString, QString> foundSettings = readSettingsTuples(&configFile);
-        m_settings = QMap<QString, QString> {
-            {"toolbar_style", "GTK_TOOLBAR_ICONS"},
-            {"show_icons_buttons", "0"},
-            {"show_icons_menus", "0"},
-            {"primary_button_warps_slider", "false"}
-        };
+    const QMap<QString, QString> foundSettings = readSettingsTuples(&configFile);
 
-        for(auto it = foundSettings.constBegin(), itEnd = foundSettings.constEnd(); it!=itEnd; ++it) {
-            if (it.key() == "gtk-theme-name")
-                m_settings["theme"] = *it;
-            else if (it.key() == "gtk-icon-theme-name")
-                m_settings["icon"] = *it;
-            else if (it.key() == "gtk-fallback-icon-theme")
-                m_settings["icon_fallback"] = *it;
-            else if (it.key() == "gtk-cursor-theme-name")
-                m_settings["cursor"] = *it;
-            else if (it.key() == "gtk-font-name")
-                m_settings["font"] = *it;
-            else if (it.key() == "gtk-toolbar-style")
-                m_settings["toolbar_style"] = *it;
-            else if (it.key() == "gtk-button-images")
-                m_settings["show_icons_buttons"] = *it;
-            else if(it.key() == "gtk-menu-images")
-                m_settings["show_icons_menus"] = *it;
-            else if (it.key() == "gtk-primary-button-warps-slider")
-                m_settings["primary_button_warps_slider"] = *it;
-            else
-                qWarning() << "unknown field" << it.key();
-        }
-
+    for(auto it = foundSettings.constBegin(), itEnd = foundSettings.constEnd(); it!=itEnd; ++it) {
+        if (it.key() == "gtk-theme-name")
+            m_settings["theme"] = *it;
+        else if (it.key() == "gtk-icon-theme-name")
+            m_settings["icon"] = *it;
+        else if (it.key() == "gtk-fallback-icon-theme")
+            m_settings["icon_fallback"] = *it;
+        else if (it.key() == "gtk-cursor-theme-name")
+            m_settings["cursor"] = *it;
+        else if (it.key() == "gtk-font-name")
+            m_settings["font"] = *it;
+        else if (it.key() == "gtk-toolbar-style")
+            m_settings["toolbar_style"] = *it;
+        else if (it.key() == "gtk-button-images")
+            m_settings["show_icons_buttons"] = *it;
+        else if(it.key() == "gtk-menu-images")
+            m_settings["show_icons_menus"] = *it;
+        else if (it.key() == "gtk-primary-button-warps-slider")
+            m_settings["primary_button_warps_slider"] = *it;
+        else
+            qWarning() << "unknown field" << it.key();
     }
-    
-    return canRead;
+    return true;
 }
 
 QString AppearanceGTK2::themesGtkrcFile(const QString& themeName) const
@@ -92,7 +82,7 @@ QString AppearanceGTK2::themesGtkrcFile(const QString& themeName) const
     return QString();
 }
 
-bool AppearanceGTK2::saveSettings(const QString& gtkrcFile) const
+bool AppearanceGTK2::saveSettingsPrivate(const QString& gtkrcFile) const
 {
     QFile gtkrc(gtkrcFile);
     gtkrc.remove();
@@ -117,14 +107,14 @@ bool AppearanceGTK2::saveSettings(const QString& gtkrcFile) const
         flow  << "include \"/etc/gtk-2.0/gtkrc\"\n"; //We include the /etc's config file
 
     int nameEnd = m_settings["font"].lastIndexOf(QRegExp(" ([0-9]+|bold|italic)"));
-    QString fontFamily = m_settings["font"].left(nameEnd);
+    const auto fontFamily = m_settings["font"].leftRef(nameEnd);
 
     //TODO: is this really needed?
     flow << "style \"user-font\" \n"
             << "{\n"
             << "\tfont_name=\""<< fontFamily << "\"\n"
             << "}\n";
-    
+
     flow << "widget_class \"*\" style \"user-font\"\n";
     flow << "gtk-font-name=\"" << m_settings["font"] << "\"\n";
     flow << "gtk-theme-name=\"" << m_settings["theme"] << "\"\n";
@@ -152,6 +142,16 @@ bool AppearanceGTK2::saveSettings(const QString& gtkrcFile) const
         QProcess::startDetached(QStandardPaths::findExecutable("reload_gtk_apps", {CMAKE_INSTALL_FULL_LIBEXECDIR}));
     
     return true;
+}
+
+void AppearanceGTK2::reset()
+{
+    m_settings = QMap<QString, QString> {
+        {"toolbar_style", "GTK_TOOLBAR_ICONS"},
+        {"show_icons_buttons", "0"},
+        {"show_icons_menus", "0"},
+        {"primary_button_warps_slider", "false"}
+    };
 }
 
 QString AppearanceGTK2::defaultConfigFile() const
@@ -182,4 +182,29 @@ QStringList AppearanceGTK2::installedThemes() const
     }
 
     return paths;
+}
+
+bool AppearanceGTK2::loadSettings()
+{
+    reset();
+
+    bool b = loadSettingsPrivate("/etc/gtk-2.0/gtkrc");
+    b |= loadSettingsPrivate(defaultConfigFile());
+    return b;
+}
+
+bool AppearanceGTK2::saveSettings() const
+{
+    return saveSettings(defaultConfigFile());
+}
+
+bool AppearanceGTK2::loadSettings(const QString& gtkrcFile)
+{
+    reset();
+    return loadSettingsPrivate(gtkrcFile);
+}
+
+bool AppearanceGTK2::saveSettings(const QString& gtkrcFile) const
+{
+    return saveSettingsPrivate(gtkrcFile);
 }
