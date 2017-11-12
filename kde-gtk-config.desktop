@@ -117,6 +117,7 @@ X-KDE-Keywords[tr]=gnome,style,gtk
 X-KDE-Keywords[uk]=gnome,style,gtk,гном,гноме,стиль,жтк,жетека,гтк
 X-KDE-Keywords[x-test]=xxgnomexx,xxstylexx,xxgtkxx
 X-KDE-Keywords[zh_CN]=gnome,style,gtk,样式
+X-KDE-Keywords[zh_TW]=gnome,style,gtk
 Type=Service
 X-KDE-Library=kcm_kdegtkconfig
 # X-KDE-ParentApp=kcontrol
