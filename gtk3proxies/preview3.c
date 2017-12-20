@@ -62,7 +62,7 @@ int main(int argc, char **argv)
             return 0;
         }
         else if(strcmp("-V", argv[i])==0 || strcmp("--version", argv[i])==0) {
-            printf("gtk2_preview version 1.0\n");
+            printf("gtk3_preview version 1.0\n");
             return 0;
         } else if(argc>1)
             sscanf(argv[1], "%ld", &wid);
