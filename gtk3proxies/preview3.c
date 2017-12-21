@@ -92,9 +92,6 @@ int main(int argc, char **argv)
         gtk_container_add (GTK_CONTAINER (window), previewUI);
     }
     
-    GdkColor black = {0, 0, 0, 0};
-    gtk_widget_modify_bg(previewUI, GTK_STATE_NORMAL, &black);
-    
     g_signal_connect (window, "destroy",
                     G_CALLBACK (gtk_widget_destroyed),
                     &window);
