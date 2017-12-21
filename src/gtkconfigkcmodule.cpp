@@ -79,7 +79,7 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     ui->cb_icon_fallback->setModel(m_iconsModel);
     
     m_tempGtk2Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation)+ "/gtkrc-2.0";
-    m_tempGtk3Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation)+ ".config/gtk-3.0/settings.ini";
+    m_tempGtk3Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation)+ "/.config/gtk-3.0/settings.ini";
     
     const QIcon previewIcon = QIcon::fromTheme("document-preview");
     ui->gtk2Preview->setIcon(previewIcon);
