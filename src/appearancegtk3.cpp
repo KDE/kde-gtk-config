@@ -40,11 +40,12 @@ QStringList AppearanceGTK3::installedThemes() const
 
     //we just want actual themes
     QStringList themes;
-    for(QFileInfoList::iterator it=availableThemes.begin(); it!=availableThemes.end(); ++it) {
-        bool hasGtkrc = QDir(it->filePath()).exists("gtk-3.0");
 
-        //If it doesn't exist, we don't want it on the list
-        if(hasGtkrc)
+    // Check that the theme contains a gtk-3.* subdirectory
+    QStringList gtk3SubdirPattern{QStringLiteral("gtk-3.*")};
+    for(QFileInfoList::const_iterator it=availableThemes.constBegin(); it!=availableThemes.constEnd(); ++it) {
+        QDir themeDir(it->filePath());
+        if(!themeDir.entryList(gtk3SubdirPattern, QDir::Dirs).isEmpty())
             themes += it->filePath();
     }
 
