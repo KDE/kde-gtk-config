@@ -37,6 +37,7 @@
 #include "abstractappearance.h"
 #include "iconthemesmodel.h"
 #include "fontshelpers.h"
+#include <qstringlistmodel.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(GTKConfigKCModuleFactory, "kde-gtk-config.json", registerPlugin<GTKConfigKCModule>();)
 
@@ -183,9 +184,9 @@ void GTKConfigKCModule::refreshLists()
 {
     refreshThemesUi(true);
 
-    QString font = appareance->getFont();
-//     Q_ASSERT(!font.isEmpty());
-    ui->font->setFont(stringToFont(font));
+    const auto newFont = stringToFont(appareance->getFont());
+    if (newFont != ui->font->font())
+        ui->font->setFont(newFont);
     
     ui->cb_toolbar_icons->setCurrentIndex(gtkToolbar[appareance->getToolbarStyle()]);
     
@@ -251,6 +252,9 @@ void GTKConfigKCModule::makePreviewIconTheme()
 
 void GTKConfigKCModule::appChanged()
 {
+    if (m_loading)
+        return;
+
     savePreviewConfig();
     emit changed(true);
 }
@@ -380,22 +384,74 @@ void GTKConfigKCModule::load()
 {
     m_saveEnabled = false;
     bool someCorrect = appareance->loadFileConfig();
+    m_loading = true;
     if(someCorrect) {
         refreshLists();
     } else {
         defaults();
     }
+    m_loading = false;
     
     m_saveEnabled = true;
 }
 
+class MyStringListModel : public QAbstractListModel
+{
+public:
+    MyStringListModel(const QStringList &texts, QObject* parent) : QAbstractListModel(parent), m_texts(texts)
+    {
+    }
+
+    QVariant data(const QModelIndex & index, int role) const override
+    {
+        if (role != Qt::DisplayRole || !index.isValid() || index.row()>=m_texts.count())
+            return {};
+
+        return m_texts[index.row()];
+    }
+
+    int rowCount(const QModelIndex & parent) const override { return parent.isValid() ? 0 : m_texts.count(); }
+
+    void setStrings(const QSet<QString> &list) {
+        const auto current = m_texts.toSet();
+
+        const auto oldRows = QSet<QString>(current).subtract(list);
+        const auto newRows = QSet<QString>(list).subtract(current);
+        if (!newRows.isEmpty()) {
+            beginInsertRows({}, m_texts.count(), m_texts.count() + newRows.count());
+            m_texts += newRows.toList();
+            endInsertRows();
+        }
+
+        int from = -1;
+        for(const auto &row: oldRows) {
+            for(; from<m_texts.count();) {
+                const auto idx = m_texts.indexOf(row, from);
+                if (idx<0)
+                    break;
+                beginRemoveRows({}, idx, idx);
+                m_texts.removeAt(idx);
+                endRemoveRows();
+                from = idx + 1;
+            }
+        }
+    }
+
+private:
+    QStringList m_texts;
+};
+
 void refreshComboSameCurrentValue(QComboBox* combo, const QString& temp, const QStringList& texts)
 {
-    combo->clear();
-    combo->addItems(texts);
-    int idx = combo->findText(temp);
-    if(idx>=0)
-        combo->setCurrentIndex(idx);
+    const auto model = dynamic_cast<MyStringListModel*>(combo->model());
+    if (!model) {
+        combo->setModel(new MyStringListModel(texts, combo));
+    } else {
+        model->setStrings(texts.toSet());
+    }
+
+    const int idx = combo->findText(temp);
+    combo->setCurrentIndex(qMax(0, idx));
 }
 
 void GTKConfigKCModule::refreshThemesUi(bool useConfig)
