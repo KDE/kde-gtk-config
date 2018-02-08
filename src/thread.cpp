@@ -199,7 +199,7 @@ void ThreadErase::setThemeForErase(const QString& theme)
 void ThreadErase::start()
 {
     KIO::DeleteJob* job = KIO::del(QUrl::fromLocalFile(themeForErase), KIO::HideProgressInfo);
-    connect(job, SIGNAL(finished(KJob*)), SLOT(deleted(KJob*)));
+    connect(job, &KJob::finished, this, &ThreadErase::deleted);
 }
 
 void ThreadErase::deleted(KJob* job)

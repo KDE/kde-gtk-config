@@ -108,21 +108,21 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     //UI changes
     connect(ui->cb_theme, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_theme_gtk3, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
-    connect(ui->checkBox_theme_gtk3_prefer_dark, SIGNAL(clicked(bool)), this, SLOT(appChanged()));
+    connect(ui->checkBox_theme_gtk3_prefer_dark, &QAbstractButton::clicked, this, &GTKConfigKCModule::appChanged);
     connect(ui->cb_cursor, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_icon, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_icon_fallback ,SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
-    connect(ui->font, SIGNAL(fontSelected(QFont)), this, SLOT(appChanged()));
+    connect(ui->font, &KFontRequester::fontSelected, this, &GTKConfigKCModule::appChanged);
     connect(ui->cb_toolbar_icons, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
-    connect(ui->checkBox_icon_gtk_menus, SIGNAL(clicked(bool)), this, SLOT(appChanged()));
-    connect(ui->checkBox_icon_gtk_buttons, SIGNAL(clicked(bool)), this, SLOT(appChanged()));
+    connect(ui->checkBox_icon_gtk_menus, &QAbstractButton::clicked, this, &GTKConfigKCModule::appChanged);
+    connect(ui->checkBox_icon_gtk_buttons, &QAbstractButton::clicked, this, &GTKConfigKCModule::appChanged);
     connect(ui->buttonGroup_primary_button_warps_slider, SIGNAL(buttonToggled(QAbstractButton*, bool)), this, SLOT(appChanged()));
 
     //preview updates
     connect(ui->cb_icon_fallback, SIGNAL(activated(QString)), this, SLOT(makePreviewIconTheme()));
     connect(ui->cb_icon, SIGNAL(activated(QString)), this, SLOT(makePreviewIconTheme()));
-    connect(ui->gtk2Preview, SIGNAL(clicked(bool)), this, SLOT(runGtk2IfNecessary(bool)));
-    connect(ui->gtk3Preview, SIGNAL(clicked(bool)), this, SLOT(runGtk3IfNecessary(bool)));
+    connect(ui->gtk2Preview, &QAbstractButton::clicked, this, &GTKConfigKCModule::runGtk2IfNecessary);
+    connect(ui->gtk3Preview, &QAbstractButton::clicked, this, &GTKConfigKCModule::runGtk3IfNecessary);
     
     QMenu* m = new QMenu(this);
     m->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Download GTK2 themes..."), this, SLOT(showThemeGHNS()));
@@ -438,7 +438,7 @@ void GTKConfigKCModule::showDialogForInstall()
 {
     if(!installer) {
         installer =  new DialogInstaller(this);
-        connect(installer, SIGNAL(themeInstalled()), SLOT(refreshLists()));
+        connect(installer, &DialogInstaller::themeInstalled, this, &GTKConfigKCModule::refreshLists);
     }
     
     installer->exec();
@@ -449,7 +449,7 @@ void GTKConfigKCModule::showDialogForUninstall()
 {
     if(!uninstaller) {
         uninstaller = new DialogUninstaller(this, appareance);
-        connect(uninstaller, SIGNAL(themeUninstalled()), SLOT(refreshLists()));
+        connect(uninstaller, &DialogUninstaller::themeUninstalled, this, &GTKConfigKCModule::refreshLists);
     }
     
     uninstaller->refreshListsForUninstall();
