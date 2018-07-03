@@ -99,6 +99,7 @@ void IconThemesModel::reload()
 {
     clear();
 
+    QSet<QString> done;
     QList<QDir> paths = installedThemesPaths();
     Q_FOREACH(const QDir& dir, paths) {
         KIconTheme theme(dir.dirName());
@@ -106,6 +107,11 @@ void IconThemesModel::reload()
             qWarning() << "invalid theme" << dir.dirName();
             continue;
         }
+
+        if (done.contains(dir.dirName()))
+            continue;
+
+        done << dir.dirName();
 
         QStandardItem* item = new QStandardItem(dir.dirName());
         item->setData(dir.path(), PathRole);
