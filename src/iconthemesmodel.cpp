@@ -103,8 +103,8 @@ void IconThemesModel::reload()
     QList<QDir> paths = installedThemesPaths();
     Q_FOREACH(const QDir& dir, paths) {
         KIconTheme theme(dir.dirName());
-        if (!theme.isValid()) {
-            qWarning() << "invalid theme" << dir.dirName();
+        if (!theme.isValid()) { //most likely a cursor theme
+//             qWarning() << "invalid theme" << dir.dirName();
             continue;
         }
 
