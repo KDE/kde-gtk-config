@@ -32,6 +32,7 @@ IconThemesModel::IconThemesModel(bool onlyHome, QObject* parent)
     : QStandardItemModel(parent)
     , m_onlyHome(onlyHome)
 {
+    setSortRole(Qt::DisplayRole);
     reload();
 }
 
@@ -122,4 +123,5 @@ void IconThemesModel::reload()
 
         appendRow(item);
     }
+    sort(0);
 }
