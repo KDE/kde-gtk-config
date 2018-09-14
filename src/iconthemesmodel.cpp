@@ -32,6 +32,7 @@ IconThemesModel::IconThemesModel(bool onlyHome, QObject* parent)
     : QStandardItemModel(parent)
     , m_onlyHome(onlyHome)
 {
+    setSortRole(Qt::DisplayRole);
     reload();
 }
 
@@ -98,13 +99,19 @@ void IconThemesModel::reload()
 {
     clear();
 
+    QSet<QString> done;
     QList<QDir> paths = installedThemesPaths();
     Q_FOREACH(const QDir& dir, paths) {
         KIconTheme theme(dir.dirName());
-        if (!theme.isValid()) {
-            qWarning() << "invalid theme" << dir.dirName();
+        if (!theme.isValid()) { //most likely a cursor theme
+//             qWarning() << "invalid theme" << dir.dirName();
             continue;
         }
+
+        if (done.contains(dir.dirName()))
+            continue;
+
+        done << dir.dirName();
 
         QStandardItem* item = new QStandardItem(dir.dirName());
         item->setData(dir.path(), PathRole);
@@ -122,4 +129,5 @@ void IconThemesModel::reload()
 
         appendRow(item);
     }
+    sort(0);
 }

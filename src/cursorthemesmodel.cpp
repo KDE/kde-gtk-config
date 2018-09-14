@@ -84,4 +84,6 @@ void CursorThemesModel::reload()
         fillItem(dir, themeit);
         appendRow(themeit);
     }
+
+    sort(0);
 }

@@ -33,7 +33,7 @@ class IconThemesModel : public QStandardItemModel
         
         explicit IconThemesModel(bool onlyHome=false, QObject* parent = 0);
         
-        void reload();
+        virtual void reload();
         static QString findIconRecursivelyByName(const QString& name, const QDir& directory);
         
     private:
