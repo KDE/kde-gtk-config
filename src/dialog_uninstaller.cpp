@@ -39,8 +39,8 @@ DialogUninstaller::DialogUninstaller(QWidget* parent, AppearenceGTK *app)
     
     refreshListsForUninstall();
     
-    connect(ui->but_uninstall_theme, SIGNAL(clicked()), this, SLOT(uninstallTheme()));
-    connect(ui->but_uninstall_icon, SIGNAL(clicked()), this, SLOT(uninstallIcon()));
+    connect(ui->but_uninstall_theme, &QAbstractButton::clicked, this, &DialogUninstaller::uninstallTheme);
+    connect(ui->but_uninstall_icon, &QAbstractButton::clicked, this, &DialogUninstaller::uninstallIcon);
 }
 
 DialogUninstaller::~DialogUninstaller()
@@ -85,7 +85,7 @@ void DialogUninstaller::uninstallTheme()
 
     ThreadErase* threadEraseTheme = new ThreadErase;
     threadEraseTheme->setThemeForErase(themes.first());
-    connect(threadEraseTheme, SIGNAL(finished(KJob*)), this, SLOT(threadUninstalledThemeFinished(KJob*)));
+    connect(threadEraseTheme, &KJob::finished, this, &DialogUninstaller::threadUninstalledThemeFinished);
     threadEraseTheme->start();
 }
 
@@ -105,7 +105,7 @@ void DialogUninstaller::uninstallIcon()
 
     ThreadErase* threadEraseIcon = new ThreadErase;
     threadEraseIcon->setThemeForErase(theme);
-    connect(threadEraseIcon, SIGNAL(finished(KJob*)), this, SLOT(threadUninstalledThemeIconFinished(KJob*)));
+    connect(threadEraseIcon, &KJob::finished, this, &DialogUninstaller::threadUninstalledThemeIconFinished);
     threadEraseIcon->start();
 }
 
