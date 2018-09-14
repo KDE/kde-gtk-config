@@ -72,6 +72,7 @@ signals:
     
 private:
     void syncUI();
+    bool m_loading = false;
     
     Ui::GUI *ui;
     AppearenceGTK *appareance;

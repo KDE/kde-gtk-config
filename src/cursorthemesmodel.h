@@ -31,7 +31,7 @@ class CursorThemesModel : public IconThemesModel
     public:
         explicit CursorThemesModel(QObject* parent = 0);
 
-        void reload();
+        void reload() override;
         
     private:
         static void fillItem(const QDir& dir, QStandardItem* item);

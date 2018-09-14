@@ -54,8 +54,8 @@ DialogInstaller::DialogInstaller(QWidget *parent)
     connect(ui->theme_file, &KUrlRequester::textChanged, this, &DialogInstaller::themeAnalisys);
     connect(ui->icon_file, &KUrlRequester::textChanged, this, &DialogInstaller::themeIconAnalisys);
 
-    connect(ui->but_icon_install, SIGNAL(clicked()), this, SLOT(installThemeIcon()));
-    connect(ui->but_theme_install, SIGNAL(clicked()), this, SLOT(installTheme()));
+    connect(ui->but_icon_install, &QAbstractButton::clicked, this, &DialogInstaller::installThemeIcon);
+    connect(ui->but_theme_install, &QAbstractButton::clicked, this, &DialogInstaller::installTheme);
 
     connect(threadAnalisysTheme, &KJob::finished, this, &DialogInstaller::checkThemeAnalisys);
     connect(threadAnalisysThemeIcon, &KJob::finished, this, &DialogInstaller::checkThemeIconAnalisys);
