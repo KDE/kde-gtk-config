@@ -37,6 +37,7 @@
 #include "abstractappearance.h"
 #include "iconthemesmodel.h"
 #include "fontshelpers.h"
+#include <QSortFilterProxyModel>
 #include <qstringlistmodel.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(GTKConfigKCModuleFactory, "kde-gtk-config.json", registerPlugin<GTKConfigKCModule>();)
@@ -73,11 +74,23 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     setButtons(KCModule::Default | KCModule::Apply);
     ui->setupUi(this);
     appareance = new AppearenceGTK;
+
     m_cursorsModel = new CursorThemesModel(this);
-    ui->cb_cursor->setModel(m_cursorsModel);
+    QSortFilterProxyModel *cursorsProxyModel = new QSortFilterProxyModel(this);
+    cursorsProxyModel->setSourceModel(m_cursorsModel);
+    cursorsProxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
+    cursorsProxyModel->setSortRole(Qt::DisplayRole);
+    cursorsProxyModel->sort(0);
+    ui->cb_cursor->setModel(cursorsProxyModel);
+
     m_iconsModel = new IconThemesModel(false, this);
-    ui->cb_icon->setModel(m_iconsModel);
-    ui->cb_icon_fallback->setModel(m_iconsModel);
+    QSortFilterProxyModel *iconsProxyModel = new QSortFilterProxyModel(this);
+    iconsProxyModel->setSourceModel(m_iconsModel);
+    iconsProxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
+    iconsProxyModel->setSortRole(Qt::DisplayRole);
+    iconsProxyModel->sort(0);
+    ui->cb_icon->setModel(iconsProxyModel);
+    ui->cb_icon_fallback->setModel(iconsProxyModel);
     
     m_tempGtk2Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation)+ "/gtkrc-2.0";
     m_tempGtk3Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation)+ "/.config/gtk-3.0/settings.ini";
