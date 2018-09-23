@@ -166,7 +166,7 @@ void ThreadAnalisysThemeIcon::start()
     QUrl tempUrl = QUrl::fromLocalFile(temporal.path());
 //     qDebug() << "Deleting temps. Successful:" << success;
     if(KIO::del(tempUrl, KIO::HideProgressInfo)->exec()) {
-        qWarning() << "Cleaning was not succesful";
+        qWarning() << "Cleaning was not successful";
     }
 //     else
 //         qDebug() << "Cleanning complete." << temporal.path();
