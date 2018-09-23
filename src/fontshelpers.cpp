@@ -54,7 +54,7 @@ QFont stringToFont(const QString& font)
         f.setStyleName(fontStyle);
         f.setPointSize(fontSize);
     } else {
-        qWarning() << "Couldn't figure out syle and size" << font;
+        qWarning() << "Couldn't figure out style and size" << font;
     }
     return f;
 }
