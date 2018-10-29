@@ -17,7 +17,12 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Here you can find more GTK themes to try. You can either download them from the following websites.&lt;/p&gt;&lt;p&gt;Also you can download it from the opendesktop facilities as suggested below&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://gnome-look.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;gnome-look.org&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;art.gnome.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;art.gnome.org&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="text">
-      <string>Get New Themes</string>
+      <string>Get New GNOME/GTK Application Styles...</string>
+     </property>
+     <property name="icon">
+      <iconset theme="get-hot-new-stuff">
+       <normaloff/>
+      </iconset>
      </property>
      <property name="popupMode">
       <enum>QToolButton::InstantPopup</enum>
