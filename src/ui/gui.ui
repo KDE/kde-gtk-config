@@ -431,7 +431,7 @@
    <item row="0" column="1" colspan="2">
     <widget class="QGroupBox" name="groupBox_3">
      <property name="title">
-      <string>Behaviour</string>
+      <string>Behavior</string>
      </property>
      <layout class="QFormLayout" name="formLayout">
       <property name="fieldGrowthPolicy">
