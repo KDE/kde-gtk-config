@@ -1,6 +1,14 @@
 [Desktop Entry]
 Categories=Qt;KDE;X-KDE-settings-looknfeel;
 Comment=Configure GNOME/GTK application style and behavior
+Comment[ca]=Configuració de l'estil i comportament de les aplicacions GNOME/GTK
+Comment[gl]=Configurar o estilo e comportamento dos aplicativos de GNOME ou GTK
+Comment[nl]=Stijl en gedrag van GNOME/GTK-toepassingen configureren
+Comment[pt]=Configurar o estilo e comportamento das aplicações em GNOME/GTK
+Comment[pt_BR]=Configure o estilo e comportamento dos aplicativos GNOME/GTK
+Comment[sv]=Anpassa GNOME/GTK-programstil och beteende
+Comment[uk]=Налаштовування стилю і поведінки програм на основі GNOME/GTK
+Comment[x-test]=xxConfigure GNOME/GTK application style and behaviorxx
 Exec=kcmshell5 kde-gtk-config
 Icon=kde-gtk-config
 Name=GNOME/GTK Application Style
