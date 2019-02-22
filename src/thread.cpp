@@ -84,7 +84,14 @@ void ThreadAnalisysTheme::start()
     package.directory()->copyTo(temporal.path());
     
     // Package extracted in the temp dir. Now we want to know the name
-    QString folder=temporal.entryList(QDir::AllDirs|QDir::NoDotAndDotDot).first();
+    const auto entries = temporal.entryList(QDir::AllDirs|QDir::NoDotAndDotDot);
+    if (entries.isEmpty()) {
+        qDebug() << "no files in" << temporal.path();
+        setError(3);
+        emitResult();
+        return;
+    }
+    QString folder=entries.first();
 
 //     qDebug() << "FOUND THEME FOLDER = " << folder;
 //     qDebug() << "\n******* THEME " << temporal.path()+'/'+folder;
