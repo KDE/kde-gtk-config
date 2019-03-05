@@ -39,6 +39,8 @@
 #include "fontshelpers.h"
 #include <QSortFilterProxyModel>
 #include <qstringlistmodel.h>
+#include <QSvgRenderer>
+#include <QPainter>
 
 K_PLUGIN_FACTORY_WITH_JSON(GTKConfigKCModuleFactory, "kde-gtk-config.json", registerPlugin<GTKConfigKCModule>();)
 
@@ -215,27 +217,36 @@ void GTKConfigKCModule::refreshLists()
 void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const QString& iconName)
 {
     label->setToolTip(iconName);
-    
-    QString ret;
-    if(!theme.isEmpty())
-        ret = IconThemesModel::findIconRecursivelyByName(iconName, QDir(theme));
-    
-    if(!ret.isEmpty()) {
-        QPixmap p(ret);
-        Q_ASSERT(!p.isNull());
-        label->setPixmap(p);
+
+    auto findIconAt = [label, theme, iconName](const QDir &where) -> bool {
+        const QString path = IconThemesModel::findIconRecursivelyByName(iconName, where);
+
+        if(!path.isEmpty()) {
+            QPixmap p;
+            QSize s(label->width(), label->height());
+            if (path.endsWith(".svg") || path.endsWith(".svgz")) {
+                QImage image(s, QImage::Format_ARGB32_Premultiplied);
+                image.fill(Qt::transparent);
+                QPainter painter(&image);
+                QSvgRenderer r(path);
+                r.render(&painter);
+                painter.end();
+
+                p = QPixmap::fromImage(image);
+            } else {
+                p = {path};
+                Q_ASSERT(!p.isNull());
+                p = p.scaled(s);
+            }
+            label->setPixmap(p);
+            return true;
+        }
+        return false;
+    };
+    if (!theme.isEmpty() && findIconAt(QDir(theme)))
         return;
-    }
-    
-    if(!fallback.isEmpty())
-        ret = IconThemesModel::findIconRecursivelyByName(iconName, fallback);
-    
-    if(!ret.isEmpty()) {
-        QPixmap p(ret);
-        Q_ASSERT(!p.isNull());
-        label->setPixmap(p);
+    if (findIconAt(fallback))
         return;
-    }
     
     QIcon notFoundIcon = QIcon::fromTheme("application-x-zerosize");
     QPixmap noIcon(notFoundIcon.pixmap(48,48));

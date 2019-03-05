@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 2.8.12)
 find_package(ECM 0.0.9 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_PATH})
 
-find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Widgets Test)
+find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Widgets Svg Test)
 find_package(KF5 REQUIRED COMPONENTS I18n KIO ConfigWidgets NewStuff Archive KCMUtils IconThemes)
 find_package(X11 REQUIRED)
 find_package(GTK3 REQUIRED)
@@ -54,7 +54,7 @@ ki18n_wrap_ui(kcm_SRCS
 )
 add_library(kcm_kdegtkconfig MODULE ${kcm_SRCS})
 target_compile_definitions(kcm_kdegtkconfig PRIVATE -DPROJECT_VERSION="${PROJECT_VERSION}")
-target_link_libraries(kcm_kdegtkconfig ${X11_Xcursor_LIB} ${GIO2_LIBRARY} ${GLIB2_LIBRARY} ${GTK3_LIBRARY} ${GOBJECT2_LIBRARY} KF5::ConfigCore KF5::I18n KF5::KIOWidgets KF5::NewStuff KF5::Archive KF5::NewStuff KF5::ConfigWidgets KF5::IconThemes)
+target_link_libraries(kcm_kdegtkconfig ${X11_Xcursor_LIB} ${GIO2_LIBRARY} ${GLIB2_LIBRARY} ${GTK3_LIBRARY} ${GOBJECT2_LIBRARY} Qt5::Svg KF5::ConfigCore KF5::I18n KF5::KIOWidgets KF5::NewStuff KF5::Archive KF5::NewStuff KF5::ConfigWidgets KF5::IconThemes)
 
 kcoreaddons_desktop_to_json(kcm_kdegtkconfig kde-gtk-config.desktop)
 
