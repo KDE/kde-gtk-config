@@ -174,7 +174,7 @@
      </widget>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>Add New Icons Theme</string>
+       <string>Add New Icon Theme</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -251,7 +251,7 @@
              <bool>false</bool>
             </property>
             <property name="text">
-             <string>Install Icons</string>
+             <string>Install Icon Theme</string>
             </property>
            </widget>
           </item>
@@ -294,7 +294,7 @@
  <customwidgets>
   <customwidget>
    <class>KUrlRequester</class>
-   <extends>QFrame</extends>
+   <extends>QWidget</extends>
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>

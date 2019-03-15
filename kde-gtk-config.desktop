@@ -1,5 +1,16 @@
 [Desktop Entry]
-Categories=Qt;KDE;X-KDE-settings-looknfeel;
+Exec=kcmshell5 kde-gtk-config
+Icon=kde-gtk-config
+Type=Service
+X-KDE-ServiceTypes=KCModule
+
+X-KDE-Library=kcm_kdegtkconfig
+# X-KDE-ParentApp=kcontrol
+
+X-KDE-System-Settings-Parent-Category=applicationstyle
+X-KDE-Weight=20
+
+Name=GNOME/GTK Application Style
 Comment=Configure GNOME/GTK application style and behavior
 Comment[ca]=Configuració de l'estil i comportament de les aplicacions GNOME/GTK
 Comment[ca@valencia]=Configuració de l'estil i comportament de les aplicacions GNOME/GTK
@@ -20,9 +31,6 @@ Comment[uk]=Налаштовування стилю і поведінки про
 Comment[x-test]=xxConfigure GNOME/GTK application style and behaviorxx
 Comment[zh_CN]=配置 GNOME/GTK 应用程序风格和行为
 Comment[zh_TW]=設定 GNOME/GTK 應用程式的樣式與行為
-Exec=kcmshell5 kde-gtk-config
-Icon=kde-gtk-config
-Name=GNOME/GTK Application Style
 Name[ca]=Estil de les aplicacions GNOME/GTK
 Name[ca@valencia]=Estil de les aplicacions GNOME/GTK
 Name[de]=GNOME/GTK Anwendungs-Stil
@@ -46,7 +54,8 @@ Name[uk]=Стиль програм GNOME/GTK
 Name[x-test]=xxGNOME/GTK Application Stylexx
 Name[zh_CN]=GNOME/GTK 应用程序风格
 Name[zh_TW]=GNOME / GTK 應用程式樣式
-X-KDE-Keywords=gnome,style,gtk
+
+X-KDE-Keywords=gnome,gtk,style,styles,look,widget,icons,toolbars,apps,theme,menu
 X-KDE-Keywords[ca]=gnome,estil,gtk
 X-KDE-Keywords[ca@valencia]=gnome,estil,gtk
 X-KDE-Keywords[da]=gnome,stil,gtk
@@ -80,10 +89,5 @@ X-KDE-Keywords[uk]=gnome,style,gtk,гном,гноме,стиль,жтк,жет�
 X-KDE-Keywords[x-test]=xxgnomexx,xxstylexx,xxgtkxx
 X-KDE-Keywords[zh_CN]=gnome,style,gtk,样式
 X-KDE-Keywords[zh_TW]=gnome,style,gtk
-Type=Service
-X-KDE-Library=kcm_kdegtkconfig
-# X-KDE-ParentApp=kcontrol
-X-KDE-ServiceTypes=KCModule
-X-KDE-System-Settings-Parent-Category=applicationstyle
-X-KDE-Weight=80
 
+Categories=Qt;KDE;X-KDE-settings-looknfeel;

@@ -47,8 +47,8 @@ QMap<QString, int> gtkToolbarInit()
     QMap<QString, int> gtkToolbar;
     gtkToolbar["GTK_TOOLBAR_ICONS"] = 0;
     gtkToolbar["GTK_TOOLBAR_TEXT"] = 1;
-    gtkToolbar["GTK_TOOLBAR_BOTH"] = 2;
-    gtkToolbar["GTK_TOOLBAR_BOTH_HORIZ"] = 3;
+    gtkToolbar["GTK_TOOLBAR_BOTH_HORIZ"] = 2;
+    gtkToolbar["GTK_TOOLBAR_BOTH"] = 3;
     return gtkToolbar;
 }
 
@@ -62,10 +62,8 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     , m_saveEnabled(true)
 {
     Q_UNUSED(args);
-    KAboutData *acercade = new KAboutData("cgc", i18n("KDE GTK Config"), PROJECT_VERSION,
-                    i18n("Configure your GTK Applications"),
-                    KAboutLicense::LGPL_V3,
-                    i18n("Copyright 2011 José Antonio Sánchez Reynaga"));
+    KAboutData *acercade = new KAboutData("cgc", i18n("GTK Application Style"), PROJECT_VERSION,
+                    QString(), KAboutLicense::LGPL_V3, i18n("Copyright 2011 José Antonio Sánchez Reynaga"));
     acercade->addAuthor(i18n("José Antonio Sánchez Reynaga (antonioJASR)"),i18n("Main Developer"), "joanzare@gmail.com");
     acercade->addAuthor(i18n("Aleix Pol i Gonzalez"), i18n("Feature development. Previews, code refactoring."), "aleixpol@blue-systems.com");
     acercade->addCredit(i18n("Manuel Tortosa (manutortosa)"), i18n("Ideas, tester, internationalization"));
