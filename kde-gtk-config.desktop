@@ -58,7 +58,7 @@ Comment[zh_CN]=配置 GNOME/GTK 应用程序风格和行为
 Comment[zh_TW]=設定 GNOME/GTK 應用程式的樣式與行為
 
 X-KDE-Keywords=gnome,gtk,style,styles,look,widget,icons,toolbars,apps,theme,menu
-X-KDE-Keywords[ca]=gnome,gtk,estil,estils,aspecte,estri,icones,barres d'eina,apps,aplicacions,tema,menú
+X-KDE-Keywords[ca]=gnome,gtk,estil,estils,aspecte,estri,icones,barres d'eines,apps,aplicacions,tema,menú
 X-KDE-Keywords[de]=gnome,gtk,style,styles,look,widget,icons,toolbars,apps,theme,menu,Stile,Stile,Design,Themes,Bedienelemente,Elemente,Bildschirmelemente,Werkzeugleisten,Symbole,Anwendungen,Menü
 X-KDE-Keywords[es]=gnome,gtk,estilo,estilos,apariencia,widget,iconos,barras de herramientas,apps,tema,menú
 X-KDE-Keywords[gl]=gnome,gtk,estilo,estilos,aparencia,trebello,iconas,barras de ferramentas,aplicativos,tema,menú
