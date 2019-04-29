@@ -73,11 +73,19 @@ DialogInstaller::DialogInstaller(QWidget *parent)
 
 DialogInstaller::~DialogInstaller()
 {
-    delete ui;
+
+    disconnect(threadAnalisysTheme, nullptr, this, nullptr);
+    disconnect(threadAnalisysThemeIcon, nullptr, this, nullptr);
+    disconnect(threadForTheme, nullptr, this, nullptr);
+    disconnect(threadForIcon, nullptr, this, nullptr);
+    disconnect(threadForTheme, nullptr, this, nullptr);
+    disconnect(threadForIcon, nullptr, this, nullptr);
+
     delete threadAnalisysTheme;
     delete threadAnalisysThemeIcon;
     delete threadForIcon;
     delete threadForTheme;
+    delete ui;
 }
 
 void DialogInstaller::installTheme()
