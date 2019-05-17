@@ -59,7 +59,7 @@ target_link_libraries(kcm_kdegtkconfig ${X11_Xcursor_LIB} ${GIO2_LIBRARY} ${GLIB
 kcoreaddons_desktop_to_json(kcm_kdegtkconfig kde-gtk-config.desktop)
 
 install(TARGETS kcm_kdegtkconfig DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES cgctheme.knsrc cgcgtk3.knsrc DESTINATION ${CONFIG_INSTALL_DIR})
+install(FILES cgctheme.knsrc cgcgtk3.knsrc DESTINATION ${KDE_INSTALL_KNSRCDIR})
 install(FILES kde-gtk-config.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 
 add_subdirectory(gtkproxies)
