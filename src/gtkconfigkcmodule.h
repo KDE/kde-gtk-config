@@ -33,7 +33,6 @@
 #include "cursorthemesmodel.h"
 
 class KProcess;
-class QX11EmbedContainer;
 namespace Ui { class Modulo; class GUI; }
 
 class GTKConfigKCModule : public KCModule

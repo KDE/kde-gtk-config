@@ -27,7 +27,6 @@
 
 class KJob;
 class AppearenceGTK;
-class ThreadErase;
 namespace Ui{
     class dialog_uninstaller;
 }

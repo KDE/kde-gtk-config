@@ -7,7 +7,6 @@
 
 #include <QObject>
 
-class AbstractAppearance;
 class ConfigSaveTest : public QObject
 {
     Q_OBJECT
