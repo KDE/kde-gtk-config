@@ -29,6 +29,7 @@
 #include <QProcess>
 #include <QStandardPaths>
 #include <config.h>
+#include <QRegularExpression>
 
 bool AppearanceGTK2::loadSettingsPrivate(const QString& path)
 {
@@ -84,64 +85,64 @@ QString AppearanceGTK2::themesGtkrcFile(const QString& themeName) const
 
 bool AppearanceGTK2::saveSettingsPrivate(const QString& gtkrcFile) const
 {
-    QFile gtkrc(gtkrcFile);
-    gtkrc.remove();
+    QFile gtkrc{gtkrcFile};
 
-    if(!gtkrc.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qWarning() << "There was unable to write the file .gtkrc-2.0";
+    if (gtkrc.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QString fileContents{gtkrc.readAll()};
+
+        modifyGtkrcContents(fileContents);
+
+        gtkrc.remove();
+        gtkrc.open(QIODevice::WriteOnly | QIODevice::Text);
+        gtkrc.write(fileContents.toUtf8());
+
+        if (QFileInfo(gtkrc).filePath() == defaultConfigFile()) {
+            QProcess::startDetached(QStandardPaths::findExecutable("reload_gtk_apps", {CMAKE_INSTALL_FULL_LIBEXECDIR}));
+        }
+
+        return true;
+    } else {
+        qWarning() << "There was unable to write the .gtkrc-2.0 file";
         return false;
     }
+}
 
-    QTextStream flow(&gtkrc);
+void AppearanceGTK2::modifyGtkrcContents(QString& fileContents) const
+{
+    modifyGtkrcProperty("gtk-font-name", m_settings["font"], fileContents);
+    modifyGtkrcProperty("gtk-theme-name", m_settings["theme"], fileContents);
+    modifyGtkrcProperty("gtk-icon-theme-name", m_settings["icon"], fileContents);
+    modifyGtkrcProperty("gtk-fallback-icon-theme", m_settings["icon_fallback"], fileContents);
+    modifyGtkrcProperty("gtk-cursor-theme-name", m_settings["cursor"], fileContents);
+    modifyGtkrcProperty("gtk-toolbar-style", m_settings["toolbar_style"], fileContents);
+    modifyGtkrcProperty("gtk-menu-images", m_settings["show_icons_menus"], fileContents);
+    modifyGtkrcProperty("gtk-button-images", m_settings["show_icons_buttons"], fileContents);
+    modifyGtkrcProperty("gtk-primary-button-warps-slider", m_settings["primary_button_warps_slider"], fileContents);
+}
 
-    flow << "# File created by KDE Gtk Config" << "\n"
-         << "# Configs for GTK2 programs \n\n";
+void AppearanceGTK2::modifyGtkrcProperty(const QString& propertyName, const QString& newValue, QString& fileContents) const
+{
+    const QRegularExpression regExp{propertyName + "=[^\n]*($|\n)"};
 
-    QString themeGtkrcFile=themesGtkrcFile(getTheme());
-    
-    //TODO: is this really needed?
-    if(!themeGtkrcFile.isEmpty())
-        flow << "include \"" << themeGtkrcFile << "\"\n"; //We include the theme's gtkrc file
-    
-    if(QFile::exists("/etc/gtk-2.0/gtkrc"))
-        flow  << "include \"/etc/gtk-2.0/gtkrc\"\n"; //We include the /etc's config file
+    static const QStringList nonStringProperties{
+        "gtk-toolbar-style",
+        "gtk-menu-images",
+        "gtk-button-images",
+        "gtk-primary-button-warps-slider",
+    };
 
-    int nameEnd = m_settings["font"].lastIndexOf(QRegExp(" ([0-9]+|bold|italic)"));
-    const auto fontFamily = m_settings["font"].leftRef(nameEnd);
-
-    //TODO: is this really needed?
-    flow << "style \"user-font\" \n"
-            << "{\n"
-            << "\tfont_name=\""<< fontFamily << "\"\n"
-            << "}\n";
-
-    flow << "widget_class \"*\" style \"user-font\"\n";
-    flow << "gtk-font-name=\"" << m_settings["font"] << "\"\n";
-    flow << "gtk-theme-name=\"" << m_settings["theme"] << "\"\n";
-    flow << "gtk-icon-theme-name=\""<< m_settings["icon"] << "\"\n";
-    flow << "gtk-fallback-icon-theme=\"" << m_settings["icon_fallback"] << "\"\n";
-    flow << "gtk-cursor-theme-name=\"" << m_settings["cursor"] << "\"\n";
-    flow << "gtk-toolbar-style=" << m_settings["toolbar_style"] << "\n";
-    flow << "gtk-menu-images=" << m_settings["show_icons_menus"] << "\n";
-    flow << "gtk-button-images=" << m_settings["show_icons_buttons"] << "\n";
-    flow << "gtk-primary-button-warps-slider=" << m_settings["primary_button_warps_slider"] << "\n";
+    QString newConfigString;
+    if (nonStringProperties.contains(propertyName)) {
+        newConfigString = propertyName + "=" + newValue + "\n";
+    } else {
+        newConfigString = propertyName + "=\"" + newValue + "\"\n";
+    }
     
-    //we're done with the  ~/.gtk-2.0 file
-    gtkrc.close();
-    
-    //TODO: do we really need the linked file?
-    if(QFile::remove(gtkrcFile+"-kde4"))
-        qDebug() << "ready to create the symbolic link";
-    
-    if( !QFile::link(gtkrcFile, gtkrcFile+"-kde4") )
-        qWarning() << "Couldn't create the symboling link to .gtkrc-2.0-kde4 :(";
-//     else
-//         qDebug() << "Symbolic link created for .gtkrc-2.0-kde4 :D";
-    
-    if(gtkrcFile==defaultConfigFile())
-        QProcess::startDetached(QStandardPaths::findExecutable("reload_gtk_apps", {CMAKE_INSTALL_FULL_LIBEXECDIR}));
-    
-    return true;
+    if (fileContents.contains(regExp)) {
+        fileContents.replace(regExp, newConfigString);
+    } else {
+        fileContents = newConfigString + "\n" + fileContents;
+    }
 }
 
 void AppearanceGTK2::reset()
