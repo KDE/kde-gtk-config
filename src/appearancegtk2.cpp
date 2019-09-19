@@ -87,7 +87,7 @@ bool AppearanceGTK2::saveSettingsPrivate(const QString& gtkrcFile) const
 {
     QFile gtkrc{gtkrcFile};
 
-    if (gtkrc.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    if (gtkrc.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QString fileContents{gtkrc.readAll()};
 
         modifyGtkrcContents(fileContents);
