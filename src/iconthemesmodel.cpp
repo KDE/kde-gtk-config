@@ -84,7 +84,7 @@ QString IconThemesModel::findFilesRecursively(const QStringList& wildcard, const
     }
 
     QStringList subdirs = directory.entryList(QDir::AllDirs|QDir::NoDotAndDotDot);
-    qSort(subdirs.begin(), subdirs.end(), greatSizeIs48);
+    std::sort(subdirs.begin(), subdirs.end(), greatSizeIs48);
     foreach(const QString& subdir, subdirs) {
         QString ret = findFilesRecursively(wildcard, QDir(directory.filePath(subdir)));
         if(!ret.isEmpty())
