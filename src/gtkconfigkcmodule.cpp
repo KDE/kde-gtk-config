@@ -139,10 +139,10 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     connect(ui->gtk3Preview, &QAbstractButton::clicked, this, &GTKConfigKCModule::runGtk3IfNecessary);
     
     QMenu* m = new QMenu(this);
-    m->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Download GTK2 themes..."), this, SLOT(showThemeGHNS()));
-    m->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Download GTK3 themes..."), this, SLOT(installThemeGTK3GHNS()));
-    m->addAction(QIcon::fromTheme("archive-insert"), i18n("Install a local theme..."), this, SLOT(showDialogForInstall()));
-    m->addAction(QIcon::fromTheme("archive-remove"), i18n("Uninstall a local theme..."), this, SLOT(showDialogForUninstall()));
+    m->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Download GTK2 themes..."), this, &GTKConfigKCModule::showThemeGHNS);
+    m->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Download GTK3 themes..."), this, &GTKConfigKCModule::installThemeGTK3GHNS);
+    m->addAction(QIcon::fromTheme("archive-insert"), i18n("Install a local theme..."), this, &GTKConfigKCModule::showDialogForInstall);
+    m->addAction(QIcon::fromTheme("archive-remove"), i18n("Uninstall a local theme..."), this, &GTKConfigKCModule::showDialogForUninstall);
     ui->newThemes->setMenu(m);
     ui->newThemes->setIcon(QIcon::fromTheme("get-hot-new-stuff"));
 }
