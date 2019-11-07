@@ -118,6 +118,7 @@ void AppearanceGTK2::modifyGtkrcContents(QString& fileContents) const
     modifyGtkrcProperty("gtk-menu-images", m_settings["show_icons_menus"], fileContents);
     modifyGtkrcProperty("gtk-button-images", m_settings["show_icons_buttons"], fileContents);
     modifyGtkrcProperty("gtk-primary-button-warps-slider", m_settings["primary_button_warps_slider"], fileContents);
+    removeGtkrcLegacyContents(fileContents);
 }
 
 void AppearanceGTK2::modifyGtkrcProperty(const QString& propertyName, const QString& newValue, QString& fileContents) const
@@ -143,6 +144,27 @@ void AppearanceGTK2::modifyGtkrcProperty(const QString& propertyName, const QStr
     } else {
         fileContents = newConfigString + "\n" + fileContents;
     }
+}
+
+void AppearanceGTK2::removeGtkrcLegacyContents(QString &fileContents) const
+{
+    // Remove "include" lines
+    // Example:
+    // include "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
+
+    static const QRegularExpression includeRegExp(QStringLiteral("include .*\n"));
+    fileContents.remove(includeRegExp);
+
+    // Remove redundant font config lines
+    // Example:
+    // style "user-font"
+    // {
+    //     font_name="Noto Sans Regular"
+    // }
+    // widget_class "*" style "user-font"
+
+    static const QRegularExpression userFontStyleRegexp(QStringLiteral("style(.|\n)*{(.|\n)*}\nwidget_class.*\"user-font\""));
+    fileContents.remove(userFontStyleRegexp);
 }
 
 void AppearanceGTK2::reset()

@@ -42,6 +42,7 @@ private:
     bool saveSettingsPrivate(const QString& path) const;
     void modifyGtkrcContents(QString& fileContents) const;
     void modifyGtkrcProperty(const QString& propertyName, const QString& newValue, QString& fileContents) const;
+    void removeGtkrcLegacyContents(QString& fileContents) const;
 };
 
 #endif // APPEARANCEGTK2_H
