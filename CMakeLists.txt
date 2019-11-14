@@ -6,7 +6,7 @@ find_package(ECM 0.0.9 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_PATH})
 
 find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Widgets Svg Test)
-find_package(KF5 REQUIRED COMPONENTS I18n KIO ConfigWidgets NewStuff Archive KCMUtils IconThemes)
+find_package(KF5 REQUIRED COMPONENTS I18n KIO ConfigWidgets NewStuff Archive KCMUtils IconThemes DBusAddons)
 find_package(X11 REQUIRED)
 find_package(GTK3 REQUIRED)
 find_package(GSettingSchemas REQUIRED)
@@ -67,6 +67,7 @@ add_subdirectory(gtkproxies)
 add_subdirectory(gtk3proxies)
 add_subdirectory(icons)
 add_subdirectory(tests)
+add_subdirectory(kded)
 
 # add clang-format target for all our real source files
 file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h)

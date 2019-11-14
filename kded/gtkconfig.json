@@ -1,0 +1,15 @@
+{
+    "KPlugin": {
+        "Description": "GTK config management",
+        "Icon": "gtkconfig",
+        "Name": "Plasma GTKd",
+        "ServiceTypes": [
+            "KDEDModule"
+        ],
+        "Version": "0.1"
+    },
+    "X-KDE-Kded-autoload": true,
+    "X-KDE-Kded-load-on-demand": false,
+    "X-KDE-Kded-phase": 1
+}
+
