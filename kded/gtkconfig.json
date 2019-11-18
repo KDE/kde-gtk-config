@@ -1,7 +1,11 @@
 {
     "KPlugin": {
         "Description": "GTK config management",
+        "Description[ca]": "Gestió de la configuració del GTK",
+        "Description[en_GB]": "GTK config management",
+        "Description[es]": "Gestión de configuración de GTK",
         "Description[eu]": "GTK konfiguratzeko kudeaketa",
+        "Description[fi]": "GTK-asetusten hallinta",
         "Description[nl]": "GTK-configuratiebeheer",
         "Description[pt]": "Gestão das configurações do GTK",
         "Description[pt_BR]": "Gerenciamento das configurações do GTK",
@@ -11,7 +15,11 @@
         "Description[zh_TW]": "GTK 設定管理工具",
         "Icon": "gtkconfig",
         "Name": "Plasma GTKd",
+        "Name[ca]": "Plasma GTKd",
+        "Name[en_GB]": "Plasma GTKd",
+        "Name[es]": "Plasma GTKd",
         "Name[eu]": "Plasma GTKd",
+        "Name[fi]": "Plasma GTKd",
         "Name[nl]": "Plasma GTKd",
         "Name[pt]": "GTKd do Plasma",
         "Name[pt_BR]": "Plasma GTKd",
