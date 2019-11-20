@@ -95,7 +95,7 @@ X-KDE-Keywords[sk]=gnome,gtk,štýl,štýly,vzhľad,widget,ikony,panel nástrojo
 X-KDE-Keywords[sv]=gnome,gtk,stil,stilar,utseende,komponent,ikoner,verktygsrader,program,tema,meny
 X-KDE-Keywords[uk]=gnome,gtk,style,styles,look,widget,icons,toolbars,apps,theme,menu,гном,гноме,жтк,стиль,стилі,вигляд,віджет,піктограми,панелі,програми,тема,меню
 X-KDE-Keywords[x-test]=xxgnomexx,xxgtkxx,xxstylexx,xxstylesxx,xxlookxx,xxwidgetxx,xxiconsxx,xxtoolbarsxx,xxappsxx,xxthemexx,xxmenuxx
-X-KDE-Keywords[zh_CN]=gnome,gtk,样式,多种样式,外观,小部件,图标,工具栏,应用程序,主题,菜单
+X-KDE-Keywords[zh_CN]=gnome,gtk,style,styles,look,widget,icons,toolbars,apps,theme,menu,样式,外观,小部件,图标,工具栏,应用程序,主题,菜单
 X-KDE-Keywords[zh_TW]=gnome,gtk,style,styles,look,widget,icons,toolbars,apps,theme,menu,樣式,樣貌,元件,小工具,圖示,圖標,工具列,應用程式,App,應用,主題,選單,目錄
 
 Categories=Qt;KDE;X-KDE-settings-looknfeel;
