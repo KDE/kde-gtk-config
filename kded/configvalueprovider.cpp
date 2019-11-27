@@ -61,7 +61,7 @@ QString ConfigValueProvider::cursorThemeName() const
 {
     inputConfig->reparseConfiguration();
     KConfigGroup configGroup = inputConfig->group(QStringLiteral("Mouse"));
-    return configGroup.readEntry(QStringLiteral("cursorTheme"));
+    return configGroup.readEntry(QStringLiteral("cursorTheme"), QStringLiteral("breeze_cursors"));
 }
 
 QString ConfigValueProvider::iconsOnButtons() const
