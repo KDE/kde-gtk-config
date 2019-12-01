@@ -22,6 +22,7 @@
 #pragma once
 
 #include <KDEDModule>
+#include <KConfigWatcher>
 
 #include "configeditor.h"
 #include "configvalueprovider.h"
@@ -64,12 +65,15 @@ public:
     void setToolbarStyle() const;
     void setScrollbarBehavior() const;
     void setDarkThemePreference() const;
+    void setWindowDecorationsButtonsOrder() const;
 
     void applyAllSettings() const;
 
 public Q_SLOTS:
     void onGlobalSettingsChange(int settingsChangeType, int arg) const;
+    void onKWinSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
 
 private:
     QScopedPointer<ConfigValueProvider> configValueProvider;
+    KConfigWatcher::Ptr kwinConfigWatcher;
 };

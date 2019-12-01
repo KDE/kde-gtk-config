@@ -26,6 +26,7 @@
 
 #include <KIconLoader>
 #include <KPluginFactory>
+#include <KConfigWatcher>
 
 #include "gtkconfig.h"
 #include "configvalueprovider.h"
@@ -34,17 +35,18 @@ K_PLUGIN_CLASS_WITH_JSON(GtkConfig, "gtkconfig.json")
 
 GtkConfig::GtkConfig(QObject *parent, const QVariantList&) :
     KDEDModule(parent),
-    configValueProvider(new ConfigValueProvider())
+    configValueProvider(new ConfigValueProvider()),
+    kwinConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kwinrc"))))
 {
     connect(qGuiApp, &QGuiApplication::fontChanged, this, &GtkConfig::setFont);
     connect(KIconLoader::global(), &KIconLoader::iconChanged, this, &GtkConfig::setIconTheme);
+    connect(kwinConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKWinSettingsChange);
     QDBusConnection::sessionBus().connect(QString(),
                                           QStringLiteral("/KGlobalSettings"),
                                           QStringLiteral("org.kde.KGlobalSettings"),
                                           QStringLiteral("notifyChange"),
                                           this,
                                           SLOT(onGlobalSettingsChange(int,int)));
-
     applyAllSettings();
 }
 
@@ -121,6 +123,14 @@ void GtkConfig::setDarkThemePreference() const
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-application-prefer-dark-theme"), preferDarkTheme);
 }
 
+void GtkConfig::setWindowDecorationsButtonsOrder() const
+{
+    const QString windowDecorationsButtonOrder = configValueProvider->windowDecorationsButtonsOrder();
+    ConfigEditor::setGtk3ConfigValueDconf(QStringLiteral("button-layout"), windowDecorationsButtonOrder, QStringLiteral("org.gnome.desktop.wm.preferences"));
+    ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-decoration-layout"), windowDecorationsButtonOrder);
+    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/DecorationLayout"), windowDecorationsButtonOrder);
+}
+
 void GtkConfig::applyAllSettings() const
 {
     setFont();
@@ -131,6 +141,7 @@ void GtkConfig::applyAllSettings() const
     setToolbarStyle();
     setScrollbarBehavior();
     setDarkThemePreference();
+    setWindowDecorationsButtonsOrder();
 }
 
 void GtkConfig::onGlobalSettingsChange(int settingsChangeType, int arg) const
@@ -148,6 +159,14 @@ void GtkConfig::onGlobalSettingsChange(int settingsChangeType, int arg) const
         setScrollbarBehavior();
     } else if (changeType == SettingsChangeType::Palette) {
         setDarkThemePreference();
+    }
+}
+
+void GtkConfig::onKWinSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const
+{
+    if (group.name() == QStringLiteral("org.kde.kdecoration2")
+            && (names.contains("ButtonsOnRight") || names.contains("ButtonsOnLeft"))) {
+        setWindowDecorationsButtonsOrder();
     }
 }
 

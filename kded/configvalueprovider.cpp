@@ -31,7 +31,8 @@
 
 ConfigValueProvider::ConfigValueProvider() :
     kdeglobalsConfig(KSharedConfig::openConfig(QStringLiteral("kdeglobals"))),
-    inputConfig(KSharedConfig::openConfig(QStringLiteral("kcminputrc")))
+    inputConfig(KSharedConfig::openConfig(QStringLiteral("kcminputrc"))),
+    kwinConfig(KSharedConfig::openConfig(QStringLiteral("kwinrc")))
 {
 
 }
@@ -126,6 +127,19 @@ QString ConfigValueProvider::preferDarkTheme() const
     }
 }
 
+QString ConfigValueProvider::windowDecorationsButtonsOrder() const
+{
+    kwinConfig->reparseConfiguration();
+    KConfigGroup configGroup = kwinConfig->group(QStringLiteral("org.kde.kdecoration2"));
+    QString buttonsOnLeftKdeConfigValue = configGroup.readEntry(QStringLiteral("ButtonsOnLeft"), "MS");
+    QString buttonsOnRightKdeConfigValue = configGroup.readEntry(QStringLiteral("ButtonsOnRight"), "HIAX");
+
+    QString buttonsOnLeftInGtkNotation = windowDecorationButtonsOrderInGtkNotation(buttonsOnLeftKdeConfigValue);
+    QString buttonsOnRightInGtkNotation = windowDecorationButtonsOrderInGtkNotation(buttonsOnRightKdeConfigValue);
+
+    return buttonsOnLeftInGtkNotation + QStringLiteral(":") + buttonsOnRightInGtkNotation;
+}
+
 QString ConfigValueProvider::toolbarStyleInDesiredNotation(const QString &kdeConfigValue, ConfigValueProvider::ToolbarStyleNotation notation) const
 {
     QStringList toolbarStyles {};
@@ -161,4 +175,24 @@ QString ConfigValueProvider::toolbarStyleInDesiredNotation(const QString &kdeCon
     } else {
         return toolbarStyles[3];
     }
+}
+
+QString ConfigValueProvider::windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const
+{
+    QString gtkNotation;
+
+    for (const QChar &buttonAbbreviation : kdeConfigValue) {
+        if (buttonAbbreviation == 'X') {
+            gtkNotation += QStringLiteral("close,");
+        } else if (buttonAbbreviation == 'I') {
+            gtkNotation += QStringLiteral("minimize,");
+        } else if (buttonAbbreviation == 'A') {
+            gtkNotation += QStringLiteral("maximize,");
+        } else if (buttonAbbreviation == 'M') {
+            gtkNotation += QStringLiteral("icon,");
+        }
+    }
+    gtkNotation.chop(1);
+
+    return gtkNotation;
 }

@@ -20,14 +20,14 @@
 #pragma once
 
 #include <unistd.h>
+#include <QString>
 
-class QString;
 class QFile;
 
 namespace ConfigEditor
 {
     void setGtk2ConfigValue(const QString &paramName, const QString &paramValue);
-    void setGtk3ConfigValueDconf(const QString &paramName, const QString &paramValue);
+    void setGtk3ConfigValueDconf(const QString &paramName, const QString &paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
     void setGtk3ConfigValueSettingsIni(const QString &paramName, const QString &paramValue);
     void setGtk3ConfigValueXSettingsd(const QString &paramName, const QString &paramValue);
 };

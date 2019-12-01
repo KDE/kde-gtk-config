@@ -45,9 +45,9 @@ static QString readFileContents(QFile &gtkrc);
 static pid_t pidOfXSettingsd();
 
 
-void ConfigEditor::setGtk3ConfigValueDconf(const QString &paramName, const QString &paramValue)
+void ConfigEditor::setGtk3ConfigValueDconf(const QString &paramName, const QString &paramValue, const QString &category)
 {
-    g_autoptr(GSettings) gsettings = g_settings_new("org.gnome.desktop.interface");
+    g_autoptr(GSettings) gsettings = g_settings_new(category.toUtf8().constData());
     g_settings_set_string(gsettings, paramName.toUtf8().constData(), paramValue.toUtf8().constData());
 }
 

@@ -44,10 +44,13 @@ public:
     QString toolbarStyle(ToolbarStyleNotation notation) const;
     QString scrollbarBehavior() const;
     QString preferDarkTheme() const;
+    QString windowDecorationsButtonsOrder() const;
 
 private:
     QString toolbarStyleInDesiredNotation(const QString &kdeConfigValue, ToolbarStyleNotation notation) const;
+    QString windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const;
 
     KSharedConfigPtr kdeglobalsConfig;
     KSharedConfigPtr inputConfig;
+    KSharedConfigPtr kwinConfig;
 };
