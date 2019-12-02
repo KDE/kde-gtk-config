@@ -31,25 +31,11 @@ static bool isTrue(const QString& value)
 
 //SETTERS
 void AbstractAppearance::setTheme(const QString& name) { m_settings["theme"] = name;}
-void AbstractAppearance::setCursor(const QString& cur) { m_settings["cursor"] = cur;}
-void AbstractAppearance::setIcon(const QString& ic) { m_settings["icon"] = ic;}
-void AbstractAppearance::setIconFallback(const QString& fall) { m_settings["icon_fallback"] = fall; }
-void AbstractAppearance::setFont(const QString& fo) { m_settings["font"] = fo;}
-void AbstractAppearance::setShowIconsInButtons(bool show) { m_settings["show_icons_buttons"] = show ? "1" : "0"; }
-void AbstractAppearance::setShowIconsInMenus(bool show) { m_settings["show_icons_menus"] = show ? "1" : "0"; }
 void AbstractAppearance::setPrimaryButtonWarpsSlider(bool enabled) { m_settings["primary_button_warps_slider"] = enabled ? "1" : "0"; }
-void AbstractAppearance::setToolbarStyle(const QString& toolbar_style) { m_settings["toolbar_style"] = toolbar_style; }
 
 // GETTERS
 QString AbstractAppearance::getTheme() const { return m_settings["theme"];}
-QString AbstractAppearance::getCursor() const { return m_settings["cursor"];}
-QString AbstractAppearance::getIcon() const { return m_settings["icon"];}
-QString AbstractAppearance::getIconFallback() const { return m_settings["icon_fallback"]; }
-QString AbstractAppearance::getFont() const { return m_settings["font"]; }
 QString AbstractAppearance::getThemeGtk3() const { return m_settings["themegtk3"]; }
-QString AbstractAppearance::getToolbarStyle() const { return m_settings["toolbar_style"]; }
-bool AbstractAppearance::getShowIconsInButtons() const { return isTrue(m_settings["show_icons_buttons"]); }
-bool AbstractAppearance::getShowIconsInMenus() const { return isTrue(m_settings["show_icons_menus"]); }
 bool AbstractAppearance::getPrimaryButtonWarpsSlider() const { return isTrue(m_settings["primary_button_warps_slider"]); }
 
 QRegExp valueRx(" *([a-zA-Z\\-_]+) *= *\"?([^\"\\n]+)\"?", Qt::CaseSensitive, QRegExp::RegExp2);

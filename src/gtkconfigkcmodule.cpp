@@ -35,26 +35,12 @@
 #include <config.h>
 #include "ui_gui.h"
 #include "abstractappearance.h"
-#include "iconthemesmodel.h"
-#include "fontshelpers.h"
 #include <QSortFilterProxyModel>
 #include <qstringlistmodel.h>
 #include <QSvgRenderer>
 #include <QPainter>
 
 K_PLUGIN_FACTORY_WITH_JSON(GTKConfigKCModuleFactory, "kde-gtk-config.json", registerPlugin<GTKConfigKCModule>();)
-
-QMap<QString, int> gtkToolbarInit()
-{
-    QMap<QString, int> gtkToolbar;
-    gtkToolbar["GTK_TOOLBAR_ICONS"] = 0;
-    gtkToolbar["GTK_TOOLBAR_TEXT"] = 1;
-    gtkToolbar["GTK_TOOLBAR_BOTH_HORIZ"] = 2;
-    gtkToolbar["GTK_TOOLBAR_BOTH"] = 3;
-    return gtkToolbar;
-}
-
-static QMap<QString, int> gtkToolbar = gtkToolbarInit();
 
 GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     : KCModule(parent)
@@ -75,23 +61,6 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     ui->setupUi(this);
     appareance = new AppearenceGTK;
 
-    m_cursorsModel = new CursorThemesModel(this);
-    QSortFilterProxyModel *cursorsProxyModel = new QSortFilterProxyModel(this);
-    cursorsProxyModel->setSourceModel(m_cursorsModel);
-    cursorsProxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
-    cursorsProxyModel->setSortRole(Qt::DisplayRole);
-    cursorsProxyModel->sort(0);
-    ui->cb_cursor->setModel(cursorsProxyModel);
-
-    m_iconsModel = new IconThemesModel(false, this);
-    QSortFilterProxyModel *iconsProxyModel = new QSortFilterProxyModel(this);
-    iconsProxyModel->setSourceModel(m_iconsModel);
-    iconsProxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
-    iconsProxyModel->setSortRole(Qt::DisplayRole);
-    iconsProxyModel->sort(0);
-    ui->cb_icon->setModel(iconsProxyModel);
-    ui->cb_icon_fallback->setModel(iconsProxyModel);
-    
     m_tempGtk2Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation)+ "/gtkrc-2.0";
     m_tempGtk3Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation)+ "/.config/gtk-3.0/settings.ini";
     
@@ -123,18 +92,9 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     connect(ui->cb_theme, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_theme_gtk3, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->checkBox_theme_gtk3_prefer_dark, &QAbstractButton::clicked, this, &GTKConfigKCModule::appChanged);
-    connect(ui->cb_cursor, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
-    connect(ui->cb_icon, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
-    connect(ui->cb_icon_fallback ,SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
-    connect(ui->font, &KFontRequester::fontSelected, this, &GTKConfigKCModule::appChanged);
-    connect(ui->cb_toolbar_icons, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
-    connect(ui->checkBox_icon_gtk_menus, &QAbstractButton::clicked, this, &GTKConfigKCModule::appChanged);
-    connect(ui->checkBox_icon_gtk_buttons, &QAbstractButton::clicked, this, &GTKConfigKCModule::appChanged);
     connect(ui->buttonGroup_primary_button_warps_slider, SIGNAL(buttonToggled(QAbstractButton*, bool)), this, SLOT(appChanged()));
 
     //preview updates
-    connect(ui->cb_icon_fallback, SIGNAL(activated(QString)), this, SLOT(makePreviewIconTheme()));
-    connect(ui->cb_icon, SIGNAL(activated(QString)), this, SLOT(makePreviewIconTheme()));
     connect(ui->gtk2Preview, &QAbstractButton::clicked, this, &GTKConfigKCModule::runGtk2IfNecessary);
     connect(ui->gtk3Preview, &QAbstractButton::clicked, this, &GTKConfigKCModule::runGtk3IfNecessary);
     
@@ -166,14 +126,7 @@ void GTKConfigKCModule::syncUI()
     appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
     appareance->setTheme(ui->cb_theme->currentText());
     appareance->setApplicationPreferDarkTheme(ui->checkBox_theme_gtk3_prefer_dark->isChecked());
-    appareance->setCursor(ui->cb_cursor->itemData(ui->cb_cursor->currentIndex(), CursorThemesModel::DirNameRole).toString());
-    appareance->setIcon(ui->cb_icon->itemData(ui->cb_icon->currentIndex(), IconThemesModel::DirNameRole).toString());
-    appareance->setIconFallback(ui->cb_icon_fallback->itemData(ui->cb_icon_fallback->currentIndex(), IconThemesModel::DirNameRole).toString());
-    appareance->setFont(fontToString(ui->font->font()));
 
-    appareance->setToolbarStyle(gtkToolbar.key(ui->cb_toolbar_icons->currentIndex()));
-    appareance->setShowIconsInButtons(ui->checkBox_icon_gtk_buttons->isChecked());
-    appareance->setShowIconsInMenus(ui->checkBox_icon_gtk_menus->isChecked());
     appareance->setPrimaryButtonWarpsSlider(ui->buttonGroup_primary_button_warps_slider->checkedButton() == ui->radioButton_warp);
 }
 
@@ -197,79 +150,9 @@ void GTKConfigKCModule::refreshLists()
 {
     refreshThemesUi(true);
 
-    const auto newFont = stringToFont(appareance->getFont());
-    if (newFont != ui->font->font())
-        ui->font->setFont(newFont);
-    
-    ui->cb_toolbar_icons->setCurrentIndex(gtkToolbar[appareance->getToolbarStyle()]);
-    
-    ui->checkBox_icon_gtk_buttons->setChecked(appareance->getShowIconsInButtons());
-    ui->checkBox_icon_gtk_menus->setChecked(appareance->getShowIconsInMenus());
     const bool warps = appareance->getPrimaryButtonWarpsSlider();
     ui->radioButton_warp->setChecked(warps);
     ui->radioButton_dont_warp->setChecked(!warps);
-
-    makePreviewIconTheme();
-}
-
-void tryIcon(QLabel* label, const QString& fallback, const QString& theme, const QString& iconName)
-{
-    label->setToolTip(iconName);
-
-    auto findIconAt = [label, theme, iconName](const QDir &where) -> bool {
-        const QString path = IconThemesModel::findIconRecursivelyByName(iconName, where);
-
-        if(!path.isEmpty()) {
-            QPixmap p;
-            QSize s(label->width(), label->height());
-            if (path.endsWith(".svg") || path.endsWith(".svgz")) {
-                QImage image(s, QImage::Format_ARGB32_Premultiplied);
-                image.fill(Qt::transparent);
-                QPainter painter(&image);
-                QSvgRenderer r(path);
-                r.render(&painter);
-                painter.end();
-
-                p = QPixmap::fromImage(image);
-            } else {
-                p = {path};
-                Q_ASSERT(!p.isNull());
-                p = p.scaled(s);
-            }
-            label->setPixmap(p);
-            return true;
-        }
-        return false;
-    };
-    if (!theme.isEmpty() && findIconAt(QDir(theme)))
-        return;
-    if (findIconAt(fallback))
-        return;
-    
-    QIcon notFoundIcon = QIcon::fromTheme("application-x-zerosize");
-    QPixmap noIcon(notFoundIcon.pixmap(48,48));
-    label->setPixmap(noIcon);
-    
-    qWarning() << "could not find icon" << iconName;
-}
-
-void GTKConfigKCModule::makePreviewIconTheme()
-{
-    int icon_fallback = ui->cb_icon_fallback->currentIndex();
-    QString path_fallback = ui->cb_icon->itemData(icon_fallback, IconThemesModel::PathRole).toString();
-    
-    int icon = ui->cb_icon->currentIndex();
-    QString path_icon = ui->cb_icon->itemData(icon, IconThemesModel::PathRole).toString();
-    
-    tryIcon(ui->lb_prev_1, path_fallback, path_icon, "user-home");
-    tryIcon(ui->lb_prev_2, path_fallback, path_icon, "folder");
-    tryIcon(ui->lb_prev_3, path_fallback, path_icon, "user-trash");
-    tryIcon(ui->lb_prev_4, path_fallback, path_icon, "document-print");
-    tryIcon(ui->lb_prev_5, path_fallback, path_icon, "user-desktop");
-    tryIcon(ui->lb_prev_6, path_fallback, path_icon, "network-server");
-    tryIcon(ui->lb_prev_7, path_fallback, path_icon, "system-help");
-    tryIcon(ui->lb_prev_8, path_fallback, path_icon, "start-here");
-    tryIcon(ui->lb_prev_9, path_fallback, path_icon, "go-up");
 }
 
 void GTKConfigKCModule::appChanged()
@@ -346,13 +229,6 @@ void GTKConfigKCModule::save()
 /*    qDebug() << "******************************************* INSTALLATION :\n"
             << "theme : " << appareance->getTheme() << "\n"
             << "themeGTK3 : " << appareance->getThemeGtk3() << "\n"
-            << "icons : " << appareance->getIcon() << "\n"
-            << "fallback icons : " << appareance->getIconFallback() << "\n"
-            << "cursors : " << appareance->getCursor() << "\n"
-            << "font family : " << appareance->getFont() << "\n"
-            << "toolbar style : " << appareance->getToolbarStyle() << "\n"
-            << "icons in buttons : " << appareance->getShowIconsInButtons() << "\n"
-            << "icons in menus : " << appareance->getShowIconsInMenus() << "\n"
             << "********************************************************";
     */
     syncUI();
@@ -377,10 +253,6 @@ void GTKConfigKCModule::defaults()
 
 //     qDebug() << "loading defaults...";
     m_saveEnabled = false;
-    ui->font->setFont(font());
-    bool showIcons = !QCoreApplication::testAttribute(Qt::AA_DontShowIconsInMenus);
-    ui->checkBox_icon_gtk_buttons->setChecked(showIcons);
-    ui->checkBox_icon_gtk_menus->setChecked(showIcons);
 
     // this makes it consistent with Qt apps and restores the old Gtk behavior
     ui->radioButton_dont_warp->setChecked(true);
@@ -388,17 +260,8 @@ void GTKConfigKCModule::defaults()
     setComboItem(ui->cb_theme, QStringList("oxygen-gtk") << "Clearlooks");
     setComboItem(ui->cb_theme_gtk3, QStringList("oxygen-gtk") << "Adwaita");
     
-    QStringList icons;
-    icons << KIconLoader::global()->theme()->name() << "GNOME";
-    setComboItem(ui->cb_icon, icons);
-    
-    int idx = ui->cb_icon->currentIndex();
-    if(idx>=0) {
-        setComboItem(ui->cb_icon_fallback, icons.mid(icons.indexOf(ui->cb_icon->currentText())+1));
-    }
     m_saveEnabled = true;
     
-    makePreviewIconTheme();
     appChanged();
 }
 
@@ -494,22 +357,9 @@ void GTKConfigKCModule::refreshThemesUi(bool useConfig)
     // dark theme for gtk3
     ui->checkBox_theme_gtk3_prefer_dark->setChecked(appareance->getApplicationPreferDarkTheme());
 
-    //cursors
-    QString currentCursor = useConfig ? appareance->getCursor() : ui->cb_cursor->currentText();
-    int currentCursorIdx = ui->cb_cursor->findData(currentCursor, CursorThemesModel::DirNameRole);
-    ui->cb_cursor->setCurrentIndex(qMax(currentCursorIdx, 0));
-    
-    //icons
-    QString currentIcon = useConfig ? appareance->getIcon() : ui->cb_icon->currentText(),
-            currentFallback = useConfig ? appareance->getIconFallback() : ui->cb_icon_fallback->currentText();
-    int currentIconIdx = ui->cb_icon->findData(currentIcon, IconThemesModel::DirNameRole);
-    int currentFallbackIdx = ui->cb_icon_fallback->findData(currentFallback, IconThemesModel::DirNameRole);
-    ui->cb_icon->setCurrentIndex(qMax(currentIconIdx, 0));
-    ui->cb_icon_fallback->setCurrentIndex(qMax(currentFallbackIdx, 0));
     
     m_saveEnabled = wasenabled;
-    if(currentCursorIdx<0 || currentIconIdx<0 || currentFallbackIdx<0)
-        emit changed(true);
+    emit changed(true);
 }
 
 void GTKConfigKCModule::showDialogForInstall()

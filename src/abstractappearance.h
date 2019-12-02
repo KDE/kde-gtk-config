@@ -39,24 +39,10 @@ class AbstractAppearance
         virtual QStringList installedThemes() const = 0;
         
         void setTheme(const QString& name);
-        void setCursor(const QString& name);
-        void setIcon(const QString& name);
-        void setIconFallback(const QString& name);
-        void setFont(const QString& font);
-        void setShowIconsInMenus(bool show);
-        void setShowIconsInButtons(bool show);
         void setPrimaryButtonWarpsSlider(bool enabled);
-        void setToolbarStyle(const QString& style);
         
         QString getTheme() const;
-        QString getCursor() const;
-        QString getIcon() const;
-        QString getIconFallback() const;
-        QString getFont() const;
         QString getThemeGtk3() const;
-        QString getToolbarStyle() const;
-        bool getShowIconsInButtons() const;
-        bool getShowIconsInMenus() const;
         bool getPrimaryButtonWarpsSlider() const;
         
         QStringList installedThemesNames() const;

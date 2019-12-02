@@ -47,9 +47,7 @@ signals:
 public slots:
     void refreshListsForUninstall();
     void uninstallTheme();
-    void uninstallIcon();
     void threadUninstalledThemeFinished(KJob* job);
-    void threadUninstalledThemeIconFinished(KJob* job);
  
 private:
     Ui::dialog_uninstaller *ui;

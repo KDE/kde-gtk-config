@@ -34,8 +34,6 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY
 add_definitions(-DTRANSLATION_DOMAIN=\"kde-gtk-config\")
 
 set(kcm_SRCS
-     src/iconthemesmodel.cpp
-     src/cursorthemesmodel.cpp
      src/appearancegtk3.cpp
      src/appearancegtk2.cpp
      src/appearencegtk.cpp
@@ -45,7 +43,6 @@ set(kcm_SRCS
      src/gtkconfigkcmodule.cpp
      src/dialog_installer.cpp
      src/dialog_uninstaller.cpp
-     src/fontshelpers.cpp
 )
 
 ki18n_wrap_ui(kcm_SRCS

@@ -36,15 +36,3 @@ bool Installer::installTheme(const QString &urlPackage)
     package.directory()->copyTo(dest);
     return true;
 }
-
-bool Installer::installIconTheme(const QString &urlPackage)
-{
-    QString dest(QDir::homePath()+"/.icons");
-    QDir::home().mkpath(dest);
-
-    KTar package(urlPackage);
-    if(!package.open(QIODevice::ReadOnly))
-        return false;
-    package.directory()->copyTo(dest);
-    return true;
-}

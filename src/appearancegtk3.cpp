@@ -63,14 +63,7 @@ bool AppearanceGTK3::saveSettings(const KSharedConfig::Ptr& file) const
 {
     KConfigGroup group(file, "Settings");
 
-    group.writeEntry("gtk-font-name", m_settings["font"]);
     group.writeEntry("gtk-theme-name", m_settings["theme"]);
-    group.writeEntry("gtk-icon-theme-name", m_settings["icon"]);
-    group.writeEntry("gtk-fallback-icon-theme", m_settings["icon_fallback"]);
-    group.writeEntry("gtk-cursor-theme-name", m_settings["cursor"]);
-    group.writeEntry("gtk-toolbar-style", m_settings["toolbar_style"]);
-    group.writeEntry("gtk-menu-images", m_settings["show_icons_menus"]);
-    group.writeEntry("gtk-button-images", m_settings["show_icons_buttons"]);
     group.writeEntry("gtk-primary-button-warps-slider", m_settings["primary_button_warps_slider"]);
     group.writeEntry("gtk-application-prefer-dark-theme", m_settings["application_prefer_dark_theme"]);
 
@@ -89,21 +82,11 @@ bool AppearanceGTK3::loadSettings(const KSharedConfig::Ptr& file)
     }
 
     m_settings = QMap<QString, QString> {
-        {"toolbar_style", "GTK_TOOLBAR_ICONS"},
-        {"show_icons_buttons", "0"},
-        {"show_icons_menus", "0"},
         {"primary_button_warps_slider", "false"},
         {"application_prefer_dark_theme", "false"}
     };
 
     m_settings["theme"] = group.readEntry("gtk-theme-name");
-    m_settings["icon"] = group.readEntry("gtk-icon-theme-name");
-    m_settings["icon_fallback"] = group.readEntry("gtk-fallback-icon-theme");
-    m_settings["cursor"] = group.readEntry("gtk-cursor-theme-name");
-    m_settings["font"] = group.readEntry("gtk-font-name");
-    m_settings["toolbar_style"] = group.readEntry("gtk-toolbar-style");
-    m_settings["show_icons_buttons"] = group.readEntry("gtk-button-images");
-    m_settings["show_icons_menus"] = group.readEntry("gtk-menu-images");
     m_settings["primary_button_warps_slider"] = group.readEntry("gtk-primary-button-warps-slider");
     m_settings["application_prefer_dark_theme"] = group.readEntry("gtk-application-prefer-dark-theme");
     for(auto it = m_settings.begin(); it != m_settings.end(); ) {
@@ -167,22 +150,6 @@ bool AppearanceGTK3::saveSettings() const
 
     g_autoptr(GSettings) gsettings = g_settings_new("org.gnome.desktop.interface");
     g_settings_set_string(gsettings, "gtk-theme", m_settings["theme"].toUtf8().constData());
-    g_settings_set_string(gsettings, "icon-theme", m_settings["icon"].toUtf8().constData());
-    g_settings_set_string(gsettings, "cursor-theme", m_settings["cursor"].toUtf8().constData());
-    g_settings_set_string(gsettings, "font-name", m_settings["font"].toUtf8().constData());
-
-    QString toolbarStyle;
-    if (m_settings["toolbar_style"] == QStringLiteral("GTK_TOOLBAR_ICONS")) {
-        toolbarStyle = QStringLiteral("icons");
-    } else if (m_settings["toolbar_style"] == QStringLiteral("GTK_TOOLBAR_TEXT")) {
-        toolbarStyle = QStringLiteral("text");
-    } else if (m_settings["toolbar_style"] == QStringLiteral("GTK_TOOLBAR_BOTH")) {
-        toolbarStyle = QStringLiteral("both");
-    } else if (m_settings["toolbar_style"] == QStringLiteral("GTK_TOOLBAR_BOTH_HORIZ")) {
-        toolbarStyle = QStringLiteral("both-horiz");
-    }
-
-    g_settings_set_string(gsettings, "toolbar-style", toolbarStyle.toUtf8().constData());
 
     g_object_set(gtk_settings_get_default(), "gtk-application-prefer-dark-theme", getApplicationPreferDarkTheme(), nullptr);
 

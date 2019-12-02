@@ -41,9 +41,6 @@ void Thread::start()
     bool success = false;
     if(urlPackage.isEmpty()) {
         qWarning() << "*** ERROR: There's nothing to do";
-    } else if(action == "icon") {
-//         qDebug() << "Installing icons theme";
-        success = Installer::installIconTheme(urlPackage);
     } else if(action == "theme") {
 //         qDebug() << "Installing GTK theme";
         success = Installer::installTheme(urlPackage);

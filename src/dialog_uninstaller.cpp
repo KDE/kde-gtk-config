@@ -22,7 +22,6 @@
 
 #include "dialog_uninstaller.h"
 #include "abstractappearance.h"
-#include "iconthemesmodel.h"
 #include "ui_dialog_uninstaller.h"
 #include "thread.h"
 #include "appearencegtk.h"
@@ -40,7 +39,6 @@ DialogUninstaller::DialogUninstaller(QWidget* parent, AppearenceGTK *app)
     refreshListsForUninstall();
     
     connect(ui->but_uninstall_theme, &QAbstractButton::clicked, this, &DialogUninstaller::uninstallTheme);
-    connect(ui->but_uninstall_icon, &QAbstractButton::clicked, this, &DialogUninstaller::uninstallIcon);
 }
 
 DialogUninstaller::~DialogUninstaller()
@@ -50,7 +48,6 @@ DialogUninstaller::~DialogUninstaller()
 
 void DialogUninstaller::refreshListsForUninstall()
 {
-    ui->lb_notice_uninstall_icon->clear();
     ui->lb_notice_uninstall_theme->clear();
     
     QStringList themes = appareance->gtk2Appearance()->installedThemes();
@@ -62,8 +59,6 @@ void DialogUninstaller::refreshListsForUninstall()
 
     ui->cb_uninstall_theme->clear();
     ui->cb_uninstall_theme->addItems(themes);
-
-    ui->cb_uninstall_icon->setModel(new IconThemesModel(true));
 }
 
 void DialogUninstaller::uninstallTheme()
@@ -89,26 +84,6 @@ void DialogUninstaller::uninstallTheme()
     threadEraseTheme->start();
 }
 
-void DialogUninstaller::uninstallIcon()
-{
-    int themeIndex = ui->cb_uninstall_icon->currentIndex();
-    if(themeIndex<0)
-        return;
-    
-    QAbstractItemModel* model = ui->cb_uninstall_icon->model();
-    QString theme = model->data(model->index(themeIndex, 0), IconThemesModel::PathRole).toString();
-
-    ui->cb_uninstall_icon->setEnabled(false);
-    ui->but_uninstall_icon->setEnabled(false);
-
-    ui->lb_notice_uninstall_icon->setText(i18n("Uninstalling icons..."));
-
-    ThreadErase* threadEraseIcon = new ThreadErase;
-    threadEraseIcon->setThemeForErase(theme);
-    connect(threadEraseIcon, &KJob::finished, this, &DialogUninstaller::threadUninstalledThemeIconFinished);
-    threadEraseIcon->start();
-}
-
 void DialogUninstaller::threadUninstalledThemeFinished(KJob* job)
 {
     if(job->error()==0) {
@@ -120,21 +95,6 @@ void DialogUninstaller::threadUninstalledThemeFinished(KJob* job)
 
     ui->cb_uninstall_theme->setEnabled(true);
     ui->but_uninstall_theme->setEnabled(true);
-
-    refreshListsForUninstall();
-}
-
-void DialogUninstaller::threadUninstalledThemeIconFinished(KJob* job)
-{
-    if(job->error()==0) {
-        ui->lb_notice_uninstall_icon->setText(i18n("Icons successfully uninstalled."));
-        emit(themeUninstalled());
-    } else {
-        ui->lb_notice_uninstall_icon->setText(i18n("Could not uninstall the icon theme."));
-    }
-
-    ui->cb_uninstall_icon->setEnabled(true);
-    ui->but_uninstall_icon->setEnabled(true);
 
     refreshListsForUninstall();
 }

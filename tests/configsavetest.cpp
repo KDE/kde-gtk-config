@@ -16,14 +16,7 @@ ConfigSaveTest::ConfigSaveTest()
 
 static void fillValues(QScopedPointer<AbstractAppearance>& a)
 {
-    a->setFont("a");
-    a->setIcon("a");
     a->setTheme("a");
-    a->setToolbarStyle("a");
-    a->setIconFallback("a");
-    a->setCursor("a");
-    a->setShowIconsInButtons(true);
-    a->setShowIconsInMenus(true);
     a->setPrimaryButtonWarpsSlider(true);
 
     auto a3 = dynamic_cast<AppearanceGTK3*>(a.data());
@@ -34,14 +27,7 @@ static void fillValues(QScopedPointer<AbstractAppearance>& a)
 
 void compareAppearances(QScopedPointer<AbstractAppearance>& reloaded, QScopedPointer<AbstractAppearance>& instance)
 {
-    QCOMPARE(reloaded->getFont(), instance->getFont());
-    QCOMPARE(reloaded->getIcon(), instance->getIcon());
     QCOMPARE(reloaded->getTheme(), instance->getTheme());
-    QCOMPARE(reloaded->getCursor(), instance->getCursor());
-    QCOMPARE(reloaded->getToolbarStyle(), instance->getToolbarStyle());
-    QCOMPARE(reloaded->getIconFallback(), instance->getIconFallback());
-    QCOMPARE(reloaded->getShowIconsInButtons(), instance->getShowIconsInButtons());
-    QCOMPARE(reloaded->getShowIconsInMenus(), instance->getShowIconsInMenus());
     QCOMPARE(reloaded->getPrimaryButtonWarpsSlider(), instance->getPrimaryButtonWarpsSlider());
 }
 

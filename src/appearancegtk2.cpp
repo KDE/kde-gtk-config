@@ -43,24 +43,8 @@ bool AppearanceGTK2::loadSettingsPrivate(const QString& path)
     for(auto it = foundSettings.constBegin(), itEnd = foundSettings.constEnd(); it!=itEnd; ++it) {
         if (it.key() == "gtk-theme-name")
             m_settings["theme"] = *it;
-        else if (it.key() == "gtk-icon-theme-name")
-            m_settings["icon"] = *it;
-        else if (it.key() == "gtk-fallback-icon-theme")
-            m_settings["icon_fallback"] = *it;
-        else if (it.key() == "gtk-cursor-theme-name")
-            m_settings["cursor"] = *it;
-        else if (it.key() == "gtk-font-name")
-            m_settings["font"] = *it;
-        else if (it.key() == "gtk-toolbar-style")
-            m_settings["toolbar_style"] = *it;
-        else if (it.key() == "gtk-button-images")
-            m_settings["show_icons_buttons"] = *it;
-        else if(it.key() == "gtk-menu-images")
-            m_settings["show_icons_menus"] = *it;
         else if (it.key() == "gtk-primary-button-warps-slider")
             m_settings["primary_button_warps_slider"] = *it;
-        else
-            qWarning() << "unknown field" << it.key();
     }
     return true;
 }
@@ -109,14 +93,7 @@ bool AppearanceGTK2::saveSettingsPrivate(const QString& gtkrcFile) const
 
 void AppearanceGTK2::modifyGtkrcContents(QString& fileContents) const
 {
-    modifyGtkrcProperty("gtk-font-name", m_settings["font"], fileContents);
     modifyGtkrcProperty("gtk-theme-name", m_settings["theme"], fileContents);
-    modifyGtkrcProperty("gtk-icon-theme-name", m_settings["icon"], fileContents);
-    modifyGtkrcProperty("gtk-fallback-icon-theme", m_settings["icon_fallback"], fileContents);
-    modifyGtkrcProperty("gtk-cursor-theme-name", m_settings["cursor"], fileContents);
-    modifyGtkrcProperty("gtk-toolbar-style", m_settings["toolbar_style"], fileContents);
-    modifyGtkrcProperty("gtk-menu-images", m_settings["show_icons_menus"], fileContents);
-    modifyGtkrcProperty("gtk-button-images", m_settings["show_icons_buttons"], fileContents);
     modifyGtkrcProperty("gtk-primary-button-warps-slider", m_settings["primary_button_warps_slider"], fileContents);
     removeGtkrcLegacyContents(fileContents);
 }

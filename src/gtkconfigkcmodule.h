@@ -29,8 +29,6 @@
 #include "dialog_installer.h"
 #include "dialog_uninstaller.h"
 #include <kns3/downloaddialog.h>
-#include "iconthemesmodel.h"
-#include "cursorthemesmodel.h"
 
 class KProcess;
 namespace Ui { class Modulo; class GUI; }
@@ -50,7 +48,6 @@ public:
     
 public slots:
     void refreshLists();
-    void makePreviewIconTheme();
     
     ///it is called whenever something in the UI has changed
     void appChanged();
@@ -66,9 +63,6 @@ public slots:
     void runGtk3IfNecessary(bool);
     void untogglePreview();
     
-signals:
-    void selectedIconTheme();
-    
 private:
     void syncUI();
     bool m_loading = false;
@@ -83,8 +77,6 @@ private:
     QString m_tempGtk2Preview;
     QString m_tempGtk3Preview;
     bool m_saveEnabled;
-    CursorThemesModel* m_cursorsModel;
-    IconThemesModel* m_iconsModel;
 };
 
 #endif // MODULO_H

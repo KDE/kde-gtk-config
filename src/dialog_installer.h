@@ -49,11 +49,6 @@ signals:
 private slots:
     /**
       Instala el tema de icono a traves del objeto Installer
-        Para ello lanza un hilo para que no se bloqué la GUI
-      */
-    void installThemeIcon();
-    /**
-      Instala el tema de icono a traves del objeto Installer
       Para ello lanza un hilo para que no se bloqué la GUI
       */
     void installTheme();
@@ -65,22 +60,13 @@ private slots:
     
     ///executed after analyzing theme
     void checkThemeAnalisys();
-
-    void enableGUIThemeIconInstaller();
-    void disableGUIThemeIconInstaller();
-    void refreshGUIIconTheme();
-    void themeIconAnalisys();
-    void checkThemeIconAnalisys();
-
     
 private:
     Ui::dialog_installer *ui;
     
     //PROPIEDADES PARA EL AREA DE INSTALADOR
     Thread *threadForTheme; //Hilo que instala el tema gtk
-    Thread *threadForIcon; //Hilo que instala el tema de iconos
     ThreadAnalisysTheme *threadAnalisysTheme; //hilo para analizar los temas a instalar
-    ThreadAnalisysThemeIcon *threadAnalisysThemeIcon; //hilo para analizar los temas a instalar
     
 };
 

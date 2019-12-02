@@ -46,44 +46,30 @@ DialogInstaller::DialogInstaller(QWidget *parent)
     
     //TODO: make sure it's a good idea to have the threads always instanciated
     threadForTheme = new Thread("theme");
-    threadForIcon = new Thread("icon");
     threadAnalisysTheme = new ThreadAnalisysTheme;
-    threadAnalisysThemeIcon = new ThreadAnalisysThemeIcon;
     
     //installation ui
     connect(ui->theme_file, &KUrlRequester::textChanged, this, &DialogInstaller::themeAnalisys);
-    connect(ui->icon_file, &KUrlRequester::textChanged, this, &DialogInstaller::themeIconAnalisys);
 
-    connect(ui->but_icon_install, &QAbstractButton::clicked, this, &DialogInstaller::installThemeIcon);
     connect(ui->but_theme_install, &QAbstractButton::clicked, this, &DialogInstaller::installTheme);
 
     connect(threadAnalisysTheme, &KJob::finished, this, &DialogInstaller::checkThemeAnalisys);
-    connect(threadAnalisysThemeIcon, &KJob::finished, this, &DialogInstaller::checkThemeIconAnalisys);
 
     connect(threadForTheme, &Thread::started, this, &DialogInstaller::disableGUIThemeInstaller);
-    connect(threadForIcon, &Thread::started, this, &DialogInstaller::disableGUIThemeIconInstaller);
     connect(threadForTheme, &KJob::finished, this, &DialogInstaller::enableGUIThemeInstaller);
-    connect(threadForIcon, &KJob::finished, this, &DialogInstaller::enableGUIThemeIconInstaller);
 
     //ui refresh
     connect(threadForTheme, &KJob::finished, this, &DialogInstaller::refreshGUITheme);
-    connect(threadForIcon, &KJob::finished, this, &DialogInstaller::refreshGUIIconTheme);
-
 }
 
 DialogInstaller::~DialogInstaller()
 {
 
     disconnect(threadAnalisysTheme, nullptr, this, nullptr);
-    disconnect(threadAnalisysThemeIcon, nullptr, this, nullptr);
     disconnect(threadForTheme, nullptr, this, nullptr);
-    disconnect(threadForIcon, nullptr, this, nullptr);
     disconnect(threadForTheme, nullptr, this, nullptr);
-    disconnect(threadForIcon, nullptr, this, nullptr);
 
     delete threadAnalisysTheme;
-    delete threadAnalisysThemeIcon;
-    delete threadForIcon;
     delete threadForTheme;
     delete ui;
 }
@@ -102,26 +88,11 @@ void DialogInstaller::installTheme()
     threadForTheme->start();
 }
 
-void DialogInstaller::installThemeIcon()
-{
-    QString file = ui->icon_file->text();
-
-//     qDebug()<< "File to install" << file;
-    if(!fileIsTar(file)) {
-        KMessageBox::error(this, i18n("Could not install the %1 theme.", file), i18n("Cannot install theme"));
-        return;
-    }
-
-    threadForIcon->setUrlPackage(file);
-    threadForIcon->start();
-}
-
 void DialogInstaller::themeAnalisys()
 {
     ui->lb_theme_notice->setText(i18n("Parsing theme..."));
 
     ui->theme_file->setEnabled(false);
-    ui->but_icon_install->setEnabled(false);
 
     QString archivo = ui->theme_file->text();
     threadAnalisysTheme->setPackageTheme(archivo);
@@ -142,42 +113,10 @@ void DialogInstaller::checkThemeAnalisys()
 
 }
 
-void DialogInstaller::themeIconAnalisys()
-{
-    ui->lb_icon_notice->setText(i18n("Parsing theme..."));
-
-    ui->icon_file->setEnabled(false);
-    ui->but_icon_install->setEnabled(false);
-
-    QString archivo = ui->icon_file->text();
-    threadAnalisysThemeIcon->setPackageTheme(archivo);
-    threadAnalisysThemeIcon->start();
-}
-
-void DialogInstaller::checkThemeIconAnalisys()
-{
-    ui->icon_file->setEnabled(true);
-
-    if(threadAnalisysThemeIcon->isSuccess()) {
-        ui->lb_icon_notice->setText(i18n("This icons theme can be installed"));
-        ui->but_icon_install->setEnabled(true);
-    } else {
-        ui->lb_icon_notice->setText(i18n("This icons theme cannot be installed"));
-        ui->but_icon_install->setEnabled(false);
-    }
-}
-
 void DialogInstaller::enableGUIThemeInstaller()
 {
     ui->but_theme_install->setEnabled(true);
     ui->theme_file->setEnabled(true);
-}
-
-void DialogInstaller::enableGUIThemeIconInstaller()
-{
-    ui->but_icon_install->setEnabled(true);
-    ui->icon_file->setEnabled(true);
-    ui->buttonBox->button(QDialogButtonBox::Close)->setEnabled(true);
 }
 
 void DialogInstaller::disableGUIThemeInstaller()
@@ -186,25 +125,7 @@ void DialogInstaller::disableGUIThemeInstaller()
     ui->but_theme_install->setEnabled(false);
     ui->theme_file->setEnabled(false);
 }
-void DialogInstaller::disableGUIThemeIconInstaller()
-{
-    ui->lb_icon_notice->setText(i18n("Installing icons..."));
-    ui->but_icon_install->setEnabled(false);
-    ui->icon_file->setEnabled(false);
-    ui->buttonBox->button(QDialogButtonBox::Close)->setEnabled(false);
-}
 
-void DialogInstaller::refreshGUIIconTheme()
-{
-    if(threadForIcon->isSuccess()) {
-        ui->lb_icon_notice->setText(i18n("Icons Successfully Installed"));
-        ui->icon_file->clear();
-        emit themeInstalled();
-    } else {
-        ui->lb_icon_notice->setText(i18n("The icons theme cannot be installed"));
-        ui->icon_file->clear();
-    }
-}
 
 // Esto se ejecuta cuando un tema es tratado a instalar
 void DialogInstaller::refreshGUITheme()
