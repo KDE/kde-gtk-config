@@ -17,7 +17,6 @@ ConfigSaveTest::ConfigSaveTest()
 static void fillValues(QScopedPointer<AbstractAppearance>& a)
 {
     a->setTheme("a");
-    a->setPrimaryButtonWarpsSlider(true);
 
     auto a3 = dynamic_cast<AppearanceGTK3*>(a.data());
     if (a3) {
@@ -28,7 +27,6 @@ static void fillValues(QScopedPointer<AbstractAppearance>& a)
 void compareAppearances(QScopedPointer<AbstractAppearance>& reloaded, QScopedPointer<AbstractAppearance>& instance)
 {
     QCOMPARE(reloaded->getTheme(), instance->getTheme());
-    QCOMPARE(reloaded->getPrimaryButtonWarpsSlider(), instance->getPrimaryButtonWarpsSlider());
 }
 
 QByteArray readFile(const QString& path)

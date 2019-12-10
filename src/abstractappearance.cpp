@@ -31,12 +31,10 @@ static bool isTrue(const QString& value)
 
 //SETTERS
 void AbstractAppearance::setTheme(const QString& name) { m_settings["theme"] = name;}
-void AbstractAppearance::setPrimaryButtonWarpsSlider(bool enabled) { m_settings["primary_button_warps_slider"] = enabled ? "1" : "0"; }
 
 // GETTERS
 QString AbstractAppearance::getTheme() const { return m_settings["theme"];}
 QString AbstractAppearance::getThemeGtk3() const { return m_settings["themegtk3"]; }
-bool AbstractAppearance::getPrimaryButtonWarpsSlider() const { return isTrue(m_settings["primary_button_warps_slider"]); }
 
 QRegExp valueRx(" *([a-zA-Z\\-_]+) *= *\"?([^\"\\n]+)\"?", Qt::CaseSensitive, QRegExp::RegExp2);
 QMap<QString,QString> AbstractAppearance::readSettingsTuples(QIODevice* device)

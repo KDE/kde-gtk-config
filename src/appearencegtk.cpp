@@ -37,12 +37,6 @@ AppearenceGTK::~AppearenceGTK()
     qDeleteAll(m_app);
 }
 
-#define PROPERTY_IMPLEMENTATION(type, name, propname)\
-void AppearenceGTK::set##name(const type& a) { foreach(AbstractAppearance* app, m_app) app->set##name(a); }\
-type AppearenceGTK::get##name() const { foreach(AbstractAppearance* app, m_app) { if(app->hasProperty(propname)) return app->get##name(); } /*Q_ASSERT(false);*/ return type (); }
-
-PROPERTY_IMPLEMENTATION(bool, PrimaryButtonWarpsSlider, "primary_button_warps_slider")
-
 QString AppearenceGTK::getTheme() const { return gtk2Appearance()->getTheme(); }
 void AppearenceGTK::setTheme(const QString& name) { return gtk2Appearance()->setTheme(name); }
 QString AppearenceGTK::getThemeGtk3() const { return gtk3Appearance()->getTheme(); }

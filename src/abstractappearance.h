@@ -39,11 +39,9 @@ class AbstractAppearance
         virtual QStringList installedThemes() const = 0;
         
         void setTheme(const QString& name);
-        void setPrimaryButtonWarpsSlider(bool enabled);
         
         QString getTheme() const;
         QString getThemeGtk3() const;
-        bool getPrimaryButtonWarpsSlider() const;
         
         QStringList installedThemesNames() const;
         bool hasProperty(const QString& key) const;

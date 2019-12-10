@@ -94,7 +94,6 @@ bool AppearanceGTK2::saveSettingsPrivate(const QString& gtkrcFile) const
 void AppearanceGTK2::modifyGtkrcContents(QString& fileContents) const
 {
     modifyGtkrcProperty("gtk-theme-name", m_settings["theme"], fileContents);
-    modifyGtkrcProperty("gtk-primary-button-warps-slider", m_settings["primary_button_warps_slider"], fileContents);
     removeGtkrcLegacyContents(fileContents);
 }
 

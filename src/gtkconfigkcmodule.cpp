@@ -126,8 +126,6 @@ void GTKConfigKCModule::syncUI()
     appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
     appareance->setTheme(ui->cb_theme->currentText());
     appareance->setApplicationPreferDarkTheme(ui->checkBox_theme_gtk3_prefer_dark->isChecked());
-
-    appareance->setPrimaryButtonWarpsSlider(ui->buttonGroup_primary_button_warps_slider->checkedButton() == ui->radioButton_warp);
 }
 
 void GTKConfigKCModule::showThemeGHNS()
@@ -149,10 +147,6 @@ void GTKConfigKCModule::installThemeGTK3GHNS()
 void GTKConfigKCModule::refreshLists()
 {
     refreshThemesUi(true);
-
-    const bool warps = appareance->getPrimaryButtonWarpsSlider();
-    ui->radioButton_warp->setChecked(warps);
-    ui->radioButton_dont_warp->setChecked(!warps);
 }
 
 void GTKConfigKCModule::appChanged()
@@ -253,9 +247,6 @@ void GTKConfigKCModule::defaults()
 
 //     qDebug() << "loading defaults...";
     m_saveEnabled = false;
-
-    // this makes it consistent with Qt apps and restores the old Gtk behavior
-    ui->radioButton_dont_warp->setChecked(true);
     
     setComboItem(ui->cb_theme, QStringList("oxygen-gtk") << "Clearlooks");
     setComboItem(ui->cb_theme_gtk3, QStringList("oxygen-gtk") << "Adwaita");

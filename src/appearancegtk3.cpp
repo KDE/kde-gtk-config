@@ -64,7 +64,6 @@ bool AppearanceGTK3::saveSettings(const KSharedConfig::Ptr& file) const
     KConfigGroup group(file, "Settings");
 
     group.writeEntry("gtk-theme-name", m_settings["theme"]);
-    group.writeEntry("gtk-primary-button-warps-slider", m_settings["primary_button_warps_slider"]);
     group.writeEntry("gtk-application-prefer-dark-theme", m_settings["application_prefer_dark_theme"]);
 
     const bool sync = group.sync();
