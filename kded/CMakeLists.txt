@@ -2,6 +2,7 @@ set(kscreen_daemon_SRCS
     gtkconfig.cpp
     configeditor.cpp
     configvalueprovider.cpp
+    themepreviewer.cpp
 )
 
 add_library(gtkconfig MODULE ${kscreen_daemon_SRCS})

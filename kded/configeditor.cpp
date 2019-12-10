@@ -35,16 +35,6 @@
 
 #include "configeditor.h"
 
-static void replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramName, const QString &paramValue);
-static void replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString &paramName, const QString &paramValue);
-
-static void reloadGtk2Apps();
-static void reloadXSettingsd();
-
-static QString readFileContents(QFile &gtkrc);
-static pid_t pidOfXSettingsd();
-
-
 void ConfigEditor::setGtk3ConfigValueDconf(const QString &paramName, const QString &paramValue, const QString &category)
 {
     g_autoptr(GSettings) gsettings = g_settings_new(category.toUtf8().constData());
@@ -99,7 +89,64 @@ void ConfigEditor::setGtk2ConfigValue(const QString &paramName, const QString &p
     reloadGtk2Apps();
 }
 
-static QString readFileContents(QFile &file)
+QString ConfigEditor::gtk2ConfigValue(const QString& paramName)
+{
+    QString gtkrcPath = QDir::homePath() + QStringLiteral("/.gtkrc-2.0");
+    QFile gtkrc(gtkrcPath);
+    if (gtkrc.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        const QRegularExpression regExp(paramName + QStringLiteral("=[^\n]*($|\n)"));
+        while (!gtkrc.atEnd()) {
+            QString line = gtkrc.readLine();
+            if (line.contains(regExp)) {
+                return line.split('"')[1];
+            }
+        }
+    }
+
+    return QStringLiteral("Breeze");
+}
+
+QString ConfigEditor::gtk3ConfigValueSettingsIni(const QString& paramName)
+{
+    QString configLocation = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
+    QString gtk3ConfigPath = configLocation + QStringLiteral("/gtk-3.0/settings.ini");
+
+    KSharedConfig::Ptr gtk3Config = KSharedConfig::openConfig(gtk3ConfigPath, KConfig::NoGlobals);
+    KConfigGroup group = gtk3Config->group(QStringLiteral("Settings"));
+
+    return group.readEntry(paramName, QStringLiteral("Breeze"));
+}
+
+
+void ConfigEditor::removeLegacyGtk2Strings()
+{
+    QString gtkrcPath = QDir::homePath() + QStringLiteral("/.gtkrc-2.0");
+    QFile gtkrc(gtkrcPath);
+    QString gtkrcContents = readFileContents(gtkrc);
+
+    // Remove "include" lines
+    // Example:
+    // include "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
+    static const QRegularExpression includeRegExp(QStringLiteral("include .*\n"));
+    gtkrcContents.remove(includeRegExp);
+
+    // Remove redundant font config lines
+    // Example:
+    // style "user-font"
+    // {
+    //     font_name="Noto Sans Regular"
+    // }
+    // widget_class "*" style "user-font"
+    static const QRegularExpression userFontStyleRegexp(QStringLiteral("style(.|\n)*{(.|\n)*}\nwidget_class.*\"user-font\""));
+    gtkrcContents.remove(userFontStyleRegexp);
+
+    gtkrc.remove();
+    gtkrc.open(QIODevice::WriteOnly | QIODevice::Text);
+    gtkrc.write(gtkrcContents.toUtf8());
+    reloadGtk2Apps();
+}
+
+QString ConfigEditor::readFileContents(QFile &file)
 {
     if (file.open(QIODevice::ReadWrite | QIODevice::Text)) {
         return file.readAll();
@@ -108,7 +155,7 @@ static QString readFileContents(QFile &file)
     }
 }
 
-static void replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramName, const QString &paramValue)
+void ConfigEditor::replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramName, const QString &paramValue)
 {
     const QRegularExpression regExp(paramName + QStringLiteral("=[^\n]*($|\n)"));
 
@@ -133,7 +180,7 @@ static void replaceValueInGtkrcContents(QString &gtkrcContents, const QString &p
     }
 }
 
-static void replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString &paramName, const QString &paramValue)
+void ConfigEditor::replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString &paramName, const QString &paramValue)
 {
     const QRegularExpression regExp(paramName + QStringLiteral(" [^\n]*($|\n)"));
 
@@ -158,12 +205,21 @@ static void replaceValueInXSettingsdContents(QString &xSettingsdContents, const 
     }
 }
 
-static void reloadGtk2Apps()
+void ConfigEditor::reloadGtk2Apps()
 {
     QProcess::startDetached(QStandardPaths::findExecutable(QStringLiteral("reload_gtk_apps")));
 }
 
-static void reloadXSettingsd()
+pid_t ConfigEditor::pidOfXSettingsd()
+{
+    QProcess pidof;
+    pidof.start(QStringLiteral("pidof"), QStringList() << QStringLiteral("-s") << QStringLiteral("xsettingsd"));
+    pidof.waitForFinished();
+    QString xsettingsdPid = QString(pidof.readAllStandardOutput()).remove('\n');
+    return xsettingsdPid.toInt();
+}
+
+void ConfigEditor::reloadXSettingsd()
 {
     pid_t xSettingsdPid = pidOfXSettingsd();
     if (xSettingsdPid == 0) {
@@ -171,13 +227,4 @@ static void reloadXSettingsd()
     } else {
         kill(xSettingsdPid, SIGHUP);
     }
-}
-
-static pid_t pidOfXSettingsd()
-{
-    QProcess pidof;
-    pidof.start(QStringLiteral("pidof"), QStringList() << QStringLiteral("-s") << QStringLiteral("xsettingsd"));
-    pidof.waitForFinished();
-    QString xsettingsdPid = QString(pidof.readAllStandardOutput()).remove('\n');
-    return xsettingsdPid.toInt();
 }

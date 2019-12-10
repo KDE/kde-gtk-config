@@ -20,367 +20,373 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QStandardPaths>
-#include <QFile>
 #include <QMenu>
-#include <QDebug>
 #include <QDir>
-#include <QSortFilterProxyModel>
-#include <QStringListModel>
-#include <QSvgRenderer>
-#include <QPainter>
+#include <QDBusMessage>
+#include <QDBusConnection>
+#include <QDBusInterface>
+#include <QDBusReply>
+#include <QAbstractButton>
+#include <QStandardPaths>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QUrl>
 
 #include <KAboutData>
 #include <KPluginFactory>
-#include <KProcess>
-#include <KMessageBox>
-#include <KIconTheme>
+#include <DownloadDialog>
 #include <KLocalizedString>
+#include <KTar>
+#include <KIO/DeleteJob>
 
 #include "config.h"
 #include "ui_gui.h"
-#include "abstractappearance.h"
 #include "gtkconfigkcmodule.h"
 
 K_PLUGIN_FACTORY_WITH_JSON(GTKConfigKCModuleFactory, "kde-gtk-config.json", registerPlugin<GTKConfigKCModule>();)
 
 GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     : KCModule(parent)
+    , currentGtk2Theme()
+    , currentGtk3Theme()
+    , gtk2ThemesModel()
+    , gtk3ThemesModel()
+    , gtkConfigInterface(
+        QStringLiteral("org.kde.GtkConfig"),
+        QStringLiteral("/GtkConfig"),
+        QStringLiteral("org.kde.GtkConfig")
+    )
     , ui(new Ui::GUI)
-    , installer(0)
-    , uninstaller(0)
-    , m_saveEnabled(true)
 {
-    Q_UNUSED(args);
-    KAboutData *acercade = new KAboutData("cgc", i18n("GTK Application Style"), PROJECT_VERSION,
+    Q_UNUSED(args)
+    auto *about = new KAboutData("cgc", i18n("GTK Application Style"), PROJECT_VERSION,
                     QString(), KAboutLicense::LGPL_V3, i18n("Copyright 2011 José Antonio Sánchez Reynaga"));
-    acercade->addAuthor(i18n("José Antonio Sánchez Reynaga (antonioJASR)"),i18n("Main Developer"), "joanzare@gmail.com");
-    acercade->addAuthor(i18n("Aleix Pol i Gonzalez"), i18n("Feature development. Previews, code refactoring."), "aleixpol@blue-systems.com");
-    acercade->addCredit(i18n("Manuel Tortosa (manutortosa)"), i18n("Ideas, tester, internationalization"));
-    acercade->addCredit(i18n("Adrián Chaves Fernández (Gallaecio)"), i18n("Internationalization"));
-    setAboutData(acercade);
+    about->addAuthor(i18n("José Antonio Sánchez Reynaga (antonioJASR)"),i18n("Main Developer"), "joanzare@gmail.com");
+    about->addAuthor(i18n("Aleix Pol i Gonzalez"), i18n("Feature development. Previews, code refactoring."), "aleixpol@blue-systems.com");
+    about->addCredit(i18n("Manuel Tortosa (manutortosa)"), i18n("Ideas, tester, internationalization"));
+    about->addCredit(i18n("Adrián Chaves Fernández (Gallaecio)"), i18n("Internationalization"));
+    setAboutData(about);
     setButtons(KCModule::Default | KCModule::Apply);
     ui->setupUi(this);
-    appareance = new AppearenceGTK;
 
-    m_tempGtk2Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + "/gtkrc-2.0";
-    m_tempGtk3Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + "/.config/gtk-3.0/settings.ini";
-    
-    const QIcon previewIcon = QIcon::fromTheme("document-preview");
-    ui->gtk2Preview->setIcon(previewIcon);
-    ui->gtk3Preview->setIcon(previewIcon);
-    
-    QString gtk2Preview = QStandardPaths::findExecutable("gtk_preview",  {CMAKE_INSTALL_FULL_LIBEXECDIR});
-    QString gtk3Preview = QStandardPaths::findExecutable("gtk3_preview", {CMAKE_INSTALL_FULL_LIBEXECDIR});
-    
-    m_p2 = new KProcess(this);
-    m_p2->setEnv("GTK2_RC_FILES", m_tempGtk2Preview, true);
-    if(!gtk2Preview.isEmpty()) {
-        *m_p2 << gtk2Preview;
-        connect(m_p2, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
-    }
-    
-    m_p3 = new KProcess(this);
-    m_p3->setEnv("XDG_CONFIG_HOME", QStandardPaths::writableLocation(QStandardPaths::TempLocation)+"/.config");
-    if(!gtk3Preview.isEmpty()) {
-        *m_p3 << gtk3Preview;
-        connect(m_p3, SIGNAL(finished(int)), this, SLOT(untogglePreview()));
-    }
-    
-    ui->gtk2Preview->setVisible(!gtk2Preview.isEmpty());
-    ui->gtk3Preview->setVisible(!gtk3Preview.isEmpty());
-    
-    // UI changes
-    connect(ui->cb_theme, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
-    connect(ui->cb_theme_gtk3, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
+    ui->cb_theme->setModel(&gtk2ThemesModel);
+    ui->cb_theme_gtk3->setModel(&gtk3ThemesModel);
 
-    // Preview updates
-    connect(ui->gtk2Preview, &QAbstractButton::clicked, this, &GTKConfigKCModule::runGtk2IfNecessary);
-    connect(ui->gtk3Preview, &QAbstractButton::clicked, this, &GTKConfigKCModule::runGtk3IfNecessary);
+    connect(ui->cb_theme, SIGNAL(currentTextChanged(const QString &)), this, SLOT(themesSelectionsChanged()));
+    connect(ui->cb_theme_gtk3, SIGNAL(currentTextChanged(const QString &)), this, SLOT(themesSelectionsChanged()));
+
+    connect(ui->removeGtk2Theme, &QAbstractButton::clicked, this, &GTKConfigKCModule::removeGtk2Theme);
+    connect(ui->removeGtk3Theme, &QAbstractButton::clicked, this, &GTKConfigKCModule::removeGtk3Theme);
     
-    QMenu *m = new QMenu(this);
-    m->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Download GTK2 themes..."), this, &GTKConfigKCModule::showThemeGHNS);
-    m->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Download GTK3 themes..."), this, &GTKConfigKCModule::installThemeGTK3GHNS);
-    m->addAction(QIcon::fromTheme("archive-insert"), i18n("Install a local theme..."), this, &GTKConfigKCModule::showDialogForInstall);
-    m->addAction(QIcon::fromTheme("archive-remove"), i18n("Uninstall a local theme..."), this, &GTKConfigKCModule::showDialogForUninstall);
-    ui->newThemes->setMenu(m);
+    connect(ui->gtk2Preview, &QAbstractButton::clicked, this, &GTKConfigKCModule::showGtk2Preview);
+    connect(ui->gtk3Preview, &QAbstractButton::clicked, this, &GTKConfigKCModule::showGtk3Preview);
+    
+    connect(ui->installFromFile, &QAbstractButton::clicked, this, &GTKConfigKCModule::installGtkThemeFromFile);
+
+    auto *ghnsMenu = new QMenu(this);
+    ghnsMenu->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Get New GNOME/GTK2 Application Styles..."), this, &GTKConfigKCModule::installGtk2ThemeFromGHNS);
+    ghnsMenu->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Get New GNOME/GTK3 Application Styles..."), this, &GTKConfigKCModule::installGtk3ThemeFromGHNS);
+    ui->newThemes->setMenu(ghnsMenu);
     ui->newThemes->setIcon(QIcon::fromTheme("get-hot-new-stuff"));
 }
 
 GTKConfigKCModule::~GTKConfigKCModule()
 {
-    m_p2->kill();
-    m_p3->kill();
-    
-    QFile::remove(m_tempGtk2Preview);
-    QFile::remove(m_tempGtk3Preview);
-    delete appareance;
-    
-    m_p2->waitForFinished();
-    m_p3->waitForFinished();
     delete ui;
 }
 
-void GTKConfigKCModule::syncUI()
+void GTKConfigKCModule::installGtk2ThemeFromGHNS()
 {
-    appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
-    appareance->setTheme(ui->cb_theme->currentText());
+    KNS3::DownloadDialog downloadDialog("cgctheme.knsrc", this);
+    if (downloadDialog.exec()) {
+        updateThemesListsWithoutLoosingSelection();
+    }
 }
 
-void GTKConfigKCModule::showThemeGHNS()
+void GTKConfigKCModule::installGtk3ThemeFromGHNS()
 {
-     KNS3::DownloadDialog d("cgctheme.knsrc", this);
-     if(d.exec()) {
-          refreshLists();
-     }
+    KNS3::DownloadDialog downloadDialog("cgcgtk3.knsrc", this);
+    if (downloadDialog.exec()) {
+        updateThemesListsWithoutLoosingSelection();
+    }
 }
 
-void GTKConfigKCModule::installThemeGTK3GHNS()
+void GTKConfigKCModule::installGtkThemeFromFile()
 {
-     KNS3::DownloadDialog d("cgcgtk3.knsrc", this);
-     if(d.exec()) {
-          refreshLists();
-     }
-}
+    QString themeArchivePath = QFileDialog::getOpenFileName(
+        this,
+        i18n("Select GTK Theme Archive"),
+        QDir::home().path(),
+        i18n("GTK Theme Archive (*.tar.xz *.tar.gz *.tar.bz2)")
+    );
 
-void GTKConfigKCModule::refreshLists()
-{
-    refreshThemesUi(true);
-}
-
-void GTKConfigKCModule::appChanged()
-{
-    if (m_loading) {
+    if (themeArchivePath.isEmpty()) {
         return;
     }
 
-    savePreviewConfig();
-    emit changed(true);
-}
+    QString themesInstallDirectoryPath(QDir::homePath() + QStringLiteral("/.themes"));
+    QDir::home().mkpath(themesInstallDirectoryPath);
+    KTar themeArchive(themeArchivePath);
+    themeArchive.open(QIODevice::ReadOnly);
 
-
-void GTKConfigKCModule::savePreviewConfig()
-{
-    if(!m_saveEnabled || !(ui->gtk2Preview->isChecked() || ui->gtk3Preview->isChecked())) {
+    QStringList archiveSubitems = themeArchive.directory()->entries();
+    if (!archiveSubitems.contains(QStringLiteral("gtk-2.0")) && archiveSubitems.indexOf(QRegExp("gtk-3.*")) == -1) {
+        QMessageBox::warning(this, i18n("Invalid GTK Theme archive"), i18n("%1 is not a valid GTK Theme archive.", QDir(themeArchivePath).dirName()));
         return;
     }
-    
-    syncUI();
-    
-    if(ui->gtk3Preview->isChecked()) {
-        // We don't want to recursively loop between savePreviewConfig and runIfNecessary
-        m_saveEnabled = false;
-        m_p3->kill();
-        appareance->gtk3Appearance()->saveSettings(m_tempGtk3Preview);
-        
-        // Need to make sure runIfNecessary() to know that it's not running
-        m_p3->waitForFinished();
-        
-        m_p3->start();
-        ui->gtk3Preview->setChecked(true);
-        m_saveEnabled = true;
-    } else if(ui->gtk2Preview->isChecked()) {
-        appareance->gtk2Appearance()->saveSettings(m_tempGtk2Preview);
-    }
+
+    themeArchive.directory()->copyTo(themesInstallDirectoryPath);
+
+    updateThemesListsWithoutLoosingSelection();
 }
 
-void GTKConfigKCModule::runGtk2IfNecessary(bool checked)
+void GTKConfigKCModule::removeGtk2Theme()
 {
-    KProcess* p = m_p2;
-    KProcess* np = m_p3;
-    
-    if (checked) {
-        np->kill();
-        np->waitForFinished();
-        savePreviewConfig();
-        if(p->state() == QProcess::NotRunning) {
-            p->start();
-        }
-    } else {
-        p->kill();
-        p->waitForFinished();
-    }
+    const QModelIndex index = gtk2ThemesModel.index(ui->cb_theme->currentIndex(), 1);
+    const QString themePath = gtk2ThemesModel.data(index).value<QString>();
+    KIO::DeleteJob* deleteJob = KIO::del(QUrl::fromLocalFile(themePath), KIO::HideProgressInfo);
+    connect(deleteJob, &KJob::finished, this, &GTKConfigKCModule::updateThemesListsWithoutLoosingSelection);
 }
 
-void GTKConfigKCModule::runGtk3IfNecessary(bool checked)
+void GTKConfigKCModule::removeGtk3Theme()
 {
-    KProcess* p = m_p3;
-    KProcess* np = m_p2;
-    
-    if (checked) {
-        np->kill();
-        np->waitForFinished();
-        savePreviewConfig();
-        if(p->state() == QProcess::NotRunning) {
-            p->start();
-        }
-    } else {
-        p->kill();
-        p->waitForFinished();
-    }
+    const QModelIndex index = gtk3ThemesModel.index(ui->cb_theme_gtk3->currentIndex(), 1);
+    const QString themePath = gtk3ThemesModel.data(index).value<QString>();
+    KIO::del(QUrl::fromLocalFile(themePath), KIO::HideProgressInfo);
+    KIO::DeleteJob* deleteJob = KIO::del(QUrl::fromLocalFile(themePath), KIO::HideProgressInfo);
+    connect(deleteJob, &KJob::finished, this, &GTKConfigKCModule::updateThemesListsWithoutLoosingSelection);
+}
+
+void GTKConfigKCModule::showGtk2Preview()
+{
+    gtkConfigInterface.call(QStringLiteral("showGtk2ThemePreview"), ui->cb_theme->currentText());
+}
+
+void GTKConfigKCModule::showGtk3Preview()
+{
+    gtkConfigInterface.call(QStringLiteral("showGtk3ThemePreview"), ui->cb_theme_gtk3->currentText());
 }
 
 void GTKConfigKCModule::save()
 {
-    syncUI();
-    if(!appareance->saveFileConfig()) {
-        KMessageBox::error(this, i18n("Failed to save configuration."));
-    }
-}
-
-void setComboItem(QComboBox* combo, const QStringList& texts)
-{
-    for (const QString &text : texts) {
-        int pos = combo->findText(text);
-        if(pos >= 0) {
-            combo->setCurrentIndex(pos);
-            return;
-        }
-    }
+    saveGtk2Theme();
+    saveGtk3Theme();
 }
 
 void GTKConfigKCModule::defaults()
 {
-    refreshThemesUi(false);
+    int gtk2DefaultThemeIndex = ui->cb_theme->findText(QStringLiteral("Breeze"));
+    ui->cb_theme->setCurrentIndex(gtk2DefaultThemeIndex);
 
-    m_saveEnabled = false;
-    
-    setComboItem(ui->cb_theme, QStringList("oxygen-gtk") << "Clearlooks");
-    setComboItem(ui->cb_theme_gtk3, QStringList("oxygen-gtk") << "Adwaita");
-    
-    m_saveEnabled = true;
-    
-    appChanged();
+    int gtk3DefaultThemeIndex = ui->cb_theme_gtk3->findText(QStringLiteral("Breeze"));
+    ui->cb_theme_gtk3->setCurrentIndex(gtk3DefaultThemeIndex);
 }
 
 void GTKConfigKCModule::load()
 {
-    m_saveEnabled = false;
-    bool someCorrect = appareance->loadFileConfig();
-    m_loading = true;
-    if(someCorrect) {
-        refreshLists();
-    } else {
-        defaults();
-    }
-    m_loading = false;
-    
-    m_saveEnabled = true;
+    loadGtkThemes();
+
+    selectCurrentGtk2ThemeInCheckbox();
+    selectCurrentGtk3ThemeInCheckbox();
 }
 
-class MyStringListModel : public QAbstractListModel
+void GTKConfigKCModule::updateThemesListsWithoutLoosingSelection()
 {
-public:
-    MyStringListModel(const QStringList &texts, QObject* parent) : QAbstractListModel(parent), m_texts(texts)
-    {
+    QString currentGtk2ThemeChoice = ui->cb_theme->currentText();
+    QString currentGtk3ThemeChoice = ui->cb_theme_gtk3->currentText();
+
+    loadGtkThemes();
+
+    // Restore correct gtk configuration, if the theme that was being used is deleted
+    if (!gtk2ThemesModel.containsTheme(currentGtk2Theme)) {
+        ui->cb_theme->setCurrentText(QStringLiteral("Breeze"));
+        saveGtk2Theme();
     }
 
-    QVariant data(const QModelIndex & index, int role) const override
-    {
-        if (role != Qt::DisplayRole || !index.isValid() || index.row()>=m_texts.count()) {
-            return {};
+    if (!gtk3ThemesModel.containsTheme(currentGtk3Theme)) {
+        ui->cb_theme_gtk3->setCurrentText(QStringLiteral("Breeze"));
+        saveGtk3Theme();
+    }
+
+    // Restore choices, that was before possible themes deletion
+    if (gtk2ThemesModel.containsTheme(currentGtk2ThemeChoice)) {
+        ui->cb_theme->setCurrentText(currentGtk2ThemeChoice);
+    } else {
+        ui->cb_theme->setCurrentText(QStringLiteral("Breeze"));
+    }
+
+    if (gtk3ThemesModel.containsTheme(currentGtk3ThemeChoice)) {
+        ui->cb_theme_gtk3->setCurrentText(currentGtk3ThemeChoice);
+    } else {
+        ui->cb_theme_gtk3->setCurrentText(QStringLiteral("Breeze"));
+    }
+}
+
+void GTKConfigKCModule::themesSelectionsChanged()
+{
+    if (ui->cb_theme->currentText() == currentGtk2Theme &&
+        ui->cb_theme_gtk3->currentText() == currentGtk3Theme) {
+        emit changed(false);
+    } else {
+        markAsChanged();
+    }
+    updateDeletionPossibilityForSelectedGtk2Theme();
+    updateDeletionPossibilityForSelectedGtk3Theme();
+}
+
+void GTKConfigKCModule::saveGtk2Theme()
+{
+    currentGtk2Theme = ui->cb_theme->currentText();
+    gtkConfigInterface.call(QStringLiteral("setGtk2Theme"), currentGtk2Theme);
+}
+
+void GTKConfigKCModule::saveGtk3Theme()
+{
+    currentGtk3Theme = ui->cb_theme_gtk3->currentText();
+    gtkConfigInterface.call(QStringLiteral("setGtk3Theme"), currentGtk3Theme);
+}
+
+void GTKConfigKCModule::loadGtkThemes()
+{
+    QStringList possibleThemesPaths = possiblePathsToGtkThemes();
+    loadGtk2Themes(possibleThemesPaths);
+    loadGtk3Themes(possibleThemesPaths);
+}
+
+void GTKConfigKCModule::loadGtk2Themes(const QStringList &possibleThemesPaths)
+{
+    QMap<QString, QString> gtk2ThemesNames;
+
+    for (const QString &possibleThemePath : possibleThemesPaths) {
+        // If the directory has a gtk-2.0 directory inside, it is the GTK2 theme for sure
+        QDir possibleThemeDirectory(possibleThemePath);
+        bool hasGtk2DirectoryInside = possibleThemeDirectory.exists(QStringLiteral("gtk-2.0"));
+        if (hasGtk2DirectoryInside) {
+            gtk2ThemesNames.insert(possibleThemeDirectory.dirName(), possibleThemeDirectory.path());
+        }
+    }
+
+    gtk2ThemesModel.setThemesList(gtk2ThemesNames);
+}
+
+void GTKConfigKCModule::loadGtk3Themes(const QStringList &possibleThemesPaths)
+{
+    QMap<QString, QString> gtk3ThemesNames;
+
+    static const QStringList gtk3SubdirPattern(QStringLiteral("gtk-3.*"));
+    for (const QString &possibleThemePath : possibleThemesPaths) {
+        // If the directory contains any of gtk-3.X folders, it is the GTK3 theme for sure
+        QDir possibleThemeDirectory(possibleThemePath);
+        if (!possibleThemeDirectory.entryList(gtk3SubdirPattern, QDir::Dirs).isEmpty()) {
+            gtk3ThemesNames.insert(possibleThemeDirectory.dirName(), possibleThemeDirectory.path());
+        }
+    }
+
+    gtk3ThemesModel.setThemesList(gtk3ThemesNames);
+}
+
+QStringList GTKConfigKCModule::possiblePathsToGtkThemes() {
+    QStringList possibleThemesPaths;
+
+    QStringList themesLocationsPaths = QStandardPaths::locateAll(
+            QStandardPaths::GenericDataLocation,
+            QStringLiteral("themes"),
+            QStandardPaths::LocateDirectory);
+    themesLocationsPaths << QDir::homePath() + QStringLiteral("/.themes");
+
+    for (const QString& themesLocationPath : themesLocationsPaths) {
+        QStringList possibleThemesDirectoriesNames = QDir(themesLocationPath).entryList(QDir::NoDotAndDotDot | QDir::AllDirs);
+        for (const QString &possibleThemeDirectoryName : possibleThemesDirectoriesNames) {
+            possibleThemesPaths += themesLocationPath + '/' + possibleThemeDirectoryName;
+        }
+    }
+
+    return possibleThemesPaths;
+}
+
+void GTKConfigKCModule::selectCurrentGtk2ThemeInCheckbox()
+{
+    QDBusReply<QString> dbusReply = gtkConfigInterface.call(QStringLiteral("gtk2Theme"));
+    currentGtk2Theme = dbusReply.value();
+    ui->cb_theme->setCurrentText(currentGtk2Theme);
+}
+
+void GTKConfigKCModule::selectCurrentGtk3ThemeInCheckbox()
+{
+    QDBusReply<QString> dbusReply = gtkConfigInterface.call(QStringLiteral("gtk3Theme"));
+    currentGtk3Theme = dbusReply.value();
+    ui->cb_theme_gtk3->setCurrentText(currentGtk3Theme);
+}
+
+void GTKConfigKCModule::updateDeletionPossibilityForSelectedGtk2Theme()
+{
+    const QModelIndex index = gtk2ThemesModel.index(ui->cb_theme->currentIndex(), 1);
+    const QString themePath = gtk2ThemesModel.data(index).value<QString>();
+    if (themePath.contains(QDir::homePath())) {
+        ui->removeGtk2Theme->setDisabled(false);
+    } else {
+        ui->removeGtk2Theme->setDisabled(true);
+    }
+}
+
+void GTKConfigKCModule::updateDeletionPossibilityForSelectedGtk3Theme()
+{
+    const QModelIndex index = gtk3ThemesModel.index(ui->cb_theme_gtk3->currentIndex(), 1);
+    const QString themePath = gtk3ThemesModel.data(index).value<QString>();
+    if (themePath.contains(QDir::homePath())) {
+        ui->removeGtk3Theme->setDisabled(false);
+    } else {
+        ui->removeGtk3Theme->setDisabled(true);
+    }
+}
+
+
+GtkThemesListModel::GtkThemesListModel(QObject* parent)
+: QAbstractTableModel(parent),
+themesList()
+{
+
+}
+
+QVariant GtkThemesListModel::data(const QModelIndex& index, int role) const
+{
+    if (role == Qt::DisplayRole) {
+        if (index.row() < 0 || index.row() > themesList.count()) {
+            return QVariant();
         }
 
-        return m_texts[index.row()];
-    }
-
-    int rowCount(const QModelIndex &parent) const override {
-        return parent.isValid() ? 0 : m_texts.count();
-    }
-
-    void setStrings(const QSet<QString> &list) {
-        const auto current = m_texts.toSet();
-
-        const auto oldRows = QSet<QString>(current).subtract(list);
-        const auto newRows = QSet<QString>(list).subtract(current);
-        if (!newRows.isEmpty()) {
-            beginInsertRows({}, m_texts.count(), m_texts.count() + newRows.count());
-            m_texts += newRows.values();
-            endInsertRows();
+        if (index.column() == 0) {
+            return themesList.keys().at(index.row());
+        } else {
+            return themesList.values().at(index.row());
         }
-
-        int from = -1;
-        for (const auto &row: oldRows) {
-            for(; from < m_texts.count();) {
-                const auto idx = m_texts.indexOf(row, from);
-                if (idx < 0) {
-                    break;
-                }
-                beginRemoveRows({}, idx, idx);
-                m_texts.removeAt(idx);
-                endRemoveRows();
-                from = idx + 1;
-            }
-        }
-    }
-
-private:
-    QStringList m_texts;
-};
-
-void refreshComboSameCurrentValue(QComboBox* combo, const QString& temp, const QStringList& texts)
-{
-    const auto model = dynamic_cast<MyStringListModel*>(combo->model());
-    if (!model) {
-        combo->setModel(new MyStringListModel(texts, combo));
     } else {
-        model->setStrings(texts.toSet());
+        return QVariant();
     }
-
-    const int idx = combo->findText(temp);
-    combo->setCurrentIndex(qMax(0, idx));
 }
 
-void GTKConfigKCModule::refreshThemesUi(bool useConfig)
+int GtkThemesListModel::rowCount(const QModelIndex& parent) const
 {
-    // Theme gtk2
-    bool wasenabled = m_saveEnabled;
-    m_saveEnabled = false;
-    
-    refreshComboSameCurrentValue(ui->cb_theme,
-        useConfig ? appareance->getTheme() : ui->cb_theme->currentText(),
-        appareance->gtk2Appearance()->installedThemesNames());
-    
-    // Theme gtk3
-    refreshComboSameCurrentValue(ui->cb_theme_gtk3,
-        useConfig ? appareance->getThemeGtk3() : ui->cb_theme_gtk3->currentText(),
-        appareance->gtk3Appearance()->installedThemesNames());
-
-    m_saveEnabled = wasenabled;
-    emit changed(true);
+    Q_UNUSED(parent)
+    return themesList.count();
 }
 
-void GTKConfigKCModule::showDialogForInstall()
+int GtkThemesListModel::columnCount(const QModelIndex& parent) const
 {
-    if(!installer) {
-        installer =  new DialogInstaller(this);
-        connect(installer, &DialogInstaller::themeInstalled, this, &GTKConfigKCModule::refreshLists);
-    }
-    
-    installer->exec();
-    refreshThemesUi();
+    Q_UNUSED(parent)
+    return 2;
 }
 
-void GTKConfigKCModule::showDialogForUninstall()
+void GtkThemesListModel::setThemesList(const QMap<QString, QString>& themes)
 {
-    if(!uninstaller) {
-        uninstaller = new DialogUninstaller(this, appareance);
-        connect(uninstaller, &DialogUninstaller::themeUninstalled, this, &GTKConfigKCModule::refreshLists);
-    }
-    
-    uninstaller->refreshListsForUninstall();
-    uninstaller->exec();
-    
-    refreshThemesUi();
+    beginResetModel();
+    themesList = themes;
+    endResetModel();
 }
 
-void GTKConfigKCModule::untogglePreview()
+bool GtkThemesListModel::containsTheme(const QString &themeName)
 {
-    if(sender() == m_p2) {
-        ui->gtk2Preview->setChecked(false);
-    } else {
-        ui->gtk3Preview->setChecked(false);
-    }
+    return themesList.contains(themeName);
 }
 
 #include "gtkconfigkcmodule.moc"

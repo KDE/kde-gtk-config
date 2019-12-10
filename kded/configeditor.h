@@ -23,6 +23,7 @@
 #include <QString>
 
 class QFile;
+class QString;
 
 namespace ConfigEditor
 {
@@ -30,4 +31,20 @@ namespace ConfigEditor
     void setGtk3ConfigValueDconf(const QString &paramName, const QString &paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
     void setGtk3ConfigValueSettingsIni(const QString &paramName, const QString &paramValue);
     void setGtk3ConfigValueXSettingsd(const QString &paramName, const QString &paramValue);
+
+    QString gtk2ConfigValue(const QString& paramName);
+    QString gtk3ConfigValueSettingsIni(const QString& paramName);
+
+    void removeLegacyGtk2Strings();
+
+
+    void replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramName, const QString &paramValue);
+    void replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString &paramName, const QString &paramValue);
+
+    QString readFileContents(QFile &gtkrc);
+
+    void reloadGtk2Apps();
+    void reloadXSettingsd();
+
+    pid_t pidOfXSettingsd();
 };

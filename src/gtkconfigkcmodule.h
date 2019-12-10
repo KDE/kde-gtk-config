@@ -20,64 +20,80 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #ifndef GTKCONFIGKCMODULE_H
 #define GTKCONFIGKCMODULE_H
 
 #include <KCModule>
-#include <kns3/downloaddialog.h>
 
-#include "appearencegtk.h"
-#include "dialog_installer.h"
-#include "dialog_uninstaller.h"
+#include <QDBusInterface>
+#include <QAbstractTableModel>
+#include <QMap>
 
-class KProcess;
-namespace Ui { class Modulo; class GUI; }
+class GtkThemesListModel : public QAbstractTableModel {
+    Q_OBJECT
+public:
+    GtkThemesListModel(QObject *parent = nullptr);
+
+    void setThemesList(const QMap<QString, QString> &themes);
+    bool containsTheme(const QString &themeName);
+    int rowCount(const QModelIndex &parent) const override;
+    int columnCount(const QModelIndex &parent) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+
+private:
+    QMap<QString, QString> themesList;
+};
+
+class QStringList;
+namespace Ui { class GUI; }
 
 class GTKConfigKCModule : public KCModule
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-    explicit GTKConfigKCModule(QWidget *parent = 0 ,const QVariantList &args = QVariantList() );
-    ~GTKConfigKCModule();
-    
-    void refreshThemesUi(bool useConfig = false);
+    explicit GTKConfigKCModule(QWidget *parent = nullptr, const QVariantList &args = QVariantList());
+    ~GTKConfigKCModule() override;
     
     void save() override;
     void defaults() override;
     void load() override;
     
-public Q_SLOTS:
-    void refreshLists();
-    
-    // It is called whenever something in the UI has changed
-    void appChanged();
-    void savePreviewConfig();
-    
-    void showThemeGHNS();
-    void installThemeGTK3GHNS();
-    
-    void showDialogForInstall();
-    void showDialogForUninstall();
-    
-    void runGtk2IfNecessary(bool);
-    void runGtk3IfNecessary(bool);
-    void untogglePreview();
+private Q_SLOTS:
+    void updateThemesListsWithoutLoosingSelection();
+
+    void installGtk2ThemeFromGHNS();
+    void installGtk3ThemeFromGHNS();
+    void installGtkThemeFromFile();
+    void removeGtk2Theme();
+    void removeGtk3Theme();
+
+    void showGtk2Preview();
+    void showGtk3Preview();
+
+    void themesSelectionsChanged();
     
 private:
-    void syncUI();
-    bool m_loading = false;
-    
+    void saveGtk2Theme();
+    void saveGtk3Theme();
+
+    void loadGtkThemes();
+    void loadGtk2Themes(const QStringList &possibleThemesPaths);
+    void loadGtk3Themes(const QStringList &possibleThemesPaths);
+
+    static QStringList possiblePathsToGtkThemes();
+
+    void selectCurrentGtk2ThemeInCheckbox();
+    void selectCurrentGtk3ThemeInCheckbox();
+
+    void updateDeletionPossibilityForSelectedGtk2Theme();
+    void updateDeletionPossibilityForSelectedGtk3Theme();
+
+    QString currentGtk2Theme;
+    QString currentGtk3Theme;
+    GtkThemesListModel gtk2ThemesModel;
+    GtkThemesListModel gtk3ThemesModel;
+    QDBusInterface gtkConfigInterface;
     Ui::GUI *ui;
-    AppearenceGTK *appareance;
-    
-    DialogInstaller *installer;
-    DialogUninstaller *uninstaller;
-    KProcess *m_p2;
-    KProcess *m_p3;
-    QString m_tempGtk2Preview;
-    QString m_tempGtk3Preview;
-    bool m_saveEnabled;
 };
 
-#endif // MODULO_H
+#endif // GTKCONFIGKCMODULE_H

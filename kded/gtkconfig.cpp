@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QDebug>
 #include <QFont>
 #include <QDBusConnection>
+#include <QDBusMessage>
 #include <QGuiApplication>
 
 #include <KIconLoader>
@@ -30,24 +30,73 @@
 
 #include "gtkconfig.h"
 #include "configvalueprovider.h"
+#include "themepreviewer.h"
 
 K_PLUGIN_CLASS_WITH_JSON(GtkConfig, "gtkconfig.json")
 
 GtkConfig::GtkConfig(QObject *parent, const QVariantList&) :
     KDEDModule(parent),
     configValueProvider(new ConfigValueProvider()),
+    themePreviewer(new ThemePreviewer(this)),
     kwinConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kwinrc"))))
 {
+    QDBusConnection dbus = QDBusConnection::sessionBus();
+    dbus.registerService(QStringLiteral("org.kde.GtkConfig"));
+    dbus.registerObject(QStringLiteral("/GtkConfig"), this, QDBusConnection::ExportScriptableSlots);
+
     connect(qGuiApp, &QGuiApplication::fontChanged, this, &GtkConfig::setFont);
     connect(KIconLoader::global(), &KIconLoader::iconChanged, this, &GtkConfig::setIconTheme);
     connect(kwinConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKWinSettingsChange);
-    QDBusConnection::sessionBus().connect(QString(),
-                                          QStringLiteral("/KGlobalSettings"),
-                                          QStringLiteral("org.kde.KGlobalSettings"),
-                                          QStringLiteral("notifyChange"),
-                                          this,
-                                          SLOT(onGlobalSettingsChange(int,int)));
+    dbus.connect(
+        QString(),
+        QStringLiteral("/KGlobalSettings"),
+        QStringLiteral("org.kde.KGlobalSettings"),
+        QStringLiteral("notifyChange"),
+        this,
+        SLOT(onGlobalSettingsChange(int,int))
+    );
+
+    ConfigEditor::removeLegacyGtk2Strings();
     applyAllSettings();
+}
+
+GtkConfig::~GtkConfig()
+{
+    QDBusConnection dbus = QDBusConnection::sessionBus();
+    dbus.unregisterService(QStringLiteral("org.kde.GtkConfig"));
+    dbus.unregisterObject(QStringLiteral("/GtkConfig"));
+}
+
+void GtkConfig::setGtk2Theme(const QString &themeName) const
+{
+    ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-theme-name"), themeName);
+}
+
+void GtkConfig::setGtk3Theme(const QString &themeName) const
+{
+    ConfigEditor::setGtk3ConfigValueDconf(QStringLiteral("gtk-theme"), themeName);
+    ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"), themeName);
+    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/ThemeName"),  themeName);
+}
+
+QString GtkConfig::gtk2Theme() const
+{
+    return ConfigEditor::gtk2ConfigValue(QStringLiteral("gtk-theme-name"));
+}
+
+QString GtkConfig::gtk3Theme() const
+{
+    return ConfigEditor::gtk3ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"));
+}
+
+void GtkConfig::showGtk2ThemePreview(const QString& themeName) const
+{
+    themePreviewer->showGtk2App(themeName);
+}
+
+void GtkConfig::showGtk3ThemePreview(const QString& themeName) const
+{
+    themePreviewer->showGtk3App(themeName);
 }
 
 void GtkConfig::setFont() const

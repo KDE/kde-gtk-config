@@ -26,10 +26,12 @@
 
 #include "configeditor.h"
 #include "configvalueprovider.h"
+#include "themepreviewer.h"
 
 class Q_DECL_EXPORT GtkConfig : public KDEDModule
 {
     Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "org.kde.GtkConfig")
 
     enum class SettingsChangeType {
         Palette = 0,
@@ -56,6 +58,7 @@ class Q_DECL_EXPORT GtkConfig : public KDEDModule
 
 public:
     GtkConfig(QObject *parent, const QVariantList& args);
+    ~GtkConfig();
 
     void setFont() const;
     void setIconTheme(int iconGroup) const;
@@ -70,10 +73,20 @@ public:
     void applyAllSettings() const;
 
 public Q_SLOTS:
+    Q_SCRIPTABLE void setGtk2Theme(const QString &themeName) const;
+    Q_SCRIPTABLE void setGtk3Theme(const QString &themeName) const;
+
+    Q_SCRIPTABLE QString gtk2Theme() const;
+    Q_SCRIPTABLE QString gtk3Theme() const;
+
+    Q_SCRIPTABLE void showGtk2ThemePreview(const QString &themeName) const;
+    Q_SCRIPTABLE void showGtk3ThemePreview(const QString &themeName) const;
+
     void onGlobalSettingsChange(int settingsChangeType, int arg) const;
     void onKWinSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
 
 private:
     QScopedPointer<ConfigValueProvider> configValueProvider;
+    QScopedPointer<ThemePreviewer> themePreviewer;
     KConfigWatcher::Ptr kwinConfigWatcher;
 };

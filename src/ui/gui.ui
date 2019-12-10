@@ -48,12 +48,27 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="gtk2Preview">
-           <property name="toolTip">
-            <string>Preview Theme</string>
+          <widget class="QPushButton" name="removeGtk2Theme">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset theme="edit-delete">
+             <normaloff>.</normaloff>.</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="gtk2Preview">
+           <property name="text">
+            <string>Preview...</string>
+           </property>
+           <property name="icon">
+            <iconset theme="document-preview">
+             <normaloff>.</normaloff>.</iconset>
            </property>
            <property name="checkable">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -79,12 +94,27 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="gtk3Preview">
-           <property name="toolTip">
-            <string>Preview Theme</string>
+          <widget class="QPushButton" name="removeGtk3Theme">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset theme="edit-delete">
+             <normaloff>.</normaloff>.</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="gtk3Preview">
+           <property name="text">
+            <string>Preview...</string>
+           </property>
+           <property name="icon">
+            <iconset theme="document-preview">
+             <normaloff>.</normaloff>.</iconset>
            </property>
            <property name="checkable">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -134,6 +164,17 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="installFromFile">
+       <property name="text">
+        <string>Install from File...</string>
+       </property>
+       <property name="icon">
+        <iconset theme="document-import">
+         <normaloff>.</normaloff>.</iconset>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="newThemes">
