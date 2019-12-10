@@ -43,8 +43,6 @@ bool AppearanceGTK2::loadSettingsPrivate(const QString& path)
     for(auto it = foundSettings.constBegin(), itEnd = foundSettings.constEnd(); it!=itEnd; ++it) {
         if (it.key() == "gtk-theme-name")
             m_settings["theme"] = *it;
-        else if (it.key() == "gtk-primary-button-warps-slider")
-            m_settings["primary_button_warps_slider"] = *it;
     }
     return true;
 }
@@ -145,12 +143,7 @@ void AppearanceGTK2::removeGtkrcLegacyContents(QString &fileContents) const
 
 void AppearanceGTK2::reset()
 {
-    m_settings = QMap<QString, QString> {
-        {"toolbar_style", "GTK_TOOLBAR_ICONS"},
-        {"show_icons_buttons", "0"},
-        {"show_icons_menus", "0"},
-        {"primary_button_warps_slider", "false"}
-    };
+    m_settings = QMap<QString, QString> {};
 }
 
 QString AppearanceGTK2::defaultConfigFile() const

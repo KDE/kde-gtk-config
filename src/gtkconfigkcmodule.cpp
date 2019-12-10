@@ -92,7 +92,6 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     connect(ui->cb_theme, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_theme_gtk3, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->checkBox_theme_gtk3_prefer_dark, &QAbstractButton::clicked, this, &GTKConfigKCModule::appChanged);
-    connect(ui->buttonGroup_primary_button_warps_slider, SIGNAL(buttonToggled(QAbstractButton*, bool)), this, SLOT(appChanged()));
 
     //preview updates
     connect(ui->gtk2Preview, &QAbstractButton::clicked, this, &GTKConfigKCModule::runGtk2IfNecessary);

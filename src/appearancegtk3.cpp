@@ -81,12 +81,10 @@ bool AppearanceGTK3::loadSettings(const KSharedConfig::Ptr& file)
     }
 
     m_settings = QMap<QString, QString> {
-        {"primary_button_warps_slider", "false"},
         {"application_prefer_dark_theme", "false"}
     };
 
     m_settings["theme"] = group.readEntry("gtk-theme-name");
-    m_settings["primary_button_warps_slider"] = group.readEntry("gtk-primary-button-warps-slider");
     m_settings["application_prefer_dark_theme"] = group.readEntry("gtk-application-prefer-dark-theme");
     for(auto it = m_settings.begin(); it != m_settings.end(); ) {
         if (it.value().isEmpty())
