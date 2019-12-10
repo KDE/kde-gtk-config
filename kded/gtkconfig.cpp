@@ -107,6 +107,14 @@ void GtkConfig::setToolbarStyle() const
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/ToolbarStyle"),  toolbarStyleXSettingsd);
 }
 
+void GtkConfig::setScrollbarBehavior() const
+{
+    const QString scrollbarBehavior = configValueProvider->scrollbarBehavior();
+    ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-primary-button-warps-slider"), scrollbarBehavior);
+    ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-primary-button-warps-slider"), scrollbarBehavior);
+    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/PrimaryButtonWarpsSlider"), scrollbarBehavior);
+}
+
 void GtkConfig::applyAllSettings() const
 {
     setFont();
@@ -115,6 +123,7 @@ void GtkConfig::applyAllSettings() const
     setIconsOnButtons();
     setIconsInMenus();
     setToolbarStyle();
+    setScrollbarBehavior();
 }
 
 void GtkConfig::onGlobalSettingsChange(int settingsChangeType, int arg) const
@@ -128,6 +137,8 @@ void GtkConfig::onGlobalSettingsChange(int settingsChangeType, int arg) const
         setIconsOnButtons();
         setIconsInMenus();
         setToolbarStyle();
+    } else if (changeType == SettingsChangeType::Settings && settingsCategory == SettingsCategory::Mouse) {
+        setScrollbarBehavior();
     }
 }
 

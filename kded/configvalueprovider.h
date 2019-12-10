@@ -42,6 +42,7 @@ public:
     QString iconsOnButtons() const;
     QString iconsInMenus() const;
     QString toolbarStyle(ToolbarStyleNotation notation) const;
+    QString scrollbarBehavior() const;
 
 private:
     QString toolbarStyleInDesiredNotation(const QString &kdeConfigValue, ToolbarStyleNotation notation) const;

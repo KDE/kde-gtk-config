@@ -138,6 +138,7 @@ static void replaceValueInXSettingsdContents(QString &xSettingsdContents, const 
         QStringLiteral("Gtk/ButtonImages"),
         QStringLiteral("Gtk/MenuImages"),
         QStringLiteral("Gtk/ToolbarStyle"),
+        QStringLiteral("Gtk/PrimaryButtonWarpsSlider"),
     };
 
     QString newConfigString;

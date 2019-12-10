@@ -98,6 +98,18 @@ QString ConfigValueProvider::toolbarStyle(ConfigValueProvider::ToolbarStyleNotat
     return toolbarStyleInDesiredNotation(kdeConfigValue, notation);
 }
 
+QString ConfigValueProvider::scrollbarBehavior() const
+{
+    kdeglobalsConfig->reparseConfiguration();
+    KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KDE"));
+    bool kdeConfigValue = configGroup.readEntry(QStringLiteral("ScrollbarLeftClickNavigatesByPage"), true);
+    if (kdeConfigValue) { // GTK setting is inverted
+        return QStringLiteral("0");
+    } else {
+        return QStringLiteral("1");
+    }
+}
+
 QString ConfigValueProvider::toolbarStyleInDesiredNotation(const QString &kdeConfigValue, ConfigValueProvider::ToolbarStyleNotation notation) const
 {
     QStringList toolbarStyles {};

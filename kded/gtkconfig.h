@@ -62,6 +62,7 @@ public:
     void setIconsOnButtons() const;
     void setIconsInMenus() const;
     void setToolbarStyle() const;
+    void setScrollbarBehavior() const;
 
     void applyAllSettings() const;
 
