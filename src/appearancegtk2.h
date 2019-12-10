@@ -27,22 +27,22 @@
 
 class AppearanceGTK2 : public AbstractAppearance
 {
-    bool loadSettings(const QString& path) override;
-    bool saveSettings(const QString& path) const override;
+    bool loadSettings(const QString &path) override;
+    bool saveSettings(const QString &path) const override;
     bool loadSettings() override;
     bool saveSettings() const override;
     QStringList installedThemes() const override;
 
-    QString themesGtkrcFile(const QString& themeName) const;
+    QString themesGtkrcFile(const QString &themeName) const;
 
 private:
     void reset();
     QString defaultConfigFile() const;
-    bool loadSettingsPrivate(const QString& path);
-    bool saveSettingsPrivate(const QString& path) const;
-    void modifyGtkrcContents(QString& fileContents) const;
-    void modifyGtkrcProperty(const QString& propertyName, const QString& newValue, QString& fileContents) const;
-    void removeGtkrcLegacyContents(QString& fileContents) const;
+    bool loadSettingsPrivate(const QString &path);
+    bool saveSettingsPrivate(const QString &path) const;
+    void modifyGtkrcContents(QString &fileContents) const;
+    void modifyGtkrcProperty(const QString &propertyName, const QString &newValue, QString &fileContents) const;
+    void removeGtkrcLegacyContents(QString &fileContents) const;
 };
 
 #endif // APPEARANCEGTK2_H

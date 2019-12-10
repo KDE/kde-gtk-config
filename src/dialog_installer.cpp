@@ -19,20 +19,23 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "dialog_installer.h"
-#include "ui_dialog_installer.h"
-#include <KMessageBox>
-#include "installer.h"
-#include "thread.h"
 #include <QFile>
 #include <QMimeDatabase>
-#include <klocalizedstring.h>
+
+#include <KMessageBox>
+#include <KLocalizedString>
+
+#include "dialog_installer.h"
+#include "ui_dialog_installer.h"
+#include "installer.h"
+#include "thread.h"
 
 static bool fileIsTar(const QString& path)
 {
     QFileInfo file(path);
-    if(file.isDir() || !file.exists())
+    if(file.isDir() || !file.exists()) {
         return false;
+    }
     
     QMimeDatabase db;
     QMimeType type = db.mimeTypeForUrl(QUrl::fromLocalFile(path));
@@ -44,11 +47,11 @@ DialogInstaller::DialogInstaller(QWidget *parent)
 {
     ui->setupUi(this);
     
-    //TODO: make sure it's a good idea to have the threads always instanciated
+    // TODO: make sure it's a good idea to have the threads always instanciated
     threadForTheme = new Thread("theme");
     threadAnalisysTheme = new ThreadAnalisysTheme;
     
-    //installation ui
+    // Installation ui
     connect(ui->theme_file, &KUrlRequester::textChanged, this, &DialogInstaller::themeAnalisys);
 
     connect(ui->but_theme_install, &QAbstractButton::clicked, this, &DialogInstaller::installTheme);
@@ -58,7 +61,7 @@ DialogInstaller::DialogInstaller(QWidget *parent)
     connect(threadForTheme, &Thread::started, this, &DialogInstaller::disableGUIThemeInstaller);
     connect(threadForTheme, &KJob::finished, this, &DialogInstaller::enableGUIThemeInstaller);
 
-    //ui refresh
+    // Ui refresh
     connect(threadForTheme, &KJob::finished, this, &DialogInstaller::refreshGUITheme);
 }
 
@@ -78,7 +81,6 @@ void DialogInstaller::installTheme()
 {
     QString file = ui->theme_file->text();
 
-//     qDebug()<< "File to install" << file;
     if(!fileIsTar(file)) {
         KMessageBox::error(this, i18n("Could not install the %1 theme.", file), i18n("Cannot install theme"));
         return;
@@ -110,7 +112,6 @@ void DialogInstaller::checkThemeAnalisys()
         ui->lb_theme_notice->setText(i18n("This GTK theme cannot be installed"));
         ui->but_theme_install->setEnabled(false);
     }
-
 }
 
 void DialogInstaller::enableGUIThemeInstaller()

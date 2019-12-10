@@ -42,7 +42,7 @@ public:
     ///@returns whether it was successful
     bool isSuccess() const;
 
-signals:
+Q_SIGNALS:
     void started();
 
 private:
@@ -92,7 +92,7 @@ public:
 private:
     QString themeForErase;
 
-public slots:
+public Q_SLOTS:
     void deleted(KJob*);
 };
 

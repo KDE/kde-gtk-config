@@ -41,10 +41,10 @@ public:
     DialogUninstaller(QWidget *parent = 0, AppearenceGTK *app=0);
     ~DialogUninstaller();
     
-signals:
+Q_SIGNALS:
     void themeUninstalled();
     
-public slots:
+public Q_SLOTS:
     void refreshListsForUninstall();
     void uninstallTheme();
     void threadUninstalledThemeFinished(KJob* job);

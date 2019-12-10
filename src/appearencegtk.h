@@ -25,9 +25,10 @@
 
 #include <QString>
 #include <QMap>
-#include <qvector.h>
+#include <QVector>
 
 class AbstractAppearance;
+
 /**
  * This class is responsible of administrating the GTK themes. It loads the 
  * configurations from the .gtkrc-2.0 file.
@@ -38,32 +39,14 @@ public:
     AppearenceGTK();
     ~AppearenceGTK();
 
-    void setTheme(const QString&);
+    void setTheme(const QString &);
     void setThemeGtk3(const QString &theme);
-    void setApplicationPreferDarkTheme(const bool& enable);
-    void setCursor(const QString&);
-    void setIcon(const QString&);
-    void setIconFallback(const QString&);
-    void setFont(const QString&);
+    void setApplicationPreferDarkTheme(bool enable);
     
-    void setToolbarStyle(const QString&);
-    void setShowIconsInMenus(const bool& show);
-    void setShowIconsInButtons(const bool& show);
-    void setPrimaryButtonWarpsSlider(const bool &enable);
-
     QString getTheme() const;
     QString getThemeGtk3() const;
     bool getApplicationPreferDarkTheme() const;
    
-    QString getCursor() const;
-    QString getIcon() const;
-    QString getFont() const;
-    QString getIconFallback() const;
-    QString getToolbarStyle() const;
-    bool getShowIconsInMenus() const;
-    bool getShowIconsInButtons() const;
-    bool getPrimaryButtonWarpsSlider() const;
-    
     bool loadFileConfig();
     bool saveFileConfig();
     

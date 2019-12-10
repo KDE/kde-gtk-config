@@ -24,11 +24,12 @@
 #ifndef GTKCONFIGKCMODULE_H
 #define GTKCONFIGKCMODULE_H
 
-#include <kcmodule.h>
+#include <KCModule>
+#include <kns3/downloaddialog.h>
+
 #include "appearencegtk.h"
 #include "dialog_installer.h"
 #include "dialog_uninstaller.h"
-#include <kns3/downloaddialog.h>
 
 class KProcess;
 namespace Ui { class Modulo; class GUI; }
@@ -37,19 +38,19 @@ class GTKConfigKCModule : public KCModule
 {
   Q_OBJECT
 public:
-    explicit GTKConfigKCModule(QWidget* parent = 0 ,const QVariantList& args = QVariantList() );
+    explicit GTKConfigKCModule(QWidget *parent = 0 ,const QVariantList &args = QVariantList() );
     ~GTKConfigKCModule();
     
-    void refreshThemesUi(bool useConfig=false);
+    void refreshThemesUi(bool useConfig = false);
     
     void save() override;
     void defaults() override;
     void load() override;
     
-public slots:
+public Q_SLOTS:
     void refreshLists();
     
-    ///it is called whenever something in the UI has changed
+    // It is called whenever something in the UI has changed
     void appChanged();
     void savePreviewConfig();
     
@@ -72,8 +73,8 @@ private:
     
     DialogInstaller *installer;
     DialogUninstaller *uninstaller;
-    KProcess* m_p2;
-    KProcess* m_p3;
+    KProcess *m_p2;
+    KProcess *m_p3;
     QString m_tempGtk2Preview;
     QString m_tempGtk3Preview;
     bool m_saveEnabled;

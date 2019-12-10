@@ -50,9 +50,29 @@ ki18n_wrap_ui(kcm_SRCS
      src/ui/dialog_installer.ui
      src/ui/dialog_uninstaller.ui
 )
+
 add_library(kcm_kdegtkconfig MODULE ${kcm_SRCS})
-target_compile_definitions(kcm_kdegtkconfig PRIVATE -DPROJECT_VERSION="${PROJECT_VERSION}")
-target_link_libraries(kcm_kdegtkconfig ${X11_Xcursor_LIB} ${GIO2_LIBRARY} ${GLIB2_LIBRARY} ${GTK3_LIBRARY} ${GOBJECT2_LIBRARY} Qt5::Svg KF5::ConfigCore KF5::I18n KF5::KIOWidgets KF5::NewStuff KF5::Archive KF5::NewStuff KF5::ConfigWidgets KF5::IconThemes)
+
+target_compile_definitions(kcm_kdegtkconfig
+  PRIVATE
+    -DPROJECT_VERSION="${PROJECT_VERSION}"
+    -DQT_NO_SIGNALS_SLOTS_KEYWORDS
+)
+
+target_link_libraries(kcm_kdegtkconfig
+  ${GIO2_LIBRARY}
+  ${GLIB2_LIBRARY}
+  ${GTK3_LIBRARY}
+  ${GOBJECT2_LIBRARY}
+  Qt5::Svg
+  KF5::ConfigCore
+  KF5::I18n
+  KF5::KIOWidgets
+  KF5::NewStuff
+  KF5::Archive
+  KF5::ConfigWidgets
+  KF5::IconThemes
+)
 
 kcoreaddons_desktop_to_json(kcm_kdegtkconfig kde-gtk-config.desktop)
 

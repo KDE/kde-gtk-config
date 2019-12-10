@@ -20,7 +20,6 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "appearancegtk2.h"
 #include <QFile>
 #include <QStringList>
 #include <QDir>
@@ -28,35 +27,38 @@
 #include <QDebug>
 #include <QProcess>
 #include <QStandardPaths>
-#include <config.h>
 #include <QRegularExpression>
 
-bool AppearanceGTK2::loadSettingsPrivate(const QString& path)
+#include "config.h"
+#include "appearancegtk2.h"
+
+bool AppearanceGTK2::loadSettingsPrivate(const QString &path)
 {
     QFile configFile(path);
     
-    if (!configFile.open(QIODevice::ReadOnly | QIODevice::Text))
+    if (!configFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return false;
+    }
     
     const QMap<QString, QString> foundSettings = readSettingsTuples(&configFile);
 
     for(auto it = foundSettings.constBegin(), itEnd = foundSettings.constEnd(); it!=itEnd; ++it) {
-        if (it.key() == "gtk-theme-name")
-            m_settings["theme"] = *it;
+        if (it.key() == QStringLiteral("gtk-theme-name")) {
+            m_settings[QStringLiteral("theme")] = *it;
+        }
     }
     return true;
 }
 
-QString AppearanceGTK2::themesGtkrcFile(const QString& themeName) const
+QString AppearanceGTK2::themesGtkrcFile(const QString &themeName) const
 {
-    QStringList themes=installedThemes();
-    themes=themes.filter(QRegExp("/"+themeName+"/?$"));
-    if(themes.size()==1) {
+    QStringList themes = installedThemes();
+    themes = themes.filter(QRegExp("/" + themeName + "/?$"));
+    if (themes.size() == 1) {
         QDirIterator it(themes.first(), QDirIterator::Subdirectories);
         while(it.hasNext()) {
             it.next();
-            if(it.fileName()=="gtkrc") {
-//                 qDebug() << "\tgtkrc file found at : " << it.filePath();
+            if(it.fileName() == "gtkrc") {
                 return it.filePath();
             }
         }
@@ -65,12 +67,12 @@ QString AppearanceGTK2::themesGtkrcFile(const QString& themeName) const
     return QString();
 }
 
-bool AppearanceGTK2::saveSettingsPrivate(const QString& gtkrcFile) const
+bool AppearanceGTK2::saveSettingsPrivate(const QString &gtkrcFile) const
 {
-    QFile gtkrc{gtkrcFile};
+    QFile gtkrc(gtkrcFile);
 
     if (gtkrc.open(QIODevice::ReadWrite | QIODevice::Text)) {
-        QString fileContents{gtkrc.readAll()};
+        QString fileContents = gtkrc.readAll();
 
         modifyGtkrcContents(fileContents);
 
@@ -84,18 +86,18 @@ bool AppearanceGTK2::saveSettingsPrivate(const QString& gtkrcFile) const
 
         return true;
     } else {
-        qWarning() << "There was unable to write the .gtkrc-2.0 file";
+        qWarning() << "Unable to write the .gtkrc-2.0 file";
         return false;
     }
 }
 
-void AppearanceGTK2::modifyGtkrcContents(QString& fileContents) const
+void AppearanceGTK2::modifyGtkrcContents(QString &fileContents) const
 {
     modifyGtkrcProperty("gtk-theme-name", m_settings["theme"], fileContents);
     removeGtkrcLegacyContents(fileContents);
 }
 
-void AppearanceGTK2::modifyGtkrcProperty(const QString& propertyName, const QString& newValue, QString& fileContents) const
+void AppearanceGTK2::modifyGtkrcProperty(const QString &propertyName, const QString &newValue, QString &fileContents) const
 {
     const QRegularExpression regExp{propertyName + "=[^\n]*($|\n)"};
 
@@ -143,34 +145,35 @@ void AppearanceGTK2::removeGtkrcLegacyContents(QString &fileContents) const
 
 void AppearanceGTK2::reset()
 {
-    m_settings = QMap<QString, QString> {};
+    m_settings.clear();
 }
 
 QString AppearanceGTK2::defaultConfigFile() const
 {
-    return QDir::homePath()+"/.gtkrc-2.0";
+    return QDir::homePath() + QStringLiteral("/.gtkrc-2.0");
 }
 
 QStringList AppearanceGTK2::installedThemes() const
 {
     QFileInfoList availableThemes;
-    foreach(const QString& themesDir, QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "themes", QStandardPaths::LocateDirectory)) {
+    for (const QString& themesDir : QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "themes", QStandardPaths::LocateDirectory)) {
         QDir root(themesDir);
-        availableThemes += root.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);
+        availableThemes += root.entryInfoList(QDir::NoDotAndDotDot | QDir::AllDirs);
     }
     
-    //Check if there are themes installed by the user
-    QDir user(QDir::homePath()+"/.themes");
-    availableThemes += user.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);
+    // Check if there are themes installed by the user
+    QDir user(QDir::homePath() + "/.themes");
+    availableThemes += user.entryInfoList(QDir::NoDotAndDotDot | QDir::AllDirs);
 
-    //we just want actual themes
+    // We just want actual themes
     QStringList paths;
-    for(QFileInfoList::const_iterator it=availableThemes.constBegin(); it!=availableThemes.constEnd(); ++it) {
-        bool hasGtkrc = QDir(it->filePath()).exists("gtk-2.0");
+    for (const QFileInfo &it : availableThemes) {
+        bool hasGtkrc = QDir(it.filePath()).exists("gtk-2.0");
 
-        //If it doesn't exist, we don't want it on the list
-        if(hasGtkrc)
-            paths += it->filePath();
+        // If it doesn't exist, we don't want it on the list
+        if (hasGtkrc) {
+            paths += it.filePath();
+        }
     }
 
     return paths;
@@ -180,7 +183,7 @@ bool AppearanceGTK2::loadSettings()
 {
     reset();
 
-    bool b = loadSettingsPrivate("/etc/gtk-2.0/gtkrc");
+    bool b = loadSettingsPrivate(QStringLiteral("/etc/gtk-2.0/gtkrc"));
     b |= loadSettingsPrivate(defaultConfigFile());
     return b;
 }
@@ -190,13 +193,13 @@ bool AppearanceGTK2::saveSettings() const
     return saveSettings(defaultConfigFile());
 }
 
-bool AppearanceGTK2::loadSettings(const QString& gtkrcFile)
+bool AppearanceGTK2::loadSettings(const QString &gtkrcFile)
 {
     reset();
     return loadSettingsPrivate(gtkrcFile);
 }
 
-bool AppearanceGTK2::saveSettings(const QString& gtkrcFile) const
+bool AppearanceGTK2::saveSettings(const QString &gtkrcFile) const
 {
     return saveSettingsPrivate(gtkrcFile);
 }

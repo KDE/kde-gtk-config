@@ -20,25 +20,27 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "gtkconfigkcmodule.h"
-#include <kaboutdata.h>
-#include <KPluginFactory>
-#include <KProcess>
-#include <KMessageBox>
-#include <KIconTheme>
-#include <KLocalizedString>
 #include <QStandardPaths>
 #include <QFile>
 #include <QMenu>
 #include <QDebug>
 #include <QDir>
-#include <config.h>
-#include "ui_gui.h"
-#include "abstractappearance.h"
 #include <QSortFilterProxyModel>
-#include <qstringlistmodel.h>
+#include <QStringListModel>
 #include <QSvgRenderer>
 #include <QPainter>
+
+#include <KAboutData>
+#include <KPluginFactory>
+#include <KProcess>
+#include <KMessageBox>
+#include <KIconTheme>
+#include <KLocalizedString>
+
+#include "config.h"
+#include "ui_gui.h"
+#include "abstractappearance.h"
+#include "gtkconfigkcmodule.h"
 
 K_PLUGIN_FACTORY_WITH_JSON(GTKConfigKCModuleFactory, "kde-gtk-config.json", registerPlugin<GTKConfigKCModule>();)
 
@@ -61,8 +63,8 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     ui->setupUi(this);
     appareance = new AppearenceGTK;
 
-    m_tempGtk2Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation)+ "/gtkrc-2.0";
-    m_tempGtk3Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation)+ "/.config/gtk-3.0/settings.ini";
+    m_tempGtk2Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + "/gtkrc-2.0";
+    m_tempGtk3Preview = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + "/.config/gtk-3.0/settings.ini";
     
     const QIcon previewIcon = QIcon::fromTheme("document-preview");
     ui->gtk2Preview->setIcon(previewIcon);
@@ -88,16 +90,16 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     ui->gtk2Preview->setVisible(!gtk2Preview.isEmpty());
     ui->gtk3Preview->setVisible(!gtk3Preview.isEmpty());
     
-    //UI changes
+    // UI changes
     connect(ui->cb_theme, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_theme_gtk3, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->checkBox_theme_gtk3_prefer_dark, &QAbstractButton::clicked, this, &GTKConfigKCModule::appChanged);
 
-    //preview updates
+    // Preview updates
     connect(ui->gtk2Preview, &QAbstractButton::clicked, this, &GTKConfigKCModule::runGtk2IfNecessary);
     connect(ui->gtk3Preview, &QAbstractButton::clicked, this, &GTKConfigKCModule::runGtk3IfNecessary);
     
-    QMenu* m = new QMenu(this);
+    QMenu *m = new QMenu(this);
     m->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Download GTK2 themes..."), this, &GTKConfigKCModule::showThemeGHNS);
     m->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Download GTK3 themes..."), this, &GTKConfigKCModule::installThemeGTK3GHNS);
     m->addAction(QIcon::fromTheme("archive-insert"), i18n("Install a local theme..."), this, &GTKConfigKCModule::showDialogForInstall);
@@ -150,8 +152,9 @@ void GTKConfigKCModule::refreshLists()
 
 void GTKConfigKCModule::appChanged()
 {
-    if (m_loading)
+    if (m_loading) {
         return;
+    }
 
     savePreviewConfig();
     emit changed(true);
@@ -160,19 +163,19 @@ void GTKConfigKCModule::appChanged()
 
 void GTKConfigKCModule::savePreviewConfig()
 {
-    if(!m_saveEnabled || !(ui->gtk2Preview->isChecked() || ui->gtk3Preview->isChecked()))
+    if(!m_saveEnabled || !(ui->gtk2Preview->isChecked() || ui->gtk3Preview->isChecked())) {
         return;
-//     qDebug() << "saving UI...";
+    }
     
     syncUI();
     
     if(ui->gtk3Preview->isChecked()) {
-        //we don't want to recursively loop between savePreviewConfig and runIfNecessary
+        // We don't want to recursively loop between savePreviewConfig and runIfNecessary
         m_saveEnabled = false;
         m_p3->kill();
         appareance->gtk3Appearance()->saveSettings(m_tempGtk3Preview);
         
-        //need to make sure runIfNecessary() to know that it's not running
+        // Need to make sure runIfNecessary() to know that it's not running
         m_p3->waitForFinished();
         
         m_p3->start();
@@ -188,12 +191,13 @@ void GTKConfigKCModule::runGtk2IfNecessary(bool checked)
     KProcess* p = m_p2;
     KProcess* np = m_p3;
     
-    if(checked) {
+    if (checked) {
         np->kill();
         np->waitForFinished();
         savePreviewConfig();
-        if(p->state() == QProcess::NotRunning)
+        if(p->state() == QProcess::NotRunning) {
             p->start();
+        }
     } else {
         p->kill();
         p->waitForFinished();
@@ -205,12 +209,13 @@ void GTKConfigKCModule::runGtk3IfNecessary(bool checked)
     KProcess* p = m_p3;
     KProcess* np = m_p2;
     
-    if(checked) {
+    if (checked) {
         np->kill();
         np->waitForFinished();
         savePreviewConfig();
-        if(p->state() == QProcess::NotRunning)
+        if(p->state() == QProcess::NotRunning) {
             p->start();
+        }
     } else {
         p->kill();
         p->waitForFinished();
@@ -219,21 +224,17 @@ void GTKConfigKCModule::runGtk3IfNecessary(bool checked)
 
 void GTKConfigKCModule::save()
 {
-/*    qDebug() << "******************************************* INSTALLATION :\n"
-            << "theme : " << appareance->getTheme() << "\n"
-            << "themeGTK3 : " << appareance->getThemeGtk3() << "\n"
-            << "********************************************************";
-    */
     syncUI();
-    if(!appareance->saveFileConfig())
+    if(!appareance->saveFileConfig()) {
         KMessageBox::error(this, i18n("Failed to save configuration."));
+    }
 }
 
 void setComboItem(QComboBox* combo, const QStringList& texts)
 {
-    foreach(const QString& text, texts) {
+    for (const QString &text : texts) {
         int pos = combo->findText(text);
-        if(pos>=0) {
+        if(pos >= 0) {
             combo->setCurrentIndex(pos);
             return;
         }
@@ -244,7 +245,6 @@ void GTKConfigKCModule::defaults()
 {
     refreshThemesUi(false);
 
-//     qDebug() << "loading defaults...";
     m_saveEnabled = false;
     
     setComboItem(ui->cb_theme, QStringList("oxygen-gtk") << "Clearlooks");
@@ -279,13 +279,16 @@ public:
 
     QVariant data(const QModelIndex & index, int role) const override
     {
-        if (role != Qt::DisplayRole || !index.isValid() || index.row()>=m_texts.count())
+        if (role != Qt::DisplayRole || !index.isValid() || index.row()>=m_texts.count()) {
             return {};
+        }
 
         return m_texts[index.row()];
     }
 
-    int rowCount(const QModelIndex & parent) const override { return parent.isValid() ? 0 : m_texts.count(); }
+    int rowCount(const QModelIndex &parent) const override {
+        return parent.isValid() ? 0 : m_texts.count();
+    }
 
     void setStrings(const QSet<QString> &list) {
         const auto current = m_texts.toSet();
@@ -299,11 +302,12 @@ public:
         }
 
         int from = -1;
-        for(const auto &row: oldRows) {
-            for(; from<m_texts.count();) {
+        for (const auto &row: oldRows) {
+            for(; from < m_texts.count();) {
                 const auto idx = m_texts.indexOf(row, from);
-                if (idx<0)
+                if (idx < 0) {
                     break;
+                }
                 beginRemoveRows({}, idx, idx);
                 m_texts.removeAt(idx);
                 endRemoveRows();
@@ -331,7 +335,7 @@ void refreshComboSameCurrentValue(QComboBox* combo, const QString& temp, const Q
 
 void GTKConfigKCModule::refreshThemesUi(bool useConfig)
 {
-    //theme gtk2
+    // Theme gtk2
     bool wasenabled = m_saveEnabled;
     m_saveEnabled = false;
     
@@ -339,12 +343,12 @@ void GTKConfigKCModule::refreshThemesUi(bool useConfig)
         useConfig ? appareance->getTheme() : ui->cb_theme->currentText(),
         appareance->gtk2Appearance()->installedThemesNames());
     
-    //theme gtk3
+    // Theme gtk3
     refreshComboSameCurrentValue(ui->cb_theme_gtk3,
         useConfig ? appareance->getThemeGtk3() : ui->cb_theme_gtk3->currentText(),
         appareance->gtk3Appearance()->installedThemesNames());
 
-    // dark theme for gtk3
+    // Dark theme for gtk3
     ui->checkBox_theme_gtk3_prefer_dark->setChecked(appareance->getApplicationPreferDarkTheme());
 
     
@@ -378,10 +382,11 @@ void GTKConfigKCModule::showDialogForUninstall()
 
 void GTKConfigKCModule::untogglePreview()
 {
-    if(sender()==m_p2)
+    if(sender() == m_p2) {
         ui->gtk2Preview->setChecked(false);
-    else
+    } else {
         ui->gtk3Preview->setChecked(false);
+    }
 }
 
 #include "gtkconfigkcmodule.moc"

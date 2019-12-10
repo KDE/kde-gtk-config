@@ -20,9 +20,10 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "appearencegtk.h"
 #include <QDirIterator>
+
 #include "abstractappearance.h"
+#include "appearencegtk.h"
 #include "appearancegtk2.h"
 #include "appearancegtk3.h"
 
@@ -37,34 +38,52 @@ AppearenceGTK::~AppearenceGTK()
     qDeleteAll(m_app);
 }
 
-QString AppearenceGTK::getTheme() const { return gtk2Appearance()->getTheme(); }
-void AppearenceGTK::setTheme(const QString& name) { return gtk2Appearance()->setTheme(name); }
-QString AppearenceGTK::getThemeGtk3() const { return gtk3Appearance()->getTheme(); }
-void AppearenceGTK::setThemeGtk3(const QString& name) { return gtk3Appearance()->setTheme(name); }
-bool AppearenceGTK::getApplicationPreferDarkTheme() const { return ((AppearanceGTK3*)gtk3Appearance())->getApplicationPreferDarkTheme(); }
-void AppearenceGTK::setApplicationPreferDarkTheme(const bool& enable) { return ((AppearanceGTK3*)gtk3Appearance())->setApplicationPreferDarkTheme(enable); }
+QString AppearenceGTK::getTheme() const
+{
+    return gtk2Appearance()->getTheme();
+}
 
-////////////////////////////////////
-// Methods responsible of file creation
+void AppearenceGTK::setTheme(const QString& name)
+{
+    return gtk2Appearance()->setTheme(name);
+}
+
+QString AppearenceGTK::getThemeGtk3() const
+{
+    return gtk3Appearance()->getTheme();
+}
+
+void AppearenceGTK::setThemeGtk3(const QString& name)
+{
+    return gtk3Appearance()->setTheme(name);
+}
+
+bool AppearenceGTK::getApplicationPreferDarkTheme() const
+{
+    return ((AppearanceGTK3*)gtk3Appearance())->getApplicationPreferDarkTheme();
+}
+
+void AppearenceGTK::setApplicationPreferDarkTheme(bool enable)
+{
+    return ((AppearanceGTK3*)gtk3Appearance())->setApplicationPreferDarkTheme(enable);
+}
 
 bool AppearenceGTK::loadFileConfig()
 {
     bool correct = false;
-    foreach(AbstractAppearance* app, m_app) {
+    for(AbstractAppearance *app : m_app) {
         bool c = app->loadSettings();
         correct = correct || c;
     }
-//     qDebug() << "loading..." << correct;
     return correct;
 }
 
 bool AppearenceGTK::saveFileConfig()
 {
     bool correct = true;
-    foreach(AbstractAppearance* app, m_app) {
+    for(AbstractAppearance *app : m_app) {
         bool c = app->saveSettings();
         correct = correct && c;
     }
-//     qDebug() << "saving..." << correct;
     return correct;
 }

@@ -20,16 +20,18 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QDir>
+#include <QDebug>
+
+#include <KLocalizedString>
+
 #include "dialog_uninstaller.h"
 #include "abstractappearance.h"
 #include "ui_dialog_uninstaller.h"
 #include "thread.h"
 #include "appearencegtk.h"
-#include <QDir>
-#include <QDebug>
-#include <KLocalizedString>
 
-DialogUninstaller::DialogUninstaller(QWidget* parent, AppearenceGTK *app)
+DialogUninstaller::DialogUninstaller(QWidget *parent, AppearenceGTK *app)
     : QDialog(parent)
     , ui(new Ui::dialog_uninstaller)
     , appareance(app)
@@ -51,9 +53,9 @@ void DialogUninstaller::refreshListsForUninstall()
     ui->lb_notice_uninstall_theme->clear();
     
     QStringList themes = appareance->gtk2Appearance()->installedThemes();
-    themes = themes.filter(QDir::homePath()); //we only one the locally installed themes
+    themes = themes.filter(QDir::homePath()); // We only one the locally installed themes
     
-    //Just leave the theme name
+    // Just leave the theme name
     for(QStringList::iterator it=themes.begin(); it!=themes.end(); ++it)
         *it = QDir(*it).dirName();
 
@@ -69,9 +71,9 @@ void DialogUninstaller::uninstallTheme()
     QString tema = ui->cb_uninstall_theme->currentText();
 
     QStringList themes = appareance->gtk2Appearance()->installedThemes();
-    themes = themes.filter(QRegExp('/'+tema+'$'));
+    themes = themes.filter(QRegExp('/' + tema + '$'));
 
-    Q_ASSERT(themes.size()==1);
+    Q_ASSERT(themes.size() == 1);
     
     ui->cb_uninstall_theme->setEnabled(false);
     ui->but_uninstall_theme->setEnabled(false);
@@ -86,7 +88,7 @@ void DialogUninstaller::uninstallTheme()
 
 void DialogUninstaller::threadUninstalledThemeFinished(KJob* job)
 {
-    if(job->error()==0) {
+    if (job->error()==0) {
         ui->lb_notice_uninstall_theme->setText(i18n("GTK theme successfully uninstalled."));
         emit(themeUninstalled());
     } else {

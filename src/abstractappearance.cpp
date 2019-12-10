@@ -19,48 +19,52 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "abstractappearance.h"
-#include <qregexp.h>
 #include <QDir>
 #include <QDebug>
+#include <QRegExp>
 
-static bool isTrue(const QString& value)
+#include "abstractappearance.h"
+
+void AbstractAppearance::setTheme(const QString& name)
 {
-    return value == "1" || value == "true";
+    m_settings["theme"] = name;
 }
 
-//SETTERS
-void AbstractAppearance::setTheme(const QString& name) { m_settings["theme"] = name;}
+QString AbstractAppearance::getTheme() const
+{
+    return m_settings["theme"];
+}
 
-// GETTERS
-QString AbstractAppearance::getTheme() const { return m_settings["theme"];}
-QString AbstractAppearance::getThemeGtk3() const { return m_settings["themegtk3"]; }
+QString AbstractAppearance::getThemeGtk3() const
+{
+    return m_settings["themegtk3"];
+}
 
-QRegExp valueRx(" *([a-zA-Z\\-_]+) *= *\"?([^\"\\n]+)\"?", Qt::CaseSensitive, QRegExp::RegExp2);
 QMap<QString,QString> AbstractAppearance::readSettingsTuples(QIODevice* device)
 {
+    static const QRegExp valueRx(" *([a-zA-Z\\-_]+) *= *\"?([^\"\\n]+)\"?", Qt::CaseSensitive, QRegExp::RegExp2);
+
     QMap<QString, QString> ret;
     QTextStream flow(device);
-    for(; !flow.atEnd() ;) {
+    while (!flow.atEnd()) {
         QString line = flow.readLine();
         int idxComment = line.indexOf('#');
-        if(idxComment>=0)
+        if (idxComment >= 0) {
             line = line.left(idxComment).simplified();
+        }
 
-        if(valueRx.exactMatch(line))
+        if (valueRx.exactMatch(line)) {
             ret[valueRx.cap(1)] = valueRx.cap(2);
-        else if(line.startsWith("include \"")) {
+        } else if (line.startsWith("include \"")) {
             QString filename = line.mid(9);
             filename.chop(1);
-//             qDebug() << "including: " << filename;
             QFile f(filename);
-            if(f.open(QFile::Text|QFile::ReadOnly)) {
+            if (f.open(QFile::Text | QFile::ReadOnly)) {
                 ret.unite(readSettingsTuples(&f));
-            } else
+            } else {
                 qWarning() << "couldn't include " << filename;
+            }
         }
-//         else if(!line.isEmpty())
-//             qWarning() << "misinterpreted line" << line;
     }
     return ret;
 }
@@ -70,8 +74,9 @@ QStringList AbstractAppearance::installedThemesNames() const
     QStringList themes = installedThemes();
     QStringList ret;
     
-    foreach(const QString& theme, themes)
+    for(const QString &theme : themes) {
         ret += QDir(theme).dirName();
+    }
     
     return ret;
 }

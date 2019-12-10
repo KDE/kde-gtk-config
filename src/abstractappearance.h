@@ -32,21 +32,21 @@ class AbstractAppearance
         virtual ~AbstractAppearance() {}
         virtual bool loadSettings() = 0;
         virtual bool saveSettings() const = 0;
-        virtual bool loadSettings(const QString& path) = 0;
-        virtual bool saveSettings(const QString& path) const = 0;
+        virtual bool loadSettings(const QString &path) = 0;
+        virtual bool saveSettings(const QString &path) const = 0;
 
         /** @returns the installed themes' paths*/
         virtual QStringList installedThemes() const = 0;
         
-        void setTheme(const QString& name);
+        void setTheme(const QString &name);
         
         QString getTheme() const;
         QString getThemeGtk3() const;
         
         QStringList installedThemesNames() const;
-        bool hasProperty(const QString& key) const;
+        bool hasProperty(const QString &key) const;
         
-        static QMap<QString,QString> readSettingsTuples(QIODevice* device);
+        static QMap<QString, QString> readSettingsTuples(QIODevice *device);
         
     protected:
         QMap<QString, QString> m_settings;

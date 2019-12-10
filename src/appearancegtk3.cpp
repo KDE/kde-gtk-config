@@ -20,40 +20,40 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "appearancegtk3.h"
 #include <QFile>
 #include <QDir>
 #include <QDebug>
 #include <QStandardPaths>
+
 #include <KSharedConfig>
 #include <KConfigGroup>
 
-#undef signals
 #include <gio/gio.h>
 #include <gtk/gtk.h>
-#define signals Q_SIGNALS
+
+#include "appearancegtk3.h"
 
 QStringList AppearanceGTK3::installedThemes() const
 {
     QFileInfoList availableThemes;
-    foreach(const QString& themesDir, QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "themes", QStandardPaths::LocateDirectory)) {
+    for (const QString& themesDir : QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QStringLiteral("themes"), QStandardPaths::LocateDirectory)) {
         QDir root(themesDir);
-        availableThemes += root.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);
+        availableThemes += root.entryInfoList(QDir::NoDotAndDotDot | QDir::AllDirs);
     }
 
-    //Also show the user-installed themes
-    QDir user(QDir::homePath()+"/.themes");
-    availableThemes += user.entryInfoList(QDir::NoDotAndDotDot|QDir::AllDirs);
+    // Also show the user-installed themes
+    QDir user(QDir::homePath() + QStringLiteral("/.themes"));
+    availableThemes += user.entryInfoList(QDir::NoDotAndDotDot | QDir::AllDirs);
 
-    //we just want actual themes
+    // We just want actual themes
     QStringList themes;
 
     // Check that the theme contains a gtk-3.* subdirectory
-    QStringList gtk3SubdirPattern{QStringLiteral("gtk-3.*")};
-    for(QFileInfoList::const_iterator it=availableThemes.constBegin(); it!=availableThemes.constEnd(); ++it) {
-        QDir themeDir(it->filePath());
+    QStringList gtk3SubdirPattern(QStringLiteral("gtk-3.*"));
+    for (const QFileInfo &it : availableThemes) {
+        QDir themeDir(it.filePath());
         if(!themeDir.entryList(gtk3SubdirPattern, QDir::Dirs).isEmpty())
-            themes += it->filePath();
+            themes += it.filePath();
     }
 
     return themes;
@@ -61,10 +61,10 @@ QStringList AppearanceGTK3::installedThemes() const
 
 bool AppearanceGTK3::saveSettings(const KSharedConfig::Ptr& file) const
 {
-    KConfigGroup group(file, "Settings");
+    KConfigGroup group(file, QStringLiteral("Settings"));
 
-    group.writeEntry("gtk-theme-name", m_settings["theme"]);
-    group.writeEntry("gtk-application-prefer-dark-theme", m_settings["application_prefer_dark_theme"]);
+    group.writeEntry(QStringLiteral("gtk-theme-name"), m_settings["theme"]);
+    group.writeEntry(QStringLiteral("gtk-application-prefer-dark-theme"), m_settings[QStringLiteral("application_prefer_dark_theme")]);
 
     const bool sync = group.sync();
     Q_ASSERT(sync);
@@ -73,24 +73,25 @@ bool AppearanceGTK3::saveSettings(const KSharedConfig::Ptr& file) const
 
 bool AppearanceGTK3::loadSettings(const KSharedConfig::Ptr& file)
 {
-    KConfigGroup group(file, "Settings");
+    KConfigGroup group(file, QStringLiteral("Settings"));
 
     if (!file || !group.isValid()) {
-        qWarning() << "Cannot open the GTK3 config file" << file;
+        qWarning() << QStringLiteral("Cannot open the GTK3 config file") << file;
         return false;
     }
 
     m_settings = QMap<QString, QString> {
-        {"application_prefer_dark_theme", "false"}
+        {QStringLiteral("application_prefer_dark_theme"), QStringLiteral("false")}
     };
 
-    m_settings["theme"] = group.readEntry("gtk-theme-name");
-    m_settings["application_prefer_dark_theme"] = group.readEntry("gtk-application-prefer-dark-theme");
+    m_settings[QStringLiteral("theme")] = group.readEntry(QStringLiteral("gtk-theme-name"));
+    m_settings[QStringLiteral("application_prefer_dark_theme")] = group.readEntry(QStringLiteral("gtk-application-prefer-dark-theme"));
     for(auto it = m_settings.begin(); it != m_settings.end(); ) {
-        if (it.value().isEmpty())
+        if (it.value().isEmpty()) {
             it = m_settings.erase(it);
-        else
+        } else {
             ++it;
+        }
     }
     return true;
 }
@@ -103,20 +104,21 @@ QString AppearanceGTK3::configFileName() const
 QString AppearanceGTK3::defaultConfigFile() const
 {
     QString root = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
-    if(root.isEmpty())
-        root = QFileInfo(QDir::home(), ".config").absoluteFilePath();
+    if(root.isEmpty()) {
+        root = QFileInfo(QDir::home(), QStringLiteral(".config")).absoluteFilePath();
+    }
 
     return root + '/' + configFileName();
 }
 
 bool AppearanceGTK3::getApplicationPreferDarkTheme() const
 {
-    return m_settings["application_prefer_dark_theme"] == "1" || m_settings["application_prefer_dark_theme"] == "true";
+    return m_settings[QStringLiteral("application_prefer_dark_theme")] == QStringLiteral("1") || m_settings[QStringLiteral("application_prefer_dark_theme")] == QStringLiteral("true");
 }
 
-void AppearanceGTK3::setApplicationPreferDarkTheme(const bool& enable)
+void AppearanceGTK3::setApplicationPreferDarkTheme(bool enable)
 {
-    m_settings["application_prefer_dark_theme"] = enable ? "true" : "false";
+    m_settings[QStringLiteral("application_prefer_dark_theme")] = enable ? QStringLiteral("true") : QStringLiteral("false");
 }
 
 bool AppearanceGTK3::saveSettings(const QString& file) const
@@ -143,8 +145,6 @@ bool AppearanceGTK3::saveSettings() const
     // We should maybe use GSettings everywhere in future, but at this moment we
     // need this to have this configuration available in sandboxed applications which
     // is only possible through dconf
-    gtk_init(nullptr, nullptr);
-
     g_autoptr(GSettings) gsettings = g_settings_new("org.gnome.desktop.interface");
     g_settings_set_string(gsettings, "gtk-theme", m_settings["theme"].toUtf8().constData());
 

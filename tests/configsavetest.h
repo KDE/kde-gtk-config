@@ -12,7 +12,7 @@ class ConfigSaveTest : public QObject
     Q_OBJECT
 public:
     ConfigSaveTest();
-private slots:
+private Q_SLOTS:
     void testGtk2();
     void testGtk3();
 };

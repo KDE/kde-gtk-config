@@ -20,19 +20,22 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "installer.h"
 #include <QDir>
 #include <QProcess>
+
 #include <KTar>
+
+#include "installer.h"
 
 bool Installer::installTheme(const QString &urlPackage)
 {
-    QString dest(QDir::homePath()+"/.themes");
+    QString dest(QDir::homePath() + QStringLiteral("/.themes"));
     QDir::home().mkpath(dest);
 
     KTar package(urlPackage);
-    if(!package.open(QIODevice::ReadOnly))
+    if(!package.open(QIODevice::ReadOnly)) {
         return false;
+    }
     package.directory()->copyTo(dest);
     return true;
 }

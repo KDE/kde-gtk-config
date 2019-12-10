@@ -21,11 +21,13 @@
 
 #ifndef DIALOGINSTALLER_H
 #define DIALOGINSTALLER_H
+
 #include <QDialog>
 
 class ThreadAnalisysThemeIcon;
 class ThreadAnalisysTheme;
 class Thread;
+
 namespace Ui {
     class dialog_installer;
 }
@@ -40,13 +42,13 @@ public:
     DialogInstaller(QWidget *parent=0);
     ~DialogInstaller();
     
-signals:
+Q_SIGNALS:
     /**
      * Whenever a theme is installed, this signal is emitted
      */
     void themeInstalled();
     
-private slots:
+private Q_SLOTS:
     /**
       Instala el tema de icono a traves del objeto Installer
       Para ello lanza un hilo para que no se bloqué la GUI
@@ -58,7 +60,7 @@ private slots:
     void refreshGUITheme();
     void themeAnalisys();
     
-    ///executed after analyzing theme
+    // Executed after analyzing theme
     void checkThemeAnalisys();
     
 private:
