@@ -17,11 +17,6 @@ ConfigSaveTest::ConfigSaveTest()
 static void fillValues(QScopedPointer<AbstractAppearance>& a)
 {
     a->setTheme("a");
-
-    auto a3 = dynamic_cast<AppearanceGTK3*>(a.data());
-    if (a3) {
-        a3->setApplicationPreferDarkTheme(false);
-    }
 }
 
 void compareAppearances(QScopedPointer<AbstractAppearance>& reloaded, QScopedPointer<AbstractAppearance>& instance)

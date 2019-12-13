@@ -41,11 +41,9 @@ public:
 
     void setTheme(const QString &);
     void setThemeGtk3(const QString &theme);
-    void setApplicationPreferDarkTheme(bool enable);
     
     QString getTheme() const;
     QString getThemeGtk3() const;
-    bool getApplicationPreferDarkTheme() const;
    
     bool loadFileConfig();
     bool saveFileConfig();

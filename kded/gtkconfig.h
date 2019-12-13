@@ -63,6 +63,7 @@ public:
     void setIconsInMenus() const;
     void setToolbarStyle() const;
     void setScrollbarBehavior() const;
+    void setDarkThemePreference() const;
 
     void applyAllSettings() const;
 

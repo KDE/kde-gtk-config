@@ -43,6 +43,7 @@ public:
     QString iconsInMenus() const;
     QString toolbarStyle(ToolbarStyleNotation notation) const;
     QString scrollbarBehavior() const;
+    QString preferDarkTheme() const;
 
 private:
     QString toolbarStyleInDesiredNotation(const QString &kdeConfigValue, ToolbarStyleNotation notation) const;

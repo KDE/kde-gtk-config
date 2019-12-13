@@ -115,6 +115,12 @@ void GtkConfig::setScrollbarBehavior() const
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/PrimaryButtonWarpsSlider"), scrollbarBehavior);
 }
 
+void GtkConfig::setDarkThemePreference() const
+{
+    const QString preferDarkTheme = configValueProvider->preferDarkTheme();
+    ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-application-prefer-dark-theme"), preferDarkTheme);
+}
+
 void GtkConfig::applyAllSettings() const
 {
     setFont();
@@ -124,6 +130,7 @@ void GtkConfig::applyAllSettings() const
     setIconsInMenus();
     setToolbarStyle();
     setScrollbarBehavior();
+    setDarkThemePreference();
 }
 
 void GtkConfig::onGlobalSettingsChange(int settingsChangeType, int arg) const
@@ -139,6 +146,8 @@ void GtkConfig::onGlobalSettingsChange(int settingsChangeType, int arg) const
         setToolbarStyle();
     } else if (changeType == SettingsChangeType::Settings && settingsCategory == SettingsCategory::Mouse) {
         setScrollbarBehavior();
+    } else if (changeType == SettingsChangeType::Palette) {
+        setDarkThemePreference();
     }
 }
 

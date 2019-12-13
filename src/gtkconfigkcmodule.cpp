@@ -93,7 +93,6 @@ GTKConfigKCModule::GTKConfigKCModule(QWidget* parent, const QVariantList& args )
     // UI changes
     connect(ui->cb_theme, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
     connect(ui->cb_theme_gtk3, SIGNAL(currentIndexChanged(int)), this, SLOT(appChanged()));
-    connect(ui->checkBox_theme_gtk3_prefer_dark, &QAbstractButton::clicked, this, &GTKConfigKCModule::appChanged);
 
     // Preview updates
     connect(ui->gtk2Preview, &QAbstractButton::clicked, this, &GTKConfigKCModule::runGtk2IfNecessary);
@@ -126,7 +125,6 @@ void GTKConfigKCModule::syncUI()
 {
     appareance->setThemeGtk3(ui->cb_theme_gtk3->currentText());
     appareance->setTheme(ui->cb_theme->currentText());
-    appareance->setApplicationPreferDarkTheme(ui->checkBox_theme_gtk3_prefer_dark->isChecked());
 }
 
 void GTKConfigKCModule::showThemeGHNS()
@@ -348,10 +346,6 @@ void GTKConfigKCModule::refreshThemesUi(bool useConfig)
         useConfig ? appareance->getThemeGtk3() : ui->cb_theme_gtk3->currentText(),
         appareance->gtk3Appearance()->installedThemesNames());
 
-    // Dark theme for gtk3
-    ui->checkBox_theme_gtk3_prefer_dark->setChecked(appareance->getApplicationPreferDarkTheme());
-
-    
     m_saveEnabled = wasenabled;
     emit changed(true);
 }

@@ -20,6 +20,7 @@
 
 #include <QFont>
 #include <QString>
+#include <QColor>
 
 #include <KConfig>
 #include <KIconTheme>
@@ -104,6 +105,21 @@ QString ConfigValueProvider::scrollbarBehavior() const
     KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KDE"));
     bool kdeConfigValue = configGroup.readEntry(QStringLiteral("ScrollbarLeftClickNavigatesByPage"), true);
     if (kdeConfigValue) { // GTK setting is inverted
+        return QStringLiteral("0");
+    } else {
+        return QStringLiteral("1");
+    }
+}
+
+QString ConfigValueProvider::preferDarkTheme() const
+{
+    kdeglobalsConfig->reparseConfiguration();
+    KConfigGroup colorsConfigGroup = kdeglobalsConfig->group(QStringLiteral("Colors:Window"));
+    QColor windowBackgroundColor = colorsConfigGroup.readEntry(QStringLiteral("BackgroundNormal"), QColor(239, 240, 241));
+    const int windowBackgroundGray = qGray(windowBackgroundColor.rgb());
+
+    // We use heuristic to determine if current color scheme is dark or not
+    if (windowBackgroundGray >= 192) {
         return QStringLiteral("0");
     } else {
         return QStringLiteral("1");

@@ -58,16 +58,6 @@ void AppearenceGTK::setThemeGtk3(const QString& name)
     return gtk3Appearance()->setTheme(name);
 }
 
-bool AppearenceGTK::getApplicationPreferDarkTheme() const
-{
-    return ((AppearanceGTK3*)gtk3Appearance())->getApplicationPreferDarkTheme();
-}
-
-void AppearenceGTK::setApplicationPreferDarkTheme(bool enable)
-{
-    return ((AppearanceGTK3*)gtk3Appearance())->setApplicationPreferDarkTheme(enable);
-}
-
 bool AppearenceGTK::loadFileConfig()
 {
     bool correct = false;

@@ -29,7 +29,6 @@
 #include <KConfigGroup>
 
 #include <gio/gio.h>
-#include <gtk/gtk.h>
 
 #include "appearancegtk3.h"
 
@@ -64,7 +63,6 @@ bool AppearanceGTK3::saveSettings(const KSharedConfig::Ptr& file) const
     KConfigGroup group(file, QStringLiteral("Settings"));
 
     group.writeEntry(QStringLiteral("gtk-theme-name"), m_settings["theme"]);
-    group.writeEntry(QStringLiteral("gtk-application-prefer-dark-theme"), m_settings[QStringLiteral("application_prefer_dark_theme")]);
 
     const bool sync = group.sync();
     Q_ASSERT(sync);
@@ -80,12 +78,9 @@ bool AppearanceGTK3::loadSettings(const KSharedConfig::Ptr& file)
         return false;
     }
 
-    m_settings = QMap<QString, QString> {
-        {QStringLiteral("application_prefer_dark_theme"), QStringLiteral("false")}
-    };
+    m_settings.clear();
 
     m_settings[QStringLiteral("theme")] = group.readEntry(QStringLiteral("gtk-theme-name"));
-    m_settings[QStringLiteral("application_prefer_dark_theme")] = group.readEntry(QStringLiteral("gtk-application-prefer-dark-theme"));
     for(auto it = m_settings.begin(); it != m_settings.end(); ) {
         if (it.value().isEmpty()) {
             it = m_settings.erase(it);
@@ -109,16 +104,6 @@ QString AppearanceGTK3::defaultConfigFile() const
     }
 
     return root + '/' + configFileName();
-}
-
-bool AppearanceGTK3::getApplicationPreferDarkTheme() const
-{
-    return m_settings[QStringLiteral("application_prefer_dark_theme")] == QStringLiteral("1") || m_settings[QStringLiteral("application_prefer_dark_theme")] == QStringLiteral("true");
-}
-
-void AppearanceGTK3::setApplicationPreferDarkTheme(bool enable)
-{
-    m_settings[QStringLiteral("application_prefer_dark_theme")] = enable ? QStringLiteral("true") : QStringLiteral("false");
 }
 
 bool AppearanceGTK3::saveSettings(const QString& file) const
@@ -147,8 +132,6 @@ bool AppearanceGTK3::saveSettings() const
     // is only possible through dconf
     g_autoptr(GSettings) gsettings = g_settings_new("org.gnome.desktop.interface");
     g_settings_set_string(gsettings, "gtk-theme", m_settings["theme"].toUtf8().constData());
-
-    g_object_set(gtk_settings_get_default(), "gtk-application-prefer-dark-theme", getApplicationPreferDarkTheme(), nullptr);
 
     auto cfg = KSharedConfig::openConfig(configFileName(), KConfig::NoGlobals);
     return saveSettings(cfg);

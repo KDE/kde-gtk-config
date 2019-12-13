@@ -36,8 +36,6 @@ public:
     bool loadSettings() override;
     bool saveSettings(const QString &file) const override;
     bool loadSettings(const QString &path) override;
-    bool getApplicationPreferDarkTheme() const;
-    void setApplicationPreferDarkTheme(bool enable);
 
 private:
     QString defaultConfigFile() const;

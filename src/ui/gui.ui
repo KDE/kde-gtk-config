@@ -90,13 +90,6 @@
          </item>
         </layout>
        </item>
-       <item row="2" column="1">
-        <widget class="QCheckBox" name="checkBox_theme_gtk3_prefer_dark">
-         <property name="text">
-          <string>Prefer dark theme</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
      <item>
@@ -162,7 +155,4 @@
  </widget>
  <resources/>
  <connections/>
- <buttongroups>
-  <buttongroup name="buttonGroup_primary_button_warps_slider"/>
- </buttongroups>
 </ui>
