@@ -295,7 +295,7 @@ public:
         const auto newRows = QSet<QString>(list).subtract(current);
         if (!newRows.isEmpty()) {
             beginInsertRows({}, m_texts.count(), m_texts.count() + newRows.count());
-            m_texts += newRows.toList();
+            m_texts += newRows.values();
             endInsertRows();
         }
 
