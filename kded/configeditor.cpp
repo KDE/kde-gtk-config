@@ -86,7 +86,10 @@ void ConfigEditor::setGtk3ConfigValueXSettingsd(const QString &paramName, const 
 
 void ConfigEditor::setGtk2ConfigValue(const QString &paramName, const QString &paramValue)
 {
-    QString gtkrcPath = QDir::homePath() + QStringLiteral("/.gtkrc-2.0");
+    QString gtkrcPath = qEnvironmentVariable("GTK2_RC_FILES", QDir::homePath() + QStringLiteral("/.gtkrc-2.0"));
+    if (gtkrcPath.contains(QStringLiteral(":/"))) { // I.e. env variable contains multiple paths
+        gtkrcPath = QDir::homePath() + QStringLiteral("/.gtkrc-2.0");
+    }
     QFile gtkrc(gtkrcPath);
     QString gtkrcContents = readFileContents(gtkrc);
     replaceValueInGtkrcContents(gtkrcContents, paramName, paramValue);
