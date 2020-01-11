@@ -19,7 +19,6 @@ target_include_directories(gtkconfig
 )
 
 target_link_libraries(gtkconfig
-    Qt5::Gui
     Qt5::DBus
     KF5::CoreAddons
     KF5::ConfigCore
