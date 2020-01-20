@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "GTK config management",
         "Description[ca]": "Gestió de la configuració del GTK",
+        "Description[da]": "Håndtering af GTK-config",
         "Description[en_GB]": "GTK config management",
         "Description[es]": "Gestión de configuración de GTK",
         "Description[et]": "GTK seadistuste haldamine",
