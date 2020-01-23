@@ -140,6 +140,20 @@ QString ConfigValueProvider::windowDecorationsButtonsOrder() const
     return buttonsOnLeftInGtkNotation + QStringLiteral(":") + buttonsOnRightInGtkNotation;
 }
 
+QString ConfigValueProvider::enableAnimations() const
+{
+    KConfigGroup generalCfg = kdeglobalsConfig->group(QStringLiteral("KDE"));
+    const qreal animationSpeedModifier = qMax(0.0, generalCfg.readEntry("AnimationDurationFactor", 1.0));
+
+    const bool enableAnimations = !qFuzzyIsNull(animationSpeedModifier);
+
+    if (enableAnimations) {
+        return QStringLiteral("1");
+    } else {
+        return QStringLiteral("0");
+    }
+}
+
 QString ConfigValueProvider::toolbarStyleInDesiredNotation(const QString &kdeConfigValue, ConfigValueProvider::ToolbarStyleNotation notation) const
 {
     QStringList toolbarStyles {};

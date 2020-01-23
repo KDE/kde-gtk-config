@@ -69,6 +69,7 @@ public:
     void setScrollbarBehavior() const;
     void setDarkThemePreference() const;
     void setWindowDecorationsButtonsOrder() const;
+    void setEnableAnimations() const;
 
     void applyAllSettings() const;
 
@@ -83,10 +84,12 @@ public Q_SLOTS:
     Q_SCRIPTABLE void showGtk3ThemePreview(const QString &themeName) const;
 
     void onGlobalSettingsChange(int settingsChangeType, int arg) const;
+    void onKdeglobalsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
     void onKWinSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
 
 private:
     QScopedPointer<ConfigValueProvider> configValueProvider;
     QScopedPointer<ThemePreviewer> themePreviewer;
+    KConfigWatcher::Ptr kdeglobalsConfigWatcher;
     KConfigWatcher::Ptr kwinConfigWatcher;
 };

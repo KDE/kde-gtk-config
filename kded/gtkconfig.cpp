@@ -38,6 +38,7 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList&) :
     KDEDModule(parent),
     configValueProvider(new ConfigValueProvider()),
     themePreviewer(new ThemePreviewer(this)),
+    kdeglobalsConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kdeglobals")))),
     kwinConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kwinrc"))))
 {
     QDBusConnection dbus = QDBusConnection::sessionBus();
@@ -46,6 +47,7 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList&) :
 
     connect(qGuiApp, &QGuiApplication::fontChanged, this, &GtkConfig::setFont);
     connect(KIconLoader::global(), &KIconLoader::iconChanged, this, &GtkConfig::setIconTheme);
+    connect(kdeglobalsConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKdeglobalsSettingsChange);
     connect(kwinConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKWinSettingsChange);
     dbus.connect(
         QString(),
@@ -180,6 +182,16 @@ void GtkConfig::setWindowDecorationsButtonsOrder() const
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/DecorationLayout"), windowDecorationsButtonOrder);
 }
 
+void GtkConfig::setEnableAnimations() const
+{
+    const QString enableAnimations = configValueProvider->enableAnimations();
+    ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-enable-animations"), enableAnimations);
+    // FIXME work with booleans in configValueProvider...
+    ConfigEditor::setGtk3ConfigValueDconf(QStringLiteral("enable-animations"), enableAnimations == QLatin1String("1"));
+    ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-enable-animations"), enableAnimations);
+    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/EnableAnimations"), enableAnimations);
+}
+
 void GtkConfig::applyAllSettings() const
 {
     setFont();
@@ -191,6 +203,7 @@ void GtkConfig::applyAllSettings() const
     setScrollbarBehavior();
     setDarkThemePreference();
     setWindowDecorationsButtonsOrder();
+    setEnableAnimations();
 }
 
 void GtkConfig::onGlobalSettingsChange(int settingsChangeType, int arg) const
@@ -208,6 +221,14 @@ void GtkConfig::onGlobalSettingsChange(int settingsChangeType, int arg) const
         setScrollbarBehavior();
     } else if (changeType == SettingsChangeType::Palette) {
         setDarkThemePreference();
+    }
+}
+
+void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const
+{
+    if (group.name() == QLatin1String("KDE")
+            && names.contains(QByteArrayLiteral("AnimationDurationFactor"))) {
+        setEnableAnimations();
     }
 }
 
