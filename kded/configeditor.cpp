@@ -35,6 +35,12 @@
 
 #include "configeditor.h"
 
+void ConfigEditor::setGtk3ConfigValueDconf(const QString &paramName, bool paramValue, const QString &category)
+{
+    g_autoptr(GSettings) gsettings = g_settings_new(category.toUtf8().constData());
+    g_settings_set_boolean(gsettings, paramName.toUtf8().constData(), paramValue);
+}
+
 void ConfigEditor::setGtk3ConfigValueDconf(const QString &paramName, const QString &paramValue, const QString &category)
 {
     g_autoptr(GSettings) gsettings = g_settings_new(category.toUtf8().constData());
@@ -164,6 +170,7 @@ void ConfigEditor::replaceValueInGtkrcContents(QString &gtkrcContents, const QSt
         QStringLiteral("gtk-menu-images"),
         QStringLiteral("gtk-button-images"),
         QStringLiteral("gtk-primary-button-warps-slider"),
+        QStringLiteral("gtk-enable-animations"),
     };
 
     QString newConfigString;
@@ -189,6 +196,7 @@ void ConfigEditor::replaceValueInXSettingsdContents(QString &xSettingsdContents,
         QStringLiteral("Gtk/MenuImages"),
         QStringLiteral("Gtk/ToolbarStyle"),
         QStringLiteral("Gtk/PrimaryButtonWarpsSlider"),
+        QStringLiteral("Gtk/EnableAnimations"),
     };
 
     QString newConfigString;

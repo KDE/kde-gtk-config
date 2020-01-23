@@ -45,6 +45,7 @@ public:
     QString scrollbarBehavior() const;
     QString preferDarkTheme() const;
     QString windowDecorationsButtonsOrder() const;
+    QString enableAnimations() const;
 
 private:
     QString toolbarStyleInDesiredNotation(const QString &kdeConfigValue, ToolbarStyleNotation notation) const;
