@@ -46,7 +46,7 @@ QString ConfigValueProvider::fontName() const
     QString fontAsString = configGroup.readEntry(QStringLiteral("font"), defaultFont.toString());
     static QFont font;
     font.fromString(fontAsString);
-    return font.family() + ' ' + font.styleName() + ' ' + QString::number(font.pointSize());
+    return font.family() + QStringLiteral(", ") + font.styleName() + ' ' + QString::number(font.pointSize());
 }
 
 QString ConfigValueProvider::iconThemeName() const
