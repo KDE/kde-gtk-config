@@ -109,7 +109,7 @@ QString ConfigEditor::gtk2ConfigValue(const QString& paramName)
         }
     }
 
-    return QStringLiteral("Breeze");
+    return QString();
 }
 
 QString ConfigEditor::gtk3ConfigValueSettingsIni(const QString& paramName)
@@ -120,7 +120,7 @@ QString ConfigEditor::gtk3ConfigValueSettingsIni(const QString& paramName)
     KSharedConfig::Ptr gtk3Config = KSharedConfig::openConfig(gtk3ConfigPath, KConfig::NoGlobals);
     KConfigGroup group = gtk3Config->group(QStringLiteral("Settings"));
 
-    return group.readEntry(paramName, QStringLiteral("Breeze"));
+    return group.readEntry(paramName);
 }
 
 

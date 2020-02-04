@@ -28,6 +28,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake kded/config.h)
 add_subdirectory(gtkproxies)
 add_subdirectory(gtk3proxies)
 add_subdirectory(kded)
+add_subdirectory(kconf_update)
 
 # add clang-format target for all our real source files
 file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h)
