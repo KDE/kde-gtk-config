@@ -48,6 +48,7 @@ public:
     QString enableAnimations() const;
 
 private:
+    QString fontStyleHelper(const QFont &font) const;
     QString toolbarStyleInDesiredNotation(const QString &kdeConfigValue, ToolbarStyleNotation notation) const;
     QString windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const;
 

@@ -46,8 +46,71 @@ QString ConfigValueProvider::fontName() const
     QString fontAsString = configGroup.readEntry(QStringLiteral("font"), defaultFont.toString());
     static QFont font;
     font.fromString(fontAsString);
-    return font.family() + QStringLiteral(", ") + font.styleName() + ' ' + QString::number(font.pointSize());
+    const QString fontStyle = fontStyleHelper(font);
+    return font.family() + QStringLiteral(", ") + fontStyle + ' ' + QString::number(font.pointSize());
 }
+
+QString ConfigValueProvider::fontStyleHelper(const QFont &font) const
+{
+    // BUG: 333146
+    // Since Qt sometimes gives us wrong font style name,
+    // we ought to use this big helper function to construct
+    // the style ourselves. Some fonts will not work
+    auto weight = font.weight();
+    QString result;
+    if (weight > QFont::Normal) {
+        if (weight >= QFont::Black) {
+            result = QStringLiteral("Black");
+        } else if (weight >= QFont::ExtraBold) {
+            result = QStringLiteral("Extra Bold");
+        } else if (weight >= QFont::Bold) {
+            result = QStringLiteral("Bold");
+        } else if (weight >= QFont::DemiBold) {
+            result = QStringLiteral("Demi Bold");
+        } else if (weight >= QFont::Medium) {
+            result = QStringLiteral("Medium");
+        }
+    } else {
+        if (weight <= QFont::Thin) {
+            result = QStringLiteral("Thin");
+        } else if (weight <= QFont::ExtraLight) {
+            result = QStringLiteral("Extra Light");
+        } else if (weight <= QFont::Light) {
+            result = QStringLiteral("Light");
+        }
+    }
+
+    auto style = font.style();
+    if (style == QFont::StyleItalic) {
+        result += QLatin1Char(' ') + QStringLiteral("Italic");
+    } else if (style == QFont::StyleOblique) {
+        result += QLatin1Char(' ') + QStringLiteral("Oblique");
+    }
+
+    auto stretch = font.stretch();
+    if (stretch == QFont::UltraCondensed) {
+        result += QLatin1Char(' ') + QStringLiteral("UltraCondensed");
+    } else if (stretch == QFont::ExtraCondensed) {
+        result += QLatin1Char(' ') + QStringLiteral("ExtraCondensed");
+    } else if (stretch == QFont::Condensed) {
+        result += QLatin1Char(' ') + QStringLiteral("Condensed");
+    } else if (stretch == QFont::SemiCondensed) {
+        result += QLatin1Char(' ') + QStringLiteral("SemiCondensed");
+    } else if (stretch == QFont::Unstretched) {
+        result += QLatin1Char(' ') + QStringLiteral("Unstretched");
+    } else if (stretch == QFont::SemiExpanded) {
+        result += QLatin1Char(' ') + QStringLiteral("SemiExpanded");
+    } else if (stretch == QFont::Expanded) {
+        result += QLatin1Char(' ') + QStringLiteral("Expanded");
+    } else if (stretch == QFont::ExtraExpanded) {
+        result += QLatin1Char(' ') + QStringLiteral("ExtraExpanded");
+    } else if (stretch == QFont::UltraExpanded) {
+        result += QLatin1Char(' ') + QStringLiteral("UltraExpanded");
+    }
+
+    return result.simplified();
+}
+
 
 QString ConfigValueProvider::iconThemeName() const
 {
