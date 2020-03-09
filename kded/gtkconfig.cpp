@@ -46,19 +46,9 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList&) :
     dbus.registerService(QStringLiteral("org.kde.GtkConfig"));
     dbus.registerObject(QStringLiteral("/GtkConfig"), this, QDBusConnection::ExportScriptableSlots);
 
-    connect(qGuiApp, &QGuiApplication::fontChanged, this, &GtkConfig::setFont);
-    connect(KIconLoader::global(), &KIconLoader::iconChanged, this, &GtkConfig::setIconTheme);
     connect(kdeglobalsConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKdeglobalsSettingsChange);
     connect(kwinConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKWinSettingsChange);
     connect(kcminputConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKCMInputSettingsChange);
-    dbus.connect(
-        QString(),
-        QStringLiteral("/KGlobalSettings"),
-        QStringLiteral("org.kde.KGlobalSettings"),
-        QStringLiteral("notifyChange"),
-        this,
-        SLOT(onGlobalSettingsChange(int,int))
-    );
 
     ConfigEditor::removeLegacyGtk2Strings();
     applyAllSettings();
@@ -112,15 +102,13 @@ void GtkConfig::setFont() const
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/FontName"),  configFontName);
 }
 
-void GtkConfig::setIconTheme(int iconGroup) const
+void GtkConfig::setIconTheme() const
 {
-    if (iconGroup == KIconLoader::Group::Desktop) { // This is needed to update icons only once
-        const QString iconThemeName = configValueProvider->iconThemeName();
-        ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-icon-theme-name"), iconThemeName);
-        ConfigEditor::setGtk3ConfigValueDconf(QStringLiteral("icon-theme"), iconThemeName);
-        ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-icon-theme-name"), iconThemeName);
-        ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/IconThemeName"),  iconThemeName);
-    }
+    const QString iconThemeName = configValueProvider->iconThemeName();
+    ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-icon-theme-name"), iconThemeName);
+    ConfigEditor::setGtk3ConfigValueDconf(QStringLiteral("icon-theme"), iconThemeName);
+    ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-icon-theme-name"), iconThemeName);
+    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/IconThemeName"),  iconThemeName);
 }
 
 void GtkConfig::setCursorTheme() const
@@ -197,7 +185,7 @@ void GtkConfig::setEnableAnimations() const
 void GtkConfig::applyAllSettings() const
 {
     setFont();
-    setIconTheme(KIconLoader::Group::Desktop);
+    setIconTheme();
     setCursorTheme();
     setIconsOnButtons();
     setIconsInMenus();
@@ -208,27 +196,36 @@ void GtkConfig::applyAllSettings() const
     setEnableAnimations();
 }
 
-void GtkConfig::onGlobalSettingsChange(int settingsChangeType, int arg) const
-{
-    SettingsChangeType changeType = static_cast<SettingsChangeType>(settingsChangeType);
-    SettingsCategory settingsCategory = static_cast<SettingsCategory>(arg);
-
-    if (changeType == SettingsChangeType::Settings && settingsCategory == SettingsCategory::Style) {
-        setIconsOnButtons();
-        setIconsInMenus();
-        setToolbarStyle();
-    } else if (changeType == SettingsChangeType::Settings && settingsCategory == SettingsCategory::Mouse) {
-        setScrollbarBehavior();
-    } else if (changeType == SettingsChangeType::Palette) {
-        setDarkThemePreference();
-    }
-}
-
 void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const
 {
-    if (group.name() == QLatin1String("KDE")
-            && names.contains(QByteArrayLiteral("AnimationDurationFactor"))) {
-        setEnableAnimations();
+    if (group.name() == QStringLiteral("KDE")) {
+        if (names.contains(QByteArrayLiteral("AnimationDurationFactor"))) {
+            setEnableAnimations();
+        }
+        if (names.contains(QByteArrayLiteral("ShowIconsInMenuItems"))) {
+            setIconsInMenus();
+        }
+        if (names.contains(QByteArrayLiteral("ShowIconsOnPushButtons"))) {
+            setIconsOnButtons();
+        }
+        if (names.contains(QByteArrayLiteral("ScrollbarLeftClickNavigatesByPage"))) {
+            setScrollbarBehavior();
+        }
+    } else if (group.name() == QStringLiteral("Icons")) {
+        if (names.contains(QByteArrayLiteral("Theme"))) {
+            setIconTheme();
+        }
+    } else if (group.name() == QStringLiteral("General")) {
+        if (names.contains(QByteArrayLiteral("font"))) {
+            setFont();
+        }
+        if (names.contains(QByteArrayLiteral("ColorScheme"))) {
+            setDarkThemePreference();
+        }
+    } else if (group.name() == QStringLiteral("Toolbar style")) {
+        if (names.contains(QByteArrayLiteral("ToolButtonStyle"))) {
+            setToolbarStyle();
+        }
     }
 }
 

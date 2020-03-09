@@ -41,7 +41,6 @@ QString ConfigValueProvider::fontName() const
 {
     static const QFont defaultFont(QStringLiteral("Noto Sans"), 10);
 
-    kdeglobalsConfig->reparseConfiguration();
     KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("General"));
     QString fontAsString = configGroup.readEntry(QStringLiteral("font"), defaultFont.toString());
     static QFont font;
@@ -114,24 +113,18 @@ QString ConfigValueProvider::fontStyleHelper(const QFont &font) const
 
 QString ConfigValueProvider::iconThemeName() const
 {
-    KIconTheme *newIconTheme = KIconLoader::global()->theme();
-    if (newIconTheme) {
-        return newIconTheme->internalName();
-    } else {
-        return QStringLiteral("breeze");
-    }
+    KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("Icons"));
+    return configGroup.readEntry(QStringLiteral("Theme"), QStringLiteral("breeze"));
 }
 
 QString ConfigValueProvider::cursorThemeName() const
 {
-    inputConfig->reparseConfiguration();
     KConfigGroup configGroup = inputConfig->group(QStringLiteral("Mouse"));
     return configGroup.readEntry(QStringLiteral("cursorTheme"), QStringLiteral("breeze_cursors"));
 }
 
 QString ConfigValueProvider::iconsOnButtons() const
 {
-    kdeglobalsConfig->reparseConfiguration();
     KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KDE"));
     bool kdeConfigValue = configGroup.readEntry(QStringLiteral("ShowIconsOnPushButtons"), true);
 
@@ -144,7 +137,6 @@ QString ConfigValueProvider::iconsOnButtons() const
 
 QString ConfigValueProvider::iconsInMenus() const
 {
-    kdeglobalsConfig->reparseConfiguration();
     KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KDE"));
     bool kdeConfigValue = configGroup.readEntry(QStringLiteral("ShowIconsInMenuItems"), true);
 
@@ -157,7 +149,6 @@ QString ConfigValueProvider::iconsInMenus() const
 
 QString ConfigValueProvider::toolbarStyle(ConfigValueProvider::ToolbarStyleNotation notation) const
 {
-    kdeglobalsConfig->reparseConfiguration();
     KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("Toolbar style"));
     QString kdeConfigValue = configGroup.readEntry(QStringLiteral("ToolButtonStyle"), "TextBesideIcon");
     return toolbarStyleInDesiredNotation(kdeConfigValue, notation);
@@ -165,7 +156,6 @@ QString ConfigValueProvider::toolbarStyle(ConfigValueProvider::ToolbarStyleNotat
 
 QString ConfigValueProvider::scrollbarBehavior() const
 {
-    kdeglobalsConfig->reparseConfiguration();
     KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KDE"));
     bool kdeConfigValue = configGroup.readEntry(QStringLiteral("ScrollbarLeftClickNavigatesByPage"), true);
     if (kdeConfigValue) { // GTK setting is inverted
@@ -177,7 +167,6 @@ QString ConfigValueProvider::scrollbarBehavior() const
 
 QString ConfigValueProvider::preferDarkTheme() const
 {
-    kdeglobalsConfig->reparseConfiguration();
     KConfigGroup colorsConfigGroup = kdeglobalsConfig->group(QStringLiteral("Colors:Window"));
     QColor windowBackgroundColor = colorsConfigGroup.readEntry(QStringLiteral("BackgroundNormal"), QColor(239, 240, 241));
     const int windowBackgroundGray = qGray(windowBackgroundColor.rgb());
@@ -192,7 +181,6 @@ QString ConfigValueProvider::preferDarkTheme() const
 
 QString ConfigValueProvider::windowDecorationsButtonsOrder() const
 {
-    kwinConfig->reparseConfiguration();
     KConfigGroup configGroup = kwinConfig->group(QStringLiteral("org.kde.kdecoration2"));
     QString buttonsOnLeftKdeConfigValue = configGroup.readEntry(QStringLiteral("ButtonsOnLeft"), "MS");
     QString buttonsOnRightKdeConfigValue = configGroup.readEntry(QStringLiteral("ButtonsOnRight"), "HIAX");

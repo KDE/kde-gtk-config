@@ -33,35 +33,12 @@ class Q_DECL_EXPORT GtkConfig : public KDEDModule
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.GtkConfig")
 
-    enum class SettingsChangeType {
-        Palette = 0,
-        Font,
-        Style,
-        Settings,
-        Icon,
-        Cursor,
-        ToolbarStyle,
-        BlockShortcuts,
-        NaturalSorting
-    };
-
-    enum class SettingsCategory {
-        Mouse,
-        Completion,
-        Paths,
-        Popupmenu,
-        Qt,
-        Shortcuts,
-        Locale,
-        Style
-    };
-
 public:
     GtkConfig(QObject *parent, const QVariantList& args);
     ~GtkConfig();
 
     void setFont() const;
-    void setIconTheme(int iconGroup) const;
+    void setIconTheme() const;
     void setCursorTheme() const;
     void setIconsOnButtons() const;
     void setIconsInMenus() const;
@@ -83,7 +60,6 @@ public Q_SLOTS:
     Q_SCRIPTABLE void showGtk2ThemePreview(const QString &themeName) const;
     Q_SCRIPTABLE void showGtk3ThemePreview(const QString &themeName) const;
 
-    void onGlobalSettingsChange(int settingsChangeType, int arg) const;
     void onKdeglobalsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
     void onKWinSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
     void onKCMInputSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
