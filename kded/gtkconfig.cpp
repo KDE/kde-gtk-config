@@ -39,7 +39,8 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList&) :
     configValueProvider(new ConfigValueProvider()),
     themePreviewer(new ThemePreviewer(this)),
     kdeglobalsConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kdeglobals")))),
-    kwinConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kwinrc"))))
+    kwinConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kwinrc")))),
+    kcminputConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kcminputrc"))))
 {
     QDBusConnection dbus = QDBusConnection::sessionBus();
     dbus.registerService(QStringLiteral("org.kde.GtkConfig"));
@@ -49,6 +50,7 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList&) :
     connect(KIconLoader::global(), &KIconLoader::iconChanged, this, &GtkConfig::setIconTheme);
     connect(kdeglobalsConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKdeglobalsSettingsChange);
     connect(kwinConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKWinSettingsChange);
+    connect(kcminputConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKCMInputSettingsChange);
     dbus.connect(
         QString(),
         QStringLiteral("/KGlobalSettings"),
@@ -211,9 +213,7 @@ void GtkConfig::onGlobalSettingsChange(int settingsChangeType, int arg) const
     SettingsChangeType changeType = static_cast<SettingsChangeType>(settingsChangeType);
     SettingsCategory settingsCategory = static_cast<SettingsCategory>(arg);
 
-    if (changeType == SettingsChangeType::Cursor) {
-        setCursorTheme();
-    } else if (changeType == SettingsChangeType::Settings && settingsCategory == SettingsCategory::Style) {
+    if (changeType == SettingsChangeType::Settings && settingsCategory == SettingsCategory::Style) {
         setIconsOnButtons();
         setIconsInMenus();
         setToolbarStyle();
@@ -239,5 +239,14 @@ void GtkConfig::onKWinSettingsChange(const KConfigGroup &group, const QByteArray
         setWindowDecorationsButtonsOrder();
     }
 }
+
+void GtkConfig::onKCMInputSettingsChange(const KConfigGroup& group, const QByteArrayList& names) const
+{
+    if (group.name() == QStringLiteral("Mouse")
+            && names.contains("cursorTheme")) {
+        setCursorTheme();
+    }
+}
+
 
 #include "gtkconfig.moc"

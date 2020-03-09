@@ -86,10 +86,12 @@ public Q_SLOTS:
     void onGlobalSettingsChange(int settingsChangeType, int arg) const;
     void onKdeglobalsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
     void onKWinSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
+    void onKCMInputSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
 
 private:
     QScopedPointer<ConfigValueProvider> configValueProvider;
     QScopedPointer<ThemePreviewer> themePreviewer;
     KConfigWatcher::Ptr kdeglobalsConfigWatcher;
     KConfigWatcher::Ptr kwinConfigWatcher;
+    KConfigWatcher::Ptr kcminputConfigWatcher;
 };
