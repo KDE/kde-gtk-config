@@ -9,6 +9,8 @@ target_link_libraries(gtk_theme
   PRIVATE
     Qt5::Core
     KF5::ConfigCore
+    KF5::ConfigWidgets
+    KF5::GuiAddons
     PkgConfig::GIO
     PkgConfig::GObject
 )

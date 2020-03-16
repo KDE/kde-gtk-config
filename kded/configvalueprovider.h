@@ -40,6 +40,7 @@ public:
     bool preferDarkTheme() const;
     QString windowDecorationsButtonsOrder() const;
     bool enableAnimations() const;
+    QMap<QString, QColor> colors() const;
 
 private:
     QString fontStyleHelper(const QFont &font) const;

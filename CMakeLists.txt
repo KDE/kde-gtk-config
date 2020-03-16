@@ -8,6 +8,8 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_P
 find_package(Qt5 REQUIRED NO_MODULE COMPONENTS DBus)
 find_package(KF5CoreAddons REQUIRED)
 find_package(KF5Config REQUIRED)
+find_package(KF5ConfigWidgets REQUIRED)
+find_package(KF5GuiAddons REQUIRED)
 find_package(KF5IconThemes REQUIRED)
 find_package(KF5DBusAddons REQUIRED)
 find_package(PkgConfig REQUIRED)

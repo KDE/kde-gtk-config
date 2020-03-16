@@ -18,15 +18,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QDebug>
+#include <QColor>
 #include <QDir>
 #include <QRegularExpression>
 #include <QStandardPaths>
 #include <QProcess>
 #include <QVariant>
+#include <QMap>
+#include <QList>
+#include <QTextStream>
 
 #include <KSharedConfig>
 #include <KConfigGroup>
+#include <KColorScheme>
+#include <KColorUtils>
 
 #include <string>
 #include <csignal>
@@ -102,6 +107,14 @@ void ConfigEditor::setGtk2ConfigValue(const QString &paramName, const QVariant &
     reloadGtk2Apps();
 }
 
+void ConfigEditor::setGtk3Colors(const QMap<QString, QColor> &colorsDefinitions)
+{
+    addImportStatementToGtkCssUserFile();
+    modifyColorsCssFile(colorsDefinitions);
+    addGtkModule(QStringLiteral("colorreload-gtk-module"));
+}
+
+
 QString ConfigEditor::gtk2ConfigValue(const QString& paramName)
 {
     QString gtkrcPath = QDir::homePath() + QStringLiteral("/.gtkrc-2.0");
@@ -157,6 +170,51 @@ void ConfigEditor::removeLegacyGtk2Strings()
     gtkrc.open(QIODevice::WriteOnly | QIODevice::Text);
     gtkrc.write(gtkrcContents.toUtf8());
     reloadGtk2Apps();
+}
+
+void ConfigEditor::addGtkModule(const QString& moduleName)
+{
+    const QString currentModulesString = gtk3ConfigValueSettingsIni(QStringLiteral("gtk-modules"));
+
+    if (currentModulesString.contains(moduleName)) {
+        return;
+    }
+
+    if (currentModulesString.isEmpty()) { // No modules
+        setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-modules"), moduleName);
+    } else {
+        setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-modules"), QStringLiteral("%1:%2").arg(currentModulesString, moduleName));
+    }
+}
+
+void ConfigEditor::addImportStatementToGtkCssUserFile()
+{
+    QString gtkCssPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/gtk-3.0/gtk.css");
+    QFile gtkCss(gtkCssPath);
+
+    if (gtkCss.open(QIODevice::ReadWrite)) {
+        QByteArray gtkCssContents = gtkCss.readAll();
+
+        static const QByteArray importStatement = QByteArrayLiteral("@import 'colors.css';");
+        if (!gtkCssContents.contains(importStatement)) {
+            QTextStream gtkCssStream(&gtkCss);
+            gtkCssStream << importStatement;
+        }
+    }
+}
+
+void ConfigEditor::modifyColorsCssFile(const QMap<QString, QColor> &colorsDefinitions)
+{
+    QString colorsCssPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/gtk-3.0/colors.css");
+    QFile colorsCss(colorsCssPath);
+
+    if (colorsCss.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        QTextStream colorsCssStream(&colorsCss);
+
+        for (auto it = colorsDefinitions.cbegin(); it != colorsDefinitions.cend(); it++) {
+            colorsCssStream << QStringLiteral("@define-color %1 %2;\n").arg(it.key(), it.value().name());
+        }
+    }
 }
 
 QString ConfigEditor::readFileContents(QFile &file)

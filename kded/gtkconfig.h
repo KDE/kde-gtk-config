@@ -47,6 +47,7 @@ public:
     void setDarkThemePreference() const;
     void setWindowDecorationsButtonsOrder() const;
     void setEnableAnimations() const;
+    void setColors() const;
 
     void applyAllSettings() const;
 

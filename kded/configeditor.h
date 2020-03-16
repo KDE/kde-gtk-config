@@ -22,6 +22,7 @@
 #include <unistd.h>
 #include <QString>
 
+class QColor;
 class QFile;
 class QVariant;
 
@@ -34,11 +35,17 @@ namespace ConfigEditor
     void setGtk3ConfigValueSettingsIni(const QString &paramName, const QVariant &paramValue);
     void setGtk3ConfigValueXSettingsd(const QString &paramName, const QVariant &paramValue);
 
+    void setGtk3Colors(const QMap<QString, QColor> &colorsDefinitions);
+
     QString gtk2ConfigValue(const QString& paramName);
     QString gtk3ConfigValueSettingsIni(const QString& paramName);
 
     void removeLegacyGtk2Strings();
 
+    void addGtkModule(const QString &moduleName);
+
+    void addImportStatementToGtkCssUserFile();
+    void modifyColorsCssFile(const QMap<QString, QColor> &colorsDefinitions);
 
     void replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramName, const QVariant &paramValue);
     void replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString &paramName, const QVariant &paramValue);

@@ -19,12 +19,15 @@ target_include_directories(gtkconfig
 )
 
 target_link_libraries(gtkconfig
+  PUBLIC
     Qt5::DBus
     KF5::CoreAddons
     KF5::ConfigCore
+    KF5::ConfigWidgets
     KF5::DBusAddons
     KF5::IconThemes
     PkgConfig::GTK+3
+    KF5::GuiAddons
     PkgConfig::GIO
     PkgConfig::GObject
 )

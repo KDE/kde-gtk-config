@@ -27,6 +27,7 @@
 #include <KIconLoader>
 #include <KPluginFactory>
 #include <KConfigWatcher>
+#include <KColorScheme>
 
 #include "gtkconfig.h"
 #include "configvalueprovider.h"
@@ -176,6 +177,12 @@ void GtkConfig::setEnableAnimations() const
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/EnableAnimations"), enableAnimations);
 }
 
+void GtkConfig::setColors() const
+{
+    const QMap<QString, QColor> colors = configValueProvider->colors();
+    ConfigEditor::setGtk3Colors(colors);
+}
+
 void GtkConfig::applyAllSettings() const
 {
     setFont();
@@ -188,6 +195,7 @@ void GtkConfig::applyAllSettings() const
     setDarkThemePreference();
     setWindowDecorationsButtonsOrder();
     setEnableAnimations();
+    setColors();
 }
 
 void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const
@@ -214,6 +222,7 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
             setFont();
         }
         if (names.contains(QByteArrayLiteral("ColorScheme"))) {
+            setColors();
             setDarkThemePreference();
         }
     } else if (group.name() == QStringLiteral("Toolbar style")) {
