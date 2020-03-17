@@ -24,8 +24,8 @@ target_link_libraries(gtkconfig
     KF5::ConfigCore
     KF5::DBusAddons
     KF5::IconThemes
-    ${GIO2_LIBRARY}
-    ${GOBJECT2_LIBRARY}
+    PkgConfig::GIO
+    PkgConfig::GObject
 )
 
 install(TARGETS gtkconfig DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kded)
