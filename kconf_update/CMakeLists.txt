@@ -9,13 +9,14 @@ target_link_libraries(gtk_theme
   PRIVATE
     Qt5::Core
     KF5::ConfigCore
-    PkgConfig::GIO
-    PkgConfig::GObject
+    ${GIO2_LIBRARY}
+    ${GOBJECT2_LIBRARY}
 )
 
 target_include_directories(gtk_theme
   PRIVATE
     ../kded/
+    ${GTK3_INCLUDE_DIRS}
 )
 
 target_compile_definitions(gtk_theme
