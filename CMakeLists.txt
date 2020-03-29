@@ -42,6 +42,7 @@ add_subdirectory(gtkproxies)
 add_subdirectory(gtk3proxies)
 add_subdirectory(kded)
 add_subdirectory(kconf_update)
+add_subdirectory(color-reload-module)
 
 # add clang-format target for all our real source files
 file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h)
