@@ -28,28 +28,21 @@ class QFont;
 class ConfigValueProvider
 {
 public:
-    enum class ToolbarStyleNotation {
-        Xsettingsd = 0,
-        SettingsIni,
-        Dconf
-    };
-
     ConfigValueProvider();
 
     QString fontName() const;
     QString iconThemeName() const;
     QString cursorThemeName() const;
-    QString iconsOnButtons() const;
-    QString iconsInMenus() const;
-    QString toolbarStyle(ToolbarStyleNotation notation) const;
-    QString scrollbarBehavior() const;
-    QString preferDarkTheme() const;
+    bool iconsOnButtons() const;
+    bool iconsInMenus() const;
+    int toolbarStyle() const;
+    bool scrollbarBehavior() const;
+    bool preferDarkTheme() const;
     QString windowDecorationsButtonsOrder() const;
-    QString enableAnimations() const;
+    bool enableAnimations() const;
 
 private:
     QString fontStyleHelper(const QFont &font) const;
-    QString toolbarStyleInDesiredNotation(const QString &kdeConfigValue, ToolbarStyleNotation notation) const;
     QString windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const;
 
     KSharedConfigPtr kdeglobalsConfig;

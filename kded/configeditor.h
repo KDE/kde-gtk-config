@@ -23,15 +23,16 @@
 #include <QString>
 
 class QFile;
-class QString;
+class QVariant;
 
 namespace ConfigEditor
 {
-    void setGtk2ConfigValue(const QString &paramName, const QString &paramValue);
-    void setGtk3ConfigValueDconf(const QString &paramName, bool paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
-    void setGtk3ConfigValueDconf(const QString &paramName, const QString &paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
-    void setGtk3ConfigValueSettingsIni(const QString &paramName, const QString &paramValue);
-    void setGtk3ConfigValueXSettingsd(const QString &paramName, const QString &paramValue);
+    void setGtk2ConfigValue(const QString &paramName, const QVariant &paramValue);
+
+    void setGtk3ConfigValueGSettings(const QString &paramName, const QVariant &paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
+    void setGtk3ConfigValueGSettingsAsEnum(const QString &paramName, int paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
+    void setGtk3ConfigValueSettingsIni(const QString &paramName, const QVariant &paramValue);
+    void setGtk3ConfigValueXSettingsd(const QString &paramName, const QVariant &paramValue);
 
     QString gtk2ConfigValue(const QString& paramName);
     QString gtk3ConfigValueSettingsIni(const QString& paramName);
@@ -39,8 +40,8 @@ namespace ConfigEditor
     void removeLegacyGtk2Strings();
 
 
-    void replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramName, const QString &paramValue);
-    void replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString &paramName, const QString &paramValue);
+    void replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramName, const QVariant &paramValue);
+    void replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString &paramName, const QVariant &paramValue);
 
     QString readFileContents(QFile &gtkrc);
 

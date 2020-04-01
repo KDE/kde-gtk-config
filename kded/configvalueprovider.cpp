@@ -27,6 +27,8 @@
 #include <KSharedConfig>
 #include <KConfigGroup>
 
+#include <gtk/gtk.h>
+
 #include "configvalueprovider.h"
 
 ConfigValueProvider::ConfigValueProvider() :
@@ -123,60 +125,49 @@ QString ConfigValueProvider::cursorThemeName() const
     return configGroup.readEntry(QStringLiteral("cursorTheme"), QStringLiteral("breeze_cursors"));
 }
 
-QString ConfigValueProvider::iconsOnButtons() const
+bool ConfigValueProvider::iconsOnButtons() const
 {
     KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KDE"));
-    bool kdeConfigValue = configGroup.readEntry(QStringLiteral("ShowIconsOnPushButtons"), true);
-
-    if (kdeConfigValue) {
-        return QStringLiteral("1");
-    } else {
-        return QStringLiteral("0");
-    }
+    return configGroup.readEntry(QStringLiteral("ShowIconsOnPushButtons"), true);
 }
 
-QString ConfigValueProvider::iconsInMenus() const
+bool ConfigValueProvider::iconsInMenus() const
 {
     KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KDE"));
-    bool kdeConfigValue = configGroup.readEntry(QStringLiteral("ShowIconsInMenuItems"), true);
-
-    if (kdeConfigValue) {
-        return QStringLiteral("1");
-    } else {
-        return QStringLiteral("0");
-    }
+    return configGroup.readEntry(QStringLiteral("ShowIconsInMenuItems"), true);
 }
 
-QString ConfigValueProvider::toolbarStyle(ConfigValueProvider::ToolbarStyleNotation notation) const
+int ConfigValueProvider::toolbarStyle() const
 {
     KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("Toolbar style"));
     QString kdeConfigValue = configGroup.readEntry(QStringLiteral("ToolButtonStyle"), "TextBesideIcon");
-    return toolbarStyleInDesiredNotation(kdeConfigValue, notation);
-}
 
-QString ConfigValueProvider::scrollbarBehavior() const
-{
-    KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KDE"));
-    bool kdeConfigValue = configGroup.readEntry(QStringLiteral("ScrollbarLeftClickNavigatesByPage"), true);
-    if (kdeConfigValue) { // GTK setting is inverted
-        return QStringLiteral("0");
+    if (kdeConfigValue == QStringLiteral("NoText")) {
+        return GtkToolbarStyle::GTK_TOOLBAR_ICONS;
+    } else if (kdeConfigValue == QStringLiteral("TextOnly")) {
+        return GtkToolbarStyle::GTK_TOOLBAR_TEXT;
+    } else if (kdeConfigValue == QStringLiteral("TextBesideIcon")) {
+        return GtkToolbarStyle::GTK_TOOLBAR_BOTH_HORIZ;
     } else {
-        return QStringLiteral("1");
+        return GtkToolbarStyle::GTK_TOOLBAR_BOTH;
     }
 }
 
-QString ConfigValueProvider::preferDarkTheme() const
+bool ConfigValueProvider::scrollbarBehavior() const
+{
+    KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KDE"));
+    bool kdeConfigValue = configGroup.readEntry(QStringLiteral("ScrollbarLeftClickNavigatesByPage"), true);
+    return !kdeConfigValue; // GTK setting is inverted
+}
+
+bool ConfigValueProvider::preferDarkTheme() const
 {
     KConfigGroup colorsConfigGroup = kdeglobalsConfig->group(QStringLiteral("Colors:Window"));
     QColor windowBackgroundColor = colorsConfigGroup.readEntry(QStringLiteral("BackgroundNormal"), QColor(239, 240, 241));
     const int windowBackgroundGray = qGray(windowBackgroundColor.rgb());
 
     // We use heuristic to determine if current color scheme is dark or not
-    if (windowBackgroundGray >= 192) {
-        return QStringLiteral("0");
-    } else {
-        return QStringLiteral("1");
-    }
+    return windowBackgroundGray < 192;
 }
 
 QString ConfigValueProvider::windowDecorationsButtonsOrder() const
@@ -191,55 +182,12 @@ QString ConfigValueProvider::windowDecorationsButtonsOrder() const
     return buttonsOnLeftInGtkNotation + QStringLiteral(":") + buttonsOnRightInGtkNotation;
 }
 
-QString ConfigValueProvider::enableAnimations() const
+bool ConfigValueProvider::enableAnimations() const
 {
     KConfigGroup generalCfg = kdeglobalsConfig->group(QStringLiteral("KDE"));
     const qreal animationSpeedModifier = qMax(0.0, generalCfg.readEntry("AnimationDurationFactor", 1.0));
 
-    const bool enableAnimations = !qFuzzyIsNull(animationSpeedModifier);
-
-    if (enableAnimations) {
-        return QStringLiteral("1");
-    } else {
-        return QStringLiteral("0");
-    }
-}
-
-QString ConfigValueProvider::toolbarStyleInDesiredNotation(const QString &kdeConfigValue, ConfigValueProvider::ToolbarStyleNotation notation) const
-{
-    QStringList toolbarStyles {};
-    if (notation == ToolbarStyleNotation::SettingsIni) {
-        toolbarStyles.append({
-             QStringLiteral("GTK_TOOLBAR_ICONS"),
-             QStringLiteral("GTK_TOOLBAR_TEXT"),
-             QStringLiteral("GTK_TOOLBAR_BOTH_HORIZ"),
-             QStringLiteral("GTK_TOOLBAR_BOTH")
-        });
-    } else if (notation == ToolbarStyleNotation::Xsettingsd) {
-        toolbarStyles.append({
-             QStringLiteral("0"),
-             QStringLiteral("1"),
-             QStringLiteral("3"),
-             QStringLiteral("2")
-        });
-    } else {
-        toolbarStyles.append({
-             QStringLiteral("icons"),
-             QStringLiteral("text"),
-             QStringLiteral("both-horiz"),
-             QStringLiteral("both")
-        });
-    }
-
-    if (kdeConfigValue == QStringLiteral("NoText")) {
-        return toolbarStyles[0];
-    } else if (kdeConfigValue == QStringLiteral("TextOnly")) {
-        return toolbarStyles[1];
-    } else if (kdeConfigValue == QStringLiteral("TextBesideIcon")) {
-        return toolbarStyles[2];
-    } else {
-        return toolbarStyles[3];
-    }
+    return !qFuzzyIsNull(animationSpeedModifier);
 }
 
 QString ConfigValueProvider::windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const

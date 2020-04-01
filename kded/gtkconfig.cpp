@@ -68,7 +68,7 @@ void GtkConfig::setGtk2Theme(const QString &themeName) const
 
 void GtkConfig::setGtk3Theme(const QString &themeName) const
 {
-    ConfigEditor::setGtk3ConfigValueDconf(QStringLiteral("gtk-theme"), themeName);
+    ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("gtk-theme"), themeName);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"), themeName);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/ThemeName"),  themeName);
 }
@@ -97,7 +97,7 @@ void GtkConfig::setFont() const
 {
     const QString configFontName = configValueProvider->fontName();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-font-name"), configFontName);
-    ConfigEditor::setGtk3ConfigValueDconf(QStringLiteral("font-name"), configFontName);
+    ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("font-name"), configFontName);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-font-name"), configFontName);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/FontName"),  configFontName);
 }
@@ -106,7 +106,7 @@ void GtkConfig::setIconTheme() const
 {
     const QString iconThemeName = configValueProvider->iconThemeName();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-icon-theme-name"), iconThemeName);
-    ConfigEditor::setGtk3ConfigValueDconf(QStringLiteral("icon-theme"), iconThemeName);
+    ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("icon-theme"), iconThemeName);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-icon-theme-name"), iconThemeName);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/IconThemeName"),  iconThemeName);
 }
@@ -115,14 +115,14 @@ void GtkConfig::setCursorTheme() const
 {
     const QString cursorThemeName = configValueProvider->cursorThemeName();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-cursor-theme-name"), cursorThemeName);
-    ConfigEditor::setGtk3ConfigValueDconf(QStringLiteral("cursor-theme"), cursorThemeName);
+    ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("cursor-theme"), cursorThemeName);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-cursor-theme-name"), cursorThemeName);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/CursorThemeName"),  cursorThemeName);
 }
 
 void GtkConfig::setIconsOnButtons() const
 {
-    const QString iconsOnButtonsConfigValue = configValueProvider->iconsOnButtons();
+    const bool iconsOnButtonsConfigValue = configValueProvider->iconsOnButtons();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-button-images"), iconsOnButtonsConfigValue);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-button-images"), iconsOnButtonsConfigValue);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/ButtonImages"), iconsOnButtonsConfigValue);
@@ -130,7 +130,7 @@ void GtkConfig::setIconsOnButtons() const
 
 void GtkConfig::setIconsInMenus() const
 {
-    const QString iconsInMenusConfigValue = configValueProvider->iconsInMenus();
+    const bool iconsInMenusConfigValue = configValueProvider->iconsInMenus();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-menu-images"), iconsInMenusConfigValue);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-menu-images"), iconsInMenusConfigValue);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/MenuImages"), iconsInMenusConfigValue);
@@ -138,21 +138,16 @@ void GtkConfig::setIconsInMenus() const
 
 void GtkConfig::setToolbarStyle() const
 {
-    using ToolbarStyleNotation = ConfigValueProvider::ToolbarStyleNotation;
-
-    QString toolbarStyleSettingsIni = configValueProvider->toolbarStyle(ToolbarStyleNotation::SettingsIni);
-    QString toolbarStyleDConf = configValueProvider->toolbarStyle(ToolbarStyleNotation::Dconf);
-    QString toolbarStyleXSettingsd = configValueProvider->toolbarStyle(ToolbarStyleNotation::Xsettingsd);
-
-    ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-toolbar-style"), toolbarStyleSettingsIni);
-    ConfigEditor::setGtk3ConfigValueDconf(QStringLiteral("toolbar-style"), toolbarStyleDConf);
-    ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-toolbar-style"), toolbarStyleSettingsIni);
-    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/ToolbarStyle"),  toolbarStyleXSettingsd);
+    const int toolbarStyle = configValueProvider->toolbarStyle();
+    ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-toolbar-style"), toolbarStyle);
+    ConfigEditor::setGtk3ConfigValueGSettingsAsEnum(QStringLiteral("toolbar-style"), toolbarStyle);
+    ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-toolbar-style"), toolbarStyle);
+    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/ToolbarStyle"), toolbarStyle);
 }
 
 void GtkConfig::setScrollbarBehavior() const
 {
-    const QString scrollbarBehavior = configValueProvider->scrollbarBehavior();
+    const bool scrollbarBehavior = configValueProvider->scrollbarBehavior();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-primary-button-warps-slider"), scrollbarBehavior);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-primary-button-warps-slider"), scrollbarBehavior);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/PrimaryButtonWarpsSlider"), scrollbarBehavior);
@@ -160,24 +155,23 @@ void GtkConfig::setScrollbarBehavior() const
 
 void GtkConfig::setDarkThemePreference() const
 {
-    const QString preferDarkTheme = configValueProvider->preferDarkTheme();
+    const bool preferDarkTheme = configValueProvider->preferDarkTheme();
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-application-prefer-dark-theme"), preferDarkTheme);
 }
 
 void GtkConfig::setWindowDecorationsButtonsOrder() const
 {
     const QString windowDecorationsButtonOrder = configValueProvider->windowDecorationsButtonsOrder();
-    ConfigEditor::setGtk3ConfigValueDconf(QStringLiteral("button-layout"), windowDecorationsButtonOrder, QStringLiteral("org.gnome.desktop.wm.preferences"));
+    ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("button-layout"), windowDecorationsButtonOrder, QStringLiteral("org.gnome.desktop.wm.preferences"));
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-decoration-layout"), windowDecorationsButtonOrder);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/DecorationLayout"), windowDecorationsButtonOrder);
 }
 
 void GtkConfig::setEnableAnimations() const
 {
-    const QString enableAnimations = configValueProvider->enableAnimations();
+    const bool enableAnimations = configValueProvider->enableAnimations();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-enable-animations"), enableAnimations);
-    // FIXME work with booleans in configValueProvider...
-    ConfigEditor::setGtk3ConfigValueDconf(QStringLiteral("enable-animations"), enableAnimations == QLatin1String("1"));
+    ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("enable-animations"), enableAnimations);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-enable-animations"), enableAnimations);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/EnableAnimations"), enableAnimations);
 }

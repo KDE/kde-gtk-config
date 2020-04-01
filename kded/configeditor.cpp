@@ -23,6 +23,7 @@
 #include <QRegularExpression>
 #include <QStandardPaths>
 #include <QProcess>
+#include <QVariant>
 
 #include <KSharedConfig>
 #include <KConfigGroup>
@@ -35,19 +36,26 @@
 
 #include "configeditor.h"
 
-void ConfigEditor::setGtk3ConfigValueDconf(const QString &paramName, bool paramValue, const QString &category)
+void ConfigEditor::setGtk3ConfigValueGSettings(const QString &paramName, const QVariant &paramValue, const QString &category)
 {
     g_autoptr(GSettings) gsettings = g_settings_new(category.toUtf8().constData());
-    g_settings_set_boolean(gsettings, paramName.toUtf8().constData(), paramValue);
+
+    if (paramValue.type() == QVariant::Type::String) {
+        g_settings_set_string(gsettings, paramName.toUtf8().constData(), paramValue.toString().toUtf8().constData());
+    } else if (paramValue.type() == QVariant::Type::Int) {
+        g_settings_set_int(gsettings, paramName.toUtf8().constData(), paramValue.toInt());
+    } else if (paramValue.type() == QVariant::Type::Bool) {
+        g_settings_set_boolean(gsettings, paramName.toUtf8().constData(), paramValue.toBool());
+    }
 }
 
-void ConfigEditor::setGtk3ConfigValueDconf(const QString &paramName, const QString &paramValue, const QString &category)
+void ConfigEditor::setGtk3ConfigValueGSettingsAsEnum(const QString& paramName, int paramValue, const QString& category)
 {
     g_autoptr(GSettings) gsettings = g_settings_new(category.toUtf8().constData());
-    g_settings_set_string(gsettings, paramName.toUtf8().constData(), paramValue.toUtf8().constData());
+    g_settings_set_enum(gsettings, paramName.toUtf8().constData(), paramValue);
 }
 
-void ConfigEditor::setGtk3ConfigValueSettingsIni(const QString &paramName, const QString &paramValue)
+void ConfigEditor::setGtk3ConfigValueSettingsIni(const QString &paramName, const QVariant &paramValue)
 {
     QString configLocation = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
     QString gtk3ConfigPath = configLocation + QStringLiteral("/gtk-3.0/settings.ini");
@@ -59,10 +67,9 @@ void ConfigEditor::setGtk3ConfigValueSettingsIni(const QString &paramName, const
     group.sync();
 }
 
-void ConfigEditor::setGtk3ConfigValueXSettingsd(const QString &paramName, const QString &paramValue)
+void ConfigEditor::setGtk3ConfigValueXSettingsd(const QString &paramName, const QVariant &paramValue)
 {
-    using qsp = QStandardPaths;
-    QString configLocation = qsp::writableLocation(qsp::GenericConfigLocation);
+    QString configLocation = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
     
     QDir xsettingsdPath = configLocation + QStringLiteral("/xsettingsd");
     if (!xsettingsdPath.exists()) {
@@ -80,7 +87,7 @@ void ConfigEditor::setGtk3ConfigValueXSettingsd(const QString &paramName, const 
     reloadXSettingsd();
 }
 
-void ConfigEditor::setGtk2ConfigValue(const QString &paramName, const QString &paramValue)
+void ConfigEditor::setGtk2ConfigValue(const QString &paramName, const QVariant &paramValue)
 {
     QString gtkrcPath = qEnvironmentVariable("GTK2_RC_FILES", QDir::homePath() + QStringLiteral("/.gtkrc-2.0"));
     if (gtkrcPath.contains(QStringLiteral(":/"))) { // I.e. env variable contains multiple paths
@@ -161,55 +168,45 @@ QString ConfigEditor::readFileContents(QFile &file)
     }
 }
 
-void ConfigEditor::replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramName, const QString &paramValue)
+void ConfigEditor::replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramName, const QVariant &paramValue)
 {
     const QRegularExpression regExp(paramName + QStringLiteral("=[^\n]*($|\n)"));
 
-    static const QStringList nonStringProperties{
-        QStringLiteral("gtk-toolbar-style"),
-        QStringLiteral("gtk-menu-images"),
-        QStringLiteral("gtk-button-images"),
-        QStringLiteral("gtk-primary-button-warps-slider"),
-        QStringLiteral("gtk-enable-animations"),
-    };
-
     QString newConfigString;
-    if (nonStringProperties.contains(paramName)) {
-        newConfigString = paramName + QStringLiteral("=") + paramValue + QStringLiteral("\n");
+    if (paramValue.type() == QVariant::Type::String) {
+        newConfigString = QStringLiteral("%1=\"%2\"\n").arg(paramName, paramValue.toString());
+    } else if (paramValue.type() == QVariant::Type::Bool) {
+        // GTK2 does not support 'true' and 'false' as values
+        newConfigString = QStringLiteral("%1=%2\n").arg(paramName, QString::number(paramValue.toInt()));
     } else {
-        newConfigString = paramName + QStringLiteral("=\"") + paramValue + QStringLiteral("\"\n");
+        newConfigString = QStringLiteral("%1=%2\n").arg(paramName, paramValue.toString());
     }
 
     if (gtkrcContents.contains(regExp)) {
         gtkrcContents.replace(regExp, newConfigString);
     } else {
-        gtkrcContents = newConfigString + QStringLiteral("\n") + gtkrcContents;
+        gtkrcContents = newConfigString + gtkrcContents;
     }
 }
 
-void ConfigEditor::replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString &paramName, const QString &paramValue)
+void ConfigEditor::replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString &paramName, const QVariant &paramValue)
 {
     const QRegularExpression regExp(paramName + QStringLiteral(" [^\n]*($|\n)"));
 
-    static const QStringList nonStringProperties{
-        QStringLiteral("Gtk/ButtonImages"),
-        QStringLiteral("Gtk/MenuImages"),
-        QStringLiteral("Gtk/ToolbarStyle"),
-        QStringLiteral("Gtk/PrimaryButtonWarpsSlider"),
-        QStringLiteral("Gtk/EnableAnimations"),
-    };
-
     QString newConfigString;
-    if (nonStringProperties.contains(paramName)) {
-        newConfigString = paramName + QStringLiteral(" ") + paramValue + QStringLiteral("\n");
+    if (paramValue.type() == QVariant::Type::String) {
+        newConfigString = QStringLiteral("%1 \"%2\"\n").arg(paramName, paramValue.toString());
+    } else if (paramValue.type() == QVariant::Type::Bool) {
+        // XSettigsd does not support 'true' and 'false' as values
+        newConfigString = QStringLiteral("%1 %2\n").arg(paramName, QString::number(paramValue.toInt()));
     } else {
-        newConfigString = paramName + QStringLiteral(" \"") + paramValue + QStringLiteral("\"\n");
+        newConfigString = QStringLiteral("%1 %2\n").arg(paramName, paramValue.toString());
     }
 
     if (xSettingsdContents.contains(regExp)) {
         xSettingsdContents.replace(regExp, newConfigString);
     } else {
-        xSettingsdContents = newConfigString + QStringLiteral("\n") + xSettingsdContents;
+        xSettingsdContents = newConfigString + xSettingsdContents;
     }
 }
 
