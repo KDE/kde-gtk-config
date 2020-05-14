@@ -25,7 +25,6 @@
 #include <QList>
 
 #include <KConfig>
-#include <KIconTheme>
 #include <KSharedConfig>
 #include <KConfigGroup>
 #include <KColorScheme>

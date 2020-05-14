@@ -25,7 +25,6 @@ target_link_libraries(gtkconfig
     KF5::ConfigCore
     KF5::ConfigWidgets
     KF5::DBusAddons
-    KF5::IconThemes
     PkgConfig::GTK+3
     KF5::GuiAddons
     PkgConfig::GIO

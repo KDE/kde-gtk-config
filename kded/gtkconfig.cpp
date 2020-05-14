@@ -24,7 +24,6 @@
 #include <QDBusMessage>
 #include <QGuiApplication>
 
-#include <KIconLoader>
 #include <KPluginFactory>
 #include <KConfigWatcher>
 #include <KColorScheme>
