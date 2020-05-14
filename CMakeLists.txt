@@ -39,7 +39,6 @@ set_package_properties(XSettingsd PROPERTIES
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake kded/config.h)
 
-add_subdirectory(gtkproxies)
 add_subdirectory(gtk3proxies)
 add_subdirectory(kded)
 add_subdirectory(kconf_update)

@@ -37,7 +37,6 @@ namespace ConfigEditor
 
     void setGtk3Colors(const QMap<QString, QColor> &colorsDefinitions);
 
-    QString gtk2ConfigValue(const QString& paramName);
     QString gtk3ConfigValueSettingsIni(const QString& paramName);
 
     void removeLegacyGtk2Strings();
@@ -52,7 +51,6 @@ namespace ConfigEditor
 
     QString readFileContents(QFile &gtkrc);
 
-    void reloadGtk2Apps();
     void reloadXSettingsd();
 
     pid_t pidOfXSettingsd();

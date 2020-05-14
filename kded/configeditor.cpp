@@ -75,14 +75,14 @@ void ConfigEditor::setGtk3ConfigValueSettingsIni(const QString &paramName, const
 void ConfigEditor::setGtk3ConfigValueXSettingsd(const QString &paramName, const QVariant &paramValue)
 {
     QString configLocation = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
-    
+
     QDir xsettingsdPath = configLocation + QStringLiteral("/xsettingsd");
     if (!xsettingsdPath.exists()) {
         xsettingsdPath.mkpath(QStringLiteral("."));
     }
-    
+
     QString xSettingsdConfigPath = xsettingsdPath.path() + QStringLiteral("/xsettingsd.conf");
-    
+
     QFile xSettingsdConfig(xSettingsdConfigPath);
     QString xSettingsdConfigContents = readFileContents(xSettingsdConfig);
     replaceValueInXSettingsdContents(xSettingsdConfigContents, paramName, paramValue);
@@ -104,7 +104,6 @@ void ConfigEditor::setGtk2ConfigValue(const QString &paramName, const QVariant &
     gtkrc.remove();
     gtkrc.open(QIODevice::WriteOnly | QIODevice::Text);
     gtkrc.write(gtkrcContents.toUtf8());
-    reloadGtk2Apps();
 }
 
 void ConfigEditor::setGtk3Colors(const QMap<QString, QColor> &colorsDefinitions)
@@ -112,24 +111,6 @@ void ConfigEditor::setGtk3Colors(const QMap<QString, QColor> &colorsDefinitions)
     addImportStatementToGtkCssUserFile();
     modifyColorsCssFile(colorsDefinitions);
     addGtkModule(QStringLiteral("colorreload-gtk-module"));
-}
-
-
-QString ConfigEditor::gtk2ConfigValue(const QString& paramName)
-{
-    QString gtkrcPath = QDir::homePath() + QStringLiteral("/.gtkrc-2.0");
-    QFile gtkrc(gtkrcPath);
-    if (gtkrc.open(QIODevice::ReadWrite | QIODevice::Text)) {
-        const QRegularExpression regExp(paramName + QStringLiteral("=[^\n]*($|\n)"));
-        while (!gtkrc.atEnd()) {
-            QString line = gtkrc.readLine();
-            if (line.contains(regExp)) {
-                return line.split('"')[1];
-            }
-        }
-    }
-
-    return QString();
 }
 
 QString ConfigEditor::gtk3ConfigValueSettingsIni(const QString& paramName)
@@ -169,7 +150,6 @@ void ConfigEditor::removeLegacyGtk2Strings()
     gtkrc.remove();
     gtkrc.open(QIODevice::WriteOnly | QIODevice::Text);
     gtkrc.write(gtkrcContents.toUtf8());
-    reloadGtk2Apps();
 }
 
 void ConfigEditor::addGtkModule(const QString& moduleName)
@@ -266,11 +246,6 @@ void ConfigEditor::replaceValueInXSettingsdContents(QString &xSettingsdContents,
     } else {
         xSettingsdContents = newConfigString + xSettingsdContents;
     }
-}
-
-void ConfigEditor::reloadGtk2Apps()
-{
-    QProcess::startDetached(QStandardPaths::findExecutable(QStringLiteral("reload_gtk_apps")));
 }
 
 pid_t ConfigEditor::pidOfXSettingsd()

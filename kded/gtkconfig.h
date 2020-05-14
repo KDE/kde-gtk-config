@@ -53,14 +53,9 @@ public:
     void applyAllSettings() const;
 
 public Q_SLOTS:
-    Q_SCRIPTABLE void setGtk2Theme(const QString &themeName) const;
-    Q_SCRIPTABLE void setGtk3Theme(const QString &themeName) const;
-
-    Q_SCRIPTABLE QString gtk2Theme() const;
-    Q_SCRIPTABLE QString gtk3Theme() const;
-
-    Q_SCRIPTABLE void showGtk2ThemePreview(const QString &themeName) const;
-    Q_SCRIPTABLE void showGtk3ThemePreview(const QString &themeName) const;
+    Q_SCRIPTABLE void setGtkTheme(const QString &themeName) const;
+    Q_SCRIPTABLE QString gtkTheme() const;
+    Q_SCRIPTABLE void showGtkThemePreview(const QString &themeName) const;
 
     void onKdeglobalsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
     void onKWinSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;

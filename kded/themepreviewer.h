@@ -28,20 +28,10 @@ class ThemePreviewer : QObject {
 public:
     ThemePreviewer(QObject *parent);
 
-    void showGtk2App(const QString &themeName);
     void showGtk3App(const QString &themeName);
 
-private Q_SLOTS:
-    void startXsettingsd();
-    void stopXsettingsd();
-
 private:
-    static const QString previewGtk2ConfigPath;
-    static const QString currentGtk2ConfigPath;
-    static const QString gtk2PreviewerExecutablePath;
-
     static const QString gtk3PreviewerExecutablePath;
 
-    QProcess gtk2PreviewerProccess;
     QProcess gtk3PreviewerProccess;
 };

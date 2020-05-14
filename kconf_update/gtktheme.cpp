@@ -18,11 +18,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QDir>
 #include <QString>
 #include <QVariant>
+#include <QRegularExpression>
 
 #include "configeditor.h"
 
+QString gtk2Theme();
 void upgradeGtk2Theme();
 void upgradeGtk3Theme();
 
@@ -33,7 +36,7 @@ int main() {
 }
 
 void upgradeGtk2Theme() {
-    QString currentGtk2Theme = ConfigEditor::gtk2ConfigValue(QStringLiteral("gtk-theme-name"));
+    QString currentGtk2Theme = gtk2Theme();
     if (currentGtk2Theme.isEmpty()
      || currentGtk2Theme == QStringLiteral("oxygen-gtk")
      || currentGtk2Theme == QStringLiteral("BreezyGTK")
@@ -54,4 +57,21 @@ void upgradeGtk3Theme() {
         ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"), QStringLiteral("Breeze"));
         ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/ThemeName"), QStringLiteral("Breeze"));
     }
+}
+
+QString gtk2Theme()
+{
+    QString gtkrcPath = QDir::homePath() + QStringLiteral("/.gtkrc-2.0");
+    QFile gtkrc(gtkrcPath);
+    if (gtkrc.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        const QRegularExpression regExp(QStringLiteral("gtk-theme-name=[^\n]*($|\n)"));
+        while (!gtkrc.atEnd()) {
+            QString line = gtkrc.readLine();
+            if (line.contains(regExp)) {
+                return line.split('"')[1];
+            }
+        }
+    }
+
+    return QString();
 }

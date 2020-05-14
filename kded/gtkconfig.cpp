@@ -61,34 +61,20 @@ GtkConfig::~GtkConfig()
     dbus.unregisterObject(QStringLiteral("/GtkConfig"));
 }
 
-void GtkConfig::setGtk2Theme(const QString &themeName) const
+void GtkConfig::setGtkTheme(const QString &themeName) const
 {
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-theme-name"), themeName);
-}
-
-void GtkConfig::setGtk3Theme(const QString &themeName) const
-{
     ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("gtk-theme"), themeName);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"), themeName);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/ThemeName"),  themeName);
 }
 
-QString GtkConfig::gtk2Theme() const
-{
-    return ConfigEditor::gtk2ConfigValue(QStringLiteral("gtk-theme-name"));
-}
-
-QString GtkConfig::gtk3Theme() const
+QString GtkConfig::gtkTheme() const
 {
     return ConfigEditor::gtk3ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"));
 }
 
-void GtkConfig::showGtk2ThemePreview(const QString& themeName) const
-{
-    themePreviewer->showGtk2App(themeName);
-}
-
-void GtkConfig::showGtk3ThemePreview(const QString& themeName) const
+void GtkConfig::showGtkThemePreview(const QString& themeName) const
 {
     themePreviewer->showGtk3App(themeName);
 }
