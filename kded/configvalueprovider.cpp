@@ -215,7 +215,7 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
             {QStringLiteral("tooltip"), KCS(QPalette::Inactive, KCS::Tooltip)},
             {QStringLiteral("complementary"), KCS(QPalette::Inactive, KCS::Complementary)},
         }},
-        {QStringLiteral("inactive"), {
+        {QStringLiteral("disabled"), {
             {QStringLiteral("view"), KCS(QPalette::Disabled, KCS::View)},
             {QStringLiteral("window"), KCS(QPalette::Disabled, KCS::Window)},
             {QStringLiteral("button"), KCS(QPalette::Disabled, KCS::Button)},
