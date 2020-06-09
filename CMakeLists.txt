@@ -34,7 +34,7 @@ include(KDEClangFormat)
 set_package_properties(XSettingsd PROPERTIES
     DESCRIPTION "XSettingsd daemon"
     TYPE RUNTIME
-    PURPOSE "Allows GTK Config kded module to apply settings to GTK applications on the fly"
+    PURPOSE "Required to apply settings to GTK applications on the fly"
 )
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake kded/config.h)
