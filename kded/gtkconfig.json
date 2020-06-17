@@ -23,7 +23,6 @@
         "Description[sl]": "Samodejno uveljavi nastavitve za vse programe GNOME/GTK",
         "Description[sv]": "Verkställer automatiskt inställningar för GNOME/GTK-program",
         "Description[uk]": "Автоматично застосовує параметри до програм GNOME/GTK",
-        "Description[x-test]": "xxAutomatically applies settings to GNOME/GTK applicationsxx",
         "Description[zh_CN]": "自动将设置应用到 GNOME/GTK 应用",
         "Description[zh_TW]": "自動套用設定到 GNOME/GTK 應用程式",
         "Icon": "gtkconfig",
@@ -50,7 +49,6 @@
         "Name[sl]": "Nastavitve storitve sinhronizacije GNOME/GTK",
         "Name[sv]": "Synkroniseringstjänst av GNOME/GTK inställningar",
         "Name[uk]": "Служба синхронізації параметрів GNOME/GTK",
-        "Name[x-test]": "xxGNOME/GTK Settings Synchronization Servicexx",
         "Name[zh_CN]": "GNOME/GTK 设置同步服务",
         "Name[zh_TW]": "GNOME/GTK 設定同步服務",
         "ServiceTypes": [
