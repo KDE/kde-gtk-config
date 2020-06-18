@@ -25,6 +25,7 @@
         "Description[sk]": "GTK správa nastavení",
         "Description[sv]": "GTK inställningshantering",
         "Description[uk]": "Керування налаштуваннями GTK",
+        "Description[x-test]": "xxGTK config managementxx",
         "Description[zh_CN]": "GTK 配置管理",
         "Description[zh_TW]": "GTK 設定管理工具",
         "Icon": "gtkconfig",
@@ -53,6 +54,7 @@
         "Name[sk]": "Plasma GTKd",
         "Name[sv]": "Plasma GTKd",
         "Name[uk]": "GTKd для Плазми",
+        "Name[x-test]": "xxPlasma GTKdxx",
         "Name[zh_CN]": "Plasma GTKd",
         "Name[zh_TW]": "Plasma GTKd",
         "ServiceTypes": [
