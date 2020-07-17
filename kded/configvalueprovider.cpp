@@ -128,6 +128,12 @@ QString ConfigValueProvider::cursorThemeName() const
     return configGroup.readEntry(QStringLiteral("cursorTheme"), QStringLiteral("breeze_cursors"));
 }
 
+int ConfigValueProvider::cursorSize() const
+{
+    KConfigGroup configGroup = inputConfig->group(QStringLiteral("Mouse"));
+    return configGroup.readEntry(QStringLiteral("cursorSize"), 24);
+}
+
 bool ConfigValueProvider::iconsOnButtons() const
 {
     KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KDE"));

@@ -120,6 +120,15 @@ void GtkConfig::setCursorTheme() const
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/CursorThemeName"),  cursorThemeName);
 }
 
+void GtkConfig::setCursorSize() const
+{
+    const int cursorSize = configValueProvider->cursorSize();
+    ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-cursor-theme-size"), cursorSize);
+    ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("cursor-size"), cursorSize);
+    ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-cursor-theme-size"), cursorSize);
+    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/CursorThemeSize"),  cursorSize);
+}
+
 void GtkConfig::setIconsOnButtons() const
 {
     const bool iconsOnButtonsConfigValue = configValueProvider->iconsOnButtons();
@@ -187,6 +196,7 @@ void GtkConfig::applyAllSettings() const
     setFont();
     setIconTheme();
     setCursorTheme();
+    setCursorSize();
     setIconsOnButtons();
     setIconsInMenus();
     setToolbarStyle();
@@ -241,9 +251,13 @@ void GtkConfig::onKWinSettingsChange(const KConfigGroup &group, const QByteArray
 
 void GtkConfig::onKCMInputSettingsChange(const KConfigGroup& group, const QByteArrayList& names) const
 {
-    if (group.name() == QStringLiteral("Mouse")
-            && names.contains("cursorTheme")) {
-        setCursorTheme();
+    if (group.name() == QStringLiteral("Mouse")) {
+        if (names.contains("cursorTheme")) {
+            setCursorTheme();
+        }
+        if (names.contains("cursorSize")) {
+            setCursorSize();
+        }
     }
 }
 

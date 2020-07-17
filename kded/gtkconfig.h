@@ -40,6 +40,7 @@ public:
     void setFont() const;
     void setIconTheme() const;
     void setCursorTheme() const;
+    void setCursorSize() const;
     void setIconsOnButtons() const;
     void setIconsInMenus() const;
     void setToolbarStyle() const;

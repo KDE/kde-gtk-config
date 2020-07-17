@@ -22,7 +22,7 @@ The daemon itself does the following:
 
 - 🔤 UI Font
 - 💾 Icon Theme
-- 👆 Cursor Theme
+- 👆 Cursor theme and size
 - 🆗 Icons on Buttons (Show them or not)
 - 🗒 Icons in Menus (Show them or not)
 - 🧰 Toolbar Style
