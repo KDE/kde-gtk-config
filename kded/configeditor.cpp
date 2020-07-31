@@ -261,7 +261,7 @@ void ConfigEditor::reloadXSettingsd()
 {
     pid_t xSettingsdPid = pidOfXSettingsd();
     if (xSettingsdPid == 0) {
-        QProcess::startDetached(QStandardPaths::findExecutable(QStringLiteral("xsettingsd")));
+        QProcess::startDetached(QStandardPaths::findExecutable(QStringLiteral("xsettingsd")), QStringList());
     } else {
         kill(xSettingsdPid, SIGHUP);
     }

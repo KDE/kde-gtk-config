@@ -39,7 +39,7 @@ void ThemePreviewer::showGtk3App(const QString& themeName)
         gtk3PreviewEnvironment.insert(QStringLiteral("GTK_THEME"), themeName);
         gtk3PreviewerProccess.setProcessEnvironment(gtk3PreviewEnvironment);
 
-        gtk3PreviewerProccess.start(gtk3PreviewerExecutablePath);
+        gtk3PreviewerProccess.start(gtk3PreviewerExecutablePath, QStringList());
     } else {
         gtk3PreviewerProccess.close();
     }
