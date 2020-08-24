@@ -22,6 +22,7 @@ pkg_check_modules(GTK+2 REQUIRED IMPORTED_TARGET gtk+-2.0)
 pkg_check_modules(GLib2 REQUIRED IMPORTED_TARGET glib-2.0)
 pkg_check_modules(GObject REQUIRED IMPORTED_TARGET gobject-2.0)
 pkg_check_modules(GIO REQUIRED IMPORTED_TARGET gio-2.0)
+pkg_check_modules(PlasmaKeyData REQUIRED IMPORTED_TARGET plasma-key-data)
 
 include(ECMSetupVersion)
 include(ECMInstallIcons)
@@ -52,6 +53,7 @@ add_subdirectory(kded)
 add_subdirectory(kconf_update)
 add_subdirectory(color-reload-module)
 add_subdirectory(window-decorations-reload-module)
+add_subdirectory(plasma-input-module)
 
 # add clang-format target for all our real source files
 file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h)

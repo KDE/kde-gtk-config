@@ -1,0 +1,1 @@
+#define GTK_IMMODULE_PATH "@module_path@"
