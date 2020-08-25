@@ -40,7 +40,8 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList&) :
     themePreviewer(new ThemePreviewer(this)),
     kdeglobalsConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kdeglobals")))),
     kwinConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kwinrc")))),
-    kcminputConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kcminputrc"))))
+    kcminputConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kcminputrc")))),
+    breezeConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("breezerc"))))
 {
     QDBusConnection dbus = QDBusConnection::sessionBus();
     dbus.registerService(QStringLiteral("org.kde.GtkConfig"));
@@ -49,6 +50,7 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList&) :
     connect(kdeglobalsConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKdeglobalsSettingsChange);
     connect(kwinConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKWinSettingsChange);
     connect(kcminputConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKCMInputSettingsChange);
+    connect(breezeConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onBreezeSettingsChange);
 
     ConfigEditor::removeLegacyGtk2Strings();
     applyAllSettings();
@@ -67,6 +69,9 @@ void GtkConfig::setGtkTheme(const QString &themeName) const
     ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("gtk-theme"), themeName);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"), themeName);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/ThemeName"),  themeName);
+
+    // Window decorations are part of the theme, in case of Breeze we inject custom ones from KWin
+    setWindowDecorationsAppearance();
 }
 
 QString GtkConfig::gtkTheme() const
@@ -154,6 +159,16 @@ void GtkConfig::setDarkThemePreference() const
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-application-prefer-dark-theme"), preferDarkTheme);
 }
 
+void GtkConfig::setWindowDecorationsAppearance() const
+{
+    if (gtkTheme() == QStringLiteral("Breeze")) { // Only Breeze GTK supports custom decoration buttons
+        const auto windowDecorationsButtonsImages = configValueProvider->windowDecorationsButtonsImages();
+        ConfigEditor::setCustomClientSideDecorations(windowDecorationsButtonsImages);
+    } else {
+        ConfigEditor::disableCustomClientSideDecorations();
+    }
+}
+
 void GtkConfig::setWindowDecorationsButtonsOrder() const
 {
     const QString windowDecorationsButtonOrder = configValueProvider->windowDecorationsButtonsOrder();
@@ -188,6 +203,7 @@ void GtkConfig::applyAllSettings() const
     setToolbarStyle();
     setScrollbarBehavior();
     setDarkThemePreference();
+    setWindowDecorationsAppearance();
     setWindowDecorationsButtonsOrder();
     setEnableAnimations();
     setColors();
@@ -219,6 +235,7 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
         if (names.contains(QByteArrayLiteral("ColorScheme"))) {
             setColors();
             setDarkThemePreference();
+            setWindowDecorationsAppearance(); // Decorations' color can depend on the current color scheme
         }
     } else if (group.name() == QStringLiteral("Toolbar style")) {
         if (names.contains(QByteArrayLiteral("ToolButtonStyle"))) {
@@ -229,9 +246,14 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
 
 void GtkConfig::onKWinSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const
 {
-    if (group.name() == QStringLiteral("org.kde.kdecoration2")
-            && (names.contains("ButtonsOnRight") || names.contains("ButtonsOnLeft"))) {
-        setWindowDecorationsButtonsOrder();
+    if (group.name() == QStringLiteral("org.kde.kdecoration2")) {
+        if (names.contains(QByteArrayLiteral("ButtonsOnRight"))
+            || names.contains(QByteArrayLiteral("ButtonsOnLeft"))) {
+            setWindowDecorationsButtonsOrder();
+        }
+        if (names.contains(QByteArrayLiteral("theme"))) {
+            setWindowDecorationsAppearance();
+        }
     }
 }
 
@@ -244,6 +266,14 @@ void GtkConfig::onKCMInputSettingsChange(const KConfigGroup& group, const QByteA
         if (names.contains("cursorSize")) {
             setCursorSize();
         }
+    }
+}
+
+void GtkConfig::onBreezeSettingsChange(const KConfigGroup& group, const QByteArrayList& names) const
+{
+    if (group.name() == QStringLiteral("Common")
+            && names.contains("OutlineCloseButton")) {
+        setWindowDecorationsAppearance();
     }
 }
 

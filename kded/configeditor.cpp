@@ -106,9 +106,22 @@ void ConfigEditor::setGtk2ConfigValue(const QString &paramName, const QVariant &
     gtkrc.write(gtkrcContents.toUtf8());
 }
 
+void ConfigEditor::setCustomClientSideDecorations(const QStringList &windowDecorationsButtonsImages)
+{
+    saveWindowDecorationsToAssets(windowDecorationsButtonsImages);
+    addWindowDecorationsCssFile();
+    addImportStatementsToGtkCssUserFile();
+    addGtkModule(QStringLiteral("window-decorations-gtk-module"));
+}
+
+void ConfigEditor::disableCustomClientSideDecorations()
+{
+    removeDecorationsImportStatementFromGtkCssUserFile();
+}
+
 void ConfigEditor::setGtk3Colors(const QMap<QString, QColor> &colorsDefinitions)
 {
-    addImportStatementToGtkCssUserFile();
+    addImportStatementsToGtkCssUserFile();
     modifyColorsCssFile(colorsDefinitions);
     addGtkModule(QStringLiteral("colorreload-gtk-module"));
 }
@@ -152,6 +165,30 @@ void ConfigEditor::removeLegacyGtk2Strings()
     gtkrc.write(gtkrcContents.toUtf8());
 }
 
+void ConfigEditor::saveWindowDecorationsToAssets(const QStringList &windowDecorationsButtonsImages)
+{
+    QDir assetsFolder {QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/gtk-3.0/assets")};
+
+    if (!assetsFolder.exists()) {
+        assetsFolder.mkpath(QStringLiteral("."));
+    }
+
+    for (const auto &buttonImagePath : windowDecorationsButtonsImages) {
+        const QString destination = assetsFolder.path() + '/' + QFileInfo(buttonImagePath).fileName();
+        QFile(destination).remove();
+        QFile(buttonImagePath).rename(buttonImagePath, destination);
+    }
+}
+
+void ConfigEditor::addWindowDecorationsCssFile()
+{
+    QFile windowDecorationsCss {QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("/themes/Breeze/window_decorations.css"))};
+    QString windowDecorationsDestination {QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/gtk-3.0/window_decorations.css")};
+
+    QFile(windowDecorationsDestination).remove();
+    windowDecorationsCss.copy(windowDecorationsDestination);
+}
+
 void ConfigEditor::addGtkModule(const QString& moduleName)
 {
     const QString currentModulesString = gtk3ConfigValueSettingsIni(QStringLiteral("gtk-modules"));
@@ -167,19 +204,46 @@ void ConfigEditor::addGtkModule(const QString& moduleName)
     }
 }
 
-void ConfigEditor::addImportStatementToGtkCssUserFile()
+void ConfigEditor::addImportStatementsToGtkCssUserFile()
 {
     QString gtkCssPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/gtk-3.0/gtk.css");
     QFile gtkCss(gtkCssPath);
 
     if (gtkCss.open(QIODevice::ReadWrite)) {
-        QByteArray gtkCssContents = gtkCss.readAll();
+        QByteArray gtkCssContents = gtkCss.readAll().trimmed();
 
-        static const QByteArray importStatement = QByteArrayLiteral("@import 'colors.css';");
-        if (!gtkCssContents.contains(importStatement)) {
-            QTextStream gtkCssStream(&gtkCss);
-            gtkCssStream << importStatement;
+        static const QVector<QByteArray> importStatements {
+            QByteArrayLiteral("\n@import 'colors.css';"),
+            QByteArrayLiteral("\n@import 'window_decorations.css';"),
+        };
+
+        for (const auto &statement : importStatements) {
+            if (!gtkCssContents.contains(statement.trimmed())) {
+                gtkCssContents.append(statement);
+            }
         }
+
+        gtkCss.remove();
+        gtkCss.open(QIODevice::WriteOnly | QIODevice::Text);
+        gtkCss.write(gtkCssContents);
+    }
+}
+
+void ConfigEditor::removeDecorationsImportStatementFromGtkCssUserFile()
+{
+    QString gtkCssPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/gtk-3.0/gtk.css");
+    QFile gtkCss(gtkCssPath);
+
+    if (gtkCss.open(QIODevice::ReadWrite)) {
+        QByteArray gtkCssContents = gtkCss.readAll().trimmed();
+
+        static const QByteArray importStatement = QByteArrayLiteral("\n@import 'window_decorations.css';");
+
+        gtkCssContents.replace(importStatement.trimmed(), QByteArray());
+
+        gtkCss.remove();
+        gtkCss.open(QIODevice::WriteOnly | QIODevice::Text);
+        gtkCss.write(gtkCssContents);
     }
 }
 

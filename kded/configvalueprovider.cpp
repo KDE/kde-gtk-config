@@ -23,6 +23,8 @@
 #include <QColor>
 #include <QMap>
 #include <QList>
+#include <QSvgGenerator>
+#include <QDir>
 
 #include <KConfig>
 #include <KSharedConfig>
@@ -32,6 +34,7 @@
 
 #include <gtk/gtk.h>
 
+#include "decorationpainter.h"
 #include "configvalueprovider.h"
 
 ConfigValueProvider::ConfigValueProvider() :
@@ -177,6 +180,54 @@ bool ConfigValueProvider::preferDarkTheme() const
 
     // We use heuristic to determine if current color scheme is dark or not
     return windowBackgroundGray < 192;
+}
+
+QStringList ConfigValueProvider::windowDecorationsButtonsImages() const
+{
+    static const QVector<QString> buttonTypes {
+        QStringLiteral("close"),
+        QStringLiteral("maximize"),
+        QStringLiteral("maximized"),
+        QStringLiteral("minimize"),
+    };
+
+    static const QVector<QString> buttonStates {
+        // Focused titlebars
+        QStringLiteral("normal"),
+        QStringLiteral("active"), // aka pressed
+        QStringLiteral("hover"),
+        // Unfocused titlebars
+        QStringLiteral("backdrop-normal"),
+        QStringLiteral("backdrop-active"),
+        QStringLiteral("backdrop-hover"),
+    };
+
+    KConfigGroup decorationGroup = kwinConfig->group(QStringLiteral("org.kde.kdecoration2"));
+    const QString themeName = decorationGroup.readEntry(QStringLiteral("theme"), QStringLiteral("Breeze"));
+
+    auto decorationPainter = DecorationPainter::fromThemeName(themeName);
+    QStringList decorationsImages {};
+
+    for (const auto &buttonType : buttonTypes) {
+        for (const auto &buttonState : buttonStates) {
+            QSvgGenerator svgGenerator {};
+
+            const QString fileDirPath = QDir::tempPath() + QStringLiteral("/plasma-csd-generator");
+            QDir(fileDirPath).mkpath(QStringLiteral("."));
+            QString filePath = QStringLiteral("%1/%2-%3.svg").arg(fileDirPath, buttonType, buttonState);
+
+            svgGenerator.setFileName(filePath);
+            svgGenerator.setViewBox(DecorationPainter::ButtonGeometry);
+
+            QPainter painter {&svgGenerator};
+            decorationPainter->paintButton(painter, buttonType, buttonState);
+            painter.end();
+
+            decorationsImages.append(filePath);
+        }
+    }
+
+    return decorationsImages;
 }
 
 QString ConfigValueProvider::windowDecorationsButtonsOrder() const

@@ -28,7 +28,7 @@ The daemon itself does the following:
 - 🧰 Toolbar Style
 - 📜 Scrollbar behavior on click
 - 🌓 Dark Theme Preference (Depending on a color scheme set in Colors KCM)
-- ❎ Decorations button order
+- ❎ Decorations button order (all GTK themes) and appearance (Breeze GTK theme only) 
 - 🏃 Animations (Enable/Disable)
 - 🎨 Color Scheme (Breeze GTK theme only)
 

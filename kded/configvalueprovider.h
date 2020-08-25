@@ -40,12 +40,14 @@ public:
     bool scrollbarBehavior() const;
     bool preferDarkTheme() const;
     QString windowDecorationsButtonsOrder() const;
+    QStringList windowDecorationsButtonsImages() const;
     bool enableAnimations() const;
     QMap<QString, QColor> colors() const;
 
 private:
     QString fontStyleHelper(const QFont &font) const;
     QString windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const;
+    QString currentWindowDecorationPluginPath() const;
 
     KSharedConfigPtr kdeglobalsConfig;
     KSharedConfigPtr inputConfig;

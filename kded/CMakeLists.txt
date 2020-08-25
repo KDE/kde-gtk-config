@@ -1,3 +1,6 @@
+add_subdirectory(kwin_bridge)
+add_subdirectory(scss)
+
 set(kscreen_daemon_SRCS
     gtkconfig.cpp
     configeditor.cpp
@@ -19,14 +22,17 @@ target_include_directories(gtkconfig
 )
 
 target_link_libraries(gtkconfig
+  PRIVATE
+    KWinBridge
   PUBLIC
     Qt5::DBus
+    Qt5::Svg
     KF5::CoreAddons
     KF5::ConfigCore
     KF5::ConfigWidgets
     KF5::DBusAddons
-    PkgConfig::GTK+3
     KF5::GuiAddons
+    PkgConfig::GTK+3
     PkgConfig::GIO
     PkgConfig::GObject
 )

@@ -46,6 +46,7 @@ public:
     void setToolbarStyle() const;
     void setScrollbarBehavior() const;
     void setDarkThemePreference() const;
+    void setWindowDecorationsAppearance() const;
     void setWindowDecorationsButtonsOrder() const;
     void setEnableAnimations() const;
     void setColors() const;
@@ -60,6 +61,7 @@ public Q_SLOTS:
     void onKdeglobalsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
     void onKWinSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
     void onKCMInputSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
+    void onBreezeSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
 
 private:
     QScopedPointer<ConfigValueProvider> configValueProvider;
@@ -67,4 +69,5 @@ private:
     KConfigWatcher::Ptr kdeglobalsConfigWatcher;
     KConfigWatcher::Ptr kwinConfigWatcher;
     KConfigWatcher::Ptr kcminputConfigWatcher;
+    KConfigWatcher::Ptr breezeConfigWatcher;
 };

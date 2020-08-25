@@ -1,0 +1,237 @@
+/*
+ * Copyright 2020 Mikhail Zolotukhin <zomial@protonmail.com>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of
+ * the License or (at your option) version 3 or any later version
+ * accepted by the membership of KDE e.V. (or its successor approved
+ * by the membership of KDE e.V.), which shall act as a proxy
+ * defined in Section 14 of version 3 of the license.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include <QCoreApplication>
+#include <QMouseEvent>
+
+#include <KDecoration2/Decoration>
+#include <KDecoration2/DecorationSettings>
+#include <KDecoration2/DecoratedClient>
+#include <KDecoration2/Private/DecoratedClientPrivate>
+#include <KDecoration2/Private/DecorationSettingsPrivate>
+#include <KPluginFactory>
+#include <KPluginLoader>
+#include <KPluginMetaData>
+#include <KSharedConfig>
+#include <KConfigGroup>
+
+#include "decorationpainter.h"
+#include "dummydecorationbridge.h"
+#include "dummydecorationsettings.h"
+#include "dummydecoratedclient.h"
+
+namespace KDecoration2
+{
+
+DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QObject *parent)
+    : DecorationBridge(parent)
+    , m_decorationsConfigFileName()
+    , m_wereAnimationsEnabled()
+    , m_loader()
+    , m_factory()
+    , m_decoration()
+    , m_client()
+{
+    // HACK:
+    // Some window decorations use button fade-in and fade-out animations.
+    // These animations are very slow, and they are preventing this bridge
+    // to correctly draw hover states of the buttons, when we pass a "hover"
+    // event to them. To avoid this harmful side effect we use a hack:
+    // We disable the animations via user configuration file temporary if
+    // they were enabled, draw a buttons and then enable them again.
+    if (decorationTheme == QStringLiteral("Oxygen")) {
+        m_decorationsConfigFileName = QStringLiteral("oxygenrc");
+    } else { // for Breeze window decorations and its forks
+        m_decorationsConfigFileName = QStringLiteral("breezerc");
+    }
+    disableAnimations();
+
+    const QString pluginPath = windowDecorationPluginPath(decorationTheme);
+    m_loader = std::unique_ptr<KPluginLoader>(new KPluginLoader {pluginPath});
+    m_factory = m_loader->factory();
+
+    QVariantMap args({ {QStringLiteral("bridge"), QVariant::fromValue(this)} });
+    m_decoration = m_factory->create<KDecoration2::Decoration>(m_factory, QVariantList({args}));
+
+    auto decorationSettings = QSharedPointer<KDecoration2::DecorationSettings>::create(this);
+    m_decoration->setSettings(decorationSettings);
+    m_decoration->init();
+
+    // Update decoration settings, e.g. Breeze's "Draw a circle around close button"
+    if (m_settings) {
+        Q_EMIT m_settings->decorationSettings()->reconfigured();
+    }
+}
+
+DummyDecorationBridge::~DummyDecorationBridge()
+{
+    m_loader->unload();
+    enableAnimationsIfTheyWereEnabled();
+}
+
+std::unique_ptr< KDecoration2::DecorationSettingsPrivate > DummyDecorationBridge::settings(KDecoration2::DecorationSettings *parent)
+{
+    auto newSettings = std::unique_ptr<DummyDecorationSettings>(new DummyDecorationSettings(parent));
+    m_settings = newSettings.get();
+    return newSettings;
+}
+
+void DummyDecorationBridge::update(KDecoration2::Decoration *decoration, const QRect &geometry)
+{
+    Q_UNUSED(decoration)
+    Q_UNUSED(geometry)
+}
+
+std::unique_ptr< KDecoration2::DecoratedClientPrivate > DummyDecorationBridge::createClient(KDecoration2::DecoratedClient *client, KDecoration2::Decoration *decoration)
+{
+    auto ptr = std::unique_ptr<DummyDecoratedClient>(new DummyDecoratedClient(client, decoration));
+    m_client = ptr.get();
+    return ptr;
+}
+
+void DummyDecorationBridge::paintButton(QPainter &painter, const QString &buttonType, const QString &buttonState)
+{
+    std::unique_ptr<KDecoration2::DecorationButton> button {m_factory->create<KDecoration2::DecorationButton>(
+        QStringLiteral("button"),
+        m_decoration,
+        QVariantList({
+            QVariant::fromValue(strToButtonType(buttonType)),
+            QVariant::fromValue(m_decoration)
+        })
+    )};
+
+    if (button == nullptr) {
+        return;
+    }
+
+    button->setGeometry(DecorationPainter::ButtonGeometry);
+
+    if (buttonType == QStringLiteral("maximized")) {
+        // Different decorations use different ways to know if the window is maximized
+        // For example Breeze uses 'checked' property, but Oxygen uses client's 'isMaximized' method
+        button->setChecked(true);
+        if (m_client) {
+            dynamic_cast<DummyDecoratedClient*>(m_client)->setMaximized(true);
+        }
+    }
+
+
+    if (buttonState.contains(QStringLiteral("active"))) {
+        passMousePressEventToButton(button.get());
+    } else if (buttonState.contains(QStringLiteral("hover"))) {
+        passMouseHoverEventToButton(button.get());
+    }
+
+    if (buttonState.contains(QStringLiteral("backdrop"))) {
+        if (m_client) {
+            dynamic_cast<DummyDecoratedClient*>(m_client)->setActive(false);
+        }
+    } else {
+        if (m_client) {
+            dynamic_cast<DummyDecoratedClient*>(m_client)->setActive(true);
+        }
+    }
+
+    button->paint(&painter, DecorationPainter::ButtonGeometry);
+}
+
+void DummyDecorationBridge::disableAnimations()
+{
+    KSharedConfig::Ptr decorationConfig = KSharedConfig::openConfig(m_decorationsConfigFileName, KConfig::NoGlobals);
+    if (decorationConfig) {
+        KConfigGroup group = decorationConfig->group(QStringLiteral("Windeco"));
+        m_wereAnimationsEnabled = group.readEntry(QStringLiteral("AnimationsEnabled"), true);
+        group.writeEntry(QStringLiteral("AnimationsEnabled"), false);
+        group.sync();
+    }
+}
+
+void DummyDecorationBridge::enableAnimationsIfTheyWereEnabled()
+{
+    KSharedConfig::Ptr decorationConfig = KSharedConfig::openConfig(m_decorationsConfigFileName, KConfig::NoGlobals);
+    if (decorationConfig) {
+        KConfigGroup group = decorationConfig->group(QStringLiteral("Windeco"));
+        group.writeEntry(QStringLiteral("AnimationsEnabled"), m_wereAnimationsEnabled);
+        group.sync();
+    }
+}
+
+QString DummyDecorationBridge::windowDecorationPluginPath(const QString &decorationTheme) const
+{
+    const auto decorationPlugins = KPluginLoader::findPlugins(QStringLiteral("org.kde.kdecoration2"));
+
+    QString defaultPluginPath;
+
+    for (const auto &pluginMetaData : decorationPlugins) {
+        if (pluginMetaData.name() == QStringLiteral("Breeze")) {
+            defaultPluginPath = pluginMetaData.fileName();
+        }
+
+        if (pluginMetaData.name() == decorationTheme) {
+            return pluginMetaData.fileName();
+        }
+    }
+    return defaultPluginPath;
+}
+
+void DummyDecorationBridge::passMouseHoverEventToButton(KDecoration2::DecorationButton *button) const
+{
+    QHoverEvent event {
+        QEvent::HoverEnter,
+        {
+            DecorationPainter::ButtonGeometry.width() / 2.0,
+            DecorationPainter::ButtonGeometry.height() / 2.0,
+        },
+        {
+            (DecorationPainter::ButtonGeometry.width() / 2.0) - 1,
+            (DecorationPainter::ButtonGeometry.height() / 2.0) - 1,
+        },
+        Qt::NoModifier
+    };
+    QCoreApplication::instance()->sendEvent(button, &event);
+}
+
+void DummyDecorationBridge::passMousePressEventToButton(KDecoration2::DecorationButton *button) const
+{
+    QMouseEvent event {
+        QEvent::MouseButtonPress,
+        {
+            DecorationPainter::ButtonGeometry.width() / 2.0,
+            DecorationPainter::ButtonGeometry.height() / 2.0,
+        },
+        Qt::LeftButton,
+        Qt::LeftButton,
+        Qt::NoModifier
+    };
+    QCoreApplication::instance()->sendEvent(button, &event);
+}
+
+KDecoration2::DecorationButtonType DummyDecorationBridge::strToButtonType(const QString &type) const
+{
+    if (type == QStringLiteral("minimize")) {
+        return KDecoration2::DecorationButtonType::Minimize;
+    } else if (type == QStringLiteral("close")) {
+        return KDecoration2::DecorationButtonType::Close;
+    } else {
+        return KDecoration2::DecorationButtonType::Maximize;
+    }
+}
+
+}

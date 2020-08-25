@@ -35,15 +35,22 @@ namespace ConfigEditor
     void setGtk3ConfigValueSettingsIni(const QString &paramName, const QVariant &paramValue);
     void setGtk3ConfigValueXSettingsd(const QString &paramName, const QVariant &paramValue);
 
+    void setCustomClientSideDecorations(const QStringList &windowDecorationsButtonsImages);
+    void disableCustomClientSideDecorations();
     void setGtk3Colors(const QMap<QString, QColor> &colorsDefinitions);
 
     QString gtk3ConfigValueSettingsIni(const QString& paramName);
 
     void removeLegacyGtk2Strings();
 
+
+    void saveWindowDecorationsToAssets(const QStringList &windowDecorationsButtonsImages);
+    void addWindowDecorationsCssFile();
+
     void addGtkModule(const QString &moduleName);
 
-    void addImportStatementToGtkCssUserFile();
+    void addImportStatementsToGtkCssUserFile();
+    void removeDecorationsImportStatementFromGtkCssUserFile();
     void modifyColorsCssFile(const QMap<QString, QColor> &colorsDefinitions);
 
     void replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramName, const QVariant &paramValue);
