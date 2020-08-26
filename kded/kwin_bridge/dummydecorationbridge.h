@@ -24,7 +24,7 @@
 
 #include <KDecoration2/Private/DecorationBridge>
 #include <KDecoration2/Decoration>
-#include <KDecoration2/kdecoration2/decorationdefines.h>
+#include <kdecoration2/decorationdefines.h>
 
 #include <memory>
 
