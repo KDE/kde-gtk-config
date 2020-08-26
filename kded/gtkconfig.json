@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Automatically applies settings to GNOME/GTK applications",
+        "Description[az]": "Ayarları avtomatik GNOME/GTK tətbiqlərinə tətbiq etmək",
         "Description[ca@valencia]": "Aplica automàticament la configuració a les aplicacions GNOME/GTK",
         "Description[ca]": "Aplica automàticament la configuració a les aplicacions GNOME/GTK",
         "Description[cs]": "Automaticky aplikuje nastavení na aplikace GNOME/GTK",
@@ -29,6 +30,7 @@
         "Description[zh_TW]": "自動套用設定到 GNOME/GTK 應用程式",
         "Icon": "gtkconfig",
         "Name": "GNOME/GTK Settings Synchronization Service",
+        "Name[az]": "GNOME/GTK Ayarları Sinxronizasiya Xidməti",
         "Name[ca@valencia]": "Servei de sincronització de la configuració del GNOME/GTK",
         "Name[ca]": "Servei de sincronització de la configuració del GNOME/GTK",
         "Name[cs]": "Služba synchronizace nastavení GNOME/GTK",
