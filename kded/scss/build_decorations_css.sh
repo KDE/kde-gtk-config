@@ -40,4 +40,4 @@ build_and_install_decorations_css() {
   mv -f "${BUILD_DIR}/window_decorations.css" "${INSTALL_DIR}"
 }
 
-build_and_install_decorations_css $1
+build_and_install_decorations_css "$1"
