@@ -13,7 +13,6 @@ target_link_libraries(KWinBridge
     KDecoration2::KDecoration
   PRIVATE
     KDecoration2::KDecoration2Private
-    KF5::Service
     KF5::ConfigWidgets
     Qt5::Svg
 )
