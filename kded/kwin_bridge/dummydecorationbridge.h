@@ -40,7 +40,6 @@ public:
 
 private:
     void disableAnimations();
-    void enableAnimationsIfTheyWereEnabled();
 
     QString windowDecorationPluginPath(const QString &decorationTheme) const;
 
@@ -50,7 +49,6 @@ private:
     KDecoration2::DecorationButtonType strToButtonType(const QString &type) const;
 
     QString m_decorationsConfigFileName;
-    bool m_wereAnimationsEnabled;
 
     std::unique_ptr<KPluginLoader> m_loader;
     KPluginFactory *m_factory;
