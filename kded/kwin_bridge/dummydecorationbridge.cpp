@@ -29,7 +29,6 @@ namespace KDecoration2
 DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QObject *parent)
     : DecorationBridge(parent)
     , m_decorationsConfigFileName()
-    , m_wereAnimationsEnabled()
     , m_loader()
     , m_factory()
     , m_decoration()
@@ -69,7 +68,6 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
 DummyDecorationBridge::~DummyDecorationBridge()
 {
     m_loader->unload();
-    enableAnimationsIfTheyWereEnabled();
 }
 
 std::unique_ptr< KDecoration2::DecorationSettingsPrivate > DummyDecorationBridge::settings(KDecoration2::DecorationSettings *parent)
@@ -143,19 +141,14 @@ void DummyDecorationBridge::disableAnimations()
     KSharedConfig::Ptr decorationConfig = KSharedConfig::openConfig(m_decorationsConfigFileName, KConfig::NoGlobals);
     if (decorationConfig) {
         KConfigGroup group = decorationConfig->group(QStringLiteral("Windeco"));
-        m_wereAnimationsEnabled = group.readEntry(QStringLiteral("AnimationsEnabled"), true);
-        group.writeEntry(QStringLiteral("AnimationsEnabled"), false);
-        group.sync();
+        group.writeEntry(QStringLiteral("AnimationsEnabled"), false, KConfig::WriteConfigFlags());
     }
-}
 
-void DummyDecorationBridge::enableAnimationsIfTheyWereEnabled()
-{
-    KSharedConfig::Ptr decorationConfig = KSharedConfig::openConfig(m_decorationsConfigFileName, KConfig::NoGlobals);
-    if (decorationConfig) {
-        KConfigGroup group = decorationConfig->group(QStringLiteral("Windeco"));
-        group.writeEntry(QStringLiteral("AnimationsEnabled"), m_wereAnimationsEnabled);
-        group.sync();
+    // In case decoration is using global animation settings
+    KSharedConfig::Ptr globalConfig = KSharedConfig::openConfig();
+    if (globalConfig) {
+        auto group = globalConfig->group(QStringLiteral("KDE"));
+        group.writeEntry(QStringLiteral("AnimationDurationFactor"), 0, KConfig::WriteConfigFlags());
     }
 }
 
