@@ -52,8 +52,9 @@ GtkConfig::~GtkConfig()
 void GtkConfig::setGtkTheme(const QString &themeName) const
 {
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-theme-name"), themeName);
-    ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("gtk-theme"), themeName);
+    ConfigEditor::setGtkConfigValueGSettings(QStringLiteral("gtk-theme"), themeName);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"), themeName);
+    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"), themeName);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/ThemeName"),  themeName);
 
     // Window decorations are part of the theme, in case of Breeze we inject custom ones from KWin
@@ -74,8 +75,9 @@ void GtkConfig::setFont() const
 {
     const QString configFontName = configValueProvider->fontName();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-font-name"), configFontName);
-    ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("font-name"), configFontName);
+    ConfigEditor::setGtkConfigValueGSettings(QStringLiteral("font-name"), configFontName);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-font-name"), configFontName);
+    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-font-name"), configFontName);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/FontName"),  configFontName);
 }
 
@@ -83,8 +85,9 @@ void GtkConfig::setIconTheme() const
 {
     const QString iconThemeName = configValueProvider->iconThemeName();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-icon-theme-name"), iconThemeName);
-    ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("icon-theme"), iconThemeName);
+    ConfigEditor::setGtkConfigValueGSettings(QStringLiteral("icon-theme"), iconThemeName);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-icon-theme-name"), iconThemeName);
+    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-icon-theme-name"), iconThemeName);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/IconThemeName"),  iconThemeName);
 }
 
@@ -92,8 +95,9 @@ void GtkConfig::setCursorTheme() const
 {
     const QString cursorThemeName = configValueProvider->cursorThemeName();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-cursor-theme-name"), cursorThemeName);
-    ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("cursor-theme"), cursorThemeName);
+    ConfigEditor::setGtkConfigValueGSettings(QStringLiteral("cursor-theme"), cursorThemeName);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-cursor-theme-name"), cursorThemeName);
+    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-cursor-theme-name"), cursorThemeName);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/CursorThemeName"),  cursorThemeName);
 }
 
@@ -101,8 +105,9 @@ void GtkConfig::setCursorSize() const
 {
     const int cursorSize = configValueProvider->cursorSize();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-cursor-theme-size"), cursorSize);
-    ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("cursor-size"), cursorSize);
+    ConfigEditor::setGtkConfigValueGSettings(QStringLiteral("cursor-size"), cursorSize);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-cursor-theme-size"), cursorSize);
+    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-cursor-theme-size"), cursorSize);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/CursorThemeSize"),  cursorSize);
 }
 
@@ -111,6 +116,7 @@ void GtkConfig::setIconsOnButtons() const
     const bool iconsOnButtonsConfigValue = configValueProvider->iconsOnButtons();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-button-images"), iconsOnButtonsConfigValue);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-button-images"), iconsOnButtonsConfigValue);
+    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-button-images"), iconsOnButtonsConfigValue);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/ButtonImages"), iconsOnButtonsConfigValue);
 }
 
@@ -119,6 +125,7 @@ void GtkConfig::setIconsInMenus() const
     const bool iconsInMenusConfigValue = configValueProvider->iconsInMenus();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-menu-images"), iconsInMenusConfigValue);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-menu-images"), iconsInMenusConfigValue);
+    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-menu-images"), iconsInMenusConfigValue);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/MenuImages"), iconsInMenusConfigValue);
 }
 
@@ -126,8 +133,9 @@ void GtkConfig::setToolbarStyle() const
 {
     const int toolbarStyle = configValueProvider->toolbarStyle();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-toolbar-style"), toolbarStyle);
-    ConfigEditor::setGtk3ConfigValueGSettingsAsEnum(QStringLiteral("toolbar-style"), toolbarStyle);
+    ConfigEditor::setGtkConfigValueGSettingsAsEnum(QStringLiteral("toolbar-style"), toolbarStyle);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-toolbar-style"), toolbarStyle);
+    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-toolbar-style"), toolbarStyle);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/ToolbarStyle"), toolbarStyle);
 }
 
@@ -136,6 +144,7 @@ void GtkConfig::setScrollbarBehavior() const
     const bool scrollbarBehavior = configValueProvider->scrollbarBehavior();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-primary-button-warps-slider"), scrollbarBehavior);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-primary-button-warps-slider"), scrollbarBehavior);
+    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-primary-button-warps-slider"), scrollbarBehavior);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/PrimaryButtonWarpsSlider"), scrollbarBehavior);
 }
 
@@ -143,6 +152,7 @@ void GtkConfig::setDarkThemePreference() const
 {
     const bool preferDarkTheme = configValueProvider->preferDarkTheme();
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-application-prefer-dark-theme"), preferDarkTheme);
+    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-application-prefer-dark-theme"), preferDarkTheme);
 }
 
 void GtkConfig::setWindowDecorationsAppearance() const
@@ -158,8 +168,9 @@ void GtkConfig::setWindowDecorationsAppearance() const
 void GtkConfig::setWindowDecorationsButtonsOrder() const
 {
     const QString windowDecorationsButtonOrder = configValueProvider->windowDecorationsButtonsOrder();
-    ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("button-layout"), windowDecorationsButtonOrder, QStringLiteral("org.gnome.desktop.wm.preferences"));
+    ConfigEditor::setGtkConfigValueGSettings(QStringLiteral("button-layout"), windowDecorationsButtonOrder, QStringLiteral("org.gnome.desktop.wm.preferences"));
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-decoration-layout"), windowDecorationsButtonOrder);
+    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-decoration-layout"), windowDecorationsButtonOrder);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/DecorationLayout"), windowDecorationsButtonOrder);
 }
 
@@ -167,8 +178,9 @@ void GtkConfig::setEnableAnimations() const
 {
     const bool enableAnimations = configValueProvider->enableAnimations();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-enable-animations"), enableAnimations);
-    ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("enable-animations"), enableAnimations);
+    ConfigEditor::setGtkConfigValueGSettings(QStringLiteral("enable-animations"), enableAnimations);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-enable-animations"), enableAnimations);
+    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-enable-animations"), enableAnimations);
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/EnableAnimations"), enableAnimations);
 }
 

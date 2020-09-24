@@ -27,7 +27,7 @@
 
 #include "configeditor.h"
 
-void ConfigEditor::setGtk3ConfigValueGSettings(const QString &paramName, const QVariant &paramValue, const QString &category)
+void ConfigEditor::setGtkConfigValueGSettings(const QString &paramName, const QVariant &paramValue, const QString &category)
 {
     g_autoptr(GSettings) gsettings = g_settings_new(category.toUtf8().constData());
 
@@ -40,22 +40,33 @@ void ConfigEditor::setGtk3ConfigValueGSettings(const QString &paramName, const Q
     }
 }
 
-void ConfigEditor::setGtk3ConfigValueGSettingsAsEnum(const QString& paramName, int paramValue, const QString& category)
+void ConfigEditor::setGtkConfigValueGSettingsAsEnum(const QString& paramName, int paramValue, const QString& category)
 {
     g_autoptr(GSettings) gsettings = g_settings_new(category.toUtf8().constData());
     g_settings_set_enum(gsettings, paramName.toUtf8().constData(), paramValue);
 }
 
-void ConfigEditor::setGtk3ConfigValueSettingsIni(const QString &paramName, const QVariant &paramValue)
+void ConfigEditor::setGtkConfigValueSettingsIni(const QString &versionString, const QString &paramName, const QVariant &paramValue)
 {
     QString configLocation = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
-    QString gtk3ConfigPath = configLocation + QStringLiteral("/gtk-3.0/settings.ini");
+    QString gtk3ConfigPath = configLocation + QStringLiteral("/") + versionString + QStringLiteral("/settings.ini");
 
     KSharedConfig::Ptr gtk3Config = KSharedConfig::openConfig(gtk3ConfigPath, KConfig::NoGlobals);
     KConfigGroup group = gtk3Config->group(QStringLiteral("Settings"));
 
     group.writeEntry(paramName, paramValue);
     group.sync();
+}
+
+QString ConfigEditor::gtkConfigValueSettingsIni(const QString &versionString, const QString &paramName)
+{
+    QString configLocation = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
+    QString gtk3ConfigPath = configLocation + QStringLiteral("/") + versionString + QStringLiteral("/settings.ini");
+
+    KSharedConfig::Ptr gtk3Config = KSharedConfig::openConfig(gtk3ConfigPath, KConfig::NoGlobals);
+    KConfigGroup group = gtk3Config->group(QStringLiteral("Settings"));
+
+    return group.readEntry(paramName);
 }
 
 void ConfigEditor::setGtk3ConfigValueXSettingsd(const QString &paramName, const QVariant &paramValue)
@@ -110,17 +121,6 @@ void ConfigEditor::setGtk3Colors(const QMap<QString, QColor> &colorsDefinitions)
     addImportStatementsToGtkCssUserFile();
     modifyColorsCssFile(colorsDefinitions);
     addGtkModule(QStringLiteral("colorreload-gtk-module"));
-}
-
-QString ConfigEditor::gtk3ConfigValueSettingsIni(const QString& paramName)
-{
-    QString configLocation = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
-    QString gtk3ConfigPath = configLocation + QStringLiteral("/gtk-3.0/settings.ini");
-
-    KSharedConfig::Ptr gtk3Config = KSharedConfig::openConfig(gtk3ConfigPath, KConfig::NoGlobals);
-    KConfigGroup group = gtk3Config->group(QStringLiteral("Settings"));
-
-    return group.readEntry(paramName);
 }
 
 

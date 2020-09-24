@@ -39,7 +39,7 @@ void upgradeGtk3Theme() {
      || currentGtk3Theme == QStringLiteral("BreezyGTK")
      || currentGtk3Theme == QStringLiteral("Orion")
     ) {
-        ConfigEditor::setGtk3ConfigValueGSettings(QStringLiteral("gtk-theme"), QStringLiteral("Breeze"));
+        ConfigEditor::setGtkConfigValueGSettings(QStringLiteral("gtk-theme"), QStringLiteral("Breeze"));
         ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"), QStringLiteral("Breeze"));
         ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/ThemeName"), QStringLiteral("Breeze"));
     }

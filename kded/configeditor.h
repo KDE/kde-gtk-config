@@ -7,6 +7,7 @@
 
 #include <unistd.h>
 #include <QString>
+#include <functional>
 
 class QColor;
 class QFile;
@@ -14,18 +15,25 @@ class QVariant;
 
 namespace ConfigEditor
 {
+    using namespace std::placeholders;
+
     void setGtk2ConfigValue(const QString &paramName, const QVariant &paramValue);
 
-    void setGtk3ConfigValueGSettings(const QString &paramName, const QVariant &paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
-    void setGtk3ConfigValueGSettingsAsEnum(const QString &paramName, int paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
-    void setGtk3ConfigValueSettingsIni(const QString &paramName, const QVariant &paramValue);
+    void setGtkConfigValueGSettings(const QString &paramName, const QVariant &paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
+    void setGtkConfigValueGSettingsAsEnum(const QString &paramName, int paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
     void setGtk3ConfigValueXSettingsd(const QString &paramName, const QVariant &paramValue);
+
+    void setGtkConfigValueSettingsIni(const QString &versionString, const QString &paramName, const QVariant &paramValue);
+    static auto setGtk4ConfigValueSettingsIni = std::bind(setGtkConfigValueSettingsIni, QStringLiteral("gtk-4.0"), _1, _2);
+    static auto setGtk3ConfigValueSettingsIni = std::bind(setGtkConfigValueSettingsIni, QStringLiteral("gtk-3.0"), _1, _2);
+
+    QString gtkConfigValueSettingsIni(const QString &versionString, const QString &paramName);
+    static auto gtk4ConfigValueSettingsIni = std::bind(gtkConfigValueSettingsIni, QStringLiteral("gtk-4.0"), _1);
+    static auto gtk3ConfigValueSettingsIni = std::bind(gtkConfigValueSettingsIni, QStringLiteral("gtk-3.0"), _1);
 
     void setCustomClientSideDecorations(const QStringList &windowDecorationsButtonsImages);
     void disableCustomClientSideDecorations();
     void setGtk3Colors(const QMap<QString, QColor> &colorsDefinitions);
-
-    QString gtk3ConfigValueSettingsIni(const QString& paramName);
 
     void removeLegacyGtk2Strings();
 
