@@ -166,7 +166,7 @@ QString DummyDecorationBridge::windowDecorationPluginPath(const QString &decorat
     QString defaultPluginPath;
 
     for (const auto &pluginMetaData : decorationPlugins) {
-        if (pluginMetaData.name() == QStringLiteral("Breeze")) {
+        if (pluginMetaData.pluginId() == QLatin1String("org.kde.breeze")) {
             defaultPluginPath = pluginMetaData.fileName();
         }
 
