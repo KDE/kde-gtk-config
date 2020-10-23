@@ -7,7 +7,6 @@
 #include <QCoreApplication>
 #include <QMouseEvent>
 
-#include <KDecoration2/Decoration>
 #include <KDecoration2/DecorationSettings>
 #include <KDecoration2/DecoratedClient>
 #include <KDecoration2/Private/DecoratedClientPrivate>

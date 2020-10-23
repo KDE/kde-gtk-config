@@ -11,12 +11,9 @@
 #include <QGuiApplication>
 
 #include <KPluginFactory>
-#include <KConfigWatcher>
 #include <KColorScheme>
 
 #include "gtkconfig.h"
-#include "configvalueprovider.h"
-#include "themepreviewer.h"
 
 K_PLUGIN_CLASS_WITH_JSON(GtkConfig, "gtkconfig.json")
 
