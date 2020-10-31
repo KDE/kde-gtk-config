@@ -12,7 +12,7 @@
 #include "standarddecorationpainter.h"
 #include "auroraedecorationpainter.h"
 
-constexpr const QRect DecorationPainter::ButtonGeometry {0, 0, 50, 50};
+const QRect DecorationPainter::ButtonGeometry {0, 0, 50, 50};
 
 std::unique_ptr<DecorationPainter> DecorationPainter::fromThemeName(const QString& themeName)
 {
