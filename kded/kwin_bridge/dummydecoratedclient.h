@@ -61,7 +61,7 @@ public:
     void requestToggleShade() override;
     void requestToggleKeepAbove() override;
     void requestToggleKeepBelow() override;
-    void requestShowWindowMenu() override;
+    void requestShowWindowMenu(const QRect &rect) override;
 
     void setMaximized(bool maximized);
     void setActive(bool active);

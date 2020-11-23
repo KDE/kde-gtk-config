@@ -195,8 +195,9 @@ void DummyDecoratedClient::requestToggleKeepBelow()
 {
 }
 
-void DummyDecoratedClient::requestShowWindowMenu()
+void DummyDecoratedClient::requestShowWindowMenu(const QRect &rect)
 {
+    Q_UNUSED(rect)
 }
 
 void DummyDecoratedClient::setMaximized(bool maximized)
