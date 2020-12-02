@@ -44,7 +44,7 @@ namespace ConfigEditor
     void addGtkModule(const QString &moduleName);
 
     void addImportStatementsToGtkCssUserFile();
-    void removeDecorationsImportStatementFromGtkCssUserFile();
+    void removeWindowDecorationsCSS();
     void modifyColorsCssFile(const QMap<QString, QColor> &colorsDefinitions);
 
     void replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramName, const QVariant &paramValue);

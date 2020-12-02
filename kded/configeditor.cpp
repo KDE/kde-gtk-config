@@ -107,13 +107,12 @@ void ConfigEditor::setCustomClientSideDecorations(const QStringList &windowDecor
 {
     saveWindowDecorationsToAssets(windowDecorationsButtonsImages);
     addWindowDecorationsCssFile();
-    addImportStatementsToGtkCssUserFile();
     addGtkModule(QStringLiteral("window-decorations-gtk-module"));
 }
 
 void ConfigEditor::disableCustomClientSideDecorations()
 {
-    removeDecorationsImportStatementFromGtkCssUserFile();
+    removeWindowDecorationsCSS();
 }
 
 void ConfigEditor::setGtk3Colors(const QMap<QString, QColor> &colorsDefinitions)
@@ -199,8 +198,7 @@ void ConfigEditor::addImportStatementsToGtkCssUserFile()
         QByteArray gtkCssContents = gtkCss.readAll().trimmed();
 
         static const QVector<QByteArray> importStatements {
-            QByteArrayLiteral("\n@import 'colors.css';"),
-            QByteArrayLiteral("\n@import 'window_decorations.css';"),
+            QByteArrayLiteral("\n@import 'colors.css';")
         };
 
         for (const auto &statement : importStatements) {
@@ -215,22 +213,12 @@ void ConfigEditor::addImportStatementsToGtkCssUserFile()
     }
 }
 
-void ConfigEditor::removeDecorationsImportStatementFromGtkCssUserFile()
+void ConfigEditor::removeWindowDecorationsCSS()
 {
-    QString gtkCssPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/gtk-3.0/gtk.css");
-    QFile gtkCss(gtkCssPath);
+    using SP = QStandardPaths;
 
-    if (gtkCss.open(QIODevice::ReadWrite)) {
-        QByteArray gtkCssContents = gtkCss.readAll().trimmed();
-
-        static const QByteArray importStatement = QByteArrayLiteral("\n@import 'window_decorations.css';");
-
-        gtkCssContents.replace(importStatement.trimmed(), QByteArray());
-
-        gtkCss.remove();
-        gtkCss.open(QIODevice::WriteOnly | QIODevice::Text);
-        gtkCss.write(gtkCssContents);
-    }
+    QFile windowsDecorationsCss(SP::writableLocation(SP::GenericConfigLocation) + QStringLiteral("/gtk-3.0/window_decorations.css"));
+    windowsDecorationsCss.remove();
 }
 
 void ConfigEditor::modifyColorsCssFile(const QMap<QString, QColor> &colorsDefinitions)
