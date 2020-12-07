@@ -12,12 +12,12 @@
 class ThemePreviewer : QObject {
     Q_OBJECT
 public:
-    ThemePreviewer(QObject *parent);
+    explicit ThemePreviewer(QObject *parent);
 
     void showGtk3App(const QString &themeName);
 
 private:
     static const QString gtk3PreviewerExecutablePath;
 
-    QProcess gtk3PreviewerProccess;
+    QProcess gtk3PreviewerProcess;
 };

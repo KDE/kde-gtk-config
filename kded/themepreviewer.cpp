@@ -12,20 +12,19 @@
 
 const QString ThemePreviewer::gtk3PreviewerExecutablePath = QStandardPaths::findExecutable(QStringLiteral("gtk3_preview"), {CMAKE_INSTALL_FULL_LIBEXECDIR});
 
-ThemePreviewer::ThemePreviewer(QObject *parent) : QObject(parent),
-gtk3PreviewerProccess()
+ThemePreviewer::ThemePreviewer(QObject *parent) : QObject(parent), gtk3PreviewerProcess()
 {
 }
 
 void ThemePreviewer::showGtk3App(const QString& themeName)
 {
-    if (gtk3PreviewerProccess.state() == QProcess::ProcessState::NotRunning) {
+    if (gtk3PreviewerProcess.state() == QProcess::ProcessState::NotRunning) {
         QProcessEnvironment gtk3PreviewEnvironment = QProcessEnvironment::systemEnvironment();
         gtk3PreviewEnvironment.insert(QStringLiteral("GTK_THEME"), themeName);
-        gtk3PreviewerProccess.setProcessEnvironment(gtk3PreviewEnvironment);
+        gtk3PreviewerProcess.setProcessEnvironment(gtk3PreviewEnvironment);
 
-        gtk3PreviewerProccess.start(gtk3PreviewerExecutablePath, QStringList());
+        gtk3PreviewerProcess.start(gtk3PreviewerExecutablePath, QStringList());
     } else {
-        gtk3PreviewerProccess.close();
+        gtk3PreviewerProcess.close();
     }
 }
