@@ -271,7 +271,7 @@ void ConfigEditor::replaceValueInXSettingsdContents(QString &xSettingsdContents,
     if (paramValue.type() == QVariant::Type::String) {
         newConfigString = QStringLiteral("%1 \"%2\"\n").arg(paramName, paramValue.toString());
     } else if (paramValue.type() == QVariant::Type::Bool) {
-        // XSettigsd does not support 'true' and 'false' as values
+        // XSettingsd does not support 'true' and 'false' as values
         newConfigString = QStringLiteral("%1 %2\n").arg(paramName, QString::number(paramValue.toInt()));
     } else {
         newConfigString = QStringLiteral("%1 %2\n").arg(paramName, paramValue.toString());
