@@ -12,7 +12,7 @@
 #include <QSvgGenerator>
 #include <QDir>
 
-#include <KConfig>
+#include <KSharedConfig>
 #include <KConfigGroup>
 #include <KColorScheme>
 #include <KColorUtils>

@@ -16,12 +16,10 @@
 
 #include <KSharedConfig>
 #include <KConfigGroup>
-#include <KColorScheme>
 #include <KColorUtils>
 
 #include <string>
 #include <csignal>
-#include <cstdio>
 
 #include <gio/gio.h>
 
