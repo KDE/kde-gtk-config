@@ -10,6 +10,7 @@
 
 class QString;
 class QFont;
+class KColorScheme;
 
 class ConfigValueProvider
 {
@@ -37,6 +38,13 @@ private:
     static QString fontWeightAsString(int weight);
     static QString fontStyleAsString(int style);
     static QString fontStretchAsString(int fontStretch);
+
+    static QMap<QString, QColor> normalColors(QHash<QString, QHash<QString, KColorScheme>> csc);
+    static QMap<QString, QColor> backdropColors(QHash<QString, QHash<QString, KColorScheme>> csc);
+    static QMap<QString, QColor> insensitiveColors(QHash<QString, QHash<QString, KColorScheme>> csc);
+    static QMap<QString, QColor> insensitiveBackdropColors(QHash<QString, QHash<QString, KColorScheme>> csc);
+    QMap<QString, QColor> ignorantColors(QHash<QString, QHash<QString, KColorScheme>> csc) const;
+
 
     KSharedConfigPtr kdeglobalsConfig;
     KSharedConfigPtr inputConfig;
