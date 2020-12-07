@@ -159,7 +159,7 @@ void ConfigEditor::saveWindowDecorationsToAssets(const QStringList &windowDecora
     for (const auto &buttonImagePath : windowDecorationsButtonsImages) {
         const QString destination = assetsFolder.path() + '/' + QFileInfo(buttonImagePath).fileName();
         QFile(destination).remove();
-        QFile(buttonImagePath).rename(buttonImagePath, destination);
+        QFile::rename(buttonImagePath, destination);
     }
 }
 
