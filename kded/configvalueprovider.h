@@ -33,7 +33,7 @@ public:
 
 private:
     static QString fontStyleHelper(const QFont &font) ;
-    QString windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const;
+    static QString windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) ;
 
     static QString fontWeightAsString(int weight);
     static QString fontStyleAsString(int style);

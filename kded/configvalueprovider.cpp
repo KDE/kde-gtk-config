@@ -228,7 +228,7 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
     return result;
 }
 
-QString ConfigValueProvider::windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const
+QString ConfigValueProvider::windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue)
 {
     QString gtkNotation;
 
