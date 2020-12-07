@@ -31,9 +31,12 @@ public:
     QMap<QString, QColor> colors() const;
 
 private:
-    QString fontStyleHelper(const QFont &font) const;
+    static QString fontStyleHelper(const QFont &font) ;
     QString windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const;
-    QString currentWindowDecorationPluginPath() const;
+
+    static QString fontWeightAsString(int weight);
+    static QString fontStyleAsString(int style);
+    static QString fontStretchAsString(int fontStretch);
 
     KSharedConfigPtr kdeglobalsConfig;
     KSharedConfigPtr inputConfig;
