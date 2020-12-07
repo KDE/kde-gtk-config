@@ -21,7 +21,7 @@ class Q_DECL_EXPORT GtkConfig : public KDEDModule
 
 public:
     GtkConfig(QObject *parent, const QVariantList& args);
-    ~GtkConfig();
+    ~GtkConfig() override;
 
     void setFont() const;
     void setIconTheme() const;
