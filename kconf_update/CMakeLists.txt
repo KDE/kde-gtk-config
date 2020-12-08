@@ -41,5 +41,5 @@ install(
   PROGRAMS
     remove_window_decorations_from_gtk_css.sh
   DESTINATION
-    ${LIB_INSTALL_DIR}/kconf_update_bin/
+    ${KDE_INSTALL_KCONFUPDATEDIR}
 )
