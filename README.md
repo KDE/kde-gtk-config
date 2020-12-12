@@ -41,4 +41,4 @@ On Wayland session the daemon uses [GSettings](https://developer.gnome.org/gio/s
 
 ##
 
-[^1]: The code for the UI part is located in the [Plasma Desktop](https://invent.kde.org/plasma/plasma-desktop/-/tree/master/kcms/style)
+[^1]: The code for the UI part is located in the [Plasma Workspace](https://invent.kde.org/plasma/plasma-workspace/-/tree/master/kcms/style)
