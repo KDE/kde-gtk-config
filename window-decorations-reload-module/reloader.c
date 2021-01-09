@@ -55,7 +55,6 @@ void manage_css_provider(GFileMonitor *monitor, GFile *file, GFile *other_file, 
 
 void reload_css_provider()
 {
-    printf("WINDOW DECORATIONS RELOADED\n");
     if (css_provider != NULL) {
         remove_css_provider();
     }
