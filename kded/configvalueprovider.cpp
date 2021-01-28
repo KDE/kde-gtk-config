@@ -23,7 +23,7 @@
 #include "configvalueprovider.h"
 
 ConfigValueProvider::ConfigValueProvider() :
-    kdeglobalsConfig(KSharedConfig::openConfig(QStringLiteral("kdeglobals"))),
+    kdeglobalsConfig(KSharedConfig::openConfig()),
     inputConfig(KSharedConfig::openConfig(QStringLiteral("kcminputrc"))),
     kwinConfig(KSharedConfig::openConfig(QStringLiteral("kwinrc")))
 {
