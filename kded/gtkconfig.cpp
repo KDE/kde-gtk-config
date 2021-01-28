@@ -21,7 +21,7 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList&) :
     KDEDModule(parent),
     configValueProvider(new ConfigValueProvider()),
     themePreviewer(new ThemePreviewer(this)),
-    kdeglobalsConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kdeglobals")))),
+    kdeglobalsConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig())),
     kwinConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kwinrc")))),
     kcminputConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kcminputrc")))),
     breezeConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("breezerc"))))
