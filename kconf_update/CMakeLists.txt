@@ -7,7 +7,7 @@ target_sources(gtk_theme
 
 target_link_libraries(gtk_theme
   PRIVATE
-    Qt5::Core
+    Qt::Core
     KF5::ConfigCore
     KF5::ConfigWidgets
     KF5::GuiAddons

@@ -25,8 +25,8 @@ target_link_libraries(gtkconfig
   PRIVATE
     KWinBridge
   PUBLIC
-    Qt5::DBus
-    Qt5::Svg
+    Qt::DBus
+    Qt::Svg
     KF5::CoreAddons
     KF5::ConfigCore
     KF5::ConfigWidgets

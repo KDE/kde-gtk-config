@@ -14,5 +14,5 @@ target_link_libraries(KWinBridge
   PRIVATE
     KDecoration2::KDecoration2Private
     KF5::ConfigWidgets
-    Qt5::Svg
+    Qt::Svg
 )
