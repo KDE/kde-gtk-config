@@ -29,13 +29,13 @@ install(
   TARGETS
     gtk_theme
   DESTINATION
-    ${LIB_INSTALL_DIR}/kconf_update_bin/
+    ${KDE_INSTALL_LIBDIR}/kconf_update_bin/
 )
 install(
   FILES
     gtkconfig.upd
   DESTINATION
-    ${KCONF_UPDATE_INSTALL_DIR}
+    ${KDE_INSTALL_KCONFUPDATEDIR}
 )
 install(
   PROGRAMS

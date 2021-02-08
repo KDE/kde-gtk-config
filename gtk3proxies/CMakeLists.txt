@@ -9,4 +9,4 @@ endif()
 
 target_compile_definitions(gtk3_preview PRIVATE "-DDATA_DIR=\"${KDE_INSTALL_FULL_DATADIR}/kcm-gtk-module/\"")
 target_link_libraries(gtk3_preview PkgConfig::GTK+3 PkgConfig::GLib2 PkgConfig::GObject)
-install(TARGETS gtk3_preview  RUNTIME DESTINATION "${LIBEXEC_INSTALL_DIR}")
+install(TARGETS gtk3_preview  RUNTIME DESTINATION "${KDE_INSTALL_LIBEXECDIR}")
