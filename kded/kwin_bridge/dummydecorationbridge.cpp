@@ -45,11 +45,12 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
     } else { // for Breeze window decorations and its forks
         m_decorationsConfigFileName = QStringLiteral("breezerc");
     }
-    disableAnimations();
 
     const QString pluginPath = windowDecorationPluginPath(decorationTheme);
     m_loader = std::unique_ptr<KPluginLoader>(new KPluginLoader {pluginPath});
     m_factory = m_loader->factory();
+
+    disableAnimations();
 
     QVariantMap args({ {QStringLiteral("bridge"), QVariant::fromValue(this)} });
     m_decoration = m_factory->create<KDecoration2::Decoration>(m_factory, QVariantList({args}));
@@ -62,6 +63,7 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
     if (m_settings) {
         Q_EMIT m_settings->decorationSettings()->reconfigured();
     }
+    enableAnimations();
 }
 
 DummyDecorationBridge::~DummyDecorationBridge()
@@ -91,6 +93,7 @@ std::unique_ptr< KDecoration2::DecoratedClientPrivate > DummyDecorationBridge::c
 
 void DummyDecorationBridge::paintButton(QPainter &painter, const QString &buttonType, const QString &buttonState)
 {
+    disableAnimations();
     std::unique_ptr<KDecoration2::DecorationButton> button {m_factory->create<KDecoration2::DecorationButton>(
         QStringLiteral("button"),
         m_decoration,
@@ -133,6 +136,7 @@ void DummyDecorationBridge::paintButton(QPainter &painter, const QString &button
     }
 
     button->paint(&painter, DecorationPainter::ButtonGeometry);
+    enableAnimations();
 }
 
 void DummyDecorationBridge::disableAnimations()
@@ -147,7 +151,17 @@ void DummyDecorationBridge::disableAnimations()
     KSharedConfig::Ptr globalConfig = KSharedConfig::openConfig();
     if (globalConfig) {
         auto group = globalConfig->group(QStringLiteral("KDE"));
+        globalAnimationEntryValue = group.readEntry(QStringLiteral("AnimationDurationFactor"), 1.0);
         group.writeEntry(QStringLiteral("AnimationDurationFactor"), 0, KConfig::WriteConfigFlags());
+    }
+}
+
+void DummyDecorationBridge::enableAnimations()
+{
+    KSharedConfig::Ptr globalConfig = KSharedConfig::openConfig();
+    if (globalConfig) {
+        auto group = globalConfig->group(QStringLiteral("KDE"));
+        group.writeEntry(QStringLiteral("AnimationDurationFactor"), globalAnimationEntryValue, KConfig::WriteConfigFlags());
     }
 }
 
