@@ -25,7 +25,10 @@ void AuroraeDecorationPainter::paintButton(QPainter &painter, const QString &but
     const QString buttonFileName = buttonTypeToFileName(buttonType);
     const QString elementIdName = buttonStateToElementId(buttonState);
 
-    QSvgRenderer buttonRenderer {m_themePath + buttonFileName};
+    const QString buttonFilePath = m_themePath + buttonFileName;
+
+    QSvgRenderer buttonRenderer;
+    buttonRenderer.load(buttonFilePath) || buttonRenderer.load(buttonFilePath + "z");
     buttonRenderer.render(&painter, elementIdName, DecorationPainter::ButtonGeometry);
 }
 
