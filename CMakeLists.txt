@@ -1,5 +1,5 @@
 project(kde-gtk-config)
-set(PROJECT_VERSION "5.21.0")
+set(PROJECT_VERSION "5.21.1")
 cmake_minimum_required(VERSION 3.10)
 
 find_package(ECM REQUIRED NO_MODULE)
