@@ -25,7 +25,8 @@
 ConfigValueProvider::ConfigValueProvider() :
     kdeglobalsConfig(KSharedConfig::openConfig()),
     inputConfig(KSharedConfig::openConfig(QStringLiteral("kcminputrc"))),
-    kwinConfig(KSharedConfig::openConfig(QStringLiteral("kwinrc")))
+    kwinConfig(KSharedConfig::openConfig(QStringLiteral("kwinrc"))),
+    generatedCSDTempPath(QDir::tempPath() + QStringLiteral("/plasma-csd-generator"))
 {
 
 }
@@ -197,9 +198,7 @@ QStringList ConfigValueProvider::windowDecorationsButtonsImages() const
         for (const auto &buttonState : buttonStates) {
             QSvgGenerator svgGenerator {};
 
-            const QString fileDirPath = QDir::tempPath() + QStringLiteral("/plasma-csd-generator");
-            QDir(fileDirPath).mkpath(QStringLiteral("."));
-            QString filePath = QStringLiteral("%1/%2-%3.svg").arg(fileDirPath, buttonType, buttonState);
+            QString filePath = generatedCSDTempPath.filePath(QStringLiteral("%1-%2.svg").arg(buttonType, buttonState));
 
             svgGenerator.setFileName(filePath);
             svgGenerator.setViewBox(DecorationPainter::ButtonGeometry);
