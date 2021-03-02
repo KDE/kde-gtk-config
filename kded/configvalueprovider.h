@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include <QTemporaryDir>
+
 #include <KSharedConfig>
 
 class QString;
@@ -38,4 +40,6 @@ private:
     KSharedConfigPtr kdeglobalsConfig;
     KSharedConfigPtr inputConfig;
     KSharedConfigPtr kwinConfig;
+
+    QTemporaryDir generatedCSDTempPath;
 };
