@@ -1,9 +1,4 @@
-add_executable(gtk_theme gtktheme.cpp)
-
-target_sources(gtk_theme
-  PRIVATE
-    ../kded/configeditor.cpp
-)
+add_executable(gtk_theme gtktheme.cpp ../kded/configeditor.cpp)
 
 target_link_libraries(gtk_theme
   PRIVATE

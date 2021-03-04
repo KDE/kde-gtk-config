@@ -15,12 +15,6 @@ target_compile_definitions(gtkconfig
     -DQT_NO_SIGNALS_SLOTS_KEYWORDS
 )
 
-target_include_directories(gtkconfig
-  PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${GTK3_INCLUDE_DIRS}
-)
-
 target_link_libraries(gtkconfig
   PRIVATE
     KWinBridge
