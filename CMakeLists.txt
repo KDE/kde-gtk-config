@@ -1,6 +1,6 @@
 project(kde-gtk-config)
 set(PROJECT_VERSION "5.21.80")
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 
 find_package(ECM REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_PATH})
