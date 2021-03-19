@@ -15,7 +15,7 @@ public:
     StandardDecorationPainter(const QString &themeName);
     ~StandardDecorationPainter() = default;
 
-    void paintButton(QPainter& painter, const QString& buttonType, const QString& buttonState) const override;
+    void paintButton(QPainter &painter, const QString &buttonType, const QString &buttonState) const override;
 
 private:
     std::unique_ptr<KDecoration2::DummyDecorationBridge> m_bridge;

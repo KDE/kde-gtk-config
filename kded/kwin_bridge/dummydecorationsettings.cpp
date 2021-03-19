@@ -7,10 +7,10 @@
 
 namespace KDecoration2
 {
-
 DummyDecorationSettings::DummyDecorationSettings(DecorationSettings *parent)
     : DecorationSettingsPrivate(parent)
-{}
+{
+}
 
 bool DummyDecorationSettings::isOnAllDesktopsAvailable() const
 {
@@ -19,28 +19,27 @@ bool DummyDecorationSettings::isOnAllDesktopsAvailable() const
 
 bool DummyDecorationSettings::isAlphaChannelSupported() const
 {
-   return true;
+    return true;
 }
 
 bool DummyDecorationSettings::isCloseOnDoubleClickOnMenu() const
 {
-   return false;
+    return false;
 }
 
 QVector<DecorationButtonType> DummyDecorationSettings::decorationButtonsLeft() const
 {
-   return {};
+    return {};
 }
 
 QVector<DecorationButtonType> DummyDecorationSettings::decorationButtonsRight() const
 {
-   return {};
+    return {};
 }
 
 BorderSize DummyDecorationSettings::borderSize() const
 {
     return BorderSize::None;
 }
-
 
 }

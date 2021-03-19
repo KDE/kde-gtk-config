@@ -9,7 +9,8 @@
 #include <QProcess>
 #include <QString>
 
-class ThemePreviewer : QObject {
+class ThemePreviewer : QObject
+{
     Q_OBJECT
 public:
     ThemePreviewer(QObject *parent);

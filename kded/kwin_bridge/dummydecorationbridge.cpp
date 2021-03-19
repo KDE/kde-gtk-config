@@ -7,24 +7,23 @@
 #include <QCoreApplication>
 #include <QMouseEvent>
 
-#include <KDecoration2/DecorationSettings>
+#include <KConfigGroup>
 #include <KDecoration2/DecoratedClient>
+#include <KDecoration2/DecorationSettings>
 #include <KDecoration2/Private/DecoratedClientPrivate>
 #include <KDecoration2/Private/DecorationSettingsPrivate>
 #include <KPluginFactory>
 #include <KPluginLoader>
 #include <KPluginMetaData>
 #include <KSharedConfig>
-#include <KConfigGroup>
 
 #include "decorationpainter.h"
+#include "dummydecoratedclient.h"
 #include "dummydecorationbridge.h"
 #include "dummydecorationsettings.h"
-#include "dummydecoratedclient.h"
 
 namespace KDecoration2
 {
-
 DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QObject *parent)
     : DecorationBridge(parent)
     , m_decorationsConfigFileName()
@@ -47,12 +46,12 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
     }
 
     const QString pluginPath = windowDecorationPluginPath(decorationTheme);
-    m_loader = std::unique_ptr<KPluginLoader>(new KPluginLoader {pluginPath});
+    m_loader = std::unique_ptr<KPluginLoader>(new KPluginLoader{pluginPath});
     m_factory = m_loader->factory();
 
     disableAnimations();
 
-    QVariantMap args({ {QStringLiteral("bridge"), QVariant::fromValue(this)} });
+    QVariantMap args({{QStringLiteral("bridge"), QVariant::fromValue(this)}});
     m_decoration = m_factory->create<KDecoration2::Decoration>(m_factory, QVariantList({args}));
 
     auto decorationSettings = QSharedPointer<KDecoration2::DecorationSettings>::create(this);
@@ -71,7 +70,7 @@ DummyDecorationBridge::~DummyDecorationBridge()
     m_loader->unload();
 }
 
-std::unique_ptr< KDecoration2::DecorationSettingsPrivate > DummyDecorationBridge::settings(KDecoration2::DecorationSettings *parent)
+std::unique_ptr<KDecoration2::DecorationSettingsPrivate> DummyDecorationBridge::settings(KDecoration2::DecorationSettings *parent)
 {
     auto newSettings = std::unique_ptr<DummyDecorationSettings>(new DummyDecorationSettings(parent));
     m_settings = newSettings.get();
@@ -84,7 +83,8 @@ void DummyDecorationBridge::update(KDecoration2::Decoration *decoration, const Q
     Q_UNUSED(geometry)
 }
 
-std::unique_ptr< KDecoration2::DecoratedClientPrivate > DummyDecorationBridge::createClient(KDecoration2::DecoratedClient *client, KDecoration2::Decoration *decoration)
+std::unique_ptr<KDecoration2::DecoratedClientPrivate> DummyDecorationBridge::createClient(KDecoration2::DecoratedClient *client,
+                                                                                          KDecoration2::Decoration *decoration)
 {
     auto ptr = std::unique_ptr<DummyDecoratedClient>(new DummyDecoratedClient(client, decoration));
     m_client = ptr.get();
@@ -94,14 +94,13 @@ std::unique_ptr< KDecoration2::DecoratedClientPrivate > DummyDecorationBridge::c
 void DummyDecorationBridge::paintButton(QPainter &painter, const QString &buttonType, const QString &buttonState)
 {
     disableAnimations();
-    std::unique_ptr<KDecoration2::DecorationButton> button {m_factory->create<KDecoration2::DecorationButton>(
-        QStringLiteral("button"),
-        m_decoration,
-        QVariantList({
-            QVariant::fromValue(strToButtonType(buttonType)),
-            QVariant::fromValue(m_decoration)
-        })
-    )};
+    std::unique_ptr<KDecoration2::DecorationButton> button{
+        m_factory->create<KDecoration2::DecorationButton>(QStringLiteral("button"),
+                                                          m_decoration,
+                                                          QVariantList({
+                                                              QVariant::fromValue(strToButtonType(buttonType)),
+                                                              QVariant::fromValue(m_decoration),
+                                                          }))};
 
     if (button == nullptr) {
         return;
@@ -114,10 +113,9 @@ void DummyDecorationBridge::paintButton(QPainter &painter, const QString &button
         // For example Breeze uses 'checked' property, but Oxygen uses client's 'isMaximized' method
         button->setChecked(true);
         if (m_client) {
-            dynamic_cast<DummyDecoratedClient*>(m_client)->setMaximized(true);
+            dynamic_cast<DummyDecoratedClient *>(m_client)->setMaximized(true);
         }
     }
-
 
     if (buttonState.contains(QStringLiteral("active"))) {
         passMousePressEventToButton(button.get());
@@ -127,11 +125,11 @@ void DummyDecorationBridge::paintButton(QPainter &painter, const QString &button
 
     if (buttonState.contains(QStringLiteral("backdrop"))) {
         if (m_client) {
-            dynamic_cast<DummyDecoratedClient*>(m_client)->setActive(false);
+            dynamic_cast<DummyDecoratedClient *>(m_client)->setActive(false);
         }
     } else {
         if (m_client) {
-            dynamic_cast<DummyDecoratedClient*>(m_client)->setActive(true);
+            dynamic_cast<DummyDecoratedClient *>(m_client)->setActive(true);
         }
     }
 
@@ -185,33 +183,29 @@ QString DummyDecorationBridge::windowDecorationPluginPath(const QString &decorat
 
 void DummyDecorationBridge::passMouseHoverEventToButton(KDecoration2::DecorationButton *button) const
 {
-    QHoverEvent event {
-        QEvent::HoverEnter,
-        {
-            DecorationPainter::ButtonGeometry.width() / 2.0,
-            DecorationPainter::ButtonGeometry.height() / 2.0,
-        },
-        {
-            (DecorationPainter::ButtonGeometry.width() / 2.0) - 1,
-            (DecorationPainter::ButtonGeometry.height() / 2.0) - 1,
-        },
-        Qt::NoModifier
-    };
+    QHoverEvent event{QEvent::HoverEnter,
+                      {
+                          DecorationPainter::ButtonGeometry.width() / 2.0,
+                          DecorationPainter::ButtonGeometry.height() / 2.0,
+                      },
+                      {
+                          (DecorationPainter::ButtonGeometry.width() / 2.0) - 1,
+                          (DecorationPainter::ButtonGeometry.height() / 2.0) - 1,
+                      },
+                      Qt::NoModifier};
     QCoreApplication::instance()->sendEvent(button, &event);
 }
 
 void DummyDecorationBridge::passMousePressEventToButton(KDecoration2::DecorationButton *button) const
 {
-    QMouseEvent event {
-        QEvent::MouseButtonPress,
-        {
-            DecorationPainter::ButtonGeometry.width() / 2.0,
-            DecorationPainter::ButtonGeometry.height() / 2.0,
-        },
-        Qt::LeftButton,
-        Qt::LeftButton,
-        Qt::NoModifier
-    };
+    QMouseEvent event{QEvent::MouseButtonPress,
+                      {
+                          DecorationPainter::ButtonGeometry.width() / 2.0,
+                          DecorationPainter::ButtonGeometry.height() / 2.0,
+                      },
+                      Qt::LeftButton,
+                      Qt::LeftButton,
+                      Qt::NoModifier};
     QCoreApplication::instance()->sendEvent(button, &event);
 }
 

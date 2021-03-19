@@ -6,22 +6,22 @@
 
 #include <QColor>
 #include <QDir>
+#include <QList>
+#include <QMap>
+#include <QProcess>
 #include <QRegularExpression>
 #include <QStandardPaths>
-#include <QProcess>
-#include <QVariant>
-#include <QMap>
-#include <QList>
 #include <QTextStream>
+#include <QVariant>
 
-#include <KSharedConfig>
-#include <KConfigGroup>
 #include <KColorScheme>
 #include <KColorUtils>
+#include <KConfigGroup>
+#include <KSharedConfig>
 
-#include <string>
 #include <csignal>
 #include <cstdio>
+#include <string>
 
 #include <gio/gio.h>
 
@@ -40,7 +40,7 @@ void ConfigEditor::setGtkConfigValueGSettings(const QString &paramName, const QV
     }
 }
 
-void ConfigEditor::setGtkConfigValueGSettingsAsEnum(const QString& paramName, int paramValue, const QString& category)
+void ConfigEditor::setGtkConfigValueGSettingsAsEnum(const QString &paramName, int paramValue, const QString &category)
 {
     g_autoptr(GSettings) gsettings = g_settings_new(category.toUtf8().constData());
     g_settings_set_enum(gsettings, paramName.toUtf8().constData(), paramValue);
@@ -122,7 +122,6 @@ void ConfigEditor::setGtk3Colors(const QMap<QString, QColor> &colorsDefinitions)
     addGtkModule(QStringLiteral("colorreload-gtk-module"));
 }
 
-
 void ConfigEditor::removeLegacyGtk2Strings()
 {
     QString gtkrcPath = QDir::homePath() + QStringLiteral("/.gtkrc-2.0");
@@ -152,7 +151,7 @@ void ConfigEditor::removeLegacyGtk2Strings()
 
 void ConfigEditor::saveWindowDecorationsToAssets(const QStringList &windowDecorationsButtonsImages)
 {
-    QDir assetsFolder {QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/gtk-3.0/assets")};
+    QDir assetsFolder{QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/gtk-3.0/assets")};
 
     if (!assetsFolder.exists()) {
         assetsFolder.mkpath(QStringLiteral("."));
@@ -167,14 +166,15 @@ void ConfigEditor::saveWindowDecorationsToAssets(const QStringList &windowDecora
 
 void ConfigEditor::addWindowDecorationsCssFile()
 {
-    QFile windowDecorationsCss {QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("/themes/Breeze/window_decorations.css"))};
-    QString windowDecorationsDestination {QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/gtk-3.0/window_decorations.css")};
+    QFile windowDecorationsCss{QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("/themes/Breeze/window_decorations.css"))};
+    QString windowDecorationsDestination{QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation)
+                                         + QStringLiteral("/gtk-3.0/window_decorations.css")};
 
     QFile(windowDecorationsDestination).remove();
     windowDecorationsCss.copy(windowDecorationsDestination);
 }
 
-void ConfigEditor::addGtkModule(const QString& moduleName)
+void ConfigEditor::addGtkModule(const QString &moduleName)
 {
     const QString currentModulesString = gtk3ConfigValueSettingsIni(QStringLiteral("gtk-modules"));
 
@@ -197,8 +197,8 @@ void ConfigEditor::addImportStatementsToGtkCssUserFile()
     if (gtkCss.open(QIODevice::ReadWrite)) {
         QByteArray gtkCssContents = gtkCss.readAll().trimmed();
 
-        static const QVector<QByteArray> importStatements {
-            QByteArrayLiteral("\n@import 'colors.css';")
+        static const QVector<QByteArray> importStatements{
+            QByteArrayLiteral("\n@import 'colors.css';"),
         };
 
         for (const auto &statement : importStatements) {

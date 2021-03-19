@@ -6,11 +6,11 @@
 
 #pragma once
 
-#include <KDecoration2/Private/DecorationSettingsPrivate>
 #include <KDecoration2/DecorationSettings>
+#include <KDecoration2/Private/DecorationSettingsPrivate>
 
-namespace KDecoration2 {
-
+namespace KDecoration2
+{
 class DummyDecorationSettings : public KDecoration2::DecorationSettingsPrivate
 {
 public:
@@ -25,6 +25,3 @@ public:
 };
 
 }
-
-
-

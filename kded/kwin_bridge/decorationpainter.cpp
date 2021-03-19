@@ -6,15 +6,15 @@
 
 #include "decorationpainter.h"
 
-#include <QString>
 #include <QRect>
+#include <QString>
 
-#include "standarddecorationpainter.h"
 #include "auroraedecorationpainter.h"
+#include "standarddecorationpainter.h"
 
-const QRect DecorationPainter::ButtonGeometry {0, 0, 50, 50};
+const QRect DecorationPainter::ButtonGeometry{0, 0, 50, 50};
 
-std::unique_ptr<DecorationPainter> DecorationPainter::fromThemeName(const QString& themeName)
+std::unique_ptr<DecorationPainter> DecorationPainter::fromThemeName(const QString &themeName)
 {
     static const QString auroraeThemePrefix = QStringLiteral("__aurorae__svg__");
     if (themeName.startsWith(auroraeThemePrefix)) {
@@ -24,4 +24,3 @@ std::unique_ptr<DecorationPainter> DecorationPainter::fromThemeName(const QStrin
         return std::unique_ptr<StandardDecorationPainter>{new StandardDecorationPainter(themeName)};
     }
 }
-

@@ -5,9 +5,9 @@
  */
 #pragma once
 
-#include <unistd.h>
 #include <QString>
 #include <functional>
+#include <unistd.h>
 
 class QColor;
 class QFile;
@@ -15,44 +15,43 @@ class QVariant;
 
 namespace ConfigEditor
 {
-    using namespace std::placeholders;
+using namespace std::placeholders;
 
-    void setGtk2ConfigValue(const QString &paramName, const QVariant &paramValue);
+void setGtk2ConfigValue(const QString &paramName, const QVariant &paramValue);
 
-    void setGtkConfigValueGSettings(const QString &paramName, const QVariant &paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
-    void setGtkConfigValueGSettingsAsEnum(const QString &paramName, int paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
-    void setGtk3ConfigValueXSettingsd(const QString &paramName, const QVariant &paramValue);
+void setGtkConfigValueGSettings(const QString &paramName, const QVariant &paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
+void setGtkConfigValueGSettingsAsEnum(const QString &paramName, int paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
+void setGtk3ConfigValueXSettingsd(const QString &paramName, const QVariant &paramValue);
 
-    void setGtkConfigValueSettingsIni(const QString &versionString, const QString &paramName, const QVariant &paramValue);
-    static auto setGtk4ConfigValueSettingsIni = std::bind(setGtkConfigValueSettingsIni, QStringLiteral("gtk-4.0"), _1, _2);
-    static auto setGtk3ConfigValueSettingsIni = std::bind(setGtkConfigValueSettingsIni, QStringLiteral("gtk-3.0"), _1, _2);
+void setGtkConfigValueSettingsIni(const QString &versionString, const QString &paramName, const QVariant &paramValue);
+static auto setGtk4ConfigValueSettingsIni = std::bind(setGtkConfigValueSettingsIni, QStringLiteral("gtk-4.0"), _1, _2);
+static auto setGtk3ConfigValueSettingsIni = std::bind(setGtkConfigValueSettingsIni, QStringLiteral("gtk-3.0"), _1, _2);
 
-    QString gtkConfigValueSettingsIni(const QString &versionString, const QString &paramName);
-    static auto gtk4ConfigValueSettingsIni = std::bind(gtkConfigValueSettingsIni, QStringLiteral("gtk-4.0"), _1);
-    static auto gtk3ConfigValueSettingsIni = std::bind(gtkConfigValueSettingsIni, QStringLiteral("gtk-3.0"), _1);
+QString gtkConfigValueSettingsIni(const QString &versionString, const QString &paramName);
+static auto gtk4ConfigValueSettingsIni = std::bind(gtkConfigValueSettingsIni, QStringLiteral("gtk-4.0"), _1);
+static auto gtk3ConfigValueSettingsIni = std::bind(gtkConfigValueSettingsIni, QStringLiteral("gtk-3.0"), _1);
 
-    void setCustomClientSideDecorations(const QStringList &windowDecorationsButtonsImages);
-    void disableCustomClientSideDecorations();
-    void setGtk3Colors(const QMap<QString, QColor> &colorsDefinitions);
+void setCustomClientSideDecorations(const QStringList &windowDecorationsButtonsImages);
+void disableCustomClientSideDecorations();
+void setGtk3Colors(const QMap<QString, QColor> &colorsDefinitions);
 
-    void removeLegacyGtk2Strings();
+void removeLegacyGtk2Strings();
 
+void saveWindowDecorationsToAssets(const QStringList &windowDecorationsButtonsImages);
+void addWindowDecorationsCssFile();
 
-    void saveWindowDecorationsToAssets(const QStringList &windowDecorationsButtonsImages);
-    void addWindowDecorationsCssFile();
+void addGtkModule(const QString &moduleName);
 
-    void addGtkModule(const QString &moduleName);
+void addImportStatementsToGtkCssUserFile();
+void removeWindowDecorationsCSS();
+void modifyColorsCssFile(const QMap<QString, QColor> &colorsDefinitions);
 
-    void addImportStatementsToGtkCssUserFile();
-    void removeWindowDecorationsCSS();
-    void modifyColorsCssFile(const QMap<QString, QColor> &colorsDefinitions);
+void replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramName, const QVariant &paramValue);
+void replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString &paramName, const QVariant &paramValue);
 
-    void replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramName, const QVariant &paramValue);
-    void replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString &paramName, const QVariant &paramValue);
+QString readFileContents(QFile &gtkrc);
 
-    QString readFileContents(QFile &gtkrc);
+void reloadXSettingsd();
 
-    void reloadXSettingsd();
-
-    pid_t pidOfXSettingsd();
+pid_t pidOfXSettingsd();
 };

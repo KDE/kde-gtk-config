@@ -20,7 +20,6 @@ namespace KWin
 {
 namespace Decoration
 {
-
 class DecorationPalette : public QObject
 {
     Q_OBJECT
@@ -34,6 +33,7 @@ public:
 
 Q_SIGNALS:
     void changed();
+
 private:
     void update();
 

@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <KDEDModule>
 #include <KConfigWatcher>
+#include <KDEDModule>
 
 #include "configeditor.h"
 #include "configvalueprovider.h"
@@ -20,7 +20,7 @@ class Q_DECL_EXPORT GtkConfig : public KDEDModule
     Q_CLASSINFO("D-Bus Interface", "org.kde.GtkConfig")
 
 public:
-    GtkConfig(QObject *parent, const QVariantList& args);
+    GtkConfig(QObject *parent, const QVariantList &args);
     ~GtkConfig();
 
     void setFont() const;

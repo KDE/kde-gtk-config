@@ -6,15 +6,14 @@
 
 #include "dummydecoratedclient.h"
 
-namespace KDecoration2 {
-
+namespace KDecoration2
+{
 DummyDecoratedClient::DummyDecoratedClient(DecoratedClient *client, Decoration *decoration)
     : DecoratedClientPrivate(client, decoration)
     , m_pallete(QStringLiteral("kdeglobals"))
     , m_maximized()
     , m_active(true)
 {
-
 }
 
 bool DummyDecoratedClient::isActive() const

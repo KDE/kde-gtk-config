@@ -8,8 +8,8 @@
 
 #include <QString>
 
-#include <KDecoration2/Private/DecorationBridge>
 #include <KDecoration2/Decoration>
+#include <KDecoration2/Private/DecorationBridge>
 #include <kdecoration2/decorationdefines.h>
 
 #include <memory>
@@ -19,7 +19,6 @@ class KPluginLoader;
 
 namespace KDecoration2
 {
-
 class DecorationSettings;
 class DecoratedClientPrivate;
 class DecorationSettingsPrivate;
@@ -60,5 +59,3 @@ private:
 };
 
 }
-
-

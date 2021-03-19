@@ -6,13 +6,13 @@
 
 #include "standarddecorationpainter.h"
 
-StandardDecorationPainter::StandardDecorationPainter(const QString& themeName)
+StandardDecorationPainter::StandardDecorationPainter(const QString &themeName)
     : DecorationPainter()
     , m_bridge(new KDecoration2::DummyDecorationBridge(themeName))
-{}
+{
+}
 
-void StandardDecorationPainter::paintButton(QPainter& painter, const QString& buttonType, const QString& buttonState) const
+void StandardDecorationPainter::paintButton(QPainter &painter, const QString &buttonType, const QString &buttonState) const
 {
     m_bridge->paintButton(painter, buttonType, buttonState);
 }
-

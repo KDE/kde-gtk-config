@@ -4,16 +4,16 @@
  * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
  */
 
-
 #include <QFile>
 #include <QStandardPaths>
 #include <QSvgRenderer>
 
 #include "auroraedecorationpainter.h"
 
-const QString AuroraeDecorationPainter::s_auroraeThemesPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/aurorae/themes/");
+const QString AuroraeDecorationPainter::s_auroraeThemesPath =
+    QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/aurorae/themes/");
 
-AuroraeDecorationPainter::AuroraeDecorationPainter(const QString& themeName)
+AuroraeDecorationPainter::AuroraeDecorationPainter(const QString &themeName)
     : DecorationPainter()
     , m_themeName(themeName)
     , m_themePath(s_auroraeThemesPath + themeName + '/')
@@ -46,7 +46,7 @@ QString AuroraeDecorationPainter::buttonTypeToFileName(const QString &buttonType
     }
 }
 
-QString AuroraeDecorationPainter::buttonStateToElementId(const QString& buttonState) const
+QString AuroraeDecorationPainter::buttonStateToElementId(const QString &buttonState) const
 {
     // Aurorae themes do not contain pressed and hovered inactive states,
     // so we put backdrop option to the end, so that first we use pressed and hover ones
@@ -60,5 +60,3 @@ QString AuroraeDecorationPainter::buttonStateToElementId(const QString& buttonSt
         return QStringLiteral("active-center");
     }
 }
-
-

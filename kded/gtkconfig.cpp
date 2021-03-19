@@ -5,26 +5,26 @@
  * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
  */
 
-#include <QFont>
 #include <QDBusConnection>
 #include <QDBusMessage>
+#include <QFont>
 #include <QGuiApplication>
 
-#include <KPluginFactory>
 #include <KColorScheme>
+#include <KPluginFactory>
 
 #include "gtkconfig.h"
 
 K_PLUGIN_CLASS_WITH_JSON(GtkConfig, "gtkconfig.json")
 
-GtkConfig::GtkConfig(QObject *parent, const QVariantList&) :
-    KDEDModule(parent),
-    configValueProvider(new ConfigValueProvider()),
-    themePreviewer(new ThemePreviewer(this)),
-    kdeglobalsConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig())),
-    kwinConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kwinrc")))),
-    kcminputConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kcminputrc")))),
-    breezeConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("breezerc"))))
+GtkConfig::GtkConfig(QObject *parent, const QVariantList &)
+    : KDEDModule(parent)
+    , configValueProvider(new ConfigValueProvider())
+    , themePreviewer(new ThemePreviewer(this))
+    , kdeglobalsConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig()))
+    , kwinConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kwinrc"))))
+    , kcminputConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kcminputrc"))))
+    , breezeConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("breezerc"))))
 {
     QDBusConnection dbus = QDBusConnection::sessionBus();
     dbus.registerService(QStringLiteral("org.kde.GtkConfig"));
@@ -52,7 +52,7 @@ void GtkConfig::setGtkTheme(const QString &themeName) const
     ConfigEditor::setGtkConfigValueGSettings(QStringLiteral("gtk-theme"), themeName);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"), themeName);
     ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"), themeName);
-    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/ThemeName"),  themeName);
+    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/ThemeName"), themeName);
 
     // Window decorations are part of the theme, in case of Breeze we inject custom ones from KWin
     setWindowDecorationsAppearance();
@@ -63,7 +63,7 @@ QString GtkConfig::gtkTheme() const
     return ConfigEditor::gtk3ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"));
 }
 
-void GtkConfig::showGtkThemePreview(const QString& themeName) const
+void GtkConfig::showGtkThemePreview(const QString &themeName) const
 {
     themePreviewer->showGtk3App(themeName);
 }
@@ -75,7 +75,7 @@ void GtkConfig::setFont() const
     ConfigEditor::setGtkConfigValueGSettings(QStringLiteral("font-name"), configFontName);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-font-name"), configFontName);
     ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-font-name"), configFontName);
-    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/FontName"),  configFontName);
+    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/FontName"), configFontName);
 }
 
 void GtkConfig::setIconTheme() const
@@ -85,7 +85,7 @@ void GtkConfig::setIconTheme() const
     ConfigEditor::setGtkConfigValueGSettings(QStringLiteral("icon-theme"), iconThemeName);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-icon-theme-name"), iconThemeName);
     ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-icon-theme-name"), iconThemeName);
-    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/IconThemeName"),  iconThemeName);
+    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/IconThemeName"), iconThemeName);
 }
 
 void GtkConfig::setCursorTheme() const
@@ -95,7 +95,7 @@ void GtkConfig::setCursorTheme() const
     ConfigEditor::setGtkConfigValueGSettings(QStringLiteral("cursor-theme"), cursorThemeName);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-cursor-theme-name"), cursorThemeName);
     ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-cursor-theme-name"), cursorThemeName);
-    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/CursorThemeName"),  cursorThemeName);
+    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/CursorThemeName"), cursorThemeName);
 }
 
 void GtkConfig::setCursorSize() const
@@ -105,7 +105,7 @@ void GtkConfig::setCursorSize() const
     ConfigEditor::setGtkConfigValueGSettings(QStringLiteral("cursor-size"), cursorSize);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-cursor-theme-size"), cursorSize);
     ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-cursor-theme-size"), cursorSize);
-    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/CursorThemeSize"),  cursorSize);
+    ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/CursorThemeSize"), cursorSize);
 }
 
 void GtkConfig::setIconsOnButtons() const
@@ -242,7 +242,7 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
 void GtkConfig::onKWinSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const
 {
     if (group.name() == QStringLiteral("org.kde.kdecoration2")) {
-        if (names.contains(QByteArrayLiteral("ButtonsOnRight"))
+        if (names.contains(QByteArrayLiteral("ButtonsOnRight")) //
             || names.contains(QByteArrayLiteral("ButtonsOnLeft"))) {
             setWindowDecorationsButtonsOrder();
         }
@@ -252,7 +252,7 @@ void GtkConfig::onKWinSettingsChange(const KConfigGroup &group, const QByteArray
     }
 }
 
-void GtkConfig::onKCMInputSettingsChange(const KConfigGroup& group, const QByteArrayList& names) const
+void GtkConfig::onKCMInputSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const
 {
     if (group.name() == QStringLiteral("Mouse")) {
         if (names.contains("cursorTheme")) {
@@ -264,13 +264,12 @@ void GtkConfig::onKCMInputSettingsChange(const KConfigGroup& group, const QByteA
     }
 }
 
-void GtkConfig::onBreezeSettingsChange(const KConfigGroup& group, const QByteArrayList& names) const
+void GtkConfig::onBreezeSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const
 {
-    if (group.name() == QStringLiteral("Common")
-            && names.contains("OutlineCloseButton")) {
+    if (group.name() == QStringLiteral("Common") //
+        && names.contains("OutlineCloseButton")) {
         setWindowDecorationsAppearance();
     }
 }
-
 
 #include "gtkconfig.moc"

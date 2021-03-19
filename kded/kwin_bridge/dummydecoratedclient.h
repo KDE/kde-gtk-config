@@ -12,9 +12,10 @@
 
 #include "decorationpalette.h"
 
-namespace KDecoration2 {
-
-class DummyDecoratedClient : public QObject, public DecoratedClientPrivate {
+namespace KDecoration2
+{
+class DummyDecoratedClient : public QObject, public DecoratedClientPrivate
+{
     Q_OBJECT
 public:
     DummyDecoratedClient(DecoratedClient *client, Decoration *decoration);
