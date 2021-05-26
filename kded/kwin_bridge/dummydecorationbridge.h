@@ -32,7 +32,6 @@ public:
     ~DummyDecorationBridge() override;
 
     std::unique_ptr<KDecoration2::DecorationSettingsPrivate> settings(KDecoration2::DecorationSettings *parent) override;
-    void update(KDecoration2::Decoration *decoration, const QRect &geometry) override;
     std::unique_ptr<KDecoration2::DecoratedClientPrivate> createClient(KDecoration2::DecoratedClient *client, KDecoration2::Decoration *decoration) override;
 
     void paintButton(QPainter &painter, const QString &buttonType, const QString &buttonState);

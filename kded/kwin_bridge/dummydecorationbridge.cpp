@@ -77,12 +77,6 @@ std::unique_ptr<KDecoration2::DecorationSettingsPrivate> DummyDecorationBridge::
     return newSettings;
 }
 
-void DummyDecorationBridge::update(KDecoration2::Decoration *decoration, const QRect &geometry)
-{
-    Q_UNUSED(decoration)
-    Q_UNUSED(geometry)
-}
-
 std::unique_ptr<KDecoration2::DecoratedClientPrivate> DummyDecorationBridge::createClient(KDecoration2::DecoratedClient *client,
                                                                                           KDecoration2::Decoration *decoration)
 {
