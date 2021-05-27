@@ -6,7 +6,7 @@
 #
 # SPDX-FileCopyrightText: 2020 Mikhail Zolotukhin <zomial@protonmail.com>
 #
-# SPDX-License-Identifier: BSD-2-Clause.
+# SPDX-License-Identifier: BSD-2-Clause
 
 find_program(XSettingsd_PATH "xsettingsd")
 
