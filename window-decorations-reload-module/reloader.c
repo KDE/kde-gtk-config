@@ -21,6 +21,8 @@ GtkCssProvider *css_provider;
 void manage_css_provider(GFileMonitor *monitor, GFile *file, GFile *other_file, GFileMonitorEvent event_type, gpointer user_data);
 void reload_css_provider();
 void remove_css_provider();
+int theme_is_breeze();
+void theme_changed(GtkSettings *settings, GParamSpec *param_spec, void *user_data);
 
 __attribute__((visibility("default"))) void gtk_module_init(gint *argc, gchar ***argv[])
 {
@@ -35,6 +37,7 @@ __attribute__((visibility("default"))) void gtk_module_init(gint *argc, gchar **
     css_provider = NULL;
 
     g_signal_connect(window_decorations_css_monitor, "changed", G_CALLBACK(manage_css_provider), NULL);
+    g_signal_connect(gtk_settings_get_default(), "notify::gtk-theme-name", G_CALLBACK(theme_changed), NULL);
 
     reload_css_provider();
 }
@@ -55,8 +58,10 @@ void manage_css_provider(GFileMonitor *monitor, GFile *file, GFile *other_file, 
 
 void reload_css_provider()
 {
-    if (css_provider != NULL) {
-        remove_css_provider();
+    remove_css_provider();
+
+    if (!theme_is_breeze()) {
+        return;
     }
 
     css_provider = gtk_css_provider_new();
@@ -69,6 +74,30 @@ void reload_css_provider()
 
 void remove_css_provider()
 {
+    if (!css_provider) {
+        return;
+    }
     gtk_style_context_remove_provider_for_screen(gdk_screen_get_default(), GTK_STYLE_PROVIDER(css_provider));
     g_clear_object(&css_provider);
+}
+
+int theme_is_breeze()
+{
+    GtkSettings *settings = gtk_settings_get_default();
+    char *theme_name = NULL;
+    g_object_get(settings, "gtk-theme-name", &theme_name, NULL);
+    if (!theme_name) {
+        return 0;
+    }
+    int ret = !strcmp(theme_name, "Breeze");
+    g_free(theme_name);
+    return ret;
+}
+
+void theme_changed(GtkSettings *settings, GParamSpec *param_spec, void *user_data)
+{
+    UNUSED(settings);
+    UNUSED(param_spec);
+    UNUSED(user_data);
+    reload_css_provider();
 }
