@@ -15,16 +15,14 @@ GFileMonitor *mon;
 GtkCssProvider *provider;
 
 void reload_colours() {
-    if (provider == NULL) {
-        provider = gtk_css_provider_new();
-    } else {
+    if (provider != NULL) {
         gtk_style_context_remove_provider_for_screen(
             gdk_screen_get_default(),
             GTK_STYLE_PROVIDER(provider)
         );
         g_clear_object(&provider);
-        provider = gtk_css_provider_new();
     }
+    provider = gtk_css_provider_new();
     gtk_style_context_add_provider_for_screen(
         gdk_screen_get_default(),
         GTK_STYLE_PROVIDER (provider),
