@@ -38,12 +38,15 @@ void ConfigEditor::setGtkConfigValueGSettings(const QString &paramName, const QV
     } else if (paramValue.type() == QVariant::Type::Bool) {
         g_settings_set_boolean(gsettings, paramName.toUtf8().constData(), paramValue.toBool());
     }
+
+    g_settings_sync();
 }
 
 void ConfigEditor::setGtkConfigValueGSettingsAsEnum(const QString &paramName, int paramValue, const QString &category)
 {
     g_autoptr(GSettings) gsettings = g_settings_new(category.toUtf8().constData());
     g_settings_set_enum(gsettings, paramName.toUtf8().constData(), paramValue);
+    g_settings_sync();
 }
 
 void ConfigEditor::setGtkConfigValueSettingsIni(const QString &versionString, const QString &paramName, const QVariant &paramValue)
