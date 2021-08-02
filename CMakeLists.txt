@@ -20,7 +20,6 @@ find_package(Sass REQUIRED)
 find_package(XSettingsd)
 
 pkg_check_modules(GTK+3 REQUIRED IMPORTED_TARGET gtk+-3.0)
-pkg_check_modules(GTK+2 REQUIRED IMPORTED_TARGET gtk+-2.0)
 pkg_check_modules(GLib2 REQUIRED IMPORTED_TARGET glib-2.0)
 pkg_check_modules(GObject REQUIRED IMPORTED_TARGET gobject-2.0)
 pkg_check_modules(GIO REQUIRED IMPORTED_TARGET gio-2.0)
