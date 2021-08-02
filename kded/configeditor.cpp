@@ -39,12 +39,14 @@ void ConfigEditor::setGtk3ConfigValueDconf(const QString &paramName, bool paramV
 {
     g_autoptr(GSettings) gsettings = g_settings_new(category.toUtf8().constData());
     g_settings_set_boolean(gsettings, paramName.toUtf8().constData(), paramValue);
+    g_settings_sync();
 }
 
 void ConfigEditor::setGtk3ConfigValueDconf(const QString &paramName, const QString &paramValue, const QString &category)
 {
     g_autoptr(GSettings) gsettings = g_settings_new(category.toUtf8().constData());
     g_settings_set_string(gsettings, paramName.toUtf8().constData(), paramValue.toUtf8().constData());
+    g_settings_sync();
 }
 
 void ConfigEditor::setGtk3ConfigValueSettingsIni(const QString &paramName, const QString &paramValue)
