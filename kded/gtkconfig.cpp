@@ -227,7 +227,7 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
         if (names.contains(QByteArrayLiteral("font"))) {
             setFont();
         }
-        if (names.contains(QByteArrayLiteral("ColorScheme"))) {
+        if (names.contains(QByteArrayLiteral("ColorScheme")) || names.contains(QByteArrayLiteral("AccentColor"))) {
             setColors();
             setDarkThemePreference();
             setWindowDecorationsAppearance(); // Decorations' color can depend on the current color scheme
