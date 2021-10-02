@@ -89,12 +89,22 @@ void DummyDecorationBridge::paintButton(QPainter &painter, const QString &button
 {
     disableAnimations();
     std::unique_ptr<KDecoration2::DecorationButton> button{
-        m_factory->create<KDecoration2::DecorationButton>(QStringLiteral("button"),
-                                                          m_decoration,
+        m_factory->create<KDecoration2::DecorationButton>(m_decoration,
                                                           QVariantList({
                                                               QVariant::fromValue(strToButtonType(buttonType)),
                                                               QVariant::fromValue(m_decoration),
                                                           }))};
+
+#if KCOREADDONS_BUILD_DEPRECATED_SINCE(5, 87)
+    if (button == nullptr) {
+        button.reset(m_factory->create<KDecoration2::DecorationButton>(QStringLiteral("button"),
+                                                                       m_decoration,
+                                                                       QVariantList({
+                                                                           QVariant::fromValue(strToButtonType(buttonType)),
+                                                                           QVariant::fromValue(m_decoration),
+                                                                       })));
+    }
+#endif
 
     if (button == nullptr) {
         return;
