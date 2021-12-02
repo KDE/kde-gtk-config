@@ -27,6 +27,20 @@
 
 #include "configeditor.h"
 
+namespace
+{
+
+KConfigGroup gtkConfigGroup(const QString &versionString)
+{
+    QString configLocation = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
+    QString gtk3ConfigPath = configLocation + QStringLiteral("/") + versionString + QStringLiteral("/settings.ini");
+
+    KSharedConfig::Ptr gtk3Config = KSharedConfig::openConfig(gtk3ConfigPath, KConfig::NoGlobals);
+    return gtk3Config->group(QStringLiteral("Settings"));
+}
+
+}
+
 void ConfigEditor::setGtkConfigValueGSettings(const QString &paramName, const QVariant &paramValue, const QString &category)
 {
     g_autoptr(GSettings) gsettings = g_settings_new(category.toUtf8().constData());
@@ -51,24 +65,21 @@ void ConfigEditor::setGtkConfigValueGSettingsAsEnum(const QString &paramName, in
 
 void ConfigEditor::setGtkConfigValueSettingsIni(const QString &versionString, const QString &paramName, const QVariant &paramValue)
 {
-    QString configLocation = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
-    QString gtk3ConfigPath = configLocation + QStringLiteral("/") + versionString + QStringLiteral("/settings.ini");
-
-    KSharedConfig::Ptr gtk3Config = KSharedConfig::openConfig(gtk3ConfigPath, KConfig::NoGlobals);
-    KConfigGroup group = gtk3Config->group(QStringLiteral("Settings"));
-
+    auto group = gtkConfigGroup(versionString);
     group.writeEntry(paramName, paramValue);
+    group.sync();
+}
+
+void ConfigEditor::unsetGtkConfigValueSettingsIni(const QString &versionString, const QString &paramName)
+{
+    auto group = gtkConfigGroup(versionString);
+    group.deleteEntry(paramName);
     group.sync();
 }
 
 QString ConfigEditor::gtkConfigValueSettingsIni(const QString &versionString, const QString &paramName)
 {
-    QString configLocation = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
-    QString gtk3ConfigPath = configLocation + QStringLiteral("/") + versionString + QStringLiteral("/settings.ini");
-
-    KSharedConfig::Ptr gtk3Config = KSharedConfig::openConfig(gtk3ConfigPath, KConfig::NoGlobals);
-    KConfigGroup group = gtk3Config->group(QStringLiteral("Settings"));
-
+    auto group = gtkConfigGroup(versionString);
     return group.readEntry(paramName);
 }
 

@@ -26,6 +26,36 @@ install(
   DESTINATION
     ${KDE_INSTALL_LIBDIR}/kconf_update_bin/
 )
+
+add_executable(remove_deprecated_gtk4_option remove_deprecated_gtk4_option ../kded/configeditor.cpp)
+
+target_link_libraries(remove_deprecated_gtk4_option
+  PRIVATE
+    Qt::Core
+    KF5::ConfigCore
+    KF5::ConfigWidgets
+    KF5::GuiAddons
+    PkgConfig::GIO
+    PkgConfig::GObject
+)
+
+target_include_directories(remove_deprecated_gtk4_option
+  PRIVATE
+    ../kded/
+)
+
+target_compile_definitions(remove_deprecated_gtk4_option
+  PRIVATE
+    QT_NO_SIGNALS_SLOTS_KEYWORDS
+)
+
+install(
+  TARGETS
+    remove_deprecated_gtk4_option
+  DESTINATION
+    ${KDE_INSTALL_LIBDIR}/kconf_update_bin/
+)
+
 install(
   FILES
     gtkconfig.upd

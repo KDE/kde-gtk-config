@@ -27,6 +27,9 @@ void setGtkConfigValueSettingsIni(const QString &versionString, const QString &p
 static auto setGtk4ConfigValueSettingsIni = std::bind(setGtkConfigValueSettingsIni, QStringLiteral("gtk-4.0"), _1, _2);
 static auto setGtk3ConfigValueSettingsIni = std::bind(setGtkConfigValueSettingsIni, QStringLiteral("gtk-3.0"), _1, _2);
 
+void unsetGtkConfigValueSettingsIni(const QString &versionString, const QString &paramName);
+static auto unsetGtk4ConfigValueSettingsIni = std::bind(unsetGtkConfigValueSettingsIni, QStringLiteral("gtk-4.0"), _1);
+
 QString gtkConfigValueSettingsIni(const QString &versionString, const QString &paramName);
 static auto gtk4ConfigValueSettingsIni = std::bind(gtkConfigValueSettingsIni, QStringLiteral("gtk-4.0"), _1);
 static auto gtk3ConfigValueSettingsIni = std::bind(gtkConfigValueSettingsIni, QStringLiteral("gtk-3.0"), _1);

@@ -113,7 +113,7 @@ void GtkConfig::setIconsOnButtons() const
     const bool iconsOnButtonsConfigValue = configValueProvider->iconsOnButtons();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-button-images"), iconsOnButtonsConfigValue);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-button-images"), iconsOnButtonsConfigValue);
-    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-button-images"), iconsOnButtonsConfigValue);
+    // Deprecated in Gtk4
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/ButtonImages"), iconsOnButtonsConfigValue);
 }
 
@@ -122,7 +122,7 @@ void GtkConfig::setIconsInMenus() const
     const bool iconsInMenusConfigValue = configValueProvider->iconsInMenus();
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-menu-images"), iconsInMenusConfigValue);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-menu-images"), iconsInMenusConfigValue);
-    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-menu-images"), iconsInMenusConfigValue);
+    // Deprecated in Gtk4
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/MenuImages"), iconsInMenusConfigValue);
 }
 
@@ -132,7 +132,7 @@ void GtkConfig::setToolbarStyle() const
     ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-toolbar-style"), toolbarStyle);
     ConfigEditor::setGtkConfigValueGSettingsAsEnum(QStringLiteral("toolbar-style"), toolbarStyle);
     ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-toolbar-style"), toolbarStyle);
-    ConfigEditor::setGtk4ConfigValueSettingsIni(QStringLiteral("gtk-toolbar-style"), toolbarStyle);
+    // Deprecated in Gtk4
     ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Gtk/ToolbarStyle"), toolbarStyle);
 }
 
