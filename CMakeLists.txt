@@ -1,5 +1,5 @@
 project(kde-gtk-config)
-set(PROJECT_VERSION "5.24.0")
+set(PROJECT_VERSION "5.24.1")
 cmake_minimum_required(VERSION 3.16)
 
 set(QT_MIN_VERSION "5.15.0")
