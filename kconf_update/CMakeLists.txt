@@ -27,7 +27,10 @@ install(
     ${KDE_INSTALL_LIBDIR}/kconf_update_bin/
 )
 
-add_executable(remove_deprecated_gtk4_option remove_deprecated_gtk4_option ../kded/configeditor.cpp)
+add_executable(remove_deprecated_gtk4_option
+  remove_deprecated_gtk4_option.cpp
+   ../kded/configeditor.cpp
+)
 
 target_link_libraries(remove_deprecated_gtk4_option
   PRIVATE
