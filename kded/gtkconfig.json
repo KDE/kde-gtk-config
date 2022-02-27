@@ -37,7 +37,7 @@
         "Description[uk]": "Автоматично застосовує параметри до програм GNOME/GTK",
         "Description[vi]": "Tự động áp dụng các thiết lập cho các ứng dụng GNOME/GTK",
         "Description[x-test]": "xxAutomatically applies settings to GNOME/GTK applicationsxx",
-        "Description[zh_CN]": "自动将设置应用到 GNOME/GTK 应用",
+        "Description[zh_CN]": "自动应用设置到 GNOME/GTK 应用程序",
         "Description[zh_TW]": "自動套用設定到 GNOME/GTK 應用程式",
         "Icon": "gtkconfig",
         "Name": "GNOME/GTK Settings Synchronization Service",
