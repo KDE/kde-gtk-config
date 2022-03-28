@@ -246,6 +246,7 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
              {QStringLiteral("selection"), KCS(QPalette::Active, KCS::Selection)},
              {QStringLiteral("tooltip"), KCS(QPalette::Active, KCS::Tooltip)},
              {QStringLiteral("complementary"), KCS(QPalette::Active, KCS::Complementary)},
+             {QStringLiteral("header"), KCS(QPalette::Active, KCS::Header)},
          }},
         {QStringLiteral("inactive"),
          {
@@ -255,6 +256,7 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
              {QStringLiteral("selection"), KCS(QPalette::Inactive, KCS::Selection)},
              {QStringLiteral("tooltip"), KCS(QPalette::Inactive, KCS::Tooltip)},
              {QStringLiteral("complementary"), KCS(QPalette::Inactive, KCS::Complementary)},
+             {QStringLiteral("header"), KCS(QPalette::Inactive, KCS::Header)},
          }},
         {QStringLiteral("disabled"),
          {
@@ -264,6 +266,7 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
              {QStringLiteral("selection"), KCS(QPalette::Disabled, KCS::Selection)},
              {QStringLiteral("tooltip"), KCS(QPalette::Disabled, KCS::Tooltip)},
              {QStringLiteral("complementary"), KCS(QPalette::Disabled, KCS::Complementary)},
+             {QStringLiteral("header"), KCS(QPalette::Disabled, KCS::Header)},
          }},
     };
 
@@ -290,7 +293,7 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
 
     KConfigGroup windowManagerConfig = kdeglobalsConfig->group(QStringLiteral("WM"));
 
-    return {
+    QMap<QString, QColor> result = {
         /*
          * Normal (Non Backdrop, Non Insensitive)
          */
@@ -410,23 +413,47 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
 
         {"content_view_bg_breeze", csc["active"]["view"].background(KCS::NormalBackground).color()},
 
-        {"theme_titlebar_background_breeze", windowManagerConfig.readEntry("activeBackground", QColor())},
-        {"theme_titlebar_foreground_breeze", windowManagerConfig.readEntry("activeForeground", QColor())},
-        {"theme_titlebar_background_light_breeze", csc["active"]["window"].background(KCS::NormalBackground).color()},
-        {"theme_titlebar_foreground_backdrop_breeze", windowManagerConfig.readEntry("inactiveForeground", QColor())},
-        {"theme_titlebar_background_backdrop_breeze", windowManagerConfig.readEntry("inactiveBackground", QColor())},
-        {"theme_titlebar_foreground_insensitive_breeze", windowManagerConfig.readEntry("inactiveForeground", QColor())},
-        {"theme_titlebar_foreground_insensitive_backdrop_breeze", windowManagerConfig.readEntry("inactiveForeground", QColor())},
-
-        // Titlebar colors
-        {"theme_titlebar_background_breeze", windowManagerConfig.readEntry("activeBackground", QColor())},
-        {"theme_titlebar_foreground_breeze", windowManagerConfig.readEntry("activeForeground", QColor())},
-        {"theme_titlebar_background_light_breeze", csc["active"]["window"].background(KCS::NormalBackground).color()},
-        {"theme_titlebar_foreground_backdrop_breeze", windowManagerConfig.readEntry("inactiveForeground", QColor())},
-        {"theme_titlebar_background_backdrop_breeze", windowManagerConfig.readEntry("inactiveBackground", QColor())},
-        {"theme_titlebar_foreground_insensitive_breeze", windowManagerConfig.readEntry("inactiveForeground", QColor())},
-        {"theme_titlebar_foreground_insensitive_backdrop_breeze", windowManagerConfig.readEntry("inactiveForeground", QColor())},
     };
+    // Handle Headers (menu bars and some of toolbars)
+    if (KCS::isColorSetSupported(kdeglobalsConfig, KCS::Header)) {
+        // If we have a separate Header color set, use it for both titlebar and header coloring...
+        result.insert({{"theme_header_background_breeze", csc["active"]["header"].background().color()},
+                       {"theme_header_foreground_breeze", csc["active"]["header"].foreground().color()},
+                       {"theme_header_background_light_breeze", csc["active"]["window"].background().color()},
+                       {"theme_header_foreground_backdrop_breeze", csc["inactive"]["header"].foreground().color()},
+                       {"theme_header_background_backdrop_breeze", csc["inactive"]["header"].background().color()},
+                       {"theme_header_foreground_insensitive_breeze", csc["inactive"]["header"].foreground().color()},
+                       {"theme_header_foreground_insensitive_backdrop_breeze", csc["inactive"]["header"].foreground().color()},
+
+                       {"theme_titlebar_background_breeze", csc["active"]["header"].background().color()},
+                       {"theme_titlebar_foreground_breeze", csc["active"]["header"].foreground().color()},
+                       {"theme_titlebar_background_light_breeze", csc["active"]["window"].background().color()},
+                       {"theme_titlebar_foreground_backdrop_breeze", csc["inactive"]["header"].foreground().color()},
+                       {"theme_titlebar_background_backdrop_breeze", csc["inactive"]["header"].background().color()},
+                       {"theme_titlebar_foreground_insensitive_breeze", csc["inactive"]["header"].foreground().color()},
+                       {"theme_titlebar_foreground_insensitive_backdrop_breeze", csc["inactive"]["header"].foreground().color()}});
+    } else {
+        //... if we don't we'll use regular window colors for headerbar and WM group for a titlebar
+        result.insert({
+            {"theme_header_background_breeze", csc["active"]["window"].background().color()},
+            {"theme_header_foreground_breeze", csc["active"]["window"].foreground().color()},
+            {"theme_header_background_light_breeze", csc["active"]["window"].background().color()},
+            {"theme_header_foreground_backdrop_breeze", csc["inactive"]["window"].foreground().color()},
+            {"theme_header_background_backdrop_breeze", csc["inactive"]["window"].background().color()},
+            {"theme_header_foreground_insensitive_breeze", csc["inactive"]["window"].foreground().color()},
+            {"theme_header_foreground_insensitive_backdrop_breeze", csc["inactive"]["window"].foreground().color()},
+
+            {"theme_titlebar_background_breeze", windowManagerConfig.readEntry("activeBackground", QColor())},
+            {"theme_titlebar_foreground_breeze", windowManagerConfig.readEntry("activeForeground", QColor())},
+            {"theme_titlebar_background_light_breeze", csc["active"]["window"].background(KCS::NormalBackground).color()},
+            {"theme_titlebar_foreground_backdrop_breeze", windowManagerConfig.readEntry("inactiveForeground", QColor())},
+            {"theme_titlebar_background_backdrop_breeze", windowManagerConfig.readEntry("inactiveBackground", QColor())},
+            {"theme_titlebar_foreground_insensitive_breeze", windowManagerConfig.readEntry("inactiveForeground", QColor())},
+            {"theme_titlebar_foreground_insensitive_backdrop_breeze", windowManagerConfig.readEntry("inactiveForeground", QColor())},
+        });
+    }
+
+    return result;
 }
 
 QString ConfigValueProvider::windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const
