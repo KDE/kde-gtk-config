@@ -12,10 +12,8 @@
 #include <KDecoration2/Private/DecorationBridge>
 #include <kdecoration2/decorationdefines.h>
 
-#include <memory>
 
 class KPluginFactory;
-class KPluginLoader;
 
 namespace KDecoration2
 {
@@ -50,11 +48,11 @@ private:
     QString m_decorationsConfigFileName;
     double globalAnimationEntryValue;
 
-    std::unique_ptr<KPluginLoader> m_loader;
     KPluginFactory *m_factory;
     KDecoration2::Decoration *m_decoration;
     KDecoration2::DecoratedClientPrivate *m_client;
     KDecoration2::DummyDecorationSettings *m_settings;
+    QString m_pluginPath;
 };
 
 }

@@ -13,7 +13,6 @@
 #include <KDecoration2/Private/DecoratedClientPrivate>
 #include <KDecoration2/Private/DecorationSettingsPrivate>
 #include <KPluginFactory>
-#include <KPluginLoader>
 #include <KPluginMetaData>
 #include <KSharedConfig>
 
@@ -27,7 +26,6 @@ namespace KDecoration2
 DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QObject *parent)
     : DecorationBridge(parent)
     , m_decorationsConfigFileName()
-    , m_loader()
     , m_factory()
     , m_decoration()
     , m_client()
@@ -45,14 +43,15 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
         m_decorationsConfigFileName = QStringLiteral("breezerc");
     }
 
-    const QString pluginPath = windowDecorationPluginPath(decorationTheme);
-    m_loader = std::unique_ptr<KPluginLoader>(new KPluginLoader{pluginPath});
-    m_factory = m_loader->factory();
+    m_pluginPath = windowDecorationPluginPath(decorationTheme);
 
     disableAnimations();
 
     QVariantMap args({{QStringLiteral("bridge"), QVariant::fromValue(this)}});
-    m_decoration = m_factory->create<KDecoration2::Decoration>(m_factory, QVariantList({args}));
+    m_factory = KPluginFactory::loadFactory(KPluginMetaData(m_pluginPath)).plugin;
+    if (m_factory) {
+        m_decoration = m_factory->create<KDecoration2::Decoration>(m_factory, QVariantList({args}));
+    }
 
     auto decorationSettings = QSharedPointer<KDecoration2::DecorationSettings>::create(this);
     m_decoration->setSettings(decorationSettings);
@@ -67,7 +66,7 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
 
 DummyDecorationBridge::~DummyDecorationBridge()
 {
-    m_loader->unload();
+    QPluginLoader(m_pluginPath).unload();
 }
 
 std::unique_ptr<KDecoration2::DecorationSettingsPrivate> DummyDecorationBridge::settings(KDecoration2::DecorationSettings *parent)
