@@ -48,7 +48,7 @@ private:
     KDecoration2::DecorationButtonType strToButtonType(const QString &type) const;
 
     QString m_decorationsConfigFileName;
-    QString globalAnimationEntryValue;
+    double globalAnimationEntryValue;
 
     std::unique_ptr<KPluginLoader> m_loader;
     KPluginFactory *m_factory;
