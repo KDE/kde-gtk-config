@@ -169,7 +169,7 @@ void DummyDecorationBridge::enableAnimations()
 
 QString DummyDecorationBridge::windowDecorationPluginPath(const QString &decorationTheme) const
 {
-    const auto decorationPlugins = KPluginLoader::findPlugins(QStringLiteral("org.kde.kdecoration2"));
+    const auto decorationPlugins = KPluginMetaData::findPlugins(QStringLiteral("org.kde.kdecoration2"));
 
     QString defaultPluginPath;
 
