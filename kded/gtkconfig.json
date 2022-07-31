@@ -83,9 +83,6 @@
         "Name[x-test]": "xxGNOME/GTK Settings Synchronization Servicexx",
         "Name[zh_CN]": "GNOME/GTK 设置同步服务",
         "Name[zh_TW]": "GNOME/GTK 設定同步服務",
-        "ServiceTypes": [
-            "KDEDModule"
-        ],
         "Version": "0.1"
     },
     "X-KDE-Kded-autoload": true,
