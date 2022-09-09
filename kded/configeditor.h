@@ -34,6 +34,8 @@ QString gtkConfigValueSettingsIni(const QString &versionString, const QString &p
 static auto gtk4ConfigValueSettingsIni = std::bind(gtkConfigValueSettingsIni, QStringLiteral("gtk-4.0"), _1);
 static auto gtk3ConfigValueSettingsIni = std::bind(gtkConfigValueSettingsIni, QStringLiteral("gtk-3.0"), _1);
 
+static auto gtkCssVersions = {QStringLiteral("/gtk-3.0"), QStringLiteral("/gtk-4.0")};
+
 void setCustomClientSideDecorations(const QStringList &windowDecorationsButtonsImages);
 void disableCustomClientSideDecorations();
 void setGtk3Colors(const QMap<QString, QColor> &colorsDefinitions);

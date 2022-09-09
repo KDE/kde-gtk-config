@@ -165,27 +165,34 @@ void ConfigEditor::removeLegacyGtk2Strings()
 
 void ConfigEditor::saveWindowDecorationsToAssets(const QStringList &windowDecorationsButtonsImages)
 {
-    QDir assetsFolder{QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/gtk-3.0/assets")};
+    for (const auto &gtkVersionPath : gtkCssVersions) {
+        QDir assetsFolder{QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + gtkVersionPath + QStringLiteral("/assets")};
 
-    if (!assetsFolder.exists()) {
-        assetsFolder.mkpath(QStringLiteral("."));
+        if (!assetsFolder.exists()) {
+            assetsFolder.mkpath(QStringLiteral("."));
+        }
+
+        for (const auto &buttonImagePath : windowDecorationsButtonsImages) {
+            const QString destination = assetsFolder.path() + '/' + QFileInfo(buttonImagePath).fileName();
+            QFile(destination).remove();
+            QFile(buttonImagePath).copy(buttonImagePath, destination);
+        }
     }
-
     for (const auto &buttonImagePath : windowDecorationsButtonsImages) {
-        const QString destination = assetsFolder.path() + '/' + QFileInfo(buttonImagePath).fileName();
-        QFile(destination).remove();
-        QFile(buttonImagePath).rename(buttonImagePath, destination);
+        QFile(buttonImagePath).remove();
     }
 }
 
 void ConfigEditor::addWindowDecorationsCssFile()
 {
     QFile windowDecorationsCss{QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("/themes/Breeze/window_decorations.css"))};
-    QString windowDecorationsDestination{QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation)
-                                         + QStringLiteral("/gtk-3.0/window_decorations.css")};
+    for (const auto &gtkVersionPath : gtkCssVersions) {
+        QString windowDecorationsDestination{QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + gtkVersionPath
+                                             + QStringLiteral("/window_decorations.css")};
 
-    QFile(windowDecorationsDestination).remove();
-    windowDecorationsCss.copy(windowDecorationsDestination);
+        QFile(windowDecorationsDestination).remove();
+        windowDecorationsCss.copy(windowDecorationsDestination);
+    }
 }
 
 void ConfigEditor::addGtkModule(const QString &moduleName)
@@ -205,25 +212,27 @@ void ConfigEditor::addGtkModule(const QString &moduleName)
 
 void ConfigEditor::addImportStatementsToGtkCssUserFile()
 {
-    QString gtkCssPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/gtk-3.0/gtk.css");
-    QFile gtkCss(gtkCssPath);
+    for (const auto &gtkVersionPath : gtkCssVersions) {
+        QString gtkCssPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + gtkVersionPath + QStringLiteral("/gtk.css");
+        QFile gtkCss(gtkCssPath);
 
-    if (gtkCss.open(QIODevice::ReadWrite)) {
-        QByteArray gtkCssContents = gtkCss.readAll().trimmed();
+        if (gtkCss.open(QIODevice::ReadWrite)) {
+            QByteArray gtkCssContents = gtkCss.readAll().trimmed();
 
-        static const QVector<QByteArray> importStatements{
-            QByteArrayLiteral("\n@import 'colors.css';"),
-        };
+            static const QVector<QByteArray> importStatements{
+                QByteArrayLiteral("\n@import 'colors.css';"),
+            };
 
-        for (const auto &statement : importStatements) {
-            if (!gtkCssContents.contains(statement.trimmed())) {
-                gtkCssContents.append(statement);
+            for (const auto &statement : importStatements) {
+                if (!gtkCssContents.contains(statement.trimmed())) {
+                    gtkCssContents.append(statement);
+                }
             }
-        }
 
-        gtkCss.remove();
-        gtkCss.open(QIODevice::WriteOnly | QIODevice::Text);
-        gtkCss.write(gtkCssContents);
+            gtkCss.remove();
+            gtkCss.open(QIODevice::WriteOnly | QIODevice::Text);
+            gtkCss.write(gtkCssContents);
+        }
     }
 }
 
@@ -231,20 +240,24 @@ void ConfigEditor::removeWindowDecorationsCSS()
 {
     using SP = QStandardPaths;
 
-    QFile windowsDecorationsCss(SP::writableLocation(SP::GenericConfigLocation) + QStringLiteral("/gtk-3.0/window_decorations.css"));
-    windowsDecorationsCss.remove();
+    for (const auto &gtkVersionPath : gtkCssVersions) {
+        QFile windowsDecorationsCss(SP::writableLocation(SP::GenericConfigLocation) + gtkVersionPath + QStringLiteral("/window_decorations.css"));
+        windowsDecorationsCss.remove();
+    }
 }
 
 void ConfigEditor::modifyColorsCssFile(const QMap<QString, QColor> &colorsDefinitions)
 {
-    QString colorsCssPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/gtk-3.0/colors.css");
-    QFile colorsCss(colorsCssPath);
+    for (const auto &gtkVersionPath : gtkCssVersions) {
+        QString colorsCssPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + gtkVersionPath + QStringLiteral("/colors.css");
+        QFile colorsCss(colorsCssPath);
 
-    if (colorsCss.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        QTextStream colorsCssStream(&colorsCss);
+        if (colorsCss.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+            QTextStream colorsCssStream(&colorsCss);
 
-        for (auto it = colorsDefinitions.cbegin(); it != colorsDefinitions.cend(); it++) {
-            colorsCssStream << QStringLiteral("@define-color %1 %2;\n").arg(it.key(), it.value().name());
+            for (auto it = colorsDefinitions.cbegin(); it != colorsDefinitions.cend(); it++) {
+                colorsCssStream << QStringLiteral("@define-color %1 %2;\n").arg(it.key(), it.value().name());
+            }
         }
     }
 }
