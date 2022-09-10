@@ -1,4 +1,14 @@
-add_executable(gtk_theme gtktheme.cpp ../kded/configeditor.cpp)
+add_executable(gtk_theme)
+
+target_sources (gtk_theme
+  PRIVATE
+    gtktheme.cpp
+    ../kded/config_editor/gsettings.cpp
+    ../kded/config_editor/gtk2.cpp
+    ../kded/config_editor/settings_ini.cpp
+    ../kded/config_editor/utils.cpp
+    ../kded/config_editor/xsettings.cpp
+)
 
 target_link_libraries(gtk_theme
   PRIVATE
@@ -29,7 +39,8 @@ install(
 
 add_executable(remove_deprecated_gtk4_option
   remove_deprecated_gtk4_option.cpp
-   ../kded/configeditor.cpp
+   ../kded/config_editor/settings_ini.cpp
+   ../kded/config_editor/utils.cpp
 )
 
 target_link_libraries(remove_deprecated_gtk4_option

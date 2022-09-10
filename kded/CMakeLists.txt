@@ -1,14 +1,16 @@
 add_subdirectory(kwin_bridge)
 add_subdirectory(scss)
 
-set(kscreen_daemon_SRCS
+add_library(gtkconfig MODULE)
+
+target_sources(gtkconfig 
+  PRIVATE
     gtkconfig.cpp
-    configeditor.cpp
     configvalueprovider.cpp
     themepreviewer.cpp
 )
 
-add_library(gtkconfig MODULE ${kscreen_daemon_SRCS})
+add_subdirectory(config_editor)
 
 target_compile_definitions(gtkconfig
   PUBLIC

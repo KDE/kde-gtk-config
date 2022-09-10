@@ -9,7 +9,10 @@
 #include <QString>
 #include <QVariant>
 
-#include "configeditor.h"
+#include "config_editor/gsettings.h"
+#include "config_editor/gtk2.h"
+#include "config_editor/settings_ini.h"
+#include "config_editor/xsettings.h"
 
 QString gtk2Theme();
 void upgradeGtk2Theme();
@@ -29,20 +32,20 @@ void upgradeGtk2Theme()
         || currentGtk2Theme == QStringLiteral("oxygen-gtk") //
         || currentGtk2Theme == QStringLiteral("BreezyGTK") //
         || currentGtk2Theme == QStringLiteral("Orion")) {
-        ConfigEditor::setGtk2ConfigValue(QStringLiteral("gtk-theme-name"), QStringLiteral("Breeze"));
+        Gtk2ConfigEditor::setValue(QStringLiteral("gtk-theme-name"), QStringLiteral("Breeze"));
     }
 }
 
 void upgradeGtk3Theme()
 {
-    QString currentGtk3Theme = ConfigEditor::gtk3ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"));
+    QString currentGtk3Theme = SettingsIniEditor::value(QStringLiteral("gtk-theme-name"), 3);
     if (currentGtk3Theme.isEmpty() //
         || currentGtk3Theme == QStringLiteral("oxygen-gtk") //
         || currentGtk3Theme == QStringLiteral("BreezyGTK") //
         || currentGtk3Theme == QStringLiteral("Orion")) {
-        ConfigEditor::setGtkConfigValueGSettings(QStringLiteral("gtk-theme"), QStringLiteral("Breeze"));
-        ConfigEditor::setGtk3ConfigValueSettingsIni(QStringLiteral("gtk-theme-name"), QStringLiteral("Breeze"));
-        ConfigEditor::setGtk3ConfigValueXSettingsd(QStringLiteral("Net/ThemeName"), QStringLiteral("Breeze"));
+        GSettingsEditor::setValue(QStringLiteral("gtk-theme"), QStringLiteral("Breeze"));
+        SettingsIniEditor::setValue(QStringLiteral("gtk-theme-name"), QStringLiteral("Breeze"), 3);
+        XSettingsEditor::setValue(QStringLiteral("Net/ThemeName"), QStringLiteral("Breeze"));
     }
 }
 

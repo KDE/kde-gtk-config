@@ -4,12 +4,12 @@
  * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
  */
 
-#include "configeditor.h"
+#include "config_editor/settings_ini.h"
 
 int main()
 {
-    ConfigEditor::unsetGtk4ConfigValueSettingsIni(QStringLiteral("gtk-button-images"));
-    ConfigEditor::unsetGtk4ConfigValueSettingsIni(QStringLiteral("gtk-menu-images"));
-    ConfigEditor::unsetGtk4ConfigValueSettingsIni(QStringLiteral("gtk-toolbar-style"));
+    SettingsIniEditor::unsetValue(QStringLiteral("gtk-button-images"), 4);
+    SettingsIniEditor::unsetValue(QStringLiteral("gtk-menu-images"), 4);
+    SettingsIniEditor::unsetValue(QStringLiteral("gtk-toolbar-style"), 4);
     return 0;
 }

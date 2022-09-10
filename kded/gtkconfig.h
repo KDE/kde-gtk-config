@@ -10,7 +10,6 @@
 #include <KConfigWatcher>
 #include <KDEDModule>
 
-#include "configeditor.h"
 #include "configvalueprovider.h"
 #include "themepreviewer.h"
 
