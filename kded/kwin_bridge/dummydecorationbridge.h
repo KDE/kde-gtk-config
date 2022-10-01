@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include <QPluginLoader>
 #include <QString>
 
 #include <KDecoration2/Decoration>
@@ -48,11 +49,11 @@ private:
     QString m_decorationsConfigFileName;
     double globalAnimationEntryValue;
 
+    QPluginLoader m_pluginLoader;
     KPluginFactory *m_factory;
     KDecoration2::Decoration *m_decoration;
     KDecoration2::DecoratedClientPrivate *m_client;
     KDecoration2::DummyDecorationSettings *m_settings;
-    QString m_pluginPath;
 };
 
 }

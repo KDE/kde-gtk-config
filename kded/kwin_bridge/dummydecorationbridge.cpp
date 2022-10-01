@@ -43,13 +43,13 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
         m_decorationsConfigFileName = QStringLiteral("breezerc");
     }
 
-    m_pluginPath = windowDecorationPluginPath(decorationTheme);
-
     disableAnimations();
 
-    QVariantMap args({{QStringLiteral("bridge"), QVariant::fromValue(this)}});
-    m_factory = KPluginFactory::loadFactory(KPluginMetaData(m_pluginPath)).plugin;
+    const QString pluginPath = windowDecorationPluginPath(decorationTheme);
+    m_pluginLoader.setFileName(pluginPath);
+    m_factory = qobject_cast<KPluginFactory *>(m_pluginLoader.instance());
     if (m_factory) {
+        const QVariantMap args({{QStringLiteral("bridge"), QVariant::fromValue(this)}});
         m_decoration = m_factory->create<KDecoration2::Decoration>(m_factory, QVariantList({args}));
     }
 
@@ -66,7 +66,7 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
 
 DummyDecorationBridge::~DummyDecorationBridge()
 {
-    QPluginLoader(m_pluginPath).unload();
+    m_pluginLoader.unload();
 }
 
 std::unique_ptr<KDecoration2::DecorationSettingsPrivate> DummyDecorationBridge::settings(KDecoration2::DecorationSettings *parent)
