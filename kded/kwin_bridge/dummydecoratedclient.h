@@ -41,8 +41,10 @@ public:
     bool isMoveable() const override;
     bool isResizeable() const override;
 
+#if KDECORATIONS_PRIVATE_BUILD_DEPRECATED_SINCE(5, 27)
     WId windowId() const override;
     WId decorationId() const override;
+#endif
 
     int width() const override;
     int height() const override;

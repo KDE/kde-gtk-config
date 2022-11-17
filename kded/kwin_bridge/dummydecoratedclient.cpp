@@ -111,6 +111,7 @@ bool DummyDecoratedClient::isResizeable() const
     return true;
 }
 
+#if KDECORATIONS_PRIVATE_BUILD_DEPRECATED_SINCE(5, 27)
 WId DummyDecoratedClient::windowId() const
 {
     return {};
@@ -120,6 +121,7 @@ WId DummyDecoratedClient::decorationId() const
 {
     return {};
 }
+#endif
 
 int DummyDecoratedClient::width() const
 {
