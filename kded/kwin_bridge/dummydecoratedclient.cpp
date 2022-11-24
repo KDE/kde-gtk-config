@@ -151,6 +151,11 @@ Qt::Edges DummyDecoratedClient::adjacentScreenEdges() const
     return {};
 }
 
+QString DummyDecoratedClient::windowClass() const
+{
+    return {};
+}
+
 void DummyDecoratedClient::requestShowToolTip(const QString &text)
 {
     Q_UNUSED(text)

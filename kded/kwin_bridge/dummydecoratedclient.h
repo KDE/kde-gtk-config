@@ -50,6 +50,7 @@ public:
     QPalette palette() const override;
     QColor color(ColorGroup group, ColorRole role) const override;
     Qt::Edges adjacentScreenEdges() const override;
+    QString windowClass() const override;
 
     void requestShowToolTip(const QString &text) override;
 
