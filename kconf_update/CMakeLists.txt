@@ -3,11 +3,11 @@ add_executable(gtk_theme)
 target_sources (gtk_theme
   PRIVATE
     gtktheme.cpp
-    ../kded/config_editor/gsettings.cpp
-    ../kded/config_editor/gtk2.cpp
-    ../kded/config_editor/settings_ini.cpp
-    ../kded/config_editor/utils.cpp
-    ../kded/config_editor/xsettings.cpp
+    ../kded/config_editor/gsettings.cpp ../kded/config_editor/gsettings.h
+    ../kded/config_editor/gtk2.cpp ../kded/config_editor/gtk2.h
+    ../kded/config_editor/settings_ini.cpp ../kded/config_editor/settings_ini.h
+    ../kded/config_editor/utils.cpp ../kded/config_editor/utils.h
+    ../kded/config_editor/xsettings.cpp ../kded/config_editor/xsettings.h
 )
 
 target_link_libraries(gtk_theme
@@ -39,8 +39,8 @@ install(
 
 add_executable(remove_deprecated_gtk4_option
   remove_deprecated_gtk4_option.cpp
-   ../kded/config_editor/settings_ini.cpp
-   ../kded/config_editor/utils.cpp
+   ../kded/config_editor/settings_ini.cpp ../kded/config_editor/settings_ini.h
+   ../kded/config_editor/utils.cpp ../kded/config_editor/utils.h
 )
 
 target_link_libraries(remove_deprecated_gtk4_option

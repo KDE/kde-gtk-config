@@ -3,10 +3,10 @@
 
 target_sources(gtkconfig 
   PRIVATE 
-    custom_css.cpp 
-    gsettings.cpp 
-    gtk2.cpp
-    settings_ini.cpp 
-    utils.cpp
-    xsettings.cpp
+    custom_css.cpp custom_css.h 
+    gsettings.cpp gsettings.h 
+    gtk2.cpp gtk2.h
+    settings_ini.cpp settings_ini.h 
+    utils.cpp utils.h
+    xsettings.cpp xsettings.h
 )
