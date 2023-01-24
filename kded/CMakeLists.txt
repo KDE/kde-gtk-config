@@ -5,9 +5,9 @@ add_library(gtkconfig MODULE)
 
 target_sources(gtkconfig 
   PRIVATE
-    gtkconfig.cpp gtkconfig.h
-    configvalueprovider.cpp configvalueprovider.h
-    themepreviewer.cpp themepreviewer.h
+    gtkconfig.cpp
+    configvalueprovider.cpp
+    themepreviewer.cpp
 )
 
 add_subdirectory(config_editor)

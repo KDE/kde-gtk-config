@@ -1,11 +1,11 @@
 add_library(KWinBridge STATIC
-    dummydecoratedclient.cpp dummydecoratedclient.h
-    dummydecorationbridge.cpp dummydecorationbridge.h
-    dummydecorationsettings.cpp dummydecorationsettings.h
-    decorationpalette.cpp decorationpalette.h
-    decorationpainter.cpp decorationpainter.h
-    auroraedecorationpainter.cpp auroraedecorationpainter.h
-    standarddecorationpainter.cpp standarddecorationpainter.h
+    dummydecoratedclient.cpp
+    dummydecorationbridge.cpp
+    dummydecorationsettings.cpp
+    decorationpalette.cpp
+    decorationpainter.cpp
+    auroraedecorationpainter.cpp
+    standarddecorationpainter.cpp
 )
 set_property(TARGET KWinBridge PROPERTY POSITION_INDEPENDENT_CODE ON)
 
