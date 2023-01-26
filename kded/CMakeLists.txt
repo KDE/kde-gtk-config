@@ -20,6 +20,7 @@ target_compile_definitions(gtkconfig
 target_link_libraries(gtkconfig
   PRIVATE
     KWinBridge
+    KF5::WindowSystem
   PUBLIC
     Qt::DBus
     Qt::Svg

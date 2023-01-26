@@ -31,6 +31,10 @@ public:
     QStringList windowDecorationsButtonsImages() const;
     bool enableAnimations() const;
     QMap<QString, QColor> colors() const;
+    /* For X11, which doesn't support mixed-DPI setups */
+    double globalScaleFactor() const;
+    int globalScaleFactorAsPercent() const;
+    int globalScaleFactorFloor() const;
 
 private:
     QString fontStyleHelper(const QFont &font) const;

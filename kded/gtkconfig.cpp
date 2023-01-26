@@ -9,6 +9,7 @@
 
 #include <KColorScheme>
 #include <KPluginFactory>
+#include <KWindowSystem>
 
 #include <QDBusConnection>
 #include <QDBusMessage>
@@ -178,6 +179,41 @@ void GtkConfig::setEnableAnimations() const
     XSettingsEditor::setValue(QStringLiteral("Gtk/EnableAnimations"), enableAnimations);
 }
 
+void GtkConfig::setGlobalScale() const
+{
+    // The global scale is relevant only for GTK3 and GTK4 (GTK2 has no support for DPI
+    // scaling) and on X11 sessions, because on Wayland scales are communicated by KWin
+    // directly to every surface
+
+    if (KWindowSystem::isPlatformX11()) {
+        const int globalScale = configValueProvider->globalScaleFactorFloor();
+        XSettingsEditor::setValue(QStringLiteral("Gdk/WindowScalingFactor"), globalScale);
+    } else {
+        XSettingsEditor::setValue(QStringLiteral("Gdk/WindowScalingFactor"), 1);
+    }
+}
+
+void GtkConfig::setTextScale() const
+{
+    constexpr int baseTextDpi = 96 * 1024;
+
+    // The setting in question is "gtk-xft-dpi", however XSettings may provide
+    // also "Gdk/UnscaledDPI", which has precedence over the "Xft/DPI" XSetting
+    // (only for GTK3 and GTK4, as GTK2 has no specific knowledge of DPI scaling)
+
+    if (KWindowSystem::isPlatformX11()) {
+        const int globalScalePercent = configValueProvider->globalScaleFactorAsPercent();
+        const int textScalePercent = 100 + (globalScalePercent % 100);
+        const double textScaleFactor = textScalePercent / 100.0;
+        const int textDpi = textScaleFactor * baseTextDpi;
+        SettingsIniEditor::setValue(QStringLiteral("gtk-xft-dpi"), textDpi);
+        XSettingsEditor::setValue(QStringLiteral("Gdk/UnscaledDPI"), textDpi);
+    } else {
+        SettingsIniEditor::setValue(QStringLiteral("gtk-xft-dpi"), baseTextDpi);
+        XSettingsEditor::setValue(QStringLiteral("Gdk/UnscaledDPI"), baseTextDpi);
+    }
+}
+
 void GtkConfig::setColors() const
 {
     const QMap<QString, QColor> colors = configValueProvider->colors();
@@ -198,6 +234,8 @@ void GtkConfig::applyAllSettings() const
     setWindowDecorationsAppearance();
     setWindowDecorationsButtonsOrder();
     setEnableAnimations();
+    setGlobalScale();
+    setTextScale();
     setColors();
 }
 
@@ -228,6 +266,11 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
             setColors();
             setDarkThemePreference();
             setWindowDecorationsAppearance(); // Decorations' color can depend on the current color scheme
+        }
+    } else if (group.name() == QStringLiteral("KScreen")) {
+        if (names.contains(QByteArrayLiteral("ScaleFactor"))) {
+            setGlobalScale();
+            setTextScale();
         }
     } else if (group.name() == QStringLiteral("Toolbar style")) {
         if (names.contains(QByteArrayLiteral("ToolButtonStyle"))) {
