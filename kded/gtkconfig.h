@@ -34,6 +34,8 @@ public:
     void setWindowDecorationsAppearance() const;
     void setWindowDecorationsButtonsOrder() const;
     void setEnableAnimations() const;
+    void setGlobalScale() const;
+    void setTextScale() const;
     void setColors() const;
 
     void applyAllSettings() const;

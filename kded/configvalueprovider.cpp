@@ -22,6 +22,8 @@
 #include "configvalueprovider.h"
 #include "decorationpainter.h"
 
+constexpr int MAX_GDK_SCALE = 5;
+
 ConfigValueProvider::ConfigValueProvider()
     : kdeglobalsConfig(KSharedConfig::openConfig())
     , inputConfig(KSharedConfig::openConfig(QStringLiteral("kcminputrc")))
@@ -454,6 +456,29 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
     }
 
     return result;
+}
+
+double ConfigValueProvider::globalScaleFactor() const
+{
+    KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KScreen"));
+    QString entry = configGroup.readEntry(QStringLiteral("ScaleFactor"), "1");
+    bool conversionOk = false;
+    double scaleFactor = entry.toDouble(&conversionOk);
+
+    if (conversionOk && scaleFactor > 1.0 && scaleFactor < (MAX_GDK_SCALE + 0.1))
+        return scaleFactor;
+
+    return 1.0;
+}
+
+int ConfigValueProvider::globalScaleFactorAsPercent() const
+{
+    return int(globalScaleFactor() * 100.0);
+}
+
+int ConfigValueProvider::globalScaleFactorFloor() const
+{
+    return globalScaleFactorAsPercent() / 100;
 }
 
 QString ConfigValueProvider::windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const

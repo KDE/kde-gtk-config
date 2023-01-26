@@ -24,7 +24,7 @@ include(KDEClangFormat)
 include(KDEGitCommitHooks)
 
 find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED NO_MODULE COMPONENTS DBus Svg)
-find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS CoreAddons Config ConfigWidgets GuiAddons DBusAddons)
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS CoreAddons Config ConfigWidgets GuiAddons DBusAddons WindowSystem)
 find_package(PkgConfig REQUIRED)
 find_package(KDecoration2 REQUIRED)
 find_package(GSettingSchemas REQUIRED)

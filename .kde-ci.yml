@@ -13,6 +13,7 @@ Dependencies:
     'frameworks/kdbusaddons': '@latest'
     'frameworks/kguiaddons': '@latest'
     'frameworks/kwidgetsaddons': '@latest'
+    'frameworks/kwindowsystem': '@latest'
     'plasma/kdecoration': '@same'
 Options:
   require-passing-tests-on: [ 'Linux', 'FreeBSD']
