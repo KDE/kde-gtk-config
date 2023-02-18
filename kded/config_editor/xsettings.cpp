@@ -26,10 +26,8 @@ void replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString
     } else if (paramValue.type() == QVariant::Type::Bool) {
         // XSettigsd does not support 'true' and 'false' as values
         newConfigString = QStringLiteral("%1 %2\n").arg(paramName, QString::number(paramValue.toInt()));
-    } else if (paramValue.canConvert(QMetaType::QString)) {
-        newConfigString = QStringLiteral("%1 %2\n").arg(paramName, paramValue.toString());
     } else {
-        return;
+        newConfigString = QStringLiteral("%1 %2\n").arg(paramName, paramValue.toString());
     }
 
     if (paramValue.isNull()) {
