@@ -26,11 +26,16 @@ void replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString
     } else if (paramValue.type() == QVariant::Type::Bool) {
         // XSettigsd does not support 'true' and 'false' as values
         newConfigString = QStringLiteral("%1 %2\n").arg(paramName, QString::number(paramValue.toInt()));
-    } else {
+    } else if (paramValue.canConvert(QMetaType::QString)) {
         newConfigString = QStringLiteral("%1 %2\n").arg(paramName, paramValue.toString());
+    } else {
+        return;
     }
 
-    if (xSettingsdContents.contains(regExp)) {
+    if (paramValue.isNull()) {
+        // unset value
+        xSettingsdContents.replace(regExp, QString());
+    } else if (xSettingsdContents.contains(regExp)) {
         xSettingsdContents.replace(regExp, newConfigString);
     } else {
         xSettingsdContents = newConfigString + xSettingsdContents;
@@ -76,5 +81,10 @@ void setValue(const QString &paramName, const QVariant &paramValue)
     xSettingsdConfig.open(QIODevice::WriteOnly | QIODevice::Text);
     xSettingsdConfig.write(xSettingsdConfigContents.toUtf8());
     reloadXSettingsd();
+}
+
+void unsetValue(const QString &paramName)
+{
+    setValue(paramName, QVariant());
 }
 }
