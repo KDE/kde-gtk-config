@@ -3,6 +3,8 @@
 
 #include "xsettings.h"
 
+#include <unistd.h>
+
 #include <QDir>
 #include <QProcess>
 #include <QRegularExpression>
@@ -39,10 +41,16 @@ void replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString
 
 pid_t pidOfXSettingsd()
 {
-    QProcess pidof;
-    pidof.start(QStringLiteral("pidof"), QStringList() << QStringLiteral("-s") << QStringLiteral("xsettingsd"));
-    pidof.waitForFinished();
-    QString xsettingsdPid = QString(pidof.readAllStandardOutput()).remove('\n');
+    QProcess pgrep;
+    pgrep.start(QStringLiteral("pgrep"),
+                QStringList{
+                    QStringLiteral("-u"),
+                    QString::number(getuid()),
+                    QStringLiteral("-n"), // select most recently started
+                    QStringLiteral("xsettingsd"),
+                });
+    pgrep.waitForFinished();
+    QString xsettingsdPid = QString(pgrep.readAllStandardOutput()).remove('\n');
     return xsettingsdPid.toInt();
 }
 
