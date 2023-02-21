@@ -30,10 +30,7 @@ void replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString
         newConfigString = QStringLiteral("%1 %2\n").arg(paramName, paramValue.toString());
     }
 
-    if (paramValue.isNull()) {
-        // unset value
-        xSettingsdContents.replace(regExp, QString());
-    } else if (xSettingsdContents.contains(regExp)) {
+    if (xSettingsdContents.contains(regExp)) {
         xSettingsdContents.replace(regExp, newConfigString);
     } else {
         xSettingsdContents = newConfigString + xSettingsdContents;
@@ -79,10 +76,5 @@ void setValue(const QString &paramName, const QVariant &paramValue)
     xSettingsdConfig.open(QIODevice::WriteOnly | QIODevice::Text);
     xSettingsdConfig.write(xSettingsdConfigContents.toUtf8());
     reloadXSettingsd();
-}
-
-void unsetValue(const QString &paramName)
-{
-    setValue(paramName, QVariant());
 }
 }
