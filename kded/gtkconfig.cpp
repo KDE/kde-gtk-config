@@ -9,12 +9,14 @@
 
 #include <KColorScheme>
 #include <KPluginFactory>
-#include <KWindowSystem>
 
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <QFont>
 #include <QGuiApplication>
+
+#include <algorithm>
+#include <cmath>
 
 #include "config_editor/custom_css.h"
 #include "config_editor/gsettings.h"
@@ -181,39 +183,24 @@ void GtkConfig::setEnableAnimations() const
 
 void GtkConfig::setGlobalScale() const
 {
-    // The global scale is relevant only for GTK3 and GTK4 (GTK2 has no support for DPI
-    // scaling) and on X11 and XWayland sessions, because on Wayland scales are communicated by KWin
-    // directly to every surface
-
-    const QString paramName = QStringLiteral("Gdk/WindowScalingFactor");
-    if (KWindowSystem::isPlatformX11()) {
-        const int globalScale = configValueProvider->globalScaleFactorFloor();
-        XSettingsEditor::setValue(paramName, globalScale);
-    } else {
-        XSettingsEditor::unsetValue(paramName);
-    }
+    const double scaleFactor = configValueProvider->x11GlobalScaleFactor();
+    XSettingsEditor::setValue(QStringLiteral("Gdk/WindowScalingFactor"), int(scaleFactor));
 }
 
 void GtkConfig::setTextScale() const
 {
     constexpr int baseTextDpi = 96 * 1024;
-    const QString xsettingsParamName = QStringLiteral("Gdk/UnscaledDPI");
-    const QString settingsParamName = QStringLiteral("gtk-xft-dpi");
+    const double scaleFactor = configValueProvider->x11GlobalScaleFactor();
+    const double fractionalPart = std::fmod(scaleFactor, 1.0);
+    const double integerPart = std::max(scaleFactor - fractionalPart, 1.0);
+    const int textScaleAbsolute = baseTextDpi * scaleFactor;
+    const int textScaleRelative = baseTextDpi * (1.0 + fractionalPart / integerPart);
 
-    // The setting in question is "gtk-xft-dpi", however XSettings may provide
-    // also "Gdk/UnscaledDPI", which has precedence over the "Xft/DPI" XSetting
-    // (only for GTK3 and GTK4, as GTK2 has no specific knowledge of DPI scaling)
-    if (KWindowSystem::isPlatformX11()) {
-        const int globalScalePercent = configValueProvider->globalScaleFactorAsPercent();
-        const int textScalePercent = 100 + (globalScalePercent % 100);
-        const double textScaleFactor = textScalePercent / 100.0;
-        const int textDpi = textScaleFactor * baseTextDpi;
-        SettingsIniEditor::setValue(settingsParamName, textDpi);
-        XSettingsEditor::setValue(xsettingsParamName, textDpi);
-    } else {
-        SettingsIniEditor::unsetValue(settingsParamName);
-        XSettingsEditor::unsetValue(xsettingsParamName);
-    }
+    SettingsIniEditor::setValue(QStringLiteral("gtk-xft-dpi"), textScaleAbsolute);
+    // GTK2
+    XSettingsEditor::setValue(QStringLiteral("Xft/DPI"), textScaleAbsolute);
+    // GTK3 and newer
+    XSettingsEditor::setValue(QStringLiteral("Gdk/UnscaledDPI"), textScaleRelative);
 }
 
 void GtkConfig::setColors() const
@@ -290,6 +277,11 @@ void GtkConfig::onKWinSettingsChange(const KConfigGroup &group, const QByteArray
         }
         if (names.contains(QByteArrayLiteral("theme"))) {
             setWindowDecorationsAppearance();
+        }
+    } else if (group.name() == QStringLiteral("Xwayland")) {
+        if (names.contains(QByteArrayLiteral("Scale"))) {
+            setGlobalScale();
+            setTextScale();
         }
     }
 }

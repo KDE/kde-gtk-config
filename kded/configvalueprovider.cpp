@@ -16,8 +16,11 @@
 #include <KColorUtils>
 #include <KConfig>
 #include <KConfigGroup>
+#include <KWindowSystem>
 
 #include <gtk/gtk.h>
+
+#include <algorithm>
 
 #include "configvalueprovider.h"
 #include "decorationpainter.h"
@@ -458,27 +461,19 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
     return result;
 }
 
-double ConfigValueProvider::globalScaleFactor() const
+double ConfigValueProvider::x11GlobalScaleFactor() const
 {
-    KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KScreen"));
-    QString entry = configGroup.readEntry(QStringLiteral("ScaleFactor"), "1");
-    bool conversionOk = false;
-    double scaleFactor = entry.toDouble(&conversionOk);
+    double scaleFactor;
 
-    if (conversionOk && scaleFactor > 1.0 && scaleFactor < (MAX_GDK_SCALE + 0.1))
-        return scaleFactor;
+    if (KWindowSystem::isPlatformX11()) {
+        KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KScreen"));
+        scaleFactor = configGroup.readEntry(QStringLiteral("ScaleFactor"), 1.0);
+    } else {
+        KConfigGroup xwaylandGroup = kwinConfig->group(QStringLiteral("Xwayland"));
+        scaleFactor = xwaylandGroup.readEntry(QStringLiteral("Scale"), 1.0);
+    }
 
-    return 1.0;
-}
-
-int ConfigValueProvider::globalScaleFactorAsPercent() const
-{
-    return int(globalScaleFactor() * 100.0);
-}
-
-int ConfigValueProvider::globalScaleFactorFloor() const
-{
-    return globalScaleFactorAsPercent() / 100;
+    return std::clamp(scaleFactor, 1.0, double(MAX_GDK_SCALE));
 }
 
 QString ConfigValueProvider::windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const

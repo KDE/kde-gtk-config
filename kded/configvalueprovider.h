@@ -31,10 +31,14 @@ public:
     QStringList windowDecorationsButtonsImages() const;
     bool enableAnimations() const;
     QMap<QString, QColor> colors() const;
-    /* For X11, which doesn't support mixed-DPI setups */
-    double globalScaleFactor() const;
-    int globalScaleFactorAsPercent() const;
-    int globalScaleFactorFloor() const;
+
+    // The global scale factor, as X11 doesn't support mixed-DPI
+    // setups. It's useful both for Plasma/X11 sessions and for
+    // XWayland apps in Plasma/Wayland sessions.
+    //
+    // On Wayland sessions returns 1.0 if XWayland client scaling
+    // is disabled.
+    double x11GlobalScaleFactor() const;
 
 private:
     QString fontStyleHelper(const QFont &font) const;
