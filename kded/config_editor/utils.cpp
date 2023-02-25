@@ -16,7 +16,7 @@ QString configDirPath(int gtkVersion)
 
 QString readFileContents(QFile &file)
 {
-    if (file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return file.readAll();
     } else {
         return QString();

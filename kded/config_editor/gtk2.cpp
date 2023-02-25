@@ -54,6 +54,9 @@ void removeLegacyStrings()
     QString gtkrcPath = QDir::homePath() + QStringLiteral("/.gtkrc-2.0");
     QFile gtkrc(gtkrcPath);
     QString gtkrcContents = Utils::readFileContents(gtkrc);
+    if (gtkrcContents.isNull()) {
+        return;
+    }
 
     // Remove "include" lines
     // Example:
