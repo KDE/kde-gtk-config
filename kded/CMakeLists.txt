@@ -3,7 +3,7 @@ add_subdirectory(scss)
 
 add_library(gtkconfig MODULE)
 
-target_sources(gtkconfig 
+target_sources(gtkconfig
   PRIVATE
     gtkconfig.cpp
     configvalueprovider.cpp
@@ -21,6 +21,7 @@ target_link_libraries(gtkconfig
   PRIVATE
     KWinBridge
     KF6::WindowSystem
+    PW::KWorkspace
   PUBLIC
     Qt::DBus
     Qt::Svg

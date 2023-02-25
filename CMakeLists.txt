@@ -30,6 +30,7 @@ find_package(KDecoration2 REQUIRED)
 find_package(GSettingSchemas REQUIRED)
 find_package(Sass REQUIRED)
 find_package(XSettingsd)
+find_package(LibKWorkspace)
 
 pkg_check_modules(GTK+3 REQUIRED IMPORTED_TARGET gtk+-3.0)
 pkg_check_modules(GLib2 REQUIRED IMPORTED_TARGET glib-2.0)
@@ -41,6 +42,12 @@ set_package_properties(XSettingsd PROPERTIES
     DESCRIPTION "XSettingsd daemon"
     TYPE RUNTIME
     PURPOSE "Required to apply settings to GTK applications on the fly"
+)
+
+set_package_properties(LibKWorkspace PROPERTIES
+    DESCRIPTION "Plasma Workspace Library"
+    TYPE REQUIRED
+    PURPOSE "Update environment variable after applying GTK themes"
 )
 
 set_package_properties(Sass PROPERTIES

@@ -9,6 +9,7 @@
 
 #include <KColorScheme>
 #include <KPluginFactory>
+#include <updatelaunchenvjob.h>
 
 #include <QDBusConnection>
 #include <QDBusMessage>
@@ -61,6 +62,8 @@ void GtkConfig::setGtkTheme(const QString &themeName) const
     GSettingsEditor::setValue(QStringLiteral("gtk-theme"), themeName);
     SettingsIniEditor::setValue(QStringLiteral("gtk-theme-name"), themeName);
     XSettingsEditor::setValue(QStringLiteral("Net/ThemeName"), themeName);
+
+    UpdateLaunchEnvJob launchEnvJob(QStringLiteral("GTK_THEME"), themeName);
 
     // Window decorations are part of the theme, in case of Breeze we inject custom ones from KWin
     setWindowDecorationsAppearance();
