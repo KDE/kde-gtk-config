@@ -13,9 +13,9 @@ target_sources (gtk_theme
 target_link_libraries(gtk_theme
   PRIVATE
     Qt::Core
-    KF5::ConfigCore
-    KF5::ConfigWidgets
-    KF5::GuiAddons
+    KF6::ConfigCore
+    KF6::ConfigWidgets
+    KF6::GuiAddons
     PkgConfig::GIO
     PkgConfig::GObject
 )
@@ -46,9 +46,9 @@ add_executable(remove_deprecated_gtk4_option
 target_link_libraries(remove_deprecated_gtk4_option
   PRIVATE
     Qt::Core
-    KF5::ConfigCore
-    KF5::ConfigWidgets
-    KF5::GuiAddons
+    KF6::ConfigCore
+    KF6::ConfigWidgets
+    KF6::GuiAddons
     PkgConfig::GIO
     PkgConfig::GObject
 )

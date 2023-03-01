@@ -20,15 +20,15 @@ target_compile_definitions(gtkconfig
 target_link_libraries(gtkconfig
   PRIVATE
     KWinBridge
-    KF5::WindowSystem
+    KF6::WindowSystem
   PUBLIC
     Qt::DBus
     Qt::Svg
-    KF5::CoreAddons
-    KF5::ConfigCore
-    KF5::ConfigWidgets
-    KF5::DBusAddons
-    KF5::GuiAddons
+    KF6::CoreAddons
+    KF6::ConfigCore
+    KF6::ConfigWidgets
+    KF6::DBusAddons
+    KF6::GuiAddons
     PkgConfig::GTK+3
     PkgConfig::GIO
     PkgConfig::GObject
