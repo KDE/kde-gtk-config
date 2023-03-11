@@ -94,17 +94,6 @@ void DummyDecorationBridge::paintButton(QPainter &painter, const QString &button
                                                               QVariant::fromValue(m_decoration),
                                                           }))};
 
-#if KCOREADDONS_BUILD_DEPRECATED_SINCE(5, 87)
-    if (button == nullptr) {
-        button.reset(m_factory->create<KDecoration2::DecorationButton>(QStringLiteral("button"),
-                                                                       m_decoration,
-                                                                       QVariantList({
-                                                                           QVariant::fromValue(strToButtonType(buttonType)),
-                                                                           QVariant::fromValue(m_decoration),
-                                                                       })));
-    }
-#endif
-
     if (button == nullptr) {
         return;
     }
