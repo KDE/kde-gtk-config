@@ -27,8 +27,13 @@
 
 constexpr int MAX_GDK_SCALE = 5;
 
+constexpr int DEFAULT_DPI = 96;
+constexpr int MIN_FONT_DPI = DEFAULT_DPI / 2;
+constexpr int MAX_FONT_DPI = DEFAULT_DPI * 5;
+
 ConfigValueProvider::ConfigValueProvider()
     : kdeglobalsConfig(KSharedConfig::openConfig())
+    , fontsConfig(KSharedConfig::openConfig(QStringLiteral("kcmfonts")))
     , inputConfig(KSharedConfig::openConfig(QStringLiteral("kcminputrc")))
     , kwinConfig(KSharedConfig::openConfig(QStringLiteral("kwinrc")))
     , generatedCSDTempPath(QDir::tempPath() + QStringLiteral("/plasma-csd-generator"))
@@ -474,6 +479,24 @@ double ConfigValueProvider::x11GlobalScaleFactor() const
     }
 
     return std::clamp(scaleFactor, 1.0, double(MAX_GDK_SCALE));
+}
+
+int ConfigValueProvider::fontDpi() const
+{
+    KConfigGroup configGroup = fontsConfig->group(QStringLiteral("General"));
+    int fontDpi = 0;
+
+    if (KWindowSystem::isPlatformX11()) {
+        fontDpi = configGroup.readEntry(QStringLiteral("forceFontDPI"), 0);
+    } else {
+        fontDpi = configGroup.readEntry(QStringLiteral("forceFontDPIWayland"), 0);
+    }
+
+    if (fontDpi <= 0) {
+        return 0;
+    }
+
+    return std::clamp(fontDpi, MIN_FONT_DPI, MAX_FONT_DPI);
 }
 
 QString ConfigValueProvider::windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const

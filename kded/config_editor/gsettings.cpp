@@ -17,6 +17,8 @@ void setValue(const QString &paramName, const QVariant &paramValue, const QStrin
         g_settings_set_int(gsettings, paramName.toUtf8().constData(), paramValue.toInt());
     } else if (paramValue.type() == QVariant::Type::Bool) {
         g_settings_set_boolean(gsettings, paramName.toUtf8().constData(), paramValue.toBool());
+    } else if (paramValue.type() == QVariant::Type::Double) {
+        g_settings_set_double(gsettings, paramName.toUtf8().constData(), paramValue.toDouble());
     }
 
     g_settings_sync();

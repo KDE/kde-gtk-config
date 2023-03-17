@@ -40,12 +40,17 @@ public:
     // is disabled.
     double x11GlobalScaleFactor() const;
 
+    // The Force Font DPI setting from the fonts kcm. Returns 0
+    // if disabled
+    int fontDpi() const;
+
 private:
     QString fontStyleHelper(const QFont &font) const;
     QString windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const;
     QString currentWindowDecorationPluginPath() const;
 
     KSharedConfigPtr kdeglobalsConfig;
+    KSharedConfigPtr fontsConfig;
     KSharedConfigPtr inputConfig;
     KSharedConfigPtr kwinConfig;
 

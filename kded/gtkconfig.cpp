@@ -9,6 +9,7 @@
 
 #include <KColorScheme>
 #include <KPluginFactory>
+#include <KWindowSystem>
 
 #include <QDBusConnection>
 #include <QDBusMessage>
@@ -32,6 +33,7 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList &)
     , themePreviewer(new ThemePreviewer(this))
     , kdeglobalsConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig()))
     , kwinConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kwinrc"))))
+    , kcmfontsConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kcmfonts"))))
     , kcminputConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kcminputrc"))))
     , breezeConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("breezerc"))))
 {
@@ -41,6 +43,7 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList &)
 
     connect(kdeglobalsConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKdeglobalsSettingsChange);
     connect(kwinConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKWinSettingsChange);
+    connect(kcmfontsConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKCMFontsSettingsChange);
     connect(kcminputConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKCMInputSettingsChange);
     connect(breezeConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onBreezeSettingsChange);
 
@@ -189,18 +192,31 @@ void GtkConfig::setGlobalScale() const
 
 void GtkConfig::setTextScale() const
 {
-    constexpr int baseTextDpi = 96 * 1024;
-    const double scaleFactor = configValueProvider->x11GlobalScaleFactor();
-    const double fractionalPart = std::fmod(scaleFactor, 1.0);
-    const double integerPart = std::max(scaleFactor - fractionalPart, 1.0);
-    const int textScaleAbsolute = baseTextDpi * scaleFactor;
-    const int textScaleRelative = baseTextDpi * (1.0 + fractionalPart / integerPart);
+    const double x11Scale = configValueProvider->x11GlobalScaleFactor();
+    const int x11ScaleIntegerPart = int(x11Scale);
 
-    SettingsIniEditor::setValue(QStringLiteral("gtk-xft-dpi"), textScaleAbsolute);
-    // GTK2
-    XSettingsEditor::setValue(QStringLiteral("Xft/DPI"), textScaleAbsolute);
-    // GTK3 and newer
-    XSettingsEditor::setValue(QStringLiteral("Gdk/UnscaledDPI"), textScaleRelative);
+    const int forceFontDpi = configValueProvider->fontDpi();
+
+    int x11TextDpiAbsolute = 96 * 1024;
+    double waylandTextScaleFactor = 1.0;
+
+    if (forceFontDpi == 0) {
+        x11TextDpiAbsolute = (96 * 1024) * x11Scale;
+    } else {
+        x11TextDpiAbsolute = (forceFontDpi * 1024);
+
+        if (!KWindowSystem::isPlatformX11()) {
+            x11TextDpiAbsolute *= x11Scale;
+        }
+
+        waylandTextScaleFactor = double(forceFontDpi) / 96.0;
+        waylandTextScaleFactor = std::clamp(waylandTextScaleFactor, 0.5, 3.0);
+    }
+
+    XSettingsEditor::unsetValue(QStringLiteral("Xft/DPI"));
+    SettingsIniEditor::setValue(QStringLiteral("gtk-xft-dpi"), x11TextDpiAbsolute);
+    XSettingsEditor::setValue(QStringLiteral("Gdk/UnscaledDPI"), x11TextDpiAbsolute / x11ScaleIntegerPart);
+    GSettingsEditor::setValue(QStringLiteral("text-scaling-factor"), waylandTextScaleFactor);
 }
 
 void GtkConfig::setColors() const
@@ -281,6 +297,15 @@ void GtkConfig::onKWinSettingsChange(const KConfigGroup &group, const QByteArray
     } else if (group.name() == QStringLiteral("Xwayland")) {
         if (names.contains(QByteArrayLiteral("Scale"))) {
             setGlobalScale();
+            setTextScale();
+        }
+    }
+}
+
+void GtkConfig::onKCMFontsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const
+{
+    if (group.name() == QStringLiteral("General")) {
+        if (names.contains("forceFontDPI") || names.contains("forceFontDPIWayland")) {
             setTextScale();
         }
     }
