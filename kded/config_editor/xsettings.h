@@ -9,4 +9,5 @@
 namespace XSettingsEditor
 {
 void setValue(const QString &paramName, const QVariant &paramValue);
+void unsetValue(const QString &paramName);
 }
