@@ -53,7 +53,7 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
         m_decoration = m_factory->create<KDecoration2::Decoration>(m_factory, QVariantList({args}));
     }
 
-    auto decorationSettings = QSharedPointer<KDecoration2::DecorationSettings>::create(this);
+    auto decorationSettings = std::make_shared<KDecoration2::DecorationSettings>(this);
     m_decoration->setSettings(decorationSettings);
     m_decoration->init();
 
