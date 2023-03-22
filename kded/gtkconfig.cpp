@@ -155,6 +155,10 @@ void GtkConfig::setDarkThemePreference() const
 {
     const bool preferDarkTheme = configValueProvider->preferDarkTheme();
     SettingsIniEditor::setValue(QStringLiteral("gtk-application-prefer-dark-theme"), preferDarkTheme);
+    // https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas/-/blob/master/headers/gdesktop-enums.h
+    GSettingsEditor::setValueAsEnum(QStringLiteral("color-scheme"),
+                                    preferDarkTheme ? 1 /*G_DESKTOP_COLOR_SCHEME_PREFER_DARK*/ : 0 /*G_DESKTOP_COLOR_SCHEME_DEFAULT*/,
+                                    QStringLiteral("org.gnome.desktop.interface"));
 }
 
 void GtkConfig::setWindowDecorationsAppearance() const
