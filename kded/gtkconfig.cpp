@@ -17,6 +17,7 @@
 #include <QGuiApplication>
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 
 #include "config_editor/custom_css.h"
@@ -27,6 +28,25 @@
 #include "gsd-xsettings-manager/gsd-xsettings-manager.h"
 
 K_PLUGIN_CLASS_WITH_JSON(GtkConfig, "gtkconfig.json")
+
+namespace
+{
+// From Kirigami.ImageColors
+inline unsigned colorDistance(QRgb color1, QRgb color2)
+{
+    // https://en.wikipedia.org/wiki/Color_difference
+    // Using RGB distance for performance, as CIEDE2000 istoo complicated
+    if (qRed(color1) - qRed(color2) < 128) {
+        return 2 * pow(qRed(color1) - qRed(color2), 2) //
+            + 4 * pow(qGreen(color1) - qGreen(color2), 2) //
+            + 3 * pow(qBlue(color1) - qBlue(color2), 2);
+    } else {
+        return 3 * pow(qRed(color1) - qRed(color2), 2) //
+            + 4 * pow(qGreen(color1) - qGreen(color2), 2) //
+            + 2 * pow(qBlue(color1) - qBlue(color2), 2);
+    }
+}
+}
 
 GtkConfig::GtkConfig(QObject *parent, const QVariantList &)
     : KDEDModule(parent)
@@ -238,6 +258,27 @@ void GtkConfig::setColors() const
     if (m_gsdXsettingsManager) {
         m_gsdXsettingsManager->modulesChanged();
     }
+    // For GTK apps, expose the saved color as the one closest to the accents it officially supports
+    // Color list from https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas/-/merge_requests/63
+    constexpr static std::array<QRgb, 10> gDesktopAccentColors{
+        qRgb(53, 132, 228), // G_DESKTOP_ACCENT_COLOR_BLUE
+        qRgb(122, 217, 241), // G_DESKTOP_ACCENT_COLOR_TEAL
+        qRgb(38, 162, 105), // G_DESKTOP_ACCENT_COLOR_GREEN
+        qRgb(229, 165, 10), // G_DESKTOP_ACCENT_COLOR_YELLOW
+        qRgb(230, 97, 0), // G_DESKTOP_ACCENT_COLOR_ORANGE
+        qRgb(192, 28, 40), // G_DESKTOP_ACCENT_COLOR_RED
+        qRgb(229, 82, 148), // G_DESKTOP_ACCENT_COLOR_PINK
+        qRgb(145, 65, 172), // G_DESKTOP_ACCENT_COLOR_PURPLE
+        qRgb(150, 94, 60), // G_DESKTOP_ACCENT_COLOR_BROWN
+        qRgb(117, 146, 176), // G_DESKTOP_ACCENT_COLOR_SLATE
+    };
+    const QRgb accentColor = qGuiApp->palette().highlight().color().rgb();
+    auto minIt = std::min_element(gDesktopAccentColors.cbegin(), gDesktopAccentColors.cend(), [accentColor](QRgb a, QRgb b) {
+        const unsigned aDistance = colorDistance(a, accentColor);
+        const unsigned bDistance = colorDistance(b, accentColor);
+        return aDistance < bDistance;
+    });
+    GSettingsEditor::setValueAsEnum(QStringLiteral("accent-color"), std::distance(gDesktopAccentColors.cbegin(), minIt));
 }
 
 void GtkConfig::applyAllSettings() const
