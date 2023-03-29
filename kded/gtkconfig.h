@@ -13,6 +13,8 @@
 #include "configvalueprovider.h"
 #include "themepreviewer.h"
 
+class GSDXSettingsManager;
+
 class Q_DECL_EXPORT GtkConfig : public KDEDModule
 {
     Q_OBJECT
@@ -59,4 +61,6 @@ private:
     KConfigWatcher::Ptr kcmfontsConfigWatcher;
     KConfigWatcher::Ptr kcminputConfigWatcher;
     KConfigWatcher::Ptr breezeConfigWatcher;
+
+    GSDXSettingsManager *m_gsdXsettingsManager = nullptr;
 };
