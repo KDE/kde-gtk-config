@@ -24,6 +24,7 @@
 #include "config_editor/gtk2.h"
 #include "config_editor/settings_ini.h"
 #include "config_editor/xsettings.h"
+#include "gsd-xsettings-manager/gsd-xsettings-manager.h"
 
 K_PLUGIN_CLASS_WITH_JSON(GtkConfig, "gtkconfig.json")
 
@@ -40,6 +41,10 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList &)
     QDBusConnection dbus = QDBusConnection::sessionBus();
     dbus.registerService(QStringLiteral("org.kde.GtkConfig"));
     dbus.registerObject(QStringLiteral("/GtkConfig"), this, QDBusConnection::ExportScriptableSlots);
+
+    if (qgetenv("GTK_USE_PORTAL") != "1" && KWindowSystem::isPlatformWayland()) {
+        m_gsdXsettingsManager = new GSDXSettingsManager(this);
+    }
 
     connect(kdeglobalsConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKdeglobalsSettingsChange);
     connect(kwinConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKWinSettingsChange);
@@ -186,6 +191,9 @@ void GtkConfig::setEnableAnimations() const
     GSettingsEditor::setValue(QStringLiteral("enable-animations"), enableAnimations);
     SettingsIniEditor::setValue(QStringLiteral("gtk-enable-animations"), enableAnimations);
     XSettingsEditor::setValue(QStringLiteral("Gtk/EnableAnimations"), enableAnimations);
+    if (m_gsdXsettingsManager) {
+        m_gsdXsettingsManager->enableAnimationsChanged();
+    }
 }
 
 void GtkConfig::setGlobalScale() const
@@ -227,6 +235,9 @@ void GtkConfig::setColors() const
 {
     const QMap<QString, QColor> colors = configValueProvider->colors();
     CustomCssEditor::setColors(colors);
+    if (m_gsdXsettingsManager) {
+        m_gsdXsettingsManager->modulesChanged();
+    }
 }
 
 void GtkConfig::applyAllSettings() const

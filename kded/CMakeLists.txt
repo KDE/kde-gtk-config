@@ -3,11 +3,24 @@ add_subdirectory(scss)
 
 add_library(gtkconfig MODULE)
 
-target_sources(gtkconfig 
-  PRIVATE
+set(gtkconfig_SRCS
     gtkconfig.cpp
+    gsd-xsettings-manager/gsd-xsettings-manager.cpp
     configvalueprovider.cpp
     themepreviewer.cpp
+)
+
+qt_add_dbus_adaptor(gtkconfig_SRCS
+    gsd-xsettings-manager/org.gtk.Settings.xml
+    gsd-xsettings-manager/gsd-xsettings-manager.h
+    GSDXSettingsManager
+    gsd_xsettings_manager_adaptor
+    GSDXSettingsManagerAdaptor
+)
+
+target_sources(gtkconfig
+  PRIVATE
+    ${gtkconfig_SRCS}
 )
 
 add_subdirectory(config_editor)
