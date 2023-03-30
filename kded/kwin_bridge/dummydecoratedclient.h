@@ -22,7 +22,6 @@ public:
 
     bool isActive() const override;
     QString caption() const override;
-    int desktop() const override;
     bool isOnAllDesktops() const override;
     bool isShaded() const override;
     QIcon icon() const override;

@@ -26,11 +26,6 @@ QString DummyDecoratedClient::caption() const
     return {};
 }
 
-int DummyDecoratedClient::desktop() const
-{
-    return 0;
-}
-
 bool DummyDecoratedClient::isOnAllDesktops() const
 {
     return true;
