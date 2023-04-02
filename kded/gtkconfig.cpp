@@ -156,6 +156,15 @@ void GtkConfig::setScrollbarBehavior() const
     XSettingsEditor::setValue(QStringLiteral("Gtk/PrimaryButtonWarpsSlider"), scrollbarBehavior);
 }
 
+void GtkConfig::setDoubleClickInterval() const
+{
+    const int doubleClickInterval = configValueProvider->doubleClickInterval();
+    Gtk2ConfigEditor::setValue(QStringLiteral("gtk-double-click-time"), doubleClickInterval);
+    GSettingsEditor::setValue(QStringLiteral("double-click"), doubleClickInterval, QStringLiteral("org.gnome.desktop.peripherals.mouse"));
+    SettingsIniEditor::setValue(QStringLiteral("gtk-double-click-time"), doubleClickInterval);
+    XSettingsEditor::setValue(QStringLiteral("Net/DoubleClickTime"), doubleClickInterval);
+}
+
 void GtkConfig::setDarkThemePreference() const
 {
     const bool preferDarkTheme = configValueProvider->preferDarkTheme();
@@ -273,6 +282,9 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
         }
         if (names.contains(QByteArrayLiteral("ScrollbarLeftClickNavigatesByPage"))) {
             setScrollbarBehavior();
+        }
+        if (names.contains(QByteArrayLiteral("DoubleClickInterval"))) {
+            setDoubleClickInterval();
         }
     } else if (group.name() == QStringLiteral("Icons")) {
         if (names.contains(QByteArrayLiteral("Theme"))) {

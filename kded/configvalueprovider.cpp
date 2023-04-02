@@ -242,6 +242,12 @@ bool ConfigValueProvider::enableAnimations() const
     return !qFuzzyIsNull(animationSpeedModifier);
 }
 
+int ConfigValueProvider::doubleClickInterval() const
+{
+    KConfigGroup generalCfg = kdeglobalsConfig->group("KDE");
+    return generalCfg.readEntry("DoubleClickInterval", 400);
+}
+
 QMap<QString, QColor> ConfigValueProvider::colors() const
 {
     using KCS = KColorScheme;
