@@ -114,11 +114,16 @@ void GtkConfig::setCursorTheme() const
 
 void GtkConfig::setCursorSize() const
 {
+    qreal xwaylandScale = 1.0;
+    if (KWindowSystem::isPlatformWayland()) {
+        xwaylandScale = configValueProvider->x11GlobalScaleFactor();
+    }
+
     const int cursorSize = configValueProvider->cursorSize();
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-cursor-theme-size"), cursorSize);
     GSettingsEditor::setValue(QStringLiteral("cursor-size"), cursorSize);
     SettingsIniEditor::setValue(QStringLiteral("gtk-cursor-theme-size"), cursorSize);
-    XSettingsEditor::setValue(QStringLiteral("Gtk/CursorThemeSize"), cursorSize);
+    XSettingsEditor::setValue(QStringLiteral("Gtk/CursorThemeSize"), int(cursorSize * xwaylandScale));
 }
 
 void GtkConfig::setIconsOnButtons() const
@@ -330,6 +335,7 @@ void GtkConfig::onKWinSettingsChange(const KConfigGroup &group, const QByteArray
         if (names.contains(QByteArrayLiteral("Scale"))) {
             setGlobalScale();
             setTextScale();
+            setCursorSize();
         }
     }
 }
