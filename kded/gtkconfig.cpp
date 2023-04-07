@@ -290,7 +290,7 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
     } else if (group.name() == QStringLiteral("KScreen")) {
         if (names.contains(QByteArrayLiteral("ScaleFactor"))) {
             setGlobalScale();
-            setTextScale();
+            // setTextScale() will be called in onKCMFontsSettingsChange
         }
     } else if (group.name() == QStringLiteral("Toolbar style")) {
         if (names.contains(QByteArrayLiteral("ToolButtonStyle"))) {
