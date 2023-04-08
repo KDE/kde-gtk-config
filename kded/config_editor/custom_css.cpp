@@ -50,21 +50,6 @@ void addWindowDecorationsCssFile()
     }
 }
 
-void addGtkModule(const QString &moduleName)
-{
-    const QString currentModulesString = SettingsIniEditor::value(QStringLiteral("gtk-modules"));
-
-    if (currentModulesString.contains(moduleName)) {
-        return;
-    }
-
-    if (currentModulesString.isEmpty()) { // No modules
-        SettingsIniEditor::setValue(QStringLiteral("gtk-modules"), moduleName);
-    } else {
-        SettingsIniEditor::setValue(QStringLiteral("gtk-modules"), QStringLiteral("%1:%2").arg(currentModulesString, moduleName));
-    }
-}
-
 void addImportStatementsToGtkCssUserFile()
 {
     for (auto gtkVersion : Utils::s_gtkVersions) {
@@ -116,11 +101,26 @@ void modifyColorsCssFile(const QMap<QString, QColor> &colorsDefinitions)
 }
 }
 
+void addGtkModule(const QString &moduleName)
+{
+    const QString currentModulesString = SettingsIniEditor::value(QStringLiteral("gtk-modules"));
+
+    if (currentModulesString.contains(moduleName)) {
+        return;
+    }
+
+    if (currentModulesString.isEmpty()) { // No modules
+        SettingsIniEditor::setValue(QStringLiteral("gtk-modules"), moduleName);
+    } else {
+        SettingsIniEditor::setValue(QStringLiteral("gtk-modules"), QStringLiteral("%1:%2").arg(currentModulesString, moduleName));
+    }
+}
+
 void setColors(const QMap<QString, QColor> &colorsDefinitions)
 {
     addImportStatementsToGtkCssUserFile();
     modifyColorsCssFile(colorsDefinitions);
-    addGtkModule(QStringLiteral("colorreload-gtk-module"));
+    // addGtkModule is called in GtkConfig::setColors
 }
 
 void setCustomClientSideDecorations(const QStringList &windowDecorationsButtonsImages)

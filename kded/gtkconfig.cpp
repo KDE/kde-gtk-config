@@ -15,6 +15,7 @@
 #include <QDBusMessage>
 #include <QFont>
 #include <QGuiApplication>
+#include <QTimer>
 
 #include <algorithm>
 #include <cmath>
@@ -233,11 +234,15 @@ void GtkConfig::setTextScale() const
 
 void GtkConfig::setColors() const
 {
-    const QMap<QString, QColor> colors = configValueProvider->colors();
-    CustomCssEditor::setColors(colors);
+    CustomCssEditor::addGtkModule(QStringLiteral("colorreload-gtk-module"));
     if (m_gsdXsettingsManager) {
         m_gsdXsettingsManager->modulesChanged();
     }
+    // modulesChanged signal will take some time to reach a GTK app, so explicitly wait a moment
+    QTimer::singleShot(200, this, [this] {
+        const QMap<QString, QColor> colors = configValueProvider->colors();
+        CustomCssEditor::setColors(colors);
+    });
 }
 
 void GtkConfig::applyAllSettings() const
