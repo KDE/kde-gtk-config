@@ -3,11 +3,10 @@
 
 #pragma once
 
-#include <QString>
 #include <QVariant>
 
 namespace GSettingsEditor
 {
-void setValue(const QString &paramName, const QVariant &paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
-void setValueAsEnum(const QString &paramName, int paramValue, const QString &category = QStringLiteral("org.gnome.desktop.interface"));
+void setValue(const char *paramName, const QVariant &paramValue, const char *category = "org.gnome.desktop.interface");
+void setValueAsEnum(const char *paramName, int paramValue, const char *category = "org.gnome.desktop.interface");
 }
