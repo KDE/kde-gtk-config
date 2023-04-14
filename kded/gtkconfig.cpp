@@ -199,8 +199,9 @@ void GtkConfig::setEnableAnimations() const
 
 void GtkConfig::setGlobalScale() const
 {
-    const double scaleFactor = configValueProvider->x11GlobalScaleFactor();
-    XSettingsEditor::setValue(QStringLiteral("Gdk/WindowScalingFactor"), int(scaleFactor));
+    const int scaleFactor = configValueProvider->x11GlobalScaleFactor();
+    XSettingsEditor::setValue(QStringLiteral("Gdk/WindowScalingFactor"), scaleFactor);
+    GSettingsEditor::setValue(QStringLiteral("scaling-factor"), scaleFactor); // For IntelliJ IDEA
 }
 
 void GtkConfig::setTextScale() const
