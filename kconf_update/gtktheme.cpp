@@ -43,7 +43,7 @@ void upgradeGtk3Theme()
         || currentGtk3Theme == QStringLiteral("oxygen-gtk") //
         || currentGtk3Theme == QStringLiteral("BreezyGTK") //
         || currentGtk3Theme == QStringLiteral("Orion")) {
-        GSettingsEditor::setValue(QStringLiteral("gtk-theme"), QStringLiteral("Breeze"));
+        GSettingsEditor::setValue("gtk-theme", QStringLiteral("Breeze"));
         SettingsIniEditor::setValue(QStringLiteral("gtk-theme-name"), QStringLiteral("Breeze"), 3);
         XSettingsEditor::setValue(QStringLiteral("Net/ThemeName"), QStringLiteral("Breeze"));
     }
