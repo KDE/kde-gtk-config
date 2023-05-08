@@ -162,7 +162,7 @@ int ConfigValueProvider::toolbarStyle() const
 bool ConfigValueProvider::scrollbarBehavior() const
 {
     KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KDE"));
-    bool kdeConfigValue = configGroup.readEntry(QStringLiteral("ScrollbarLeftClickNavigatesByPage"), true);
+    bool kdeConfigValue = configGroup.readEntry(QStringLiteral("ScrollbarLeftClickNavigatesByPage"), false);
     return !kdeConfigValue; // GTK setting is inverted
 }
 
