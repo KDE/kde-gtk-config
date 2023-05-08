@@ -290,7 +290,9 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
         if (names.contains(QByteArrayLiteral("ShowIconsOnPushButtons"))) {
             setIconsOnButtons();
         }
-        if (names.contains(QByteArrayLiteral("ScrollbarLeftClickNavigatesByPage"))) {
+        // ScrollbarLeftClickNavigatesByPage is now the default setting, so when it's
+        // true, it won't be present, so we need to check for its absence
+        if (!names.contains(QByteArrayLiteral("ScrollbarLeftClickNavigatesByPage"))) {
             setScrollbarBehavior();
         }
         if (names.contains(QByteArrayLiteral("DoubleClickInterval"))) {
