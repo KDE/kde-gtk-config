@@ -47,4 +47,4 @@ target_link_libraries(gtkconfig
     PkgConfig::GObject
 )
 
-install(TARGETS gtkconfig DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/kded)
+install(TARGETS gtkconfig DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kded)
