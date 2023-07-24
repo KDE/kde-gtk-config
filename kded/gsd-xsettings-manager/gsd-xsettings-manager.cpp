@@ -74,3 +74,5 @@ bool GSDXSettingsManager::EnableAnimations() const
 {
     return SettingsIniEditor::value(QStringLiteral("gtk-enable-animations"), 3) == QLatin1String("true");
 }
+
+#include "moc_gsd-xsettings-manager.cpp"

@@ -373,3 +373,5 @@ void GtkConfig::onBreezeSettingsChange(const KConfigGroup &group, const QByteArr
 }
 
 #include "gtkconfig.moc"
+
+#include "moc_gtkconfig.cpp"

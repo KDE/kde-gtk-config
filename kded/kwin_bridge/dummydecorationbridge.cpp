@@ -213,3 +213,5 @@ KDecoration2::DecorationButtonType DummyDecorationBridge::strToButtonType(const 
 }
 
 }
+
+#include "moc_dummydecorationbridge.cpp"

@@ -210,3 +210,5 @@ void DummyDecoratedClient::setActive(bool active)
 }
 
 }
+
+#include "moc_dummydecoratedclient.cpp"

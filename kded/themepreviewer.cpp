@@ -30,3 +30,5 @@ void ThemePreviewer::showGtk3App(const QString &themeName)
         gtk3PreviewerProccess.close();
     }
 }
+
+#include "moc_themepreviewer.cpp"
