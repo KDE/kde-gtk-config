@@ -125,6 +125,12 @@ QString ConfigValueProvider::cursorThemeName() const
     return configGroup.readEntry(QStringLiteral("cursorTheme"), QStringLiteral("breeze_cursors"));
 }
 
+QString ConfigValueProvider::soundThemeName() const
+{
+    KConfigGroup configGroup = inputConfig->group(QStringLiteral("Sounds"));
+    return configGroup.readEntry(QStringLiteral("Theme"), QStringLiteral("oxygen"));
+}
+
 int ConfigValueProvider::cursorSize() const
 {
     KConfigGroup configGroup = inputConfig->group(QStringLiteral("Mouse"));

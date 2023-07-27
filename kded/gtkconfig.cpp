@@ -103,6 +103,15 @@ void GtkConfig::setIconTheme() const
     XSettingsEditor::setValue(QStringLiteral("Net/IconThemeName"), iconThemeName);
 }
 
+void GtkConfig::setSoundTheme() const
+{
+    const QString soundThemeName = configValueProvider->soundThemeName();
+    Gtk2ConfigEditor::setValue(QStringLiteral("gtk-sound-theme-name"), soundThemeName);
+    GSettingsEditor::setValue("theme-name", soundThemeName, "org.gnome.desktop.sound");
+    SettingsIniEditor::setValue(QStringLiteral("gtk-sound-theme-name"), soundThemeName);
+    XSettingsEditor::setValue(QStringLiteral("Net/SoundThemeName"), soundThemeName);
+}
+
 void GtkConfig::setCursorTheme() const
 {
     const QString cursorThemeName = configValueProvider->cursorThemeName();
@@ -264,6 +273,7 @@ void GtkConfig::applyAllSettings() const
 {
     setFont();
     setIconTheme();
+    setSoundTheme();
     setCursorTheme();
     setCursorSize();
     setIconsOnButtons();
@@ -302,6 +312,10 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
     } else if (group.name() == QStringLiteral("Icons")) {
         if (names.contains(QByteArrayLiteral("Theme"))) {
             setIconTheme();
+        }
+    } else if (group.name() == QLatin1String("Sounds")) {
+        if (names.contains(QByteArrayLiteral("Theme"))) {
+            setSoundTheme();
         }
     } else if (group.name() == QStringLiteral("General")) {
         if (names.contains(QByteArrayLiteral("font"))) {
