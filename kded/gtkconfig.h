@@ -27,6 +27,7 @@ public:
     void setFont() const;
     void setIconTheme() const;
     void setSoundTheme() const;
+    void setEventSoundsEnabled() const;
     void setCursorTheme() const;
     void setCursorSize() const;
     void setIconsOnButtons() const;

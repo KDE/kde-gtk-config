@@ -22,6 +22,7 @@ public:
     QString iconThemeName() const;
     QString cursorThemeName() const;
     QString soundThemeName() const;
+    bool eventSoundsEnabled() const;
     int cursorSize() const;
     bool iconsOnButtons() const;
     bool iconsInMenus() const;

@@ -131,6 +131,12 @@ QString ConfigValueProvider::soundThemeName() const
     return configGroup.readEntry(QStringLiteral("Theme"), QStringLiteral("ocean"));
 }
 
+bool ConfigValueProvider::eventSoundsEnabled() const
+{
+    KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("Sounds"));
+    return configGroup.readEntry(QStringLiteral("Enable"), true);
+}
+
 int ConfigValueProvider::cursorSize() const
 {
     KConfigGroup configGroup = inputConfig->group(QStringLiteral("Mouse"));

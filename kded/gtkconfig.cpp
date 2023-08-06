@@ -123,6 +123,15 @@ void GtkConfig::setSoundTheme() const
     XSettingsEditor::setValue(QStringLiteral("Net/SoundThemeName"), soundThemeName);
 }
 
+void GtkConfig::setEventSoundsEnabled() const
+{
+    const bool soundsEnabled = configValueProvider->eventSoundsEnabled();
+    Gtk2ConfigEditor::setValue(QStringLiteral("gtk-enable-event-sounds"), soundsEnabled);
+    GSettingsEditor::setValue("event-sounds", soundsEnabled, "org.gnome.desktop.sound");
+    SettingsIniEditor::setValue(QStringLiteral("gtk-enable-event-sounds"), soundsEnabled);
+    XSettingsEditor::setValue(QStringLiteral("Net/EnableEventSounds"), soundsEnabled);
+}
+
 void GtkConfig::setCursorTheme() const
 {
     const QString cursorThemeName = configValueProvider->cursorThemeName();
@@ -328,6 +337,9 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
     } else if (group.name() == QLatin1String("Sounds")) {
         if (names.contains(QByteArrayLiteral("Theme"))) {
             setSoundTheme();
+        }
+        if (names.contains(QByteArrayLiteral("Enable"))) {
+            setEventSoundsEnabled();
         }
     } else if (group.name() == QStringLiteral("General")) {
         if (names.contains(QByteArrayLiteral("font"))) {
