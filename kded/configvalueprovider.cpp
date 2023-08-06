@@ -127,7 +127,7 @@ QString ConfigValueProvider::cursorThemeName() const
 
 QString ConfigValueProvider::soundThemeName() const
 {
-    KConfigGroup configGroup = inputConfig->group(QStringLiteral("Sounds"));
+    KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("Sounds"));
     return configGroup.readEntry(QStringLiteral("Theme"), QStringLiteral("oxygen"));
 }
 
