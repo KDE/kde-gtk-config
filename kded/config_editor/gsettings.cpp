@@ -26,6 +26,8 @@ void setValue(const char *paramName, const QVariant &paramValue, const char *cat
 
     if (paramValue.type() == QVariant::Type::String) {
         g_settings_set_string(gsettings, paramName, paramValue.toString().toUtf8().constData());
+    } else if (paramValue.type() == QVariant::Type::UInt) {
+        g_settings_set_uint(gsettings, paramName, paramValue.toInt());
     } else if (paramValue.type() == QVariant::Type::Int) {
         g_settings_set_int(gsettings, paramName, paramValue.toInt());
     } else if (paramValue.type() == QVariant::Type::Bool) {
