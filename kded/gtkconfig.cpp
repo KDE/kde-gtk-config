@@ -64,12 +64,23 @@ GtkConfig::~GtkConfig()
     dbus.unregisterObject(QStringLiteral("/GtkConfig"));
 }
 
+void GtkConfig::setGtk2Theme(const QString &themeName, const bool preferDarkTheme) const
+{
+    // GTK2 does not support using dark variant automatically, so we have to get dark preference and switch based on that
+    QString possiblydarkthemeName = themeName;
+    if (themeName == QLatin1String("Breeze") && preferDarkTheme) {
+        possiblydarkthemeName = QStringLiteral("Breeze-Dark");
+    }
+
+    Gtk2ConfigEditor::setValue(QStringLiteral("gtk-theme-name"), possiblydarkthemeName);
+    XSettingsEditor::setValue(QStringLiteral("Net/ThemeName"), possiblydarkthemeName);
+}
+
 void GtkConfig::setGtkTheme(const QString &themeName) const
 {
-    Gtk2ConfigEditor::setValue(QStringLiteral("gtk-theme-name"), themeName);
+    setGtk2Theme(themeName, configValueProvider->preferDarkTheme());
     GSettingsEditor::setValue("gtk-theme", themeName);
     SettingsIniEditor::setValue(QStringLiteral("gtk-theme-name"), themeName);
-    XSettingsEditor::setValue(QStringLiteral("Net/ThemeName"), themeName);
 
     // Window decorations are part of the theme, in case of Breeze we inject custom ones from KWin
     setWindowDecorationsAppearance();
@@ -188,6 +199,7 @@ void GtkConfig::setDarkThemePreference() const
     GSettingsEditor::setValueAsEnum("color-scheme",
                                     preferDarkTheme ? 1 /*G_DESKTOP_COLOR_SCHEME_PREFER_DARK*/ : 0 /*G_DESKTOP_COLOR_SCHEME_DEFAULT*/,
                                     "org.gnome.desktop.interface");
+    setGtk2Theme(gtkTheme(), preferDarkTheme);
 }
 
 void GtkConfig::setWindowDecorationsAppearance() const

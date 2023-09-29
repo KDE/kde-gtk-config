@@ -63,6 +63,7 @@ private:
     KConfigWatcher::Ptr kcmfontsConfigWatcher;
     KConfigWatcher::Ptr kcminputConfigWatcher;
     KConfigWatcher::Ptr breezeConfigWatcher;
+    void setGtk2Theme(const QString &themeName, const bool preferDarkTheme) const;
 
     GSDXSettingsManager *m_gsdXsettingsManager = nullptr;
 };
