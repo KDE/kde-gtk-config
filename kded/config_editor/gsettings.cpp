@@ -7,6 +7,14 @@
 
 namespace GSettingsEditor
 {
+unsigned s_applyId = 0;
+
+void applySettings(void *)
+{
+    g_settings_sync();
+    s_applyId = 0;
+}
+
 bool checkParamExists(const char *paramName, const char *category)
 {
     GSettingsSchemaSource *gSettingsSchemaSource = g_settings_schema_source_get_default();
@@ -36,7 +44,9 @@ void setValue(const char *paramName, const QVariant &paramValue, const char *cat
         g_settings_set_double(gsettings, paramName, paramValue.toDouble());
     }
 
-    g_settings_sync();
+    if (s_applyId == 0) {
+        s_applyId = g_timeout_add_once(100, applySettings, nullptr);
+    }
 }
 
 void setValueAsEnum(const char *paramName, int paramValue, const char *category)
@@ -48,6 +58,9 @@ void setValueAsEnum(const char *paramName, int paramValue, const char *category)
 
     g_autoptr(GSettings) gsettings = g_settings_new(category);
     g_settings_set_enum(gsettings, paramName, paramValue);
-    g_settings_sync();
+
+    if (s_applyId == 0) {
+        s_applyId = g_timeout_add_once(100, applySettings, nullptr);
+    }
 }
 }
