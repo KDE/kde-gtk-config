@@ -14,8 +14,8 @@
 
 namespace
 {
-static constexpr const char *GTK_SETTINGS_DBUS_PATH = "/org/gtk/Settings";
-static constexpr const char *GTK_SETTINGS_DBUS_NAME = "org.gtk.Settings";
+inline constexpr QLatin1String GTK_SETTINGS_DBUS_PATH{"/org/gtk/Settings"};
+inline constexpr QLatin1String GTK_SETTINGS_DBUS_NAME{"org.gtk.Settings"};
 }
 
 GSDXSettingsManager::GSDXSettingsManager(QObject *parent)
@@ -24,8 +24,8 @@ GSDXSettingsManager::GSDXSettingsManager(QObject *parent)
     new GSDXSettingsManagerAdaptor(this);
 
     QDBusConnection dbus = QDBusConnection::sessionBus();
-    dbus.registerObject(QString::fromLatin1(GTK_SETTINGS_DBUS_PATH), this);
-    dbus.registerService(QString::fromLatin1(GTK_SETTINGS_DBUS_NAME));
+    dbus.registerObject(GTK_SETTINGS_DBUS_PATH, this);
+    dbus.registerService(GTK_SETTINGS_DBUS_NAME);
 }
 
 GSDXSettingsManager::~GSDXSettingsManager()
@@ -34,11 +34,10 @@ GSDXSettingsManager::~GSDXSettingsManager()
 
 void GSDXSettingsManager::modulesChanged()
 {
-    QDBusMessage msg = QDBusMessage::createSignal(QString::fromLatin1(GTK_SETTINGS_DBUS_PATH),
-                                                  QStringLiteral("org.freedesktop.DBus.Properties"),
-                                                  QStringLiteral("PropertiesChanged"));
+    QDBusMessage msg =
+        QDBusMessage::createSignal(GTK_SETTINGS_DBUS_PATH, QStringLiteral("org.freedesktop.DBus.Properties"), QStringLiteral("PropertiesChanged"));
     QVariantList args{
-        QString::fromLatin1(GTK_SETTINGS_DBUS_NAME),
+        GTK_SETTINGS_DBUS_NAME,
         QVariantMap{{QStringLiteral("Modules"), Modules()}},
         QStringList(),
     };
@@ -48,11 +47,10 @@ void GSDXSettingsManager::modulesChanged()
 
 void GSDXSettingsManager::enableAnimationsChanged()
 {
-    QDBusMessage msg = QDBusMessage::createSignal(QString::fromLatin1(GTK_SETTINGS_DBUS_PATH),
-                                                  QStringLiteral("org.freedesktop.DBus.Properties"),
-                                                  QStringLiteral("PropertiesChanged"));
+    QDBusMessage msg =
+        QDBusMessage::createSignal(GTK_SETTINGS_DBUS_PATH, QStringLiteral("org.freedesktop.DBus.Properties"), QStringLiteral("PropertiesChanged"));
     QVariantList args{
-        QString::fromLatin1(GTK_SETTINGS_DBUS_NAME),
+        GTK_SETTINGS_DBUS_NAME,
         QVariantMap{{QStringLiteral("EnableAnimations"), EnableAnimations()}},
         QStringList(),
     };
