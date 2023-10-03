@@ -11,13 +11,14 @@
 #include <QStandardPaths>
 
 #include <csignal>
+#include <glib.h>
 
 #include "config_editor/utils.h"
 
-namespace XSettingsEditor
-{
 namespace
 {
+unsigned s_applyId = 0;
+
 void replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString &paramName, const QVariant &paramValue)
 {
     const QRegularExpression regExp(paramName + QStringLiteral(" [^\n]*($|\n)"));
@@ -57,7 +58,7 @@ pid_t pidOfXSettingsd()
     return xsettingsdPid.toInt();
 }
 
-void reloadXSettingsd()
+void reloadXSettingsd(void *)
 {
     pid_t xSettingsdPid = pidOfXSettingsd();
     if (xSettingsdPid == 0) {
@@ -65,9 +66,14 @@ void reloadXSettingsd()
     } else {
         kill(xSettingsdPid, SIGHUP);
     }
+
+    s_applyId = 0;
 }
 
 }
+
+namespace XSettingsEditor
+{
 
 void setValue(const QString &paramName, const QVariant &paramValue)
 {
@@ -86,7 +92,10 @@ void setValue(const QString &paramName, const QVariant &paramValue)
     xSettingsdConfig.remove();
     xSettingsdConfig.open(QIODevice::WriteOnly | QIODevice::Text);
     xSettingsdConfig.write(xSettingsdConfigContents.toUtf8());
-    reloadXSettingsd();
+
+    if (s_applyId == 0) {
+        s_applyId = g_timeout_add_once(100, reloadXSettingsd, nullptr);
+    }
 }
 
 void unsetValue(const QString &paramName)
