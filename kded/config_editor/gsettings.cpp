@@ -9,10 +9,17 @@ namespace GSettingsEditor
 {
 unsigned s_applyId = 0;
 
+#if GLIB_CHECK_VERSION(2, 74, 0)
 void applySettings(void *)
+#else
+int applySettings(void *)
+#endif
 {
     g_settings_sync();
     s_applyId = 0;
+#if !GLIB_CHECK_VERSION(2, 74, 0)
+    return G_SOURCE_REMOVE;
+#endif
 }
 
 bool checkParamExists(const char *paramName, const char *category)
@@ -45,7 +52,11 @@ void setValue(const char *paramName, const QVariant &paramValue, const char *cat
     }
 
     if (s_applyId == 0) {
+#if GLIB_CHECK_VERSION(2, 74, 0)
         s_applyId = g_timeout_add_once(100, applySettings, nullptr);
+#else
+        s_applyId = g_timeout_add(100, applySettings, nullptr);
+#endif
     }
 }
 
@@ -60,7 +71,11 @@ void setValueAsEnum(const char *paramName, int paramValue, const char *category)
     g_settings_set_enum(gsettings, paramName, paramValue);
 
     if (s_applyId == 0) {
+#if GLIB_CHECK_VERSION(2, 74, 0)
         s_applyId = g_timeout_add_once(100, applySettings, nullptr);
+#else
+        s_applyId = g_timeout_add(100, applySettings, nullptr);
+#endif
     }
 }
 }
