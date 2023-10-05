@@ -58,7 +58,11 @@ pid_t pidOfXSettingsd()
     return xsettingsdPid.toInt();
 }
 
+#if GLIB_CHECK_VERSION(2, 74, 0)
 void reloadXSettingsd(void *)
+#else
+int reloadXSettingsd(void *)
+#endif
 {
     pid_t xSettingsdPid = pidOfXSettingsd();
     if (xSettingsdPid == 0) {
@@ -68,6 +72,9 @@ void reloadXSettingsd(void *)
     }
 
     s_applyId = 0;
+#if !GLIB_CHECK_VERSION(2, 74, 0)
+    return G_SOURCE_REMOVE;
+#endif
 }
 
 }
@@ -94,7 +101,11 @@ void setValue(const QString &paramName, const QVariant &paramValue)
     xSettingsdConfig.write(xSettingsdConfigContents.toUtf8());
 
     if (s_applyId == 0) {
+#if GLIB_CHECK_VERSION(2, 74, 0)
         s_applyId = g_timeout_add_once(100, reloadXSettingsd, nullptr);
+#else
+        s_applyId = g_timeout_add(100, reloadXSettingsd, nullptr);
+#endif
     }
 }
 
