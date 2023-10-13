@@ -37,9 +37,9 @@ target_link_libraries(gtkconfig
   PUBLIC
     Qt::DBus
     Qt::Svg
+    KF6::ColorScheme
     KF6::CoreAddons
     KF6::ConfigCore
-    KF6::ConfigWidgets
     KF6::DBusAddons
     KF6::GuiAddons
     PkgConfig::GTK+3

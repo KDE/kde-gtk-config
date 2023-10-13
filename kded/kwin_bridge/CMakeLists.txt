@@ -14,7 +14,7 @@ target_link_libraries(KWinBridge
     KDecoration2::KDecoration
   PRIVATE
     KDecoration2::KDecoration2Private
-    KF6::ConfigWidgets
+    KF6::ColorScheme
     KF6::CoreAddons
     Qt::Svg
 )

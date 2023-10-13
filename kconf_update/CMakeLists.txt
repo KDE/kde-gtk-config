@@ -14,7 +14,6 @@ target_link_libraries(gtk_theme
   PRIVATE
     Qt::Core
     KF6::ConfigCore
-    KF6::ConfigWidgets
     KF6::GuiAddons
     PkgConfig::GIO
     PkgConfig::GObject
@@ -47,7 +46,6 @@ target_link_libraries(remove_deprecated_gtk4_option
   PRIVATE
     Qt::Core
     KF6::ConfigCore
-    KF6::ConfigWidgets
     KF6::GuiAddons
     PkgConfig::GIO
     PkgConfig::GObject
