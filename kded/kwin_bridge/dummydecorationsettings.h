@@ -19,8 +19,8 @@ public:
     virtual bool isOnAllDesktopsAvailable() const override;
     virtual bool isAlphaChannelSupported() const override;
     virtual bool isCloseOnDoubleClickOnMenu() const override;
-    virtual QVector<DecorationButtonType> decorationButtonsLeft() const override;
-    virtual QVector<DecorationButtonType> decorationButtonsRight() const override;
+    virtual QList<DecorationButtonType> decorationButtonsLeft() const override;
+    virtual QList<DecorationButtonType> decorationButtonsRight() const override;
     virtual BorderSize borderSize() const override;
 };
 

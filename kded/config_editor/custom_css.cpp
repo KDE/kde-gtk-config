@@ -59,7 +59,7 @@ void addImportStatementsToGtkCssUserFile()
         if (gtkCss.open(QIODevice::ReadWrite)) {
             QByteArray gtkCssContents = gtkCss.readAll().trimmed();
 
-            static const QVector<QByteArray> importStatements{
+            static const QList<QByteArray> importStatements{
                 QByteArrayLiteral("\n@import 'colors.css';"),
             };
 

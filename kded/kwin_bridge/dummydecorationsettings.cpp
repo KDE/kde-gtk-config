@@ -27,12 +27,12 @@ bool DummyDecorationSettings::isCloseOnDoubleClickOnMenu() const
     return false;
 }
 
-QVector<DecorationButtonType> DummyDecorationSettings::decorationButtonsLeft() const
+QList<DecorationButtonType> DummyDecorationSettings::decorationButtonsLeft() const
 {
     return {};
 }
 
-QVector<DecorationButtonType> DummyDecorationSettings::decorationButtonsRight() const
+QList<DecorationButtonType> DummyDecorationSettings::decorationButtonsRight() const
 {
     return {};
 }

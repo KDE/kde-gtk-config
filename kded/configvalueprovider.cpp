@@ -184,14 +184,14 @@ bool ConfigValueProvider::preferDarkTheme() const
 
 QStringList ConfigValueProvider::windowDecorationsButtonsImages() const
 {
-    static const QVector<QString> buttonTypes{
+    static const QList<QString> buttonTypes{
         QStringLiteral("close"),
         QStringLiteral("maximize"),
         QStringLiteral("maximized"),
         QStringLiteral("minimize"),
     };
 
-    static const QVector<QString> buttonStates{
+    static const QList<QString> buttonStates{
         // Focused titlebars
         QStringLiteral("normal"),
         QStringLiteral("active"), // aka pressed
