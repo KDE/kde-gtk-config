@@ -264,6 +264,8 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
 {
     using KCS = KColorScheme;
 
+    KSharedConfig::openConfig(QStringLiteral("kdeglobals"))->reparseConfiguration();
+
     // Color Schemes Collection
     QHash<QString, QHash<QString, KCS>> csc{
         {QStringLiteral("active"),

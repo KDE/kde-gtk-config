@@ -57,6 +57,9 @@ add_subdirectory(kded)
 add_subdirectory(kconf_update)
 add_subdirectory(color-reload-module)
 add_subdirectory(window-decorations-reload-module)
+if (BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()
 
 # add clang-format target for all our real source files
 file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h)

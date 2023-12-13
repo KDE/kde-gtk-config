@@ -7,3 +7,6 @@ Files: gsd-xsettings-manager/org.gtk.Settings.xml
 Copyright: 2018 Bastien Nocera <hadess@hadess.net>
 License: GPL-2.0-or-later
 
+Files: autotests/resources/*
+Copyright: None
+License: CC0-1.0

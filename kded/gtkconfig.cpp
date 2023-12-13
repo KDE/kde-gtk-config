@@ -281,6 +281,7 @@ void GtkConfig::setColors() const
 {
     CustomCssEditor::addGtkModule(QStringLiteral("colorreload-gtk-module"));
     if (m_gsdXsettingsManager) {
+        qCritical("m_gsdXsettingsManager->modulesChanged()");
         m_gsdXsettingsManager->modulesChanged();
     }
     // modulesChanged signal will take some time to reach a GTK app, so explicitly wait a moment
@@ -346,6 +347,7 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
             setFont();
         }
         if (names.contains(QByteArrayLiteral("ColorScheme")) || names.contains(QByteArrayLiteral("AccentColor"))) {
+            qCritical() << "received changed signal";
             setColors();
             setDarkThemePreference();
             setWindowDecorationsAppearance(); // Decorations' color can depend on the current color scheme

@@ -15,5 +15,12 @@ Dependencies:
     'frameworks/kwidgetsaddons': '@latest-kf6'
     'frameworks/kwindowsystem': '@latest-kf6'
     'plasma/kdecoration': '@same'
+
+RuntimeDependencies:
+- 'on': ['Linux', 'FreeBSD']
+  'require':
+    'frameworks/kded': '@latest-kf6'
+    'plasma/kwin': '@same'
+
 Options:
   require-passing-tests-on: [ 'Linux', 'FreeBSD']
