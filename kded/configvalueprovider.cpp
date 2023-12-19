@@ -502,12 +502,10 @@ double ConfigValueProvider::x11GlobalScaleFactor() const
 int ConfigValueProvider::fontDpi() const
 {
     KConfigGroup configGroup = fontsConfig->group(QStringLiteral("General"));
-    int fontDpi = 0;
+    int fontDpi = 96; // On wayland we want to enforce a scale of one for the fonts as we'll use wayland scaling
 
     if (KWindowSystem::isPlatformX11()) {
         fontDpi = configGroup.readEntry(QStringLiteral("forceFontDPI"), 0);
-    } else {
-        fontDpi = configGroup.readEntry(QStringLiteral("forceFontDPIWayland"), 0);
     }
 
     if (fontDpi <= 0) {

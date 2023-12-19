@@ -384,7 +384,7 @@ void GtkConfig::onKWinSettingsChange(const KConfigGroup &group, const QByteArray
 void GtkConfig::onKCMFontsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const
 {
     if (group.name() == QStringLiteral("General")) {
-        if (names.contains("forceFontDPI") || names.contains("forceFontDPIWayland")) {
+        if (names.contains("forceFontDPI")) {
             setTextScale();
         }
     }
