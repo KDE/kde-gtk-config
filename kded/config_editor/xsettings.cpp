@@ -17,7 +17,7 @@
 
 namespace
 {
-unsigned s_applyId = 0;
+constinit unsigned s_applyId = 0;
 
 void replaceValueInXSettingsdContents(QString &xSettingsdContents, const QString &paramName, const QVariant &paramValue)
 {

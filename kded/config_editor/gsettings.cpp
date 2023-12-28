@@ -7,7 +7,7 @@
 
 namespace GSettingsEditor
 {
-unsigned s_applyId = 0;
+constinit unsigned s_applyId = 0;
 
 #if GLIB_CHECK_VERSION(2, 74, 0)
 void applySettings(void *)
