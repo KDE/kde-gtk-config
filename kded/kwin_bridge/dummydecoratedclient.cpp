@@ -131,6 +131,11 @@ QSize DummyDecoratedClient::size() const
     return {};
 }
 
+qreal DummyDecoratedClient::devicePixelRatio() const
+{
+    return 1;
+}
+
 QPalette DummyDecoratedClient::palette() const
 {
     return m_pallete.palette();
