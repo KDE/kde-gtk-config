@@ -241,14 +241,9 @@ void GtkConfig::setEnableAnimations() const
     }
 }
 
-static double roundPreferFloor(double d)
-{
-    return (d - floor(d)) > 0.5 ? ceil(d) : floor(d);
-}
-
 void GtkConfig::setGlobalScale() const
 {
-    const unsigned scaleFactor = roundPreferFloor(configValueProvider->x11GlobalScaleFactor());
+    const unsigned scaleFactor = configValueProvider->x11GlobalScaleFactor();
     XSettingsEditor::setValue(QStringLiteral("Gdk/WindowScalingFactor"), scaleFactor);
     GSettingsEditor::setValue("scaling-factor", scaleFactor); // For IntelliJ IDEA
 }
@@ -256,7 +251,7 @@ void GtkConfig::setGlobalScale() const
 void GtkConfig::setTextScale() const
 {
     const double x11Scale = configValueProvider->x11GlobalScaleFactor();
-    const int x11ScaleIntegerPart = int(roundPreferFloor(x11Scale));
+    const int x11ScaleIntegerPart = int(x11Scale);
 
     const int forceFontDpi = configValueProvider->fontDpi();
 
