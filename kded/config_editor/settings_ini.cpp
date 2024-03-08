@@ -9,29 +9,70 @@
 #include <QStandardPaths>
 
 #include "config_editor/utils.h"
-
-namespace SettingsIniEditor
-{
+#include <gio/gio.h>
 
 namespace
 {
+constinit unsigned s_timerId = 0;
+KConfigGroup s_configGroup3;
+KConfigGroup s_configGroup4;
 
-KConfigGroup gtkConfigGroup(int gtkVersion)
+#if GLIB_CHECK_VERSION(2, 74, 0)
+void syncConfig(void *)
+#else
+int applySettings(void *)
+#endif
 {
+    if (s_configGroup3.isValid()) {
+        s_configGroup3.sync();
+        s_configGroup3 = KConfigGroup();
+    }
+    if (s_configGroup4.isValid()) {
+        s_configGroup4.sync();
+        s_configGroup4 = KConfigGroup();
+    }
+    s_timerId = 0;
+#if !GLIB_CHECK_VERSION(2, 74, 0)
+    return G_SOURCE_REMOVE;
+#endif
+}
+
+KConfigGroup &gtkConfigGroup(int gtkVersion)
+{
+    static_assert(!std::is_trivially_copy_assignable_v<KConfigGroup>);
+    if (gtkVersion == 3 && s_configGroup3.isValid()) {
+        return s_configGroup3;
+    } else if (gtkVersion == 4 && s_configGroup4.isValid()) {
+        return s_configGroup4;
+    }
+
     QString configLocation = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
-    auto gtkConfigPath = QStringLiteral("%1/gtk-%2.0/settings.ini").arg(configLocation).arg(gtkVersion);
+    auto gtkConfigPath = QStringLiteral("%1/gtk-%2.0/settings.ini").arg(configLocation, QString::number(gtkVersion));
 
     KSharedConfig::Ptr gtkConfig = KSharedConfig::openConfig(gtkConfigPath, KConfig::NoGlobals);
-    return gtkConfig->group(QStringLiteral("Settings"));
+    if (gtkVersion == 4) {
+        s_configGroup4 = gtkConfig->group(QStringLiteral("Settings"));
+        return s_configGroup4;
+    }
+    s_configGroup3 = gtkConfig->group(QStringLiteral("Settings"));
+    return s_configGroup3;
 }
 }
 
+namespace SettingsIniEditor
+{
 void setValue(const QString &paramName, const QVariant &paramValue, int gtkVersion)
 {
     auto setValueForVersion = [&](int version) {
-        auto group = gtkConfigGroup(version);
+        KConfigGroup &group = gtkConfigGroup(version);
         group.writeEntry(paramName, paramValue);
-        group.sync();
+        if (s_timerId == 0) {
+#if GLIB_CHECK_VERSION(2, 74, 0)
+            s_timerId = g_timeout_add_once(100, syncConfig, nullptr);
+#else
+            s_timerId = g_timeout_add(100, syncConfig, nullptr);
+#endif
+        }
     };
 
     if (gtkVersion != -1) {
@@ -47,9 +88,15 @@ void setValue(const QString &paramName, const QVariant &paramValue, int gtkVersi
 void unsetValue(const QString &paramName, int gtkVersion)
 {
     auto unsetValueForVersion = [&](int version) {
-        auto group = gtkConfigGroup(version);
+        KConfigGroup &group = gtkConfigGroup(version);
         group.deleteEntry(paramName);
-        group.sync();
+        if (s_timerId == 0) {
+#if GLIB_CHECK_VERSION(2, 74, 0)
+            s_timerId = g_timeout_add_once(100, syncConfig, nullptr);
+#else
+            s_timerId = g_timeout_add(100, syncConfig, nullptr);
+#endif
+        }
     };
 
     if (gtkVersion != -1) {
@@ -68,7 +115,7 @@ QString value(const QString &paramName, int gtkVersion)
         gtkVersion = *Utils::s_gtkVersions.begin();
     }
 
-    auto group = gtkConfigGroup(gtkVersion);
+    KConfigGroup &group = gtkConfigGroup(gtkVersion);
     return group.readEntry(paramName);
 }
 
