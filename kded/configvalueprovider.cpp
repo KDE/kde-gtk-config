@@ -496,7 +496,9 @@ double ConfigValueProvider::x11GlobalScaleFactor() const
         scaleFactor = xwaylandGroup.readEntry(QStringLiteral("Scale"), 1.0);
     }
 
-    return std::clamp(scaleFactor, 1.0, double(MAX_GDK_SCALE));
+    scaleFactor = std::clamp<double>(scaleFactor, 1.0, MAX_GDK_SCALE);
+
+    return (scaleFactor - std::floor(scaleFactor) > 0.5) ? std::ceil(scaleFactor) : scaleFactor;
 }
 
 int ConfigValueProvider::fontDpi() const

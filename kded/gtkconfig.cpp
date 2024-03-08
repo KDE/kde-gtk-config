@@ -273,6 +273,7 @@ void GtkConfig::setTextScale() const
 
     XSettingsEditor::unsetValue(QStringLiteral("Xft/DPI"));
     SettingsIniEditor::setValue(QStringLiteral("gtk-xft-dpi"), x11TextDpiAbsolute);
+    qCritical() << "x11TextDpiAbsolute" << x11TextDpiAbsolute << x11ScaleIntegerPart << x11TextDpiAbsolute / x11ScaleIntegerPart;
     XSettingsEditor::setValue(QStringLiteral("Gdk/UnscaledDPI"), x11TextDpiAbsolute / x11ScaleIntegerPart);
     GSettingsEditor::setValue("text-scaling-factor", waylandTextScaleFactor);
 }
