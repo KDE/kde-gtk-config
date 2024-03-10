@@ -70,7 +70,7 @@ void setValue(const QString &paramName, const QVariant &paramValue, int gtkVersi
 #if GLIB_CHECK_VERSION(2, 74, 0)
             s_timerId = g_timeout_add_once(100, syncConfig, nullptr);
 #else
-            s_timerId = g_timeout_add(100, syncConfig, nullptr);
+            s_timerId = g_timeout_add(100, applySettings, nullptr);
 #endif
         }
     };
@@ -94,7 +94,7 @@ void unsetValue(const QString &paramName, int gtkVersion)
 #if GLIB_CHECK_VERSION(2, 74, 0)
             s_timerId = g_timeout_add_once(100, syncConfig, nullptr);
 #else
-            s_timerId = g_timeout_add(100, syncConfig, nullptr);
+            s_timerId = g_timeout_add(100, applySettings, nullptr);
 #endif
         }
     };
