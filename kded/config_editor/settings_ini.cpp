@@ -20,7 +20,7 @@ KConfigGroup s_configGroup4;
 #if GLIB_CHECK_VERSION(2, 74, 0)
 void syncConfig(void *)
 #else
-int applySettings(void *)
+int syncConfig(void *)
 #endif
 {
     if (s_configGroup3.isValid()) {
