@@ -18,10 +18,11 @@ KConfigGroup s_configGroup3;
 KConfigGroup s_configGroup4;
 
 #if GLIB_CHECK_VERSION(2, 74, 0)
-void syncConfig(void *)
+void
 #else
-int syncConfig(void *)
+int
 #endif
+syncConfig(void *)
 {
     if (s_configGroup3.isValid()) {
         s_configGroup3.sync();

@@ -59,10 +59,11 @@ pid_t pidOfXSettingsd()
 }
 
 #if GLIB_CHECK_VERSION(2, 74, 0)
-void reloadXSettingsd(void *)
+void
 #else
-int reloadXSettingsd(void *)
+int
 #endif
+reloadXSettingsd(void *)
 {
     pid_t xSettingsdPid = pidOfXSettingsd();
     if (xSettingsdPid == 0) {

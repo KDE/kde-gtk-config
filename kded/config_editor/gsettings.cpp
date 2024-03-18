@@ -10,10 +10,11 @@ namespace GSettingsEditor
 constinit unsigned s_applyId = 0;
 
 #if GLIB_CHECK_VERSION(2, 74, 0)
-void applySettings(void *)
+void
 #else
-int applySettings(void *)
+int
 #endif
+applySettings(void *)
 {
     g_settings_sync();
     s_applyId = 0;
