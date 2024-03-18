@@ -41,7 +41,7 @@ void setValue(const char *paramName, const QVariant &paramValue, const char *cat
     g_autoptr(GSettings) gsettings = g_settings_new(category);
 
     if (paramValue.typeId() == QMetaType::QString) {
-        g_settings_set_string(gsettings, paramName, paramValue.toString().toUtf8().constData());
+        g_settings_set_string(gsettings, paramName, get<QString>(paramValue).toUtf8().constData());
     } else if (paramValue.typeId() == QMetaType::UInt) {
         g_settings_set_uint(gsettings, paramName, paramValue.toInt());
     } else if (paramValue.typeId() == QMetaType::Int) {
