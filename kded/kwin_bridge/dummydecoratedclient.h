@@ -43,9 +43,10 @@ public:
     WId windowId() const override;
     WId decorationId() const override;
 
-    int width() const override;
-    int height() const override;
-    QSize size() const override;
+    double width() const override;
+    double height() const override;
+    QSizeF size() const override;
+    double scale() const override;
     QPalette palette() const override;
     QColor color(ColorGroup group, ColorRole role) const override;
     Qt::Edges adjacentScreenEdges() const override;

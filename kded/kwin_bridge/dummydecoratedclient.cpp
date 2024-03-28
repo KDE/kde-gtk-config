@@ -116,19 +116,24 @@ WId DummyDecoratedClient::decorationId() const
     return {};
 }
 
-int DummyDecoratedClient::width() const
+double DummyDecoratedClient::width() const
 {
     return {};
 }
 
-int DummyDecoratedClient::height() const
+double DummyDecoratedClient::height() const
 {
     return {};
 }
 
-QSize DummyDecoratedClient::size() const
+QSizeF DummyDecoratedClient::size() const
 {
     return {};
+}
+
+double DummyDecoratedClient::scale() const
+{
+    return 1;
 }
 
 QPalette DummyDecoratedClient::palette() const
