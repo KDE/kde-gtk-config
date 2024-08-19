@@ -16,12 +16,12 @@ class DummyDecorationSettings : public KDecoration2::DecorationSettingsPrivate
 public:
     explicit DummyDecorationSettings(DecorationSettings *parent);
 
-    virtual bool isOnAllDesktopsAvailable() const override;
-    virtual bool isAlphaChannelSupported() const override;
-    virtual bool isCloseOnDoubleClickOnMenu() const override;
-    virtual QList<DecorationButtonType> decorationButtonsLeft() const override;
-    virtual QList<DecorationButtonType> decorationButtonsRight() const override;
-    virtual BorderSize borderSize() const override;
+    bool isOnAllDesktopsAvailable() const override;
+    bool isAlphaChannelSupported() const override;
+    bool isCloseOnDoubleClickOnMenu() const override;
+    QList<DecorationButtonType> decorationButtonsLeft() const override;
+    QList<DecorationButtonType> decorationButtonsRight() const override;
+    BorderSize borderSize() const override;
 };
 
 }
