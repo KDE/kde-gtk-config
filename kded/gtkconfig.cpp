@@ -316,6 +316,10 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
         if (names.contains(QByteArrayLiteral("AnimationDurationFactor"))) {
             setEnableAnimations();
         }
+        if (names.contains(QByteArrayLiteral("LookAndFeelPackage"))) {
+            // update all settings, since global theme can include most of them
+            applyAllSettings();
+        }
         if (names.contains(QByteArrayLiteral("ShowIconsInMenuItems"))) {
             setIconsInMenus();
         }
