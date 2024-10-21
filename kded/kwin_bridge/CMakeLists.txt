@@ -18,3 +18,8 @@ target_link_libraries(KWinBridge
     KF6::CoreAddons
     Qt::Svg
 )
+
+ecm_qt_declare_logging_category(KWinBridge HEADER debug.h IDENTIFIER KWINBRIDGE_LOG CATEGORY_NAME org.kde.plasma.gtkconfig.kwinbridge
+    DESCRIPTION "KDE GTK Config KWin Bridge"
+    EXPORT KDE_GTK_CONFIG
+)
