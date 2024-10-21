@@ -23,6 +23,7 @@ include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 include(KDEClangFormat)
 include(KDEGitCommitHooks)
+include(ECMQtDeclareLoggingCategory)
 
 find_package(Qt6 ${QT_MIN_VERSION} REQUIRED NO_MODULE COMPONENTS DBus Svg)
 find_package(KF6 ${KF6_MIN_VERSION} REQUIRED COMPONENTS ColorScheme CoreAddons Config GuiAddons DBusAddons WindowSystem)
@@ -57,6 +58,12 @@ add_subdirectory(kded)
 add_subdirectory(kconf_update)
 add_subdirectory(color-reload-module)
 add_subdirectory(window-decorations-reload-module)
+
+ecm_qt_install_logging_categories(
+    EXPORT KDE_GTK_CONFIG
+    FILE kde-gtk-config.categories
+    DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
+)
 
 # add clang-format target for all our real source files
 file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h)

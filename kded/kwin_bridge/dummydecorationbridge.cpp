@@ -5,6 +5,7 @@
  */
 
 #include <QCoreApplication>
+#include <QDebug>
 #include <QMouseEvent>
 
 #include <KConfigGroup>
@@ -16,6 +17,7 @@
 #include <KPluginMetaData>
 #include <KSharedConfig>
 
+#include "debug.h"
 #include "decorationpainter.h"
 #include "dummydecoratedclient.h"
 #include "dummydecorationbridge.h"
@@ -48,20 +50,27 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
     const QString pluginPath = windowDecorationPluginPath(decorationTheme);
     m_pluginLoader.setFileName(pluginPath);
     m_factory = qobject_cast<KPluginFactory *>(m_pluginLoader.instance());
+
     if (m_factory) {
         const QVariantMap args({{QStringLiteral("bridge"), QVariant::fromValue(this)}});
         m_decoration = m_factory->create<KDecoration2::Decoration>(m_factory, QVariantList({args}));
-    }
 
-    auto decorationSettings = std::make_shared<KDecoration2::DecorationSettings>(this);
-    m_decoration->setSettings(decorationSettings);
-    m_decoration->init();
+        if (m_decoration) {
+            auto decorationSettings = std::make_shared<KDecoration2::DecorationSettings>(this);
+            m_decoration->setSettings(decorationSettings);
+            m_decoration->init();
 
-    // Update decoration settings, e.g. Breeze's "Draw a circle around close button"
-    if (m_settings) {
-        Q_EMIT m_settings->decorationSettings()->reconfigured();
+            // Update decoration settings, e.g. Breeze's "Draw a circle around close button"
+            if (m_settings) {
+                Q_EMIT m_settings->decorationSettings()->reconfigured();
+            }
+            enableAnimations();
+        } else {
+            qCWarning(KWINBRIDGE_LOG) << "Loading decoration" << pluginPath << "failed" << m_pluginLoader.errorString();
+        }
+    } else {
+        qCWarning(KWINBRIDGE_LOG) << "Loading factory for decoration" << pluginPath << "failed" << m_pluginLoader.errorString();
     }
-    enableAnimations();
 }
 
 DummyDecorationBridge::~DummyDecorationBridge()
