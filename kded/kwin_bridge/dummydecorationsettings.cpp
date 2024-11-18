@@ -5,7 +5,7 @@
  */
 #include "dummydecorationsettings.h"
 
-namespace KDecoration2
+namespace KDecoration3
 {
 DummyDecorationSettings::DummyDecorationSettings(DecorationSettings *parent)
     : DecorationSettingsPrivate(parent)

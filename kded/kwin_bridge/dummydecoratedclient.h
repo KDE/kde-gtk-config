@@ -6,13 +6,13 @@
 
 #pragma once
 
-#include <KDecoration2/Private/DecoratedClientPrivate>
+#include <KDecoration3/Private/DecoratedClientPrivate>
 
 #include <QPalette>
 
 #include "decorationpalette.h"
 
-namespace KDecoration2
+namespace KDecoration3
 {
 class DummyDecoratedClient : public QObject, public DecoratedClientPrivate
 {

@@ -9,14 +9,13 @@
 #include <QPluginLoader>
 #include <QString>
 
-#include <KDecoration2/Decoration>
-#include <KDecoration2/Private/DecorationBridge>
-#include <kdecoration2/decorationdefines.h>
-
+#include <KDecoration3/Decoration>
+#include <KDecoration3/Private/DecorationBridge>
+#include <kdecoration3/decorationdefines.h>
 
 class KPluginFactory;
 
-namespace KDecoration2
+namespace KDecoration3
 {
 class DecorationSettings;
 class DecoratedClientPrivate;
@@ -30,8 +29,8 @@ public:
     DummyDecorationBridge(const QString &decorationTheme, QObject *parent = nullptr);
     ~DummyDecorationBridge() override;
 
-    std::unique_ptr<KDecoration2::DecorationSettingsPrivate> settings(KDecoration2::DecorationSettings *parent) override;
-    std::unique_ptr<KDecoration2::DecoratedClientPrivate> createClient(KDecoration2::DecoratedClient *client, KDecoration2::Decoration *decoration) override;
+    std::unique_ptr<KDecoration3::DecorationSettingsPrivate> settings(KDecoration3::DecorationSettings *parent) override;
+    std::unique_ptr<KDecoration3::DecoratedClientPrivate> createClient(KDecoration3::DecoratedClient *client, KDecoration3::Decoration *decoration) override;
 
     void paintButton(QPainter &painter, const QString &buttonType, const QString &buttonState);
 
@@ -41,19 +40,19 @@ private:
 
     QString windowDecorationPluginPath(const QString &decorationTheme) const;
 
-    void passMouseHoverEventToButton(KDecoration2::DecorationButton *button) const;
-    void passMousePressEventToButton(KDecoration2::DecorationButton *button) const;
+    void passMouseHoverEventToButton(KDecoration3::DecorationButton *button) const;
+    void passMousePressEventToButton(KDecoration3::DecorationButton *button) const;
 
-    KDecoration2::DecorationButtonType strToButtonType(const QString &type) const;
+    KDecoration3::DecorationButtonType strToButtonType(const QString &type) const;
 
     QString m_decorationsConfigFileName;
     double globalAnimationEntryValue;
 
     QPluginLoader m_pluginLoader;
     KPluginFactory *m_factory;
-    KDecoration2::Decoration *m_decoration;
-    KDecoration2::DecoratedClientPrivate *m_client;
-    KDecoration2::DummyDecorationSettings *m_settings;
+    KDecoration3::Decoration *m_decoration;
+    KDecoration3::DecoratedClientPrivate *m_client;
+    KDecoration3::DummyDecorationSettings *m_settings;
 };
 
 }

@@ -18,5 +18,5 @@ public:
     void paintButton(QPainter &painter, const QString &buttonType, const QString &buttonState) const override;
 
 private:
-    std::unique_ptr<KDecoration2::DummyDecorationBridge> m_bridge;
+    std::unique_ptr<KDecoration3::DummyDecorationBridge> m_bridge;
 };

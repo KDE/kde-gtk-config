@@ -9,10 +9,10 @@
 #include <QMouseEvent>
 
 #include <KConfigGroup>
-#include <KDecoration2/DecoratedClient>
-#include <KDecoration2/DecorationSettings>
-#include <KDecoration2/Private/DecoratedClientPrivate>
-#include <KDecoration2/Private/DecorationSettingsPrivate>
+#include <KDecoration3/DecoratedClient>
+#include <KDecoration3/DecorationSettings>
+#include <KDecoration3/Private/DecoratedClientPrivate>
+#include <KDecoration3/Private/DecorationSettingsPrivate>
 #include <KPluginFactory>
 #include <KPluginMetaData>
 #include <KSharedConfig>
@@ -23,7 +23,7 @@
 #include "dummydecorationbridge.h"
 #include "dummydecorationsettings.h"
 
-namespace KDecoration2
+namespace KDecoration3
 {
 DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QObject *parent)
     : DecorationBridge(parent)
@@ -53,10 +53,10 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
 
     if (m_factory) {
         const QVariantMap args({{QStringLiteral("bridge"), QVariant::fromValue(this)}});
-        m_decoration = m_factory->create<KDecoration2::Decoration>(m_factory, QVariantList({args}));
+        m_decoration = m_factory->create<KDecoration3::Decoration>(m_factory, QVariantList({args}));
 
         if (m_decoration) {
-            auto decorationSettings = std::make_shared<KDecoration2::DecorationSettings>(this);
+            auto decorationSettings = std::make_shared<KDecoration3::DecorationSettings>(this);
             m_decoration->setSettings(decorationSettings);
             m_decoration->init();
 
@@ -78,15 +78,15 @@ DummyDecorationBridge::~DummyDecorationBridge()
     m_pluginLoader.unload();
 }
 
-std::unique_ptr<KDecoration2::DecorationSettingsPrivate> DummyDecorationBridge::settings(KDecoration2::DecorationSettings *parent)
+std::unique_ptr<KDecoration3::DecorationSettingsPrivate> DummyDecorationBridge::settings(KDecoration3::DecorationSettings *parent)
 {
     auto newSettings = std::unique_ptr<DummyDecorationSettings>(new DummyDecorationSettings(parent));
     m_settings = newSettings.get();
     return newSettings;
 }
 
-std::unique_ptr<KDecoration2::DecoratedClientPrivate> DummyDecorationBridge::createClient(KDecoration2::DecoratedClient *client,
-                                                                                          KDecoration2::Decoration *decoration)
+std::unique_ptr<KDecoration3::DecoratedClientPrivate> DummyDecorationBridge::createClient(KDecoration3::DecoratedClient *client,
+                                                                                          KDecoration3::Decoration *decoration)
 {
     auto ptr = std::unique_ptr<DummyDecoratedClient>(new DummyDecoratedClient(client, decoration));
     m_client = ptr.get();
@@ -96,8 +96,8 @@ std::unique_ptr<KDecoration2::DecoratedClientPrivate> DummyDecorationBridge::cre
 void DummyDecorationBridge::paintButton(QPainter &painter, const QString &buttonType, const QString &buttonState)
 {
     disableAnimations();
-    std::unique_ptr<KDecoration2::DecorationButton> button{
-        m_factory->create<KDecoration2::DecorationButton>(m_decoration,
+    std::unique_ptr<KDecoration3::DecorationButton> button{
+        m_factory->create<KDecoration3::DecorationButton>(m_decoration,
                                                           QVariantList({
                                                               QVariant::fromValue(strToButtonType(buttonType)),
                                                               QVariant::fromValue(m_decoration),
@@ -166,7 +166,7 @@ void DummyDecorationBridge::enableAnimations()
 
 QString DummyDecorationBridge::windowDecorationPluginPath(const QString &decorationTheme) const
 {
-    const auto decorationPlugins = KPluginMetaData::findPlugins(QStringLiteral("org.kde.kdecoration2"));
+    const auto decorationPlugins = KPluginMetaData::findPlugins(QStringLiteral("org.kde.kdecoration3"));
 
     QString defaultPluginPath;
 
@@ -182,7 +182,7 @@ QString DummyDecorationBridge::windowDecorationPluginPath(const QString &decorat
     return defaultPluginPath;
 }
 
-void DummyDecorationBridge::passMouseHoverEventToButton(KDecoration2::DecorationButton *button) const
+void DummyDecorationBridge::passMouseHoverEventToButton(KDecoration3::DecorationButton *button) const
 {
     QHoverEvent event{QEvent::HoverEnter,
                       {
@@ -197,7 +197,7 @@ void DummyDecorationBridge::passMouseHoverEventToButton(KDecoration2::Decoration
     QCoreApplication::instance()->sendEvent(button, &event);
 }
 
-void DummyDecorationBridge::passMousePressEventToButton(KDecoration2::DecorationButton *button) const
+void DummyDecorationBridge::passMousePressEventToButton(KDecoration3::DecorationButton *button) const
 {
     QMouseEvent event{QEvent::MouseButtonPress,
                       {
@@ -210,14 +210,14 @@ void DummyDecorationBridge::passMousePressEventToButton(KDecoration2::Decoration
     QCoreApplication::instance()->sendEvent(button, &event);
 }
 
-KDecoration2::DecorationButtonType DummyDecorationBridge::strToButtonType(const QString &type) const
+KDecoration3::DecorationButtonType DummyDecorationBridge::strToButtonType(const QString &type) const
 {
     if (type == QStringLiteral("minimize")) {
-        return KDecoration2::DecorationButtonType::Minimize;
+        return KDecoration3::DecorationButtonType::Minimize;
     } else if (type == QStringLiteral("close")) {
-        return KDecoration2::DecorationButtonType::Close;
+        return KDecoration3::DecorationButtonType::Close;
     } else {
-        return KDecoration2::DecorationButtonType::Maximize;
+        return KDecoration3::DecorationButtonType::Maximize;
     }
 }
 

@@ -6,12 +6,12 @@
 
 #pragma once
 
-#include <KDecoration2/DecorationSettings>
-#include <KDecoration2/Private/DecorationSettingsPrivate>
+#include <KDecoration3/DecorationSettings>
+#include <KDecoration3/Private/DecorationSettingsPrivate>
 
-namespace KDecoration2
+namespace KDecoration3
 {
-class DummyDecorationSettings : public KDecoration2::DecorationSettingsPrivate
+class DummyDecorationSettings : public KDecoration3::DecorationSettingsPrivate
 {
 public:
     explicit DummyDecorationSettings(DecorationSettings *parent);

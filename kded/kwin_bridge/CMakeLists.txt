@@ -11,9 +11,9 @@ set_property(TARGET KWinBridge PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 target_link_libraries(KWinBridge
   PUBLIC
-    KDecoration2::KDecoration
+    KDecoration3::KDecoration
   PRIVATE
-    KDecoration2::KDecoration2Private
+    KDecoration3::KDecoration3Private
     KF6::ColorScheme
     KF6::CoreAddons
     Qt::Svg

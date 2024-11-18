@@ -6,7 +6,7 @@
 
 #include "dummydecoratedclient.h"
 
-namespace KDecoration2
+namespace KDecoration3
 {
 DummyDecoratedClient::DummyDecoratedClient(DecoratedClient *client, Decoration *decoration)
     : DecoratedClientPrivate(client, decoration)

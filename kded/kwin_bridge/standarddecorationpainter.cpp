@@ -8,7 +8,7 @@
 
 StandardDecorationPainter::StandardDecorationPainter(const QString &themeName)
     : DecorationPainter()
-    , m_bridge(new KDecoration2::DummyDecorationBridge(themeName))
+    , m_bridge(new KDecoration3::DummyDecorationBridge(themeName))
 {
 }
 
