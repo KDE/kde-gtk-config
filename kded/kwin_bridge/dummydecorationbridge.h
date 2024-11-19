@@ -18,7 +18,7 @@ class KPluginFactory;
 namespace KDecoration3
 {
 class DecorationSettings;
-class DecoratedClientPrivate;
+class DecoratedWindowPrivate;
 class DecorationSettingsPrivate;
 class DummyDecorationSettings;
 
@@ -30,7 +30,7 @@ public:
     ~DummyDecorationBridge() override;
 
     std::unique_ptr<KDecoration3::DecorationSettingsPrivate> settings(KDecoration3::DecorationSettings *parent) override;
-    std::unique_ptr<KDecoration3::DecoratedClientPrivate> createClient(KDecoration3::DecoratedClient *client, KDecoration3::Decoration *decoration) override;
+    std::unique_ptr<KDecoration3::DecoratedWindowPrivate> createClient(KDecoration3::DecoratedWindow *client, KDecoration3::Decoration *decoration) override;
 
     void paintButton(QPainter &painter, const QString &buttonType, const QString &buttonState);
 
@@ -51,7 +51,7 @@ private:
     QPluginLoader m_pluginLoader;
     KPluginFactory *m_factory;
     KDecoration3::Decoration *m_decoration;
-    KDecoration3::DecoratedClientPrivate *m_client;
+    KDecoration3::DecoratedWindowPrivate *m_client;
     KDecoration3::DummyDecorationSettings *m_settings;
 };
 

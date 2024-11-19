@@ -8,193 +8,193 @@
 
 namespace KDecoration3
 {
-DummyDecoratedClient::DummyDecoratedClient(DecoratedClient *client, Decoration *decoration)
-    : DecoratedClientPrivate(client, decoration)
+DummyDecoratedWindow::DummyDecoratedWindow(DecoratedWindow *client, Decoration *decoration)
+    : DecoratedWindowPrivate(client, decoration)
     , m_pallete(QStringLiteral("kdeglobals"))
     , m_maximized()
     , m_active(true)
 {
 }
 
-bool DummyDecoratedClient::isActive() const
+bool DummyDecoratedWindow::isActive() const
 {
     return m_active;
 }
 
-QString DummyDecoratedClient::caption() const
+QString DummyDecoratedWindow::caption() const
 {
     return {};
 }
 
-bool DummyDecoratedClient::isOnAllDesktops() const
+bool DummyDecoratedWindow::isOnAllDesktops() const
 {
     return true;
 }
 
-bool DummyDecoratedClient::isShaded() const
+bool DummyDecoratedWindow::isShaded() const
 {
     return true;
 }
 
-QIcon DummyDecoratedClient::icon() const
+QIcon DummyDecoratedWindow::icon() const
 {
     return {};
 }
 
-bool DummyDecoratedClient::isMaximized() const
+bool DummyDecoratedWindow::isMaximized() const
 {
     return m_maximized;
 }
 
-bool DummyDecoratedClient::isMaximizedHorizontally() const
+bool DummyDecoratedWindow::isMaximizedHorizontally() const
 {
     return m_maximized;
 }
 
-bool DummyDecoratedClient::isMaximizedVertically() const
+bool DummyDecoratedWindow::isMaximizedVertically() const
 {
     return m_maximized;
 }
 
-bool DummyDecoratedClient::isKeepAbove() const
+bool DummyDecoratedWindow::isKeepAbove() const
 {
     return true;
 }
 
-bool DummyDecoratedClient::isKeepBelow() const
+bool DummyDecoratedWindow::isKeepBelow() const
 {
     return true;
 }
 
-bool DummyDecoratedClient::isCloseable() const
+bool DummyDecoratedWindow::isCloseable() const
 {
     return true;
 }
 
-bool DummyDecoratedClient::isMaximizeable() const
+bool DummyDecoratedWindow::isMaximizeable() const
 {
     return true;
 }
 
-bool DummyDecoratedClient::isMinimizeable() const
+bool DummyDecoratedWindow::isMinimizeable() const
 {
     return true;
 }
 
-bool DummyDecoratedClient::providesContextHelp() const
+bool DummyDecoratedWindow::providesContextHelp() const
 {
     return true;
 }
 
-bool DummyDecoratedClient::isModal() const
+bool DummyDecoratedWindow::isModal() const
 {
     return true;
 }
 
-bool DummyDecoratedClient::isShadeable() const
+bool DummyDecoratedWindow::isShadeable() const
 {
     return true;
 }
 
-bool DummyDecoratedClient::isMoveable() const
+bool DummyDecoratedWindow::isMoveable() const
 {
     return true;
 }
 
-bool DummyDecoratedClient::isResizeable() const
+bool DummyDecoratedWindow::isResizeable() const
 {
     return true;
 }
 
-int DummyDecoratedClient::width() const
+int DummyDecoratedWindow::width() const
 {
     return {};
 }
 
-int DummyDecoratedClient::height() const
+int DummyDecoratedWindow::height() const
 {
     return {};
 }
 
-QSize DummyDecoratedClient::size() const
+QSize DummyDecoratedWindow::size() const
 {
     return {};
 }
 
-QPalette DummyDecoratedClient::palette() const
+QPalette DummyDecoratedWindow::palette() const
 {
     return m_pallete.palette();
 }
 
-QColor DummyDecoratedClient::color(ColorGroup group, ColorRole role) const
+QColor DummyDecoratedWindow::color(ColorGroup group, ColorRole role) const
 {
     return m_pallete.color(group, role);
 }
 
-Qt::Edges DummyDecoratedClient::adjacentScreenEdges() const
+Qt::Edges DummyDecoratedWindow::adjacentScreenEdges() const
 {
     return {};
 }
 
-QString DummyDecoratedClient::windowClass() const
+QString DummyDecoratedWindow::windowClass() const
 {
     return {};
 }
 
-void DummyDecoratedClient::requestShowToolTip(const QString &text)
+void DummyDecoratedWindow::requestShowToolTip(const QString &text)
 {
     Q_UNUSED(text)
 }
 
-void DummyDecoratedClient::requestHideToolTip()
+void DummyDecoratedWindow::requestHideToolTip()
 {
 }
 
-void DummyDecoratedClient::requestClose()
+void DummyDecoratedWindow::requestClose()
 {
 }
 
-void DummyDecoratedClient::requestToggleMaximization(Qt::MouseButtons buttons)
+void DummyDecoratedWindow::requestToggleMaximization(Qt::MouseButtons buttons)
 {
     Q_UNUSED(buttons)
     m_maximized = !m_maximized;
 }
 
-void DummyDecoratedClient::requestMinimize()
+void DummyDecoratedWindow::requestMinimize()
 {
 }
 
-void DummyDecoratedClient::requestContextHelp()
+void DummyDecoratedWindow::requestContextHelp()
 {
 }
 
-void DummyDecoratedClient::requestToggleOnAllDesktops()
+void DummyDecoratedWindow::requestToggleOnAllDesktops()
 {
 }
 
-void DummyDecoratedClient::requestToggleShade()
+void DummyDecoratedWindow::requestToggleShade()
 {
 }
 
-void DummyDecoratedClient::requestToggleKeepAbove()
+void DummyDecoratedWindow::requestToggleKeepAbove()
 {
 }
 
-void DummyDecoratedClient::requestToggleKeepBelow()
+void DummyDecoratedWindow::requestToggleKeepBelow()
 {
 }
 
-void DummyDecoratedClient::requestShowWindowMenu(const QRect &rect)
+void DummyDecoratedWindow::requestShowWindowMenu(const QRect &rect)
 {
     Q_UNUSED(rect)
 }
 
-void DummyDecoratedClient::setMaximized(bool maximized)
+void DummyDecoratedWindow::setMaximized(bool maximized)
 {
     m_maximized = maximized;
 }
 
-void DummyDecoratedClient::setActive(bool active)
+void DummyDecoratedWindow::setActive(bool active)
 {
     m_active = active;
 }

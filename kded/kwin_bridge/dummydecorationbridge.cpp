@@ -9,9 +9,9 @@
 #include <QMouseEvent>
 
 #include <KConfigGroup>
-#include <KDecoration3/DecoratedClient>
+#include <KDecoration3/DecoratedWindow>
 #include <KDecoration3/DecorationSettings>
-#include <KDecoration3/Private/DecoratedClientPrivate>
+#include <KDecoration3/Private/DecoratedWindowPrivate>
 #include <KDecoration3/Private/DecorationSettingsPrivate>
 #include <KPluginFactory>
 #include <KPluginMetaData>
@@ -85,10 +85,10 @@ std::unique_ptr<KDecoration3::DecorationSettingsPrivate> DummyDecorationBridge::
     return newSettings;
 }
 
-std::unique_ptr<KDecoration3::DecoratedClientPrivate> DummyDecorationBridge::createClient(KDecoration3::DecoratedClient *client,
+std::unique_ptr<KDecoration3::DecoratedWindowPrivate> DummyDecorationBridge::createClient(KDecoration3::DecoratedWindow *client,
                                                                                           KDecoration3::Decoration *decoration)
 {
-    auto ptr = std::unique_ptr<DummyDecoratedClient>(new DummyDecoratedClient(client, decoration));
+    auto ptr = std::unique_ptr<DummyDecoratedWindow>(new DummyDecoratedWindow(client, decoration));
     m_client = ptr.get();
     return ptr;
 }
@@ -114,7 +114,7 @@ void DummyDecorationBridge::paintButton(QPainter &painter, const QString &button
         // For example Breeze uses 'checked' property, but Oxygen uses client's 'isMaximized' method
         button->setChecked(true);
         if (m_client) {
-            dynamic_cast<DummyDecoratedClient *>(m_client)->setMaximized(true);
+            dynamic_cast<DummyDecoratedWindow *>(m_client)->setMaximized(true);
         }
     }
 
@@ -126,11 +126,11 @@ void DummyDecorationBridge::paintButton(QPainter &painter, const QString &button
 
     if (buttonState.contains(QStringLiteral("backdrop"))) {
         if (m_client) {
-            dynamic_cast<DummyDecoratedClient *>(m_client)->setActive(false);
+            dynamic_cast<DummyDecoratedWindow *>(m_client)->setActive(false);
         }
     } else {
         if (m_client) {
-            dynamic_cast<DummyDecoratedClient *>(m_client)->setActive(true);
+            dynamic_cast<DummyDecoratedWindow *>(m_client)->setActive(true);
         }
     }
 

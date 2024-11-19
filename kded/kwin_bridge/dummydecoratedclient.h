@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include <KDecoration3/Private/DecoratedClientPrivate>
+#include <KDecoration3/Private/DecoratedWindowPrivate>
 
 #include <QPalette>
 
@@ -14,11 +14,11 @@
 
 namespace KDecoration3
 {
-class DummyDecoratedClient : public QObject, public DecoratedClientPrivate
+class DummyDecoratedWindow : public QObject, public DecoratedWindowPrivate
 {
     Q_OBJECT
 public:
-    DummyDecoratedClient(DecoratedClient *client, Decoration *decoration);
+    DummyDecoratedWindow(DecoratedWindow *client, Decoration *decoration);
 
     bool isActive() const override;
     QString caption() const override;
