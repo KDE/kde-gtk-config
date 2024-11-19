@@ -106,16 +106,6 @@ bool DummyDecoratedClient::isResizeable() const
     return true;
 }
 
-WId DummyDecoratedClient::windowId() const
-{
-    return {};
-}
-
-WId DummyDecoratedClient::decorationId() const
-{
-    return {};
-}
-
 int DummyDecoratedClient::width() const
 {
     return {};

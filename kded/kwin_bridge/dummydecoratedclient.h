@@ -40,9 +40,6 @@ public:
     bool isMoveable() const override;
     bool isResizeable() const override;
 
-    WId windowId() const override;
-    WId decorationId() const override;
-
     int width() const override;
     int height() const override;
     QSize size() const override;
