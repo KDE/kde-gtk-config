@@ -61,6 +61,11 @@ public:
     void requestToggleKeepBelow() override;
     void requestShowWindowMenu(const QRect &rect) override;
 
+    bool hasApplicationMenu() const override;
+    bool isApplicationMenuActive() const override;
+    void showApplicationMenu(int actionId) override;
+    void requestShowApplicationMenu(const QRect &rect, int actionId) override;
+
     void setMaximized(bool maximized);
     void setActive(bool active);
 

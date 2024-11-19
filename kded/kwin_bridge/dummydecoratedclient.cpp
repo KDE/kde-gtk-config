@@ -189,6 +189,24 @@ void DummyDecoratedWindow::requestShowWindowMenu(const QRect &rect)
     Q_UNUSED(rect)
 }
 
+bool DummyDecoratedWindow::hasApplicationMenu() const
+{
+    return false;
+}
+
+bool DummyDecoratedWindow::isApplicationMenuActive() const
+{
+    return false;
+}
+
+void DummyDecoratedWindow::showApplicationMenu(int actionId)
+{
+}
+
+void DummyDecoratedWindow::requestShowApplicationMenu(const QRect &rect, int actionId)
+{
+}
+
 void DummyDecoratedWindow::setMaximized(bool maximized)
 {
     m_maximized = maximized;
