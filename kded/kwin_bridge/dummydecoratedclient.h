@@ -40,9 +40,9 @@ public:
     bool isMoveable() const override;
     bool isResizeable() const override;
 
-    int width() const override;
-    int height() const override;
-    QSize size() const override;
+    qreal width() const override;
+    qreal height() const override;
+    QSizeF size() const override;
     QPalette palette() const override;
     QColor color(ColorGroup group, ColorRole role) const override;
     Qt::Edges adjacentScreenEdges() const override;

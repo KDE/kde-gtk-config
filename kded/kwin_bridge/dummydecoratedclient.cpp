@@ -106,17 +106,17 @@ bool DummyDecoratedWindow::isResizeable() const
     return true;
 }
 
-int DummyDecoratedWindow::width() const
+qreal DummyDecoratedWindow::width() const
 {
     return {};
 }
 
-int DummyDecoratedWindow::height() const
+qreal DummyDecoratedWindow::height() const
 {
     return {};
 }
 
-QSize DummyDecoratedWindow::size() const
+QSizeF DummyDecoratedWindow::size() const
 {
     return {};
 }
