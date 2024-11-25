@@ -217,6 +217,15 @@ void DummyDecoratedWindow::setActive(bool active)
     m_active = active;
 }
 
+qreal DummyDecoratedWindow::scale() const
+{
+    return 1;
+}
+
+qreal DummyDecoratedWindow::nextScale() const
+{
+    return 1;
+}
 }
 
 #include "moc_dummydecoratedclient.cpp"

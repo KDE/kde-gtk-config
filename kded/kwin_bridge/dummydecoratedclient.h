@@ -66,6 +66,9 @@ public:
     void showApplicationMenu(int actionId) override;
     void requestShowApplicationMenu(const QRect &rect, int actionId) override;
 
+    qreal scale() const override;
+    qreal nextScale() const override;
+
     void setMaximized(bool maximized);
     void setActive(bool active);
 
