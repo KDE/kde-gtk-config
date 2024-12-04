@@ -95,6 +95,10 @@ std::unique_ptr<KDecoration3::DecoratedWindowPrivate> DummyDecorationBridge::cre
 
 void DummyDecorationBridge::paintButton(QPainter &painter, const QString &buttonType, const QString &buttonState)
 {
+    if (!m_factory) {
+        return;
+    }
+
     disableAnimations();
     std::unique_ptr<KDecoration3::DecorationButton> button{
         m_factory->create<KDecoration3::DecorationButton>(m_decoration,
