@@ -58,6 +58,7 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
         if (m_decoration) {
             auto decorationSettings = std::make_shared<KDecoration3::DecorationSettings>(this);
             m_decoration->setSettings(decorationSettings);
+            m_decoration->create();
             m_decoration->init();
 
             // Update decoration settings, e.g. Breeze's "Draw a circle around close button"
