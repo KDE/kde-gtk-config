@@ -207,6 +207,16 @@ void DummyDecoratedWindow::requestShowApplicationMenu(const QRect &rect, int act
 {
 }
 
+qreal DummyDecoratedWindow::scale() const
+{
+    return 1;
+}
+
+qreal DummyDecoratedWindow::nextScale() const
+{
+    return 1;
+}
+
 void DummyDecoratedWindow::setMaximized(bool maximized)
 {
     m_maximized = maximized;
