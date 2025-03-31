@@ -33,6 +33,7 @@ public:
     QStringList windowDecorationsButtonsImages() const;
     bool enableAnimations() const;
     int doubleClickInterval() const;
+    int cursorBlinkRate() const;
     QMap<QString, QColor> colors() const;
 
     // The global scale factor, as X11 doesn't support mixed-DPI

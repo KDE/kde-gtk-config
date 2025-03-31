@@ -260,6 +260,13 @@ int ConfigValueProvider::doubleClickInterval() const
     return generalCfg.readEntry("DoubleClickInterval", 400);
 }
 
+int ConfigValueProvider::cursorBlinkRate() const
+{
+    KConfigGroup generalCfg = kdeglobalsConfig->group("KDE");
+    const auto cursorBlinkRate = generalCfg.readEntry("CursorBlinkRate", 1000);
+    return cursorBlinkRate > 0 ? qBound(200, cursorBlinkRate, 2000) : 0;
+}
+
 QMap<QString, QColor> ConfigValueProvider::colors() const
 {
     using KCS = KColorScheme;

@@ -35,6 +35,7 @@ public:
     void setToolbarStyle() const;
     void setScrollbarBehavior() const;
     void setDoubleClickInterval() const;
+    void setCursorBlinkRate() const;
     void setDarkThemePreference() const;
     void setWindowDecorationsAppearance() const;
     void setWindowDecorationsButtonsOrder() const;

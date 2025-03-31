@@ -200,6 +200,22 @@ void GtkConfig::setDoubleClickInterval() const
     XSettingsEditor::setValue(QStringLiteral("Net/DoubleClickTime"), doubleClickInterval);
 }
 
+void GtkConfig::setCursorBlinkRate() const
+{
+    const bool cursorBlinkEnabled = configValueProvider->cursorBlinkRate() > 0;
+    // Range for cusor-blink-time in GSettings.
+    const int cursorBlinkRate = qBound(100, configValueProvider->cursorBlinkRate(), 2500);
+
+    Gtk2ConfigEditor::setValue(QStringLiteral("gtk-cursor-blink"), cursorBlinkEnabled);
+    Gtk2ConfigEditor::setValue(QStringLiteral("gtk-cursor-blink-time"), cursorBlinkRate);
+    GSettingsEditor::setValue("cursor-blink", cursorBlinkEnabled, "org.gnome.desktop.interface");
+    GSettingsEditor::setValue("cursor-blink-time", cursorBlinkRate, "org.gnome.desktop.interface");
+    SettingsIniEditor::setValue(QStringLiteral("gtk-cursor-blink"), cursorBlinkEnabled);
+    SettingsIniEditor::setValue(QStringLiteral("gtk-cursor-blink-time"), cursorBlinkRate);
+    XSettingsEditor::setValue(QStringLiteral("Net/CursorBlink"), cursorBlinkEnabled);
+    XSettingsEditor::setValue(QStringLiteral("Net/CursorBlinkTime"), cursorBlinkRate);
+}
+
 void GtkConfig::setDarkThemePreference() const
 {
     const bool preferDarkTheme = configValueProvider->preferDarkTheme();
@@ -297,6 +313,7 @@ void GtkConfig::applyAllSettings() const
     setSoundTheme();
     setCursorTheme();
     setCursorSize();
+    setCursorBlinkRate();
     setIconsOnButtons();
     setIconsInMenus();
     setToolbarStyle();
@@ -333,6 +350,9 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
         }
         if (names.contains(QByteArrayLiteral("DoubleClickInterval"))) {
             setDoubleClickInterval();
+        }
+        if (names.contains(QByteArrayLiteral("CursorBlinkRate"))) {
+            setCursorBlinkRate();
         }
     } else if (group.name() == QStringLiteral("Icons")) {
         if (names.contains(QByteArrayLiteral("Theme"))) {
