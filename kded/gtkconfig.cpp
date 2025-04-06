@@ -204,7 +204,12 @@ void GtkConfig::setCursorBlinkRate() const
 {
     const bool cursorBlinkEnabled = configValueProvider->cursorBlinkRate() > 0;
     // Range for cusor-blink-time in GSettings.
-    const int cursorBlinkRate = qBound(100, configValueProvider->cursorBlinkRate(), 2500);
+    int cursorBlinkRate = qBound(100, configValueProvider->cursorBlinkRate(), 2500);
+    // Qt's GTK 3 platform theme didn't honor blink enabled properly before,
+    // set a sane default value when it's off to keep it from blinking like crazy.
+    if (!cursorBlinkEnabled) {
+        cursorBlinkRate = 1000;
+    }
 
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-cursor-blink"), cursorBlinkEnabled);
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-cursor-blink-time"), cursorBlinkRate);
