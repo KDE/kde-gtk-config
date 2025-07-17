@@ -208,10 +208,7 @@ QStringList ConfigValueProvider::windowDecorationsButtonsImages() const
         QStringLiteral("backdrop-hover"),
     };
 
-    KConfigGroup decorationGroup = kwinConfig->group(QStringLiteral("org.kde.kdecoration2"));
-    const QString themeName = decorationGroup.readEntry(QStringLiteral("theme"), QStringLiteral("Breeze"));
-
-    auto decorationPainter = DecorationPainter::fromThemeName(themeName);
+    auto decorationPainter = DecorationPainter::get();
     QStringList decorationsImages{};
 
     for (const auto &buttonType : buttonTypes) {

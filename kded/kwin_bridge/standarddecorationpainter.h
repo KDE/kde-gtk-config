@@ -12,7 +12,7 @@
 class StandardDecorationPainter : public DecorationPainter
 {
 public:
-    StandardDecorationPainter(const QString &themeName);
+    StandardDecorationPainter(const QString &pluginName);
     ~StandardDecorationPainter() = default;
 
     void paintButton(QPainter &painter, const QString &buttonType, const QString &buttonState) const override;

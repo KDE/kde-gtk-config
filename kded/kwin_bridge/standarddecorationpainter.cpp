@@ -6,9 +6,9 @@
 
 #include "standarddecorationpainter.h"
 
-StandardDecorationPainter::StandardDecorationPainter(const QString &themeName)
+StandardDecorationPainter::StandardDecorationPainter(const QString &pluginName)
     : DecorationPainter()
-    , m_bridge(new KDecoration3::DummyDecorationBridge(themeName))
+    , m_bridge(new KDecoration3::DummyDecorationBridge(pluginName))
 {
 }
 

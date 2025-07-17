@@ -18,7 +18,7 @@ public:
     DecorationPainter() = default;
     virtual ~DecorationPainter() = default;
 
-    static std::unique_ptr<DecorationPainter> fromThemeName(const QString &themeName);
+    static std::unique_ptr<DecorationPainter> get();
     virtual void paintButton(QPainter &painter, const QString &buttonType, const QString &buttonState) const = 0;
 
     static const QRect ButtonGeometry;

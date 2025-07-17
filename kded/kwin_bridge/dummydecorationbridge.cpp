@@ -25,7 +25,7 @@
 
 namespace KDecoration3
 {
-DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QObject *parent)
+DummyDecorationBridge::DummyDecorationBridge(const QString &pluginName, QObject *parent)
     : DecorationBridge(parent)
     , m_decorationsConfigFileName()
     , m_factory()
@@ -39,7 +39,7 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
     // event to them. To avoid this harmful side effect we use a hack:
     // We disable the animations via user configuration file temporary if
     // they were enabled, draw a buttons and then enable them again.
-    if (decorationTheme == QStringLiteral("Oxygen")) {
+    if (pluginName == QStringLiteral("org.kde.oxygen")) {
         m_decorationsConfigFileName = QStringLiteral("oxygenrc");
     } else { // for Breeze window decorations and its forks
         m_decorationsConfigFileName = QStringLiteral("breezerc");
@@ -47,8 +47,7 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
 
     disableAnimations();
 
-    const QString pluginPath = windowDecorationPluginPath(decorationTheme);
-    m_pluginLoader.setFileName(pluginPath);
+    m_pluginLoader.setFileName("org.kde.kdecoration3/" + pluginName);
     m_factory = qobject_cast<KPluginFactory *>(m_pluginLoader.instance());
 
     if (m_factory) {
@@ -68,10 +67,10 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &decorationTheme, QOb
             }
             enableAnimations();
         } else {
-            qCWarning(KWINBRIDGE_LOG) << "Loading decoration" << pluginPath << "failed" << m_pluginLoader.errorString();
+            qCWarning(KWINBRIDGE_LOG) << "Loading decoration" << pluginName << "failed" << m_pluginLoader.errorString();
         }
     } else {
-        qCWarning(KWINBRIDGE_LOG) << "Loading factory for decoration" << pluginPath << "failed" << m_pluginLoader.errorString();
+        qCWarning(KWINBRIDGE_LOG) << "Loading factory for decoration" << pluginName << "failed" << m_pluginLoader.errorString();
     }
 }
 
@@ -168,24 +167,6 @@ void DummyDecorationBridge::enableAnimations()
         auto group = globalConfig->group(QStringLiteral("KDE"));
         group.writeEntry(QStringLiteral("AnimationDurationFactor"), globalAnimationEntryValue, KConfig::WriteConfigFlags());
     }
-}
-
-QString DummyDecorationBridge::windowDecorationPluginPath(const QString &decorationTheme) const
-{
-    const auto decorationPlugins = KPluginMetaData::findPlugins(QStringLiteral("org.kde.kdecoration3"));
-
-    QString defaultPluginPath;
-
-    for (const auto &pluginMetaData : decorationPlugins) {
-        if (pluginMetaData.pluginId() == QLatin1String("org.kde.breeze")) {
-            defaultPluginPath = pluginMetaData.fileName();
-        }
-
-        if (pluginMetaData.name() == decorationTheme) {
-            return pluginMetaData.fileName();
-        }
-    }
-    return defaultPluginPath;
 }
 
 void DummyDecorationBridge::passMouseHoverEventToButton(KDecoration3::DecorationButton *button) const

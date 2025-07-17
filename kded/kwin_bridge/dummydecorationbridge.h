@@ -26,7 +26,7 @@ class DummyDecorationBridge : public DecorationBridge
 {
     Q_OBJECT
 public:
-    DummyDecorationBridge(const QString &decorationTheme, QObject *parent = nullptr);
+    DummyDecorationBridge(const QString &pluginName, QObject *parent = nullptr);
     ~DummyDecorationBridge() override;
 
     std::unique_ptr<KDecoration3::DecorationSettingsPrivate> settings(KDecoration3::DecorationSettings *parent) override;
@@ -37,8 +37,6 @@ public:
 private:
     void disableAnimations();
     void enableAnimations();
-
-    QString windowDecorationPluginPath(const QString &decorationTheme) const;
 
     void passMouseHoverEventToButton(KDecoration3::DecorationButton *button) const;
     void passMousePressEventToButton(KDecoration3::DecorationButton *button) const;
