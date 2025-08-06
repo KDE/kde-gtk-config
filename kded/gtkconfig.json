@@ -1,7 +1,7 @@
 {
     "KPlugin": {
         "Description": "Automatically applies settings to GNOME/GTK applications",
-        "Description[ar]": "تطبق الإعدادات على تطبيقات غنوم/جي تي كي آليا",
+        "Description[ar]": "تطبق الإعدادات على تطبيقات غنوم/جي تي كي آليّا",
         "Description[ast]": "Aplica automáticamente la configuración a les aplicaciones de GNOME/GTK",
         "Description[az]": "Ayarları avtomatik GNOME/GTK tətbiqlərinə tətbiq etmək",
         "Description[bg]": "Автоматично прилага настройките за GNOME/GTK приложения",
