@@ -110,9 +110,9 @@ void addGtkModule(const QString &moduleName)
     }
 
     if (currentModulesString.isEmpty()) { // No modules
-        SettingsIniEditor::setValue(QStringLiteral("gtk-modules"), moduleName);
+        SettingsIniEditor::setValue(QStringLiteral("gtk-modules"), moduleName, 3);
     } else {
-        SettingsIniEditor::setValue(QStringLiteral("gtk-modules"), QStringLiteral("%1:%2").arg(currentModulesString, moduleName));
+        SettingsIniEditor::setValue(QStringLiteral("gtk-modules"), QStringLiteral("%1:%2").arg(currentModulesString, moduleName), 3);
     }
 }
 

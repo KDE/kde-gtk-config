@@ -6,5 +6,5 @@ Script=gtk_theme
 Id=dont_use_gtk_css_for_window_decorations
 Script=remove_window_decorations_from_gtk_css.sh,sh
 
-Id=remove_deprecated_gtk4_option
-Script=remove_deprecated_gtk4_option
+Id=remove_deprecated_gtk4_option_v2
+Script=remove_deprecated_gtk4_option_v2

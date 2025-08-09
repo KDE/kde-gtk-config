@@ -36,13 +36,13 @@ install(
     ${KDE_INSTALL_LIBDIR}/kconf_update_bin/
 )
 
-add_executable(remove_deprecated_gtk4_option
-  remove_deprecated_gtk4_option.cpp
+add_executable(remove_deprecated_gtk4_option_v2
+  remove_deprecated_gtk4_option_v2.cpp
    ../kded/config_editor/settings_ini.cpp
    ../kded/config_editor/utils.cpp
 )
 
-target_link_libraries(remove_deprecated_gtk4_option
+target_link_libraries(remove_deprecated_gtk4_option_v2
   PRIVATE
     Qt::Core
     KF6::ConfigCore
@@ -51,19 +51,19 @@ target_link_libraries(remove_deprecated_gtk4_option
     PkgConfig::GObject
 )
 
-target_include_directories(remove_deprecated_gtk4_option
+target_include_directories(remove_deprecated_gtk4_option_v2
   PRIVATE
     ../kded/
 )
 
-target_compile_definitions(remove_deprecated_gtk4_option
+target_compile_definitions(remove_deprecated_gtk4_option_v2
   PRIVATE
     QT_NO_SIGNALS_SLOTS_KEYWORDS
 )
 
 install(
   TARGETS
-    remove_deprecated_gtk4_option
+    remove_deprecated_gtk4_option_v2
   DESTINATION
     ${KDE_INSTALL_LIBDIR}/kconf_update_bin/
 )

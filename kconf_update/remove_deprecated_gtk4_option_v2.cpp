@@ -10,6 +10,7 @@ int main()
 {
     SettingsIniEditor::unsetValue(QStringLiteral("gtk-button-images"), 4);
     SettingsIniEditor::unsetValue(QStringLiteral("gtk-menu-images"), 4);
+    SettingsIniEditor::unsetValue(QStringLiteral("gtk-modules"), 4);
     SettingsIniEditor::unsetValue(QStringLiteral("gtk-toolbar-style"), 4);
     return 0;
 }
