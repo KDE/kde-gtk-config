@@ -40,6 +40,18 @@ ConfigValueProvider::ConfigValueProvider()
 {
 }
 
+QString ConfigValueProvider::fixedName() const
+{
+    static const QFont defaultFixed(QStringLiteral("Hack"), 10);
+
+    KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("General"));
+    QString fixedAsString = configGroup.readEntry(QStringLiteral("fixed"), defaultFixed.toString());
+    static QFont font;
+    font.fromString(fixedAsString);
+    const QString fontStyle = fontStyleHelper(font);
+    return font.family() + QStringLiteral(", ") + fontStyle + ' ' + QString::number(font.pointSize());
+}
+
 QString ConfigValueProvider::fontName() const
 {
     static const QFont defaultFont(QStringLiteral("Noto Sans"), 10);

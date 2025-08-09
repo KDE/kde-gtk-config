@@ -18,6 +18,7 @@ class ConfigValueProvider
 public:
     ConfigValueProvider();
 
+    QString fixedName() const;
     QString fontName() const;
     QString iconThemeName() const;
     QString cursorThemeName() const;

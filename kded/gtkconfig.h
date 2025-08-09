@@ -24,6 +24,7 @@ public:
     GtkConfig(QObject *parent, const QVariantList &args);
     ~GtkConfig();
 
+    void setFixed() const;
     void setFont() const;
     void setIconTheme() const;
     void setSoundTheme() const;

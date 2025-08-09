@@ -96,10 +96,17 @@ void GtkConfig::showGtkThemePreview(const QString &themeName) const
     themePreviewer->showGtk3App(themeName);
 }
 
+void GtkConfig::setFixed() const
+{
+    const QString configfixedName = configValueProvider->fixedName();
+    GSettingsEditor::setValue("monospace-font-name", configfixedName);
+}
+
 void GtkConfig::setFont() const
 {
     const QString configFontName = configValueProvider->fontName();
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-font-name"), configFontName);
+    GSettingsEditor::setValue("document-font-name", configFontName);
     GSettingsEditor::setValue("font-name", configFontName);
     SettingsIniEditor::setValue(QStringLiteral("gtk-font-name"), configFontName);
     XSettingsEditor::setValue(QStringLiteral("Gtk/FontName"), configFontName);
@@ -313,6 +320,7 @@ void GtkConfig::setColors() const
 
 void GtkConfig::applyAllSettings() const
 {
+    setFixed();
     setFont();
     setIconTheme();
     setSoundTheme();
@@ -371,6 +379,9 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
             setEventSoundsEnabled();
         }
     } else if (group.name() == QStringLiteral("General")) {
+        if (names.contains(QByteArrayLiteral("fixed"))) {
+            setFixed();
+        }
         if (names.contains(QByteArrayLiteral("font"))) {
             setFont();
         }
