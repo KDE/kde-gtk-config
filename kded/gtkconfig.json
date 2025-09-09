@@ -46,7 +46,6 @@
         "Description[tr]": "Ayarları GNOME/GTK uygulamalarına kendiliğinden uygular",
         "Description[uk]": "Автоматично застосовує параметри до програм GNOME/GTK",
         "Description[vi]": "Tự động áp dụng các thiết lập cho các ứng dụng GNOME/GTK",
-        "Description[x-test]": "xxAutomatically applies settings to GNOME/GTK applicationsxx",
         "Description[zh_CN]": "自动应用设置到 GNOME/GTK 应用程序",
         "Description[zh_TW]": "自動套用設定到 GNOME/GTK 應用程式",
         "Icon": "gtkconfig",
@@ -96,7 +95,6 @@
         "Name[tr]": "GNOME/GTK Ayarları Eşzamanlama Hizmeti",
         "Name[uk]": "Служба синхронізації параметрів GNOME/GTK",
         "Name[vi]": "Dịch vụ đồng bộ hoá thiết lập GNOME/GTK",
-        "Name[x-test]": "xxGNOME/GTK Settings Synchronization Servicexx",
         "Name[zh_CN]": "GNOME/GTK 设置同步服务",
         "Name[zh_TW]": "GNOME/GTK 設定同步服務",
         "Version": "0.1"
