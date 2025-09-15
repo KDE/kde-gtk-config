@@ -9,6 +9,8 @@
 #include <QString>
 #include <QVariant>
 
+#include <gio/gio.h>
+
 #include "config_editor/gsettings.h"
 #include "config_editor/gtk2.h"
 #include "config_editor/settings_ini.h"
@@ -22,6 +24,7 @@ int main()
 {
     upgradeGtk2Theme();
     upgradeGtk3Theme();
+    g_settings_sync();
     return 0;
 }
 
