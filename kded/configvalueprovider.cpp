@@ -280,6 +280,8 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
 {
     using KCS = KColorScheme;
 
+    const qreal bias = frameContrast();
+
     // Color Schemes Collection
     QHash<QString, QHash<QString, KCS>> csc{
         {QStringLiteral("active"),
@@ -317,23 +319,23 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
     // Color mixing
     QColor windowForegroundColor = csc["active"]["window"].foreground(KCS::NormalText).color();
     QColor windowBackgroundColor = csc["active"]["window"].background(KCS::NormalBackground).color();
-    QColor bordersColor = KColorUtils::mix(windowBackgroundColor, windowForegroundColor, 0.25);
+    QColor bordersColor = KColorUtils::mix(windowBackgroundColor, windowForegroundColor, bias);
 
     QColor inactiveWindowForegroundColor = csc["inactive"]["window"].foreground(KCS::NormalText).color();
     QColor inactiveWindowBackgroundColor = csc["inactive"]["window"].background(KCS::NormalBackground).color();
-    QColor inactiveBordersColor = KColorUtils::mix(inactiveWindowBackgroundColor, inactiveWindowForegroundColor, 0.25);
+    QColor inactiveBordersColor = KColorUtils::mix(inactiveWindowBackgroundColor, inactiveWindowForegroundColor, bias);
 
     QColor disabledWindowForegroundColor = csc["disabled"]["window"].foreground(KCS::NormalText).color();
     QColor disabledWindowBackgroundColor = csc["disabled"]["window"].background(KCS::NormalBackground).color();
-    QColor disabledBordersColor = KColorUtils::mix(disabledWindowBackgroundColor, disabledWindowForegroundColor, 0.25);
+    QColor disabledBordersColor = KColorUtils::mix(disabledWindowBackgroundColor, disabledWindowForegroundColor, bias);
 
     QColor unfocusedDisabledWindowForegroundColor = csc["disabled"]["window"].foreground(KCS::NormalText).color();
     QColor unfocusedDisabledWindowBackgroundColor = csc["disabled"]["window"].background(KCS::NormalBackground).color();
-    QColor unfocusedDisabledBordersColor = KColorUtils::mix(unfocusedDisabledWindowBackgroundColor, unfocusedDisabledWindowForegroundColor, 0.25);
+    QColor unfocusedDisabledBordersColor = KColorUtils::mix(unfocusedDisabledWindowBackgroundColor, unfocusedDisabledWindowForegroundColor, bias);
 
     QColor tooltipForegroundColor = csc["active"]["tooltip"].foreground(KCS::NormalText).color();
     QColor tooltipBackgroundColor = csc["active"]["tooltip"].background(KCS::NormalBackground).color();
-    QColor tooltipBorderColor = KColorUtils::mix(tooltipBackgroundColor, tooltipForegroundColor, 0.25);
+    QColor tooltipBorderColor = KColorUtils::mix(tooltipBackgroundColor, tooltipForegroundColor, bias);
 
     KConfigGroup windowManagerConfig = kdeglobalsConfig->group(QStringLiteral("WM"));
 
@@ -498,6 +500,11 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
     }
 
     return result;
+}
+
+qreal ConfigValueProvider::frameContrast() const
+{
+    return KColorScheme::frameContrast();
 }
 
 double ConfigValueProvider::x11GlobalScaleFactor() const

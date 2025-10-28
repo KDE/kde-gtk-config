@@ -36,6 +36,7 @@ public:
     int doubleClickInterval() const;
     int cursorBlinkRate() const;
     QMap<QString, QColor> colors() const;
+    qreal frameContrast() const;
 
     // The global scale factor, as X11 doesn't support mixed-DPI
     // setups. It's useful both for Plasma/X11 sessions and for

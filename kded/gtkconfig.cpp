@@ -399,6 +399,10 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
         if (names.contains(QByteArrayLiteral("ToolButtonStyle"))) {
             setToolbarStyle();
         }
+    } else if (group.name() == QStringLiteral("KDE")) {
+        if (names.contains(QByteArrayLiteral("frameContrast"))) {
+            setColors();
+        }
     }
 }
 
