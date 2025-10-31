@@ -234,7 +234,7 @@ void GtkConfig::setDarkThemePreference() const
     SettingsIniEditor::setValue(QStringLiteral("gtk-application-prefer-dark-theme"), preferDarkTheme);
     // https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas/-/blob/master/headers/gdesktop-enums.h
     GSettingsEditor::setValueAsEnum("color-scheme",
-                                    preferDarkTheme ? 1 /*G_DESKTOP_COLOR_SCHEME_PREFER_DARK*/ : 0 /*G_DESKTOP_COLOR_SCHEME_DEFAULT*/,
+                                    preferDarkTheme ? 1 /*G_DESKTOP_COLOR_SCHEME_PREFER_DARK*/ : 2 /*G_DESKTOP_COLOR_SCHEME_PREFER_LIGHT*/,
                                     "org.gnome.desktop.interface");
     setGtk2Theme(gtkTheme(), preferDarkTheme);
 }
