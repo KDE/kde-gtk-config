@@ -93,7 +93,9 @@ QString GtkConfig::gtkTheme() const
 
 void GtkConfig::showGtkThemePreview(const QString &themeName) const
 {
-    themePreviewer->showGtk3App(themeName);
+    const bool darkTheme = configValueProvider->preferDarkTheme();
+    const auto themeVariant =  darkTheme ? QStringLiteral(":dark") : QStringLiteral(":light");
+    themePreviewer->showGtk3App(themeName + themeVariant);
 }
 
 void GtkConfig::setFixed() const
