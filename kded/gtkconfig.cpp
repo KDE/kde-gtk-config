@@ -100,16 +100,17 @@ void GtkConfig::showGtkThemePreview(const QString &themeName) const
 
 void GtkConfig::setFixed() const
 {
-    const QString configfixedName = configValueProvider->fixedName();
+    const QString configfixedName = configValueProvider->fixedName(true);
     GSettingsEditor::setValue("monospace-font-name", configfixedName);
 }
 
 void GtkConfig::setFont() const
 {
-    const QString configFontName = configValueProvider->fontName();
+    const QString configFontName = configValueProvider->fontName(false);
+    const QString configFontNameGsettings = configValueProvider->fontName(true);
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-font-name"), configFontName);
-    GSettingsEditor::setValue("document-font-name", configFontName);
-    GSettingsEditor::setValue("font-name", configFontName);
+    GSettingsEditor::setValue("document-font-name", configFontNameGsettings);
+    GSettingsEditor::setValue("font-name", configFontNameGsettings);
     SettingsIniEditor::setValue(QStringLiteral("gtk-font-name"), configFontName);
     XSettingsEditor::setValue(QStringLiteral("Gtk/FontName"), configFontName);
 }
