@@ -18,8 +18,8 @@ class ConfigValueProvider
 public:
     ConfigValueProvider();
 
-    QString fixedName() const;
-    QString fontName() const;
+    QString fixedName(const bool isGsettingsFormat) const;
+    QString fontName(const bool isGsettingsFormat) const;
     QString iconThemeName() const;
     QString cursorThemeName() const;
     QString soundThemeName() const;
