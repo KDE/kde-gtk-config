@@ -100,7 +100,6 @@ void DummyDecorationBridge::paintButton(QPainter &painter, const QString &button
         return;
     }
 
-    disableAnimations();
     std::unique_ptr<KDecoration3::DecorationButton> button{
         m_factory->create<KDecoration3::DecorationButton>(m_decoration,
                                                           QVariantList({
@@ -112,6 +111,7 @@ void DummyDecorationBridge::paintButton(QPainter &painter, const QString &button
         return;
     }
 
+    disableAnimations();
     button->setGeometry(DecorationPainter::ButtonGeometry);
 
     if (buttonType == QStringLiteral("maximized")) {
