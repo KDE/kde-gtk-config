@@ -16,5 +16,5 @@ Dependencies:
     'frameworks/kwindowsystem': '@latest-kf6'
     'plasma/kdecoration': '@same'
 Options:
- require-passing-tests-on: ['Linux', 'FreeBSD']
+ require-passing-tests-on: ['@all']
  enable-lsan: True
