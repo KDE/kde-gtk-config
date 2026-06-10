@@ -522,22 +522,6 @@ double ConfigValueProvider::x11GlobalScaleFactor() const
     return std::clamp(scaleFactor, 1.0, double(MAX_GDK_SCALE));
 }
 
-int ConfigValueProvider::fontDpi() const
-{
-    KConfigGroup configGroup = fontsConfig->group(QStringLiteral("General"));
-    int fontDpi = 96; // On wayland we want to enforce a scale of one for the fonts as we'll use wayland scaling
-
-    if (KWindowSystem::isPlatformX11()) {
-        fontDpi = configGroup.readEntry(QStringLiteral("forceFontDPI"), 0);
-    }
-
-    if (fontDpi <= 0) {
-        return 0;
-    }
-
-    return std::clamp(fontDpi, MIN_FONT_DPI, MAX_FONT_DPI);
-}
-
 QString ConfigValueProvider::windowDecorationButtonsOrderInGtkNotation(const QString &kdeConfigValue) const
 {
     QString gtkNotation;

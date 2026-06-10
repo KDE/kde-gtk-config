@@ -35,7 +35,6 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList &)
     , themePreviewer(new ThemePreviewer(this))
     , kdeglobalsConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig()))
     , kwinConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kwinrc"))))
-    , kcmfontsConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kcmfonts"))))
     , kcminputConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kcminputrc"))))
     , breezeConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("breezerc"))))
 {
@@ -49,7 +48,6 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList &)
 
     connect(kdeglobalsConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKdeglobalsSettingsChange);
     connect(kwinConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKWinSettingsChange);
-    connect(kcmfontsConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKCMFontsSettingsChange);
     connect(kcminputConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKCMInputSettingsChange);
     connect(breezeConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onBreezeSettingsChange);
 
@@ -284,23 +282,8 @@ void GtkConfig::setTextScale() const
     const double x11Scale = configValueProvider->x11GlobalScaleFactor();
     const int x11ScaleIntegerPart = int(x11Scale);
 
-    const int forceFontDpi = configValueProvider->fontDpi();
-
-    int x11TextDpiAbsolute = 96 * 1024;
+    int x11TextDpiAbsolute = 96 * 1024 * x11Scale;
     double waylandTextScaleFactor = 1.0;
-
-    if (forceFontDpi == 0) {
-        x11TextDpiAbsolute = (96 * 1024) * x11Scale;
-    } else {
-        x11TextDpiAbsolute = (forceFontDpi * 1024);
-
-        if (!KWindowSystem::isPlatformX11()) {
-            x11TextDpiAbsolute *= x11Scale;
-        }
-
-        waylandTextScaleFactor = double(forceFontDpi) / 96.0;
-        waylandTextScaleFactor = std::clamp(waylandTextScaleFactor, 0.5, 3.0);
-    }
 
     XSettingsEditor::unsetValue(QStringLiteral("Xft/DPI"));
     SettingsIniEditor::setValue(QStringLiteral("gtk-xft-dpi"), x11TextDpiAbsolute);
@@ -424,15 +407,6 @@ void GtkConfig::onKWinSettingsChange(const KConfigGroup &group, const QByteArray
             setGlobalScale();
             setTextScale();
             setCursorSize();
-        }
-    }
-}
-
-void GtkConfig::onKCMFontsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const
-{
-    if (group.name() == QStringLiteral("General")) {
-        if (names.contains("forceFontDPI")) {
-            setTextScale();
         }
     }
 }
