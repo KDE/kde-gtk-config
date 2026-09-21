@@ -1,82 +1,80 @@
 // SPDX-FileCopyrightText: 2019, 2022 Mikhail Zolotukhin <zomial@protonmail.com>
+// SPDX-FileCopyrightText: 2026 Artem Grinev <agrinev98@gmail.com>
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "gsettings.h"
 
 #include <gio/gio.h>
 
-namespace GSettingsEditor
-{
-constinit unsigned s_applyId = 0;
+using namespace Qt::StringLiterals;
 
-#if GLIB_CHECK_VERSION(2, 74, 0)
-void
-#else
-int
-#endif
-applySettings(void *)
+GLibSettingsBackend::GLibSettingsBackend(const QByteArray &schema)
+    : m_schemaId(schema)
+    , m_schema(g_settings_schema_source_lookup(g_settings_schema_source_get_default(), schema.constData(), true))
+{
+    if (m_schema) {
+        m_settings = g_settings_new_full(m_schema, nullptr, nullptr);
+    } else {
+        Q_ASSERT_X(false, "gsettings", qPrintable(u"schema %1 is not installed"_s.arg(QString::fromUtf8(m_schemaId))));
+    }
+}
+
+GLibSettingsBackend::~GLibSettingsBackend()
+{
+    g_clear_object(&m_settings);
+    g_clear_pointer(&m_schema, g_settings_schema_unref);
+}
+
+void GLibSettingsBackend::set(const QString &key, const QVariant &value)
+{
+    const QByteArray name = key.toUtf8();
+
+    if (!m_settings || !g_settings_schema_has_key(m_schema, name.constData())) {
+        Q_ASSERT_X(false, "gsettings", qPrintable(u"%1 doesn't exist in %2"_s.arg(key, QString::fromUtf8(m_schemaId))));
+        return;
+    }
+
+    if (value.isNull()) {
+        g_settings_reset(m_settings, name.constData());
+        return;
+    }
+    if (value.userType() == qMetaTypeId<GSettingsEnum>()) {
+        const int newValue = value.value<GSettingsEnum>().value;
+        if (g_settings_get_enum(m_settings, name.constData()) != newValue) {
+            g_settings_set_enum(m_settings, name.constData(), newValue);
+        }
+        return;
+    }
+
+    GVariant *newValue = nullptr;
+    switch (value.typeId()) {
+    case QMetaType::QString:
+        newValue = g_variant_new_string(value.toString().toUtf8().constData());
+        break;
+    case QMetaType::UInt:
+        newValue = g_variant_new_uint32(value.toUInt());
+        break;
+    case QMetaType::Int:
+        newValue = g_variant_new_int32(value.toInt());
+        break;
+    case QMetaType::Bool:
+        newValue = g_variant_new_boolean(value.toBool());
+        break;
+    case QMetaType::Double:
+        newValue = g_variant_new_double(value.toDouble());
+        break;
+    default:
+        Q_UNREACHABLE();
+    }
+    g_variant_ref_sink(newValue);
+    g_autoptr(GVariant) currentValue = g_settings_get_value(m_settings, name.constData());
+    if (!g_variant_equal(currentValue, newValue)) {
+        g_settings_set_value(m_settings, name.constData(), newValue);
+    }
+    g_variant_unref(newValue);
+}
+
+void GLibSettingsBackend::sync()
 {
     g_settings_sync();
-    s_applyId = 0;
-#if !GLIB_CHECK_VERSION(2, 74, 0)
-    return G_SOURCE_REMOVE;
-#endif
-}
-
-bool checkParamExists(const char *paramName, const char *category)
-{
-    GSettingsSchemaSource *gSettingsSchemaSource = g_settings_schema_source_get_default();
-    g_autoptr(GSettingsSchema) gSettingsSchema = g_settings_schema_source_lookup(gSettingsSchemaSource, category, true);
-
-    return gSettingsSchema && g_settings_schema_has_key(gSettingsSchema, paramName);
-}
-
-void setValue(const char *paramName, const QVariant &paramValue, const char *category)
-{
-    if (!checkParamExists(paramName, category)) {
-        Q_ASSERT_X(false, "gsettings", QLatin1String("%1 doesn't exist in %2").arg(paramName, category).toLatin1().constData());
-        return;
-    }
-
-    g_autoptr(GSettings) gsettings = g_settings_new(category);
-
-    if (paramValue.typeId() == QMetaType::QString) {
-        g_settings_set_string(gsettings, paramName, get<QString>(paramValue).toUtf8().constData());
-    } else if (paramValue.typeId() == QMetaType::UInt) {
-        g_settings_set_uint(gsettings, paramName, paramValue.toInt());
-    } else if (paramValue.typeId() == QMetaType::Int) {
-        g_settings_set_int(gsettings, paramName, paramValue.toInt());
-    } else if (paramValue.typeId() == QMetaType::Bool) {
-        g_settings_set_boolean(gsettings, paramName, paramValue.toBool());
-    } else if (paramValue.typeId() == QMetaType::Double) {
-        g_settings_set_double(gsettings, paramName, paramValue.toDouble());
-    }
-
-    if (s_applyId == 0) {
-#if GLIB_CHECK_VERSION(2, 74, 0)
-        s_applyId = g_timeout_add_once(100, applySettings, nullptr);
-#else
-        s_applyId = g_timeout_add(100, applySettings, nullptr);
-#endif
-    }
-}
-
-void setValueAsEnum(const char *paramName, int paramValue, const char *category)
-{
-    if (!checkParamExists(paramName, category)) {
-        Q_ASSERT_X(false, "gsettings", QLatin1String("%1 doesn't exist in %2").arg(paramName, category).toLatin1().constData());
-        return;
-    }
-
-    g_autoptr(GSettings) gsettings = g_settings_new(category);
-    g_settings_set_enum(gsettings, paramName, paramValue);
-
-    if (s_applyId == 0) {
-#if GLIB_CHECK_VERSION(2, 74, 0)
-        s_applyId = g_timeout_add_once(100, applySettings, nullptr);
-#else
-        s_applyId = g_timeout_add(100, applySettings, nullptr);
-#endif
-    }
-}
 }

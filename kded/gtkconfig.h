@@ -10,6 +10,10 @@
 #include <KConfigWatcher>
 #include <KDEDModule>
 
+#include "config_editor/gsettings.h"
+#include "config_editor/gtk2.h"
+#include "config_editor/settings_ini.h"
+#include "config_editor/xsettings.h"
 #include "configvalueprovider.h"
 #include "themepreviewer.h"
 
@@ -24,38 +28,38 @@ public:
     GtkConfig(QObject *parent, const QVariantList &args);
     ~GtkConfig();
 
-    void setFixed() const;
-    void setFont() const;
-    void setIconTheme() const;
-    void setSoundTheme() const;
-    void setEventSoundsEnabled() const;
-    void setCursorTheme() const;
-    void setCursorSize() const;
-    void setIconsOnButtons() const;
-    void setIconsInMenus() const;
-    void setToolbarStyle() const;
-    void setScrollbarBehavior() const;
-    void setDoubleClickInterval() const;
-    void setCursorBlinkRate() const;
-    void setDarkThemePreference() const;
-    void setWindowDecorationsAppearance() const;
-    void setWindowDecorationsButtonsOrder() const;
-    void setEnableAnimations() const;
-    void setGlobalScale() const;
-    void setTextScale() const;
-    void setColors() const;
+    void setFixed();
+    void setFont();
+    void setIconTheme();
+    void setSoundTheme();
+    void setEventSoundsEnabled();
+    void setCursorTheme();
+    void setCursorSize();
+    void setIconsOnButtons();
+    void setIconsInMenus();
+    void setToolbarStyle();
+    void setScrollbarBehavior();
+    void setDoubleClickInterval();
+    void setCursorBlinkRate();
+    void setDarkThemePreference();
+    void setWindowDecorationsAppearance();
+    void setWindowDecorationsButtonsOrder();
+    void setEnableAnimations();
+    void setGlobalScale();
+    void setTextScale();
+    void setColors();
 
-    void applyAllSettings() const;
+    void applyAllSettings();
 
 public Q_SLOTS:
-    Q_SCRIPTABLE void setGtkTheme(const QString &themeName) const;
+    Q_SCRIPTABLE void setGtkTheme(const QString &themeName);
     Q_SCRIPTABLE QString gtkTheme() const;
     Q_SCRIPTABLE void showGtkThemePreview(const QString &themeName) const;
 
-    void onKdeglobalsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
-    void onKWinSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
-    void onKCMInputSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
-    void onBreezeSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
+    void onKdeglobalsSettingsChange(const KConfigGroup &group, const QByteArrayList &names);
+    void onKWinSettingsChange(const KConfigGroup &group, const QByteArrayList &names);
+    void onKCMInputSettingsChange(const KConfigGroup &group, const QByteArrayList &names);
+    void onBreezeSettingsChange(const KConfigGroup &group, const QByteArrayList &names);
 
 private:
     QScopedPointer<ConfigValueProvider> configValueProvider;
@@ -64,7 +68,19 @@ private:
     KConfigWatcher::Ptr kwinConfigWatcher;
     KConfigWatcher::Ptr kcminputConfigWatcher;
     KConfigWatcher::Ptr breezeConfigWatcher;
-    void setGtk2Theme(const QString &themeName, const bool preferDarkTheme) const;
+    void setGtk2Theme(const QString &themeName, const bool preferDarkTheme);
+    void addGtkModule(const QString &moduleName);
+    // Writes out everything set on the backends since the last call
+    void syncBackends();
+
+    Gtk2Backend m_gtk2;
+    SettingsIniBackend m_settingsIni; // GTK 3 and 4
+    SettingsIniBackend m_settingsIni3{3}; // for settings GTK 4 dropped
+    XSettingsBackend m_xsettings;
+    GLibSettingsBackend m_gsettings{"org.gnome.desktop.interface"};
+    GLibSettingsBackend m_gsettingsSound{"org.gnome.desktop.sound"};
+    GLibSettingsBackend m_gsettingsMouse{"org.gnome.desktop.peripherals.mouse"};
+    GLibSettingsBackend m_gsettingsWm{"org.gnome.desktop.wm.preferences"};
 
     GSDXSettingsManager *m_gsdXsettingsManager = nullptr;
 };

@@ -24,13 +24,9 @@ target_sources(gtkconfig
 
 add_subdirectory(config_editor)
 
-target_compile_definitions(gtkconfig
-  PUBLIC
-    -DQT_NO_SIGNALS_SLOTS_KEYWORDS
-)
-
 target_link_libraries(gtkconfig
   PRIVATE
+    gtkconfig_backends
     KWinBridge
     KF6::WindowSystem
   PUBLIC

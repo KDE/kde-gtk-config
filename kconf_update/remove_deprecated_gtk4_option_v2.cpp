@@ -8,9 +8,11 @@
 
 int main()
 {
-    SettingsIniEditor::unsetValue(QStringLiteral("gtk-button-images"), 4);
-    SettingsIniEditor::unsetValue(QStringLiteral("gtk-menu-images"), 4);
-    SettingsIniEditor::unsetValue(QStringLiteral("gtk-modules"), 4);
-    SettingsIniEditor::unsetValue(QStringLiteral("gtk-toolbar-style"), 4);
+    SettingsIniBackend gtk4(4);
+    gtk4.unset(QStringLiteral("gtk-button-images"));
+    gtk4.unset(QStringLiteral("gtk-menu-images"));
+    gtk4.unset(QStringLiteral("gtk-modules"));
+    gtk4.unset(QStringLiteral("gtk-toolbar-style"));
+    gtk4.sync();
     return 0;
 }
