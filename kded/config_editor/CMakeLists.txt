@@ -10,3 +10,8 @@ target_sources(gtkconfig
     utils.cpp
     xsettings.cpp
 )
+
+qt_add_resources(gtkconfig "window_decorations_css"
+    PREFIX "/"
+    FILES window_decorations.css
+)

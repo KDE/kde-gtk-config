@@ -30,7 +30,6 @@ find_package(KF6 ${KF6_MIN_VERSION} REQUIRED COMPONENTS ColorScheme CoreAddons C
 find_package(PkgConfig REQUIRED)
 find_package(KDecoration3 REQUIRED)
 find_package(GSettingSchemas REQUIRED)
-find_package(Sass REQUIRED)
 find_package(XSettingsd)
 
 pkg_check_modules(GTK+3 REQUIRED IMPORTED_TARGET gtk+-3.0)
@@ -43,12 +42,6 @@ set_package_properties(XSettingsd PROPERTIES
     DESCRIPTION "XSettingsd daemon"
     TYPE RUNTIME
     PURPOSE "Required to apply settings to GTK applications on the fly"
-)
-
-set_package_properties(Sass PROPERTIES
-    DESCRIPTION "SASS compiler"
-    URL "https://sass-lang.com/"
-    PURPOSE "Required for building a modification, that allows Breeze GTK to change it's window decorations' appearance"
 )
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake kded/config.h)

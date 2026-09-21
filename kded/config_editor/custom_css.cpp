@@ -5,7 +5,6 @@
 
 #include <QDir>
 #include <QFile>
-#include <QStandardPaths>
 #include <QTextStream>
 
 #include "config_editor/settings_ini.h"
@@ -41,7 +40,7 @@ void saveWindowDecorationsToAssets(const QStringList &windowDecorationsButtonsIm
 void addWindowDecorationsCssFile()
 {
     for (auto gtkVersion : Utils::s_gtkVersions) {
-        QFile windowDecorationsCss{QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("/themes/Breeze/window_decorations.css"))};
+        QFile windowDecorationsCss(QStringLiteral(":/window_decorations.css"));
 
         auto windowDecorationsDestination = Utils::configDirPath(gtkVersion) + QStringLiteral("/window_decorations.css");
 

@@ -1,5 +1,4 @@
 add_subdirectory(kwin_bridge)
-add_subdirectory(scss)
 
 add_library(gtkconfig MODULE)
 
