@@ -41,7 +41,6 @@ target_link_libraries(gtkconfig
     KF6::ConfigCore
     KF6::DBusAddons
     KF6::GuiAddons
-    PkgConfig::GTK+3
     PkgConfig::GIO
     PkgConfig::GObject
 )
