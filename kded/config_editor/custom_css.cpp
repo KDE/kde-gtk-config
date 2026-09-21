@@ -5,10 +5,10 @@
 
 #include <QDir>
 #include <QFile>
-#include <QTextStream>
 
-#include "config_editor/settings_ini.h"
 #include "config_editor/utils.h"
+
+using namespace Qt::StringLiterals;
 
 namespace CustomCssEditor
 {
@@ -18,115 +18,74 @@ namespace
 void saveWindowDecorationsToAssets(const QStringList &windowDecorationsButtonsImages)
 {
     for (auto gtkVersion : Utils::s_gtkVersions) {
-        auto assetsFolderPath = Utils::configDirPath(gtkVersion) + QStringLiteral("/assets");
-        auto assetsFolder = QDir(assetsFolderPath);
-
+        QDir assetsFolder(Utils::configDirPath(gtkVersion) + u"/assets"_s);
         if (!assetsFolder.exists()) {
-            assetsFolder.mkpath(QStringLiteral("."));
+            assetsFolder.mkpath(u"."_s);
         }
-
         for (const auto &buttonImagePath : windowDecorationsButtonsImages) {
-            const QString destination = assetsFolder.path() + '/' + QFileInfo(buttonImagePath).fileName();
-            QFile(destination).remove();
-            QFile(buttonImagePath).copy(buttonImagePath, destination);
+            Utils::updateFile(assetsFolder.filePath(QFileInfo(buttonImagePath).fileName()), Utils::readFile(buttonImagePath).toUtf8());
         }
-
-        for (const auto &buttonImagePath : windowDecorationsButtonsImages) {
-            QFile(buttonImagePath).remove();
-        }
+    }
+    for (const auto &buttonImagePath : windowDecorationsButtonsImages) {
+        QFile::remove(buttonImagePath);
     }
 }
 
 void addWindowDecorationsCssFile()
 {
+    const QByteArray css = Utils::readFile(u":/window_decorations.css"_s).toUtf8();
     for (auto gtkVersion : Utils::s_gtkVersions) {
-        QFile windowDecorationsCss(QStringLiteral(":/window_decorations.css"));
-
-        auto windowDecorationsDestination = Utils::configDirPath(gtkVersion) + QStringLiteral("/window_decorations.css");
-
-        QFile(windowDecorationsDestination).remove();
-        windowDecorationsCss.copy(windowDecorationsDestination);
+        Utils::updateFile(Utils::configDirPath(gtkVersion) + u"/window_decorations.css"_s, css);
     }
 }
 
 void addImportStatementsToGtkCssUserFile()
 {
     for (auto gtkVersion : Utils::s_gtkVersions) {
-        auto gtkCssPath = Utils::configDirPath(gtkVersion) + QStringLiteral("/gtk.css");
-        QFile gtkCss(gtkCssPath);
+        const QString gtkCssPath = Utils::configDirPath(gtkVersion) + u"/gtk.css"_s;
+        QByteArray gtkCssContents = Utils::readFile(gtkCssPath).toUtf8().trimmed();
 
-        if (gtkCss.open(QIODevice::ReadWrite)) {
-            QByteArray gtkCssContents = gtkCss.readAll().trimmed();
-
-            static const QList<QByteArray> importStatements{
-                QByteArrayLiteral("\n@import 'colors.css';"),
-            };
-
-            for (const auto &statement : importStatements) {
-                if (!gtkCssContents.contains(statement.trimmed())) {
-                    gtkCssContents.append(statement);
-                }
+        static const QList<QByteArray> importStatements{
+            QByteArrayLiteral("@import 'colors.css';"),
+        };
+        for (const auto &statement : importStatements) {
+            if (!gtkCssContents.contains(statement)) {
+                gtkCssContents.append('\n' + statement);
             }
-
-            gtkCss.remove();
-            gtkCss.open(QIODevice::WriteOnly | QIODevice::Text);
-            gtkCss.write(gtkCssContents);
         }
+        Utils::updateFile(gtkCssPath, gtkCssContents);
     }
 }
 
 void removeWindowDecorationsCSS()
 {
     for (auto gtkVersion : Utils::s_gtkVersions) {
-        QFile windowsDecorationsCss(Utils::configDirPath(gtkVersion) + QStringLiteral("/window_decorations.css"));
-        windowsDecorationsCss.remove();
+        QFile::remove(Utils::configDirPath(gtkVersion) + u"/window_decorations.css"_s);
     }
 }
 
 void modifyColorsCssFile(const QMap<QString, QColor> &colorsDefinitions)
 {
+    QByteArray css;
+    for (auto it = colorsDefinitions.cbegin(); it != colorsDefinitions.cend(); it++) {
+        css += u"@define-color %1 %2;\n"_s.arg(it.key(), it.value().name()).toUtf8();
+    }
     for (auto gtkVersion : Utils::s_gtkVersions) {
-        QString colorsCssPath = Utils::configDirPath(gtkVersion) + QStringLiteral("/colors.css");
-        QFile colorsCss(colorsCssPath);
-
-        if (colorsCss.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-            QTextStream colorsCssStream(&colorsCss);
-
-            for (auto it = colorsDefinitions.cbegin(); it != colorsDefinitions.cend(); it++) {
-                colorsCssStream << QStringLiteral("@define-color %1 %2;\n").arg(it.key(), it.value().name());
-            }
-        }
+        Utils::updateFile(Utils::configDirPath(gtkVersion) + u"/colors.css"_s, css);
     }
 }
-}
-
-void addGtkModule(const QString &moduleName)
-{
-    const QString currentModulesString = SettingsIniEditor::value(QStringLiteral("gtk-modules"));
-
-    if (currentModulesString.contains(moduleName)) {
-        return;
-    }
-
-    if (currentModulesString.isEmpty()) { // No modules
-        SettingsIniEditor::setValue(QStringLiteral("gtk-modules"), moduleName, 3);
-    } else {
-        SettingsIniEditor::setValue(QStringLiteral("gtk-modules"), QStringLiteral("%1:%2").arg(currentModulesString, moduleName), 3);
-    }
 }
 
 void setColors(const QMap<QString, QColor> &colorsDefinitions)
 {
     addImportStatementsToGtkCssUserFile();
     modifyColorsCssFile(colorsDefinitions);
-    // addGtkModule is called in GtkConfig::setColors
 }
 
 void setCustomClientSideDecorations(const QStringList &windowDecorationsButtonsImages)
 {
     saveWindowDecorationsToAssets(windowDecorationsButtonsImages);
     addWindowDecorationsCssFile();
-    addGtkModule(QStringLiteral("window-decorations-gtk-module"));
 }
 
 void disableCustomClientSideDecorations()

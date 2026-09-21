@@ -4,20 +4,18 @@
 #pragma once
 
 #include <QColor>
+#include <QMap>
 #include <QString>
 
+// CSS in ~/.config/gtk-N.0 that our GTK modules pick up. Files are only written when their contents change
 namespace CustomCssEditor
 {
 
-void addGtkModule(const QString &moduleName);
-
-/**
- * @note Make sure "colorreload-gtk-module" is added to the module list before calling this function
- * @param colorsDefinitions a list of color definitions for GTK CSS
- * @see GtkConfig::setColors
- */
+// Writes colors.css and has gtk.css import it
+// @note Make sure "colorreload-gtk-module" is added to the module list before calling this function
 void setColors(const QMap<QString, QColor> &colorsDefinitions);
 
+// Installs the images (deleting the originals) and the CSS that uses them
 void setCustomClientSideDecorations(const QStringList &windowDecorationsButtonsImages);
 void disableCustomClientSideDecorations();
 

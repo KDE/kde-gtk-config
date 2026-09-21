@@ -65,12 +65,12 @@ qlonglong GSDXSettingsManager::FontconfigTimestamp() const
 
 QString GSDXSettingsManager::Modules() const
 {
-    return SettingsIniEditor::value(QStringLiteral("gtk-modules"), 3);
+    return SettingsIniBackend::value(QStringLiteral("gtk-modules"), 3);
 }
 
 bool GSDXSettingsManager::EnableAnimations() const
 {
-    return SettingsIniEditor::value(QStringLiteral("gtk-enable-animations"), 3) == QLatin1String("true");
+    return SettingsIniBackend::value(QStringLiteral("gtk-enable-animations"), 3) == QLatin1String("true");
 }
 
 #include "moc_gsd-xsettings-manager.cpp"

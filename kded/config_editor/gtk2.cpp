@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2019, 2022 Mikhail Zolotukhin <zomial@protonmail.com>
+// SPDX-FileCopyrightText: 2026 Artem Grinev <agrinev98@gmail.com>
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "gtk2.h"
@@ -6,77 +7,59 @@
 #include <QDir>
 #include <QRegularExpression>
 
-#include "config_editor/utils.h"
+#include "utils.h"
 
-namespace Gtk2ConfigEditor
-{
+using namespace Qt::StringLiterals;
+
 namespace
 {
 
-void replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramName, const QVariant &paramValue)
+QString gtkrcPath()
 {
-    const QRegularExpression regExp(paramName + QStringLiteral("=[^\n]*($|\n)"));
-
-    QString newConfigString;
-    if (paramValue.type() == QVariant::Type::String) {
-        newConfigString = QStringLiteral("%1=\"%2\"\n").arg(paramName, paramValue.toString());
-    } else if (paramValue.type() == QVariant::Type::Bool) {
-        // GTK2 does not support 'true' and 'false' as values
-        newConfigString = QStringLiteral("%1=%2\n").arg(paramName, QString::number(paramValue.toInt()));
-    } else {
-        newConfigString = QStringLiteral("%1=%2\n").arg(paramName, paramValue.toString());
+    QString path = qEnvironmentVariable("GTK2_RC_FILES", QDir::homePath() + u"/.gtkrc-2.0"_s);
+    if (path.contains(":/"_L1)) { // I.e. env variable contains multiple paths
+        path = QDir::homePath() + u"/.gtkrc-2.0"_s;
     }
+    return path;
+}
 
-    if (gtkrcContents.contains(regExp)) {
-        gtkrcContents.replace(regExp, newConfigString);
-    } else {
-        gtkrcContents = newConfigString + gtkrcContents;
-    }
+// Remove what older versions of this module used to write:
+//   include "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
+// and
+//   style "user-font"
+//   {
+//       font_name="Noto Sans Regular"
+//   }
+//   widget_class "*" style "user-font"
+void removeLegacyStrings(QString &contents)
+{
+    static const QRegularExpression includeLine(u"include .*\n"_s);
+    static const QRegularExpression userFontStyle(u"style(.|\n)*{(.|\n)*}\nwidget_class.*\"user-font\""_s);
+    contents.remove(includeLine);
+    contents.remove(userFontStyle);
 }
 }
 
-void setValue(const QString &paramName, const QVariant &paramValue)
+void Gtk2Backend::set(const QString &key, const QVariant &value)
 {
-    QString gtkrcPath = qEnvironmentVariable("GTK2_RC_FILES", QDir::homePath() + QStringLiteral("/.gtkrc-2.0"));
-    if (gtkrcPath.contains(QStringLiteral(":/"))) { // I.e. env variable contains multiple paths
-        gtkrcPath = QDir::homePath() + QStringLiteral("/.gtkrc-2.0");
-    }
-    QFile gtkrc(gtkrcPath);
-    QString gtkrcContents = Utils::readFileContents(gtkrc);
-    replaceValueInGtkrcContents(gtkrcContents, paramName, paramValue);
-    gtkrc.remove();
-    gtkrc.open(QIODevice::WriteOnly | QIODevice::Text);
-    gtkrc.write(gtkrcContents.toUtf8());
+    m_pending.insert(key, value);
 }
 
-void removeLegacyStrings()
+void Gtk2Backend::sync()
 {
-    QString gtkrcPath = QDir::homePath() + QStringLiteral("/.gtkrc-2.0");
-    QFile gtkrc(gtkrcPath);
-    QString gtkrcContents = Utils::readFileContents(gtkrc);
-    if (gtkrcContents.isNull()) {
+    if (m_pending.isEmpty()) {
         return;
     }
 
-    // Remove "include" lines
-    // Example:
-    // include "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
-    static const QRegularExpression includeRegExp(QStringLiteral("include .*\n"));
-    gtkrcContents.remove(includeRegExp);
-
-    // Remove redundant font config lines
-    // Example:
-    // style "user-font"
-    // {
-    //     font_name="Noto Sans Regular"
-    // }
-    // widget_class "*" style "user-font"
-    static const QRegularExpression userFontStyleRegexp(QStringLiteral("style(.|\n)*{(.|\n)*}\nwidget_class.*\"user-font\""));
-    gtkrcContents.remove(userFontStyleRegexp);
-
-    gtkrc.remove();
-    gtkrc.open(QIODevice::WriteOnly | QIODevice::Text);
-    gtkrc.write(gtkrcContents.toUtf8());
-}
-
+    const QString path = gtkrcPath();
+    const QString original = Utils::readFile(path);
+    QString contents = original;
+    removeLegacyStrings(contents);
+    for (auto it = m_pending.cbegin(); it != m_pending.cend(); it++) {
+        Utils::setLine(contents, it.key(), "="_L1, it.value());
+    }
+    m_pending.clear();
+    if (contents != original) {
+        Utils::writeFile(path, contents);
+    }
 }
