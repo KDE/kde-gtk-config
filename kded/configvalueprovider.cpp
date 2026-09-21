@@ -18,8 +18,6 @@
 #include <KConfigGroup>
 #include <KWindowSystem>
 
-#include <gtk/gtk.h>
-
 #include <algorithm>
 
 #include "configvalueprovider.h"
@@ -169,17 +167,26 @@ bool ConfigValueProvider::iconsInMenus() const
 
 int ConfigValueProvider::toolbarStyle() const
 {
+    // Same values as GtkToolbarStyle in GTK 3 (gtk/gtkenums.h); written as-is to gtkrc, settings.ini and XSettings.
+    // Copied here to avoid pulling GTK headers into kded.
+    enum GtkToolbarStyle {
+        Icons = 0, // GTK_TOOLBAR_ICONS
+        Text = 1, // GTK_TOOLBAR_TEXT
+        Both = 2, // GTK_TOOLBAR_BOTH
+        BothHoriz = 3, // GTK_TOOLBAR_BOTH_HORIZ
+    };
+
     KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("Toolbar style"));
     QString kdeConfigValue = configGroup.readEntry(QStringLiteral("ToolButtonStyle"), "TextBesideIcon");
 
     if (kdeConfigValue == QStringLiteral("NoText")) {
-        return GtkToolbarStyle::GTK_TOOLBAR_ICONS;
+        return Icons;
     } else if (kdeConfigValue == QStringLiteral("TextOnly")) {
-        return GtkToolbarStyle::GTK_TOOLBAR_TEXT;
+        return Text;
     } else if (kdeConfigValue == QStringLiteral("TextBesideIcon")) {
-        return GtkToolbarStyle::GTK_TOOLBAR_BOTH_HORIZ;
+        return BothHoriz;
     } else {
-        return GtkToolbarStyle::GTK_TOOLBAR_BOTH;
+        return Both;
     }
 }
 
