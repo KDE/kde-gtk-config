@@ -18,6 +18,8 @@ public:
 
     void paintButton(QPainter &painter, const QString &buttonType, const QString &buttonState) const override;
 
+    QRect internalButtonGeometry(const QString &buttonType) const;
+
 private:
     QString buttonTypeToFileName(const QString &buttonType) const;
     QString buttonStateToElementId(const QString &buttonState) const;

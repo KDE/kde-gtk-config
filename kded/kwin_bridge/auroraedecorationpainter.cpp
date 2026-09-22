@@ -32,6 +32,17 @@ void AuroraeDecorationPainter::paintButton(QPainter &painter, const QString &but
     buttonRenderer.render(&painter, elementIdName, DecorationPainter::ButtonGeometry);
 }
 
+QRect AuroraeDecorationPainter::internalButtonGeometry(const QString &buttonType) const
+{
+    const QString buttonFileName = buttonTypeToFileName(buttonType);
+    const QString buttonFilePath = m_themePath + buttonFileName;
+
+    QSvgRenderer buttonRenderer;
+    buttonRenderer.load(buttonFilePath) || buttonRenderer.load(buttonFilePath + "z");
+
+    return buttonRenderer.viewBox();
+}
+
 QString AuroraeDecorationPainter::buttonTypeToFileName(const QString &buttonType) const
 {
     if (buttonType == QStringLiteral("maximized")) {

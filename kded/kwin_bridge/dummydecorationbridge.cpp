@@ -41,7 +41,7 @@ DummyDecorationBridge::DummyDecorationBridge(const QString &pluginName, QObject 
     // they were enabled, draw a buttons and then enable them again.
     if (pluginName == QStringLiteral("org.kde.oxygen")) {
         m_decorationsConfigFileName = QStringLiteral("oxygenrc");
-    } else { // for Breeze window decorations and its forks
+    } else { // for Breeze window decorations
         m_decorationsConfigFileName = QStringLiteral("breezerc");
     }
 
