@@ -22,14 +22,25 @@ std::unique_ptr<DecorationPainter> DecorationPainter::get()
     auto kwinConfig = KSharedConfig::openConfig(QStringLiteral("kwinrc"));
     KConfigGroup decorationGroup = kwinConfig->group(QStringLiteral("org.kde.kdecoration2"));
     const QString themeName = decorationGroup.readEntry(QStringLiteral("theme"), QStringLiteral("Breeze"));
-    const QString pluginName = decorationGroup.readEntry(QStringLiteral("library"), QStringLiteral("org.kde.breeze"));
+    static const QString breezePlugin = QStringLiteral("org.kde.breeze");
+    const QString pluginName = decorationGroup.readEntry(QStringLiteral("library"), breezePlugin);
 
-    // FIXME this does not work for Aurorae QML decorations
     static const QString auroraeThemePrefix = QStringLiteral("__aurorae__svg__");
     if (themeName.startsWith(auroraeThemePrefix)) {
         QString prefixlessThemeName = themeName.mid(auroraeThemePrefix.size());
-        return std::unique_ptr<AuroraeDecorationPainter>{new AuroraeDecorationPainter(prefixlessThemeName)};
-    } else {
+        auto decoration = std::unique_ptr<AuroraeDecorationPainter>{new AuroraeDecorationPainter(prefixlessThemeName)};
+        // Use found decoration only if the geometry of the buttons is compatible (squared geometry)
+        const QRect geometry = decoration->internalButtonGeometry(QStringLiteral("close"));
+        if (geometry.width() > 0 && geometry.width() == geometry.height()) {
+            return decoration;
+        }
+    } else if (pluginName == QStringLiteral("org.kde.oxygen")) {
+        // Use only the Oxygen and Breeze decorations,
+        // as the buttons of other decorations may be incompatible
+        // due to their button geometry.
         return std::unique_ptr<StandardDecorationPainter>{new StandardDecorationPainter(pluginName)};
     }
+
+    // Fallback to Breeze decoration plugin
+    return std::unique_ptr<StandardDecorationPainter>{new StandardDecorationPainter(breezePlugin)};
 }
