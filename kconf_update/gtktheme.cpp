@@ -9,6 +9,10 @@
 #include <QString>
 #include <QVariant>
 
+#include <KConfig>
+#include <KConfigGroup>
+#include <KSharedConfig>
+
 #include <gio/gio.h>
 
 #include "config_editor/gsettings.h"
@@ -17,38 +21,46 @@
 #include "config_editor/xsettings.h"
 
 QString gtk2Theme();
-void upgradeGtk2Theme();
-void upgradeGtk3Theme();
+void upgradeGtk2Theme(const QString &defaultTheme);
+void upgradeGtk3Theme(const QString &defaultTheme);
 
 int main()
 {
-    upgradeGtk2Theme();
-    upgradeGtk3Theme();
+    QString defaultTheme = QStringLiteral("Breeze");
+
+    KSharedConfig::Ptr globalConfig = KSharedConfig::openConfig();
+    if (globalConfig) {
+        auto group = globalConfig->group(QStringLiteral("KDE"));
+        defaultTheme = group.readEntry(QStringLiteral("gtkTheme"), QStringLiteral("Breeze"));
+    }
+
+    upgradeGtk2Theme(defaultTheme);
+    upgradeGtk3Theme(defaultTheme);
     g_settings_sync();
     return 0;
 }
 
-void upgradeGtk2Theme()
+void upgradeGtk2Theme(const QString &defaultTheme)
 {
     QString currentGtk2Theme = gtk2Theme();
     if (currentGtk2Theme.isEmpty() //
         || currentGtk2Theme == QStringLiteral("oxygen-gtk") //
         || currentGtk2Theme == QStringLiteral("BreezyGTK") //
         || currentGtk2Theme == QStringLiteral("Orion")) {
-        Gtk2ConfigEditor::setValue(QStringLiteral("gtk-theme-name"), QStringLiteral("Breeze"));
+        Gtk2ConfigEditor::setValue(QStringLiteral("gtk-theme-name"), defaultTheme);
     }
 }
 
-void upgradeGtk3Theme()
+void upgradeGtk3Theme(const QString &defaultTheme)
 {
     QString currentGtk3Theme = SettingsIniEditor::value(QStringLiteral("gtk-theme-name"), 3);
     if (currentGtk3Theme.isEmpty() //
         || currentGtk3Theme == QStringLiteral("oxygen-gtk") //
         || currentGtk3Theme == QStringLiteral("BreezyGTK") //
         || currentGtk3Theme == QStringLiteral("Orion")) {
-        GSettingsEditor::setValue("gtk-theme", QStringLiteral("Breeze"));
-        SettingsIniEditor::setValue(QStringLiteral("gtk-theme-name"), QStringLiteral("Breeze"), 3);
-        XSettingsEditor::setValue(QStringLiteral("Net/ThemeName"), QStringLiteral("Breeze"));
+        GSettingsEditor::setValue("gtk-theme", defaultTheme);
+        SettingsIniEditor::setValue(QStringLiteral("gtk-theme-name"), defaultTheme, 3);
+        XSettingsEditor::setValue(QStringLiteral("Net/ThemeName"), defaultTheme);
     }
 }
 
