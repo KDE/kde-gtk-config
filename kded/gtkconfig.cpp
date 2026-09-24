@@ -318,6 +318,9 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
             // update all settings, since global theme can include most of them
             applyAllSettings();
         }
+        if (names.contains(QByteArrayLiteral("gtkTheme"))) {
+            setGtkTheme(group.readEntry("gtkTheme", QStringLiteral("Breeze")));
+        }
         if (names.contains(QByteArrayLiteral("ShowIconsInMenuItems"))) {
             setIconsInMenus();
         }
