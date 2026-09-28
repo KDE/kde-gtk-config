@@ -5,7 +5,9 @@ include:
   - project: sysadmin/ci-utilities
     file:
       - /gitlab-templates/linux-qt6.yml
-      - /gitlab-templates/freebsd-qt6.yml
+      # FreeBSD job disabled due to persistent failures:
+      # https://invent.kde.org/plasma/kde-gtk-config/-/pipelines/1360875
+      # - /gitlab-templates/freebsd-qt6.yml
       - /gitlab-templates/xml-lint.yml
       - /gitlab-templates/yaml-lint.yml
       - /gitlab-templates/linux-qt6-next.yml
