@@ -37,8 +37,9 @@ void replaceValueInGtkrcContents(QString &gtkrcContents, const QString &paramNam
 
 void setValue(const QString &paramName, const QVariant &paramValue)
 {
-    QString gtkrcPath = qEnvironmentVariable("GTK2_RC_FILES", QDir::homePath() + QStringLiteral("/.gtkrc-2.0"));
-    if (gtkrcPath.contains(QStringLiteral(":/"))) { // I.e. env variable contains multiple paths
+    // Same as gmenudbusmenuproxy
+    QString gtkrcPath = qEnvironmentVariable("GTK2_RC_FILES").section(QLatin1Char(':'), 0, 0);
+    if (gtkrcPath.isEmpty()) {
         gtkrcPath = QDir::homePath() + QStringLiteral("/.gtkrc-2.0");
     }
     QFile gtkrc(gtkrcPath);
