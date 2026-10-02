@@ -27,7 +27,6 @@
 #include "config_editor/gtk2.h"
 #include "config_editor/settings_ini.h"
 #include "config_editor/xsettings.h"
-#include "gsd-xsettings-manager/gsd-xsettings-manager.h"
 
 K_PLUGIN_CLASS_WITH_JSON(GtkConfig, "gtkconfig.json")
 
@@ -43,10 +42,6 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList &)
     QDBusConnection dbus = QDBusConnection::sessionBus();
     dbus.registerService(QStringLiteral("org.kde.GtkConfig"));
     dbus.registerObject(QStringLiteral("/GtkConfig"), this, QDBusConnection::ExportScriptableSlots);
-
-    if (qgetenv("GTK_USE_PORTAL") != "1" && KWindowSystem::isPlatformWayland()) {
-        m_gsdXsettingsManager = new GSDXSettingsManager(this);
-    }
 
     connect(kdeglobalsConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKdeglobalsSettingsChange);
     connect(kwinConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKWinSettingsChange);
@@ -130,7 +125,6 @@ void GtkConfig::setGtk2Theme(const QString &themeName, const bool preferDarkThem
     }
 
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-theme-name"), possiblyDarkThemeName);
-    XSettingsEditor::setValue(QStringLiteral("Net/ThemeName"), possiblyDarkThemeName);
 }
 
 void GtkConfig::setGtkTheme(const QString &themeName) const
@@ -169,7 +163,6 @@ void GtkConfig::setFont() const
     GSettingsEditor::setValue("document-font-name", configFontNameGsettings);
     GSettingsEditor::setValue("font-name", configFontNameGsettings);
     SettingsIniEditor::setValue(QStringLiteral("gtk-font-name"), configFontName);
-    XSettingsEditor::setValue(QStringLiteral("Gtk/FontName"), configFontName);
 }
 
 void GtkConfig::setIconTheme() const
@@ -178,7 +171,6 @@ void GtkConfig::setIconTheme() const
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-icon-theme-name"), iconThemeName);
     GSettingsEditor::setValue("icon-theme", iconThemeName);
     SettingsIniEditor::setValue(QStringLiteral("gtk-icon-theme-name"), iconThemeName);
-    XSettingsEditor::setValue(QStringLiteral("Net/IconThemeName"), iconThemeName);
 }
 
 void GtkConfig::setSoundTheme() const
@@ -187,7 +179,6 @@ void GtkConfig::setSoundTheme() const
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-sound-theme-name"), soundThemeName);
     GSettingsEditor::setValue("theme-name", soundThemeName, "org.gnome.desktop.sound");
     SettingsIniEditor::setValue(QStringLiteral("gtk-sound-theme-name"), soundThemeName);
-    XSettingsEditor::setValue(QStringLiteral("Net/SoundThemeName"), soundThemeName);
 }
 
 void GtkConfig::setEventSoundsEnabled() const
@@ -196,7 +187,6 @@ void GtkConfig::setEventSoundsEnabled() const
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-enable-event-sounds"), soundsEnabled);
     GSettingsEditor::setValue("event-sounds", soundsEnabled, "org.gnome.desktop.sound");
     SettingsIniEditor::setValue(QStringLiteral("gtk-enable-event-sounds"), soundsEnabled);
-    XSettingsEditor::setValue(QStringLiteral("Net/EnableEventSounds"), soundsEnabled);
 }
 
 void GtkConfig::setCursorTheme() const
@@ -205,21 +195,14 @@ void GtkConfig::setCursorTheme() const
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-cursor-theme-name"), cursorThemeName);
     GSettingsEditor::setValue("cursor-theme", cursorThemeName);
     SettingsIniEditor::setValue(QStringLiteral("gtk-cursor-theme-name"), cursorThemeName);
-    XSettingsEditor::setValue(QStringLiteral("Gtk/CursorThemeName"), cursorThemeName);
 }
 
 void GtkConfig::setCursorSize() const
 {
-    qreal xwaylandScale = 1.0;
-    if (KWindowSystem::isPlatformWayland()) {
-        xwaylandScale = configValueProvider->x11GlobalScaleFactor();
-    }
-
     const int cursorSize = configValueProvider->cursorSize();
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-cursor-theme-size"), cursorSize);
     GSettingsEditor::setValue("cursor-size", cursorSize);
     SettingsIniEditor::setValue(QStringLiteral("gtk-cursor-theme-size"), cursorSize);
-    XSettingsEditor::setValue(QStringLiteral("Gtk/CursorThemeSize"), int(cursorSize * xwaylandScale));
 }
 
 void GtkConfig::setIconsOnButtons() const
@@ -228,7 +211,6 @@ void GtkConfig::setIconsOnButtons() const
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-button-images"), iconsOnButtonsConfigValue);
     // Deprecated in GTK 4
     SettingsIniEditor::setValue(QStringLiteral("gtk-button-images"), iconsOnButtonsConfigValue, 3);
-    XSettingsEditor::setValue(QStringLiteral("Gtk/ButtonImages"), iconsOnButtonsConfigValue);
 }
 
 void GtkConfig::setIconsInMenus() const
@@ -237,7 +219,6 @@ void GtkConfig::setIconsInMenus() const
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-menu-images"), iconsInMenusConfigValue);
     // Deprecated in GTK 4
     SettingsIniEditor::setValue(QStringLiteral("gtk-menu-images"), iconsInMenusConfigValue, 3);
-    XSettingsEditor::setValue(QStringLiteral("Gtk/MenuImages"), iconsInMenusConfigValue);
 }
 
 void GtkConfig::setToolbarStyle() const
@@ -247,7 +228,6 @@ void GtkConfig::setToolbarStyle() const
     GSettingsEditor::setValueAsEnum("toolbar-style", toolbarStyle);
     // Deprecated in GTK 4
     SettingsIniEditor::setValue(QStringLiteral("gtk-toolbar-style"), toolbarStyle, 3);
-    XSettingsEditor::setValue(QStringLiteral("Gtk/ToolbarStyle"), toolbarStyle);
 }
 
 void GtkConfig::setScrollbarBehavior() const
@@ -255,7 +235,6 @@ void GtkConfig::setScrollbarBehavior() const
     const bool scrollbarBehavior = configValueProvider->scrollbarBehavior();
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-primary-button-warps-slider"), scrollbarBehavior);
     SettingsIniEditor::setValue(QStringLiteral("gtk-primary-button-warps-slider"), scrollbarBehavior);
-    XSettingsEditor::setValue(QStringLiteral("Gtk/PrimaryButtonWarpsSlider"), scrollbarBehavior);
 }
 
 void GtkConfig::setDoubleClickInterval() const
@@ -264,7 +243,6 @@ void GtkConfig::setDoubleClickInterval() const
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-double-click-time"), doubleClickInterval);
     GSettingsEditor::setValue("double-click", doubleClickInterval, "org.gnome.desktop.peripherals.mouse");
     SettingsIniEditor::setValue(QStringLiteral("gtk-double-click-time"), doubleClickInterval);
-    XSettingsEditor::setValue(QStringLiteral("Net/DoubleClickTime"), doubleClickInterval);
 }
 
 void GtkConfig::setCursorBlinkRate() const
@@ -284,8 +262,6 @@ void GtkConfig::setCursorBlinkRate() const
     GSettingsEditor::setValue("cursor-blink-time", cursorBlinkRate, "org.gnome.desktop.interface");
     SettingsIniEditor::setValue(QStringLiteral("gtk-cursor-blink"), cursorBlinkEnabled);
     SettingsIniEditor::setValue(QStringLiteral("gtk-cursor-blink-time"), cursorBlinkRate);
-    XSettingsEditor::setValue(QStringLiteral("Net/CursorBlink"), cursorBlinkEnabled);
-    XSettingsEditor::setValue(QStringLiteral("Net/CursorBlinkTime"), cursorBlinkRate);
 }
 
 void GtkConfig::setDarkThemePreference() const
@@ -314,7 +290,6 @@ void GtkConfig::setWindowDecorationsButtonsOrder() const
     const QString windowDecorationsButtonOrder = configValueProvider->windowDecorationsButtonsOrder();
     GSettingsEditor::setValue("button-layout", windowDecorationsButtonOrder, "org.gnome.desktop.wm.preferences");
     SettingsIniEditor::setValue(QStringLiteral("gtk-decoration-layout"), windowDecorationsButtonOrder);
-    XSettingsEditor::setValue(QStringLiteral("Gtk/DecorationLayout"), windowDecorationsButtonOrder);
 }
 
 void GtkConfig::setEnableAnimations() const
@@ -323,39 +298,27 @@ void GtkConfig::setEnableAnimations() const
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-enable-animations"), enableAnimations);
     GSettingsEditor::setValue("enable-animations", enableAnimations);
     SettingsIniEditor::setValue(QStringLiteral("gtk-enable-animations"), enableAnimations);
-    XSettingsEditor::setValue(QStringLiteral("Gtk/EnableAnimations"), enableAnimations);
-    if (m_gsdXsettingsManager) {
-        m_gsdXsettingsManager->enableAnimationsChanged();
-    }
 }
 
 void GtkConfig::setGlobalScale() const
 {
     const unsigned scaleFactor = configValueProvider->x11GlobalScaleFactor();
-    XSettingsEditor::setValue(QStringLiteral("Gdk/WindowScalingFactor"), scaleFactor);
     GSettingsEditor::setValue("scaling-factor", scaleFactor); // For IntelliJ IDEA
 }
 
 void GtkConfig::setTextScale() const
 {
     const double x11Scale = configValueProvider->x11GlobalScaleFactor();
-    const int x11ScaleIntegerPart = int(x11Scale);
-
     int x11TextDpiAbsolute = 96 * 1024 * x11Scale;
     double waylandTextScaleFactor = 1.0;
 
-    XSettingsEditor::unsetValue(QStringLiteral("Xft/DPI"));
     SettingsIniEditor::setValue(QStringLiteral("gtk-xft-dpi"), x11TextDpiAbsolute);
-    XSettingsEditor::setValue(QStringLiteral("Gdk/UnscaledDPI"), x11TextDpiAbsolute / x11ScaleIntegerPart);
     GSettingsEditor::setValue("text-scaling-factor", waylandTextScaleFactor);
 }
 
 void GtkConfig::setColors() const
 {
     CustomCssEditor::addGtkModule(QStringLiteral("colorreload-gtk-module"));
-    if (m_gsdXsettingsManager) {
-        m_gsdXsettingsManager->modulesChanged();
-    }
     // modulesChanged signal will take some time to reach a GTK app, so explicitly wait a moment
     QTimer::singleShot(200, this, [this] {
         const QMap<QString, QColor> colors = configValueProvider->colors();
