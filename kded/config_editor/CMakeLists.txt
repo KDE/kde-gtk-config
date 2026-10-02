@@ -8,5 +8,5 @@ target_sources(gtkconfig
     gtk2.cpp
     settings_ini.cpp 
     utils.cpp
-    xsettings.cpp
+    
 )

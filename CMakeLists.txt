@@ -55,6 +55,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake kded/config.h)
 
 add_subdirectory(gtk3proxies)
 add_subdirectory(kded)
+add_subdirectory(kded-xsettingsd)
 add_subdirectory(kconf_update)
 add_subdirectory(color-reload-module)
 add_subdirectory(window-decorations-reload-module)
