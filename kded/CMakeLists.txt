@@ -5,8 +5,17 @@ add_library(gtkconfig MODULE)
 
 set(gtkconfig_SRCS
     gtkconfig.cpp
+    gsd-manager/gsd-manager.cpp
     configvalueprovider.cpp
     themepreviewer.cpp
+)
+
+qt_add_dbus_adaptor(gtkconfig_SRCS
+    gsd-manager/org.gtk.Settings.xml
+    gsd-manager/gsd-manager.h
+    GSDManager
+    gsd_manager_adaptor
+    GSDManagerAdaptor
 )
 
 target_sources(gtkconfig

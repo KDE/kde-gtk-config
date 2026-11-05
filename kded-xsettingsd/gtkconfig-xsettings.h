@@ -1,3 +1,10 @@
+/*
+ * SPDX-FileCopyrightText: 2026 David Edmundson <kde@davidedmundson.co.uk>
+ * SPDX-FileCopyrightText: 2026 Artem Grinev <agrinev98@gmail.com>
+ *
+ * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+ */
+
 #pragma once
 
 #include <KConfigWatcher>
@@ -5,16 +12,12 @@
 
 #include "configvalueprovider.h"
 
-class GSDXSettingsManager;
-
 class Q_DECL_EXPORT GtkConfigXSettings : public KDEDModule
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "org.kde.GtkConfig.XSettings")
 
 public:
     GtkConfigXSettings(QObject *parent, const QVariantList &args);
-    ~GtkConfigXSettings();
 
     void setGtk2Theme(const QString &themeName, const bool preferDarkTheme) const;
     void setFont() const;
@@ -33,11 +36,11 @@ public:
     void setEnableAnimations() const;
     void setGlobalScale() const;
     void setTextScale() const;
-    void setColors() const;
 
     void applyAllSettings() const;
 
 public Q_SLOTS:
+    void onGtk2ThemeChanged(const QString &themeName) const;
     void onKdeglobalsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
     void onKWinSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
     void onKCMInputSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
@@ -47,5 +50,4 @@ private:
     KConfigWatcher::Ptr kdeglobalsConfigWatcher;
     KConfigWatcher::Ptr kwinConfigWatcher;
     KConfigWatcher::Ptr kcminputConfigWatcher;
-    GSDXSettingsManager *m_gsdXsettingsManager = nullptr;
 };

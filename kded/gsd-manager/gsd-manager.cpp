@@ -4,13 +4,13 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-#include "gsd-xsettings-manager.h"
+#include "gsd-manager.h"
 
 #include <QDBusConnection>
 #include <QDateTime>
 
 #include "config_editor/settings_ini.h"
-#include "gsd_xsettings_manager_adaptor.h"
+#include "gsd_manager_adaptor.h"
 
 namespace
 {
@@ -18,21 +18,21 @@ inline constexpr QLatin1String GTK_SETTINGS_DBUS_PATH{"/org/gtk/Settings"};
 inline constexpr QLatin1String GTK_SETTINGS_DBUS_NAME{"org.gtk.Settings"};
 }
 
-GSDXSettingsManager::GSDXSettingsManager(QObject *parent)
+GSDManager::GSDManager(QObject *parent)
     : QObject(parent)
 {
-    new GSDXSettingsManagerAdaptor(this);
+    new GSDManagerAdaptor(this);
 
     QDBusConnection dbus = QDBusConnection::sessionBus();
     dbus.registerObject(GTK_SETTINGS_DBUS_PATH, this);
     dbus.registerService(GTK_SETTINGS_DBUS_NAME);
 }
 
-GSDXSettingsManager::~GSDXSettingsManager()
+GSDManager::~GSDManager()
 {
 }
 
-void GSDXSettingsManager::modulesChanged()
+void GSDManager::modulesChanged()
 {
     QDBusMessage msg =
         QDBusMessage::createSignal(GTK_SETTINGS_DBUS_PATH, QStringLiteral("org.freedesktop.DBus.Properties"), QStringLiteral("PropertiesChanged"));
@@ -45,7 +45,7 @@ void GSDXSettingsManager::modulesChanged()
     QDBusConnection::sessionBus().send(msg);
 }
 
-void GSDXSettingsManager::enableAnimationsChanged()
+void GSDManager::enableAnimationsChanged()
 {
     QDBusMessage msg =
         QDBusMessage::createSignal(GTK_SETTINGS_DBUS_PATH, QStringLiteral("org.freedesktop.DBus.Properties"), QStringLiteral("PropertiesChanged"));
@@ -58,19 +58,19 @@ void GSDXSettingsManager::enableAnimationsChanged()
     QDBusConnection::sessionBus().send(msg);
 }
 
-qlonglong GSDXSettingsManager::FontconfigTimestamp() const
+qlonglong GSDManager::FontconfigTimestamp() const
 {
     return QDateTime::currentSecsSinceEpoch();
 }
 
-QString GSDXSettingsManager::Modules() const
+QString GSDManager::Modules() const
 {
     return SettingsIniEditor::value(QStringLiteral("gtk-modules"), 3);
 }
 
-bool GSDXSettingsManager::EnableAnimations() const
+bool GSDManager::EnableAnimations() const
 {
     return SettingsIniEditor::value(QStringLiteral("gtk-enable-animations"), 3) == QLatin1String("true");
 }
 
-#include "moc_gsd-xsettings-manager.cpp"
+#include "moc_gsd-manager.cpp"

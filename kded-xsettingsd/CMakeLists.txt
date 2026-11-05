@@ -1,25 +1,16 @@
+# SPDX-FileCopyrightText: 2026 David Edmundson <kde@davidedmundson.co.uk>
+# SPDX-FileCopyrightText: 2026 Artem Grinev <agrinev98@gmail.com>
+# SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+
 add_library(gtkconfig_xsettings MODULE)
 
-set(gtkconfig_xsettings_SRCS
-    gtkconfig.cpp
-    gsd-xsettings-manager/gsd-xsettings-manager.cpp
+target_sources(gtkconfig_xsettings
+  PRIVATE
+    gtkconfig-xsettings.cpp
     ../kded/configvalueprovider.cpp
     ../kded/config_editor/xsettings.cpp
     ../kded/config_editor/settings_ini.cpp
     ../kded/config_editor/utils.cpp
-)
-
-qt_add_dbus_adaptor(gtkconfig_xsettings_SRCS
-    gsd-xsettings-manager/org.gtk.Settings.xml
-    gsd-xsettings-manager/gsd-xsettings-manager.h
-    GSDXSettingsManager
-    gsd_xsettings_manager_adaptor
-    GSDXSettingsManagerAdaptor
-)
-
-target_sources(gtkconfig_xsettings
-  PRIVATE
-    ${gtkconfig_xsettings_SRCS}
 )
 
 target_compile_definitions(gtkconfig_xsettings
@@ -30,7 +21,6 @@ target_compile_definitions(gtkconfig_xsettings
 target_link_libraries(gtkconfig_xsettings
   PRIVATE
     KWinBridge
-    KF6::WindowSystem
   PUBLIC
     Qt::DBus
     PkgConfig::GIO

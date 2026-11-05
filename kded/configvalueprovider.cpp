@@ -16,7 +16,6 @@
 #include <KColorUtils>
 #include <KConfig>
 #include <KConfigGroup>
-#include <KWindowSystem>
 
 #include <gtk/gtk.h>
 
@@ -509,15 +508,13 @@ qreal ConfigValueProvider::frameContrast() const
 
 double ConfigValueProvider::x11GlobalScaleFactor() const
 {
-    double scaleFactor;
-
-    if (KWindowSystem::isPlatformX11()) {
-        KConfigGroup configGroup = kdeglobalsConfig->group(QStringLiteral("KScreen"));
-        scaleFactor = configGroup.readEntry(QStringLiteral("ScaleFactor"), 1.0);
-    } else {
-        KConfigGroup xwaylandGroup = kwinConfig->group(QStringLiteral("Xwayland"));
-        scaleFactor = xwaylandGroup.readEntry(QStringLiteral("Scale"), 1.0);
-    }
+    const double scaleFactor = [this] {
+        // Not KWindowSystem: the XSettings module can run on xcb inside a Wayland session
+        if (qgetenv("XDG_SESSION_TYPE") == "x11") {
+            return kdeglobalsConfig->group(QStringLiteral("KScreen")).readEntry(QStringLiteral("ScaleFactor"), 1.0);
+        }
+        return kwinConfig->group(QStringLiteral("Xwayland")).readEntry(QStringLiteral("Scale"), 1.0);
+    }();
 
     return std::clamp(scaleFactor, 1.0, double(MAX_GDK_SCALE));
 }

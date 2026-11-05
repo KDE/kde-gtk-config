@@ -26,7 +26,7 @@
 #include "config_editor/gsettings.h"
 #include "config_editor/gtk2.h"
 #include "config_editor/settings_ini.h"
-#include "config_editor/xsettings.h"
+#include "gsd-manager/gsd-manager.h"
 
 K_PLUGIN_CLASS_WITH_JSON(GtkConfig, "gtkconfig.json")
 
@@ -42,6 +42,10 @@ GtkConfig::GtkConfig(QObject *parent, const QVariantList &)
     QDBusConnection dbus = QDBusConnection::sessionBus();
     dbus.registerService(QStringLiteral("org.kde.GtkConfig"));
     dbus.registerObject(QStringLiteral("/GtkConfig"), this, QDBusConnection::ExportScriptableSlots);
+
+    if (qgetenv("GTK_USE_PORTAL") != "1" && KWindowSystem::isPlatformWayland()) {
+        m_gsdManager = new GSDManager(this);
+    }
 
     connect(kdeglobalsConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKdeglobalsSettingsChange);
     connect(kwinConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfig::onKWinSettingsChange);
@@ -125,6 +129,12 @@ void GtkConfig::setGtk2Theme(const QString &themeName, const bool preferDarkThem
     }
 
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-theme-name"), possiblyDarkThemeName);
+
+    // The XSettings module has no other way to learn about a theme set through this module
+    QDBusMessage themeChanged =
+        QDBusMessage::createSignal(QStringLiteral("/GtkConfig"), QStringLiteral("org.kde.GtkConfig"), QStringLiteral("gtk2ThemeChanged"));
+    themeChanged << possiblyDarkThemeName;
+    QDBusConnection::sessionBus().send(themeChanged);
 }
 
 void GtkConfig::setGtkTheme(const QString &themeName) const
@@ -298,6 +308,9 @@ void GtkConfig::setEnableAnimations() const
     Gtk2ConfigEditor::setValue(QStringLiteral("gtk-enable-animations"), enableAnimations);
     GSettingsEditor::setValue("enable-animations", enableAnimations);
     SettingsIniEditor::setValue(QStringLiteral("gtk-enable-animations"), enableAnimations);
+    if (m_gsdManager) {
+        m_gsdManager->enableAnimationsChanged();
+    }
 }
 
 void GtkConfig::setGlobalScale() const
@@ -319,6 +332,9 @@ void GtkConfig::setTextScale() const
 void GtkConfig::setColors() const
 {
     CustomCssEditor::addGtkModule(QStringLiteral("colorreload-gtk-module"));
+    if (m_gsdManager) {
+        m_gsdManager->modulesChanged();
+    }
     // modulesChanged signal will take some time to reach a GTK app, so explicitly wait a moment
     QTimer::singleShot(200, this, [this] {
         const QMap<QString, QColor> colors = configValueProvider->colors();

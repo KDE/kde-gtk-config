@@ -13,6 +13,8 @@
 #include "configvalueprovider.h"
 #include "themepreviewer.h"
 
+class GSDManager;
+
 class Q_DECL_EXPORT GtkConfig : public KDEDModule
 {
     Q_OBJECT
@@ -63,4 +65,6 @@ private:
     KConfigWatcher::Ptr kcminputConfigWatcher;
     KConfigWatcher::Ptr breezeConfigWatcher;
     void setGtk2Theme(const QString &themeName, const bool preferDarkTheme) const;
+
+    GSDManager *m_gsdManager = nullptr;
 };
