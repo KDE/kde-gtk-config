@@ -1,20 +1,24 @@
 /*
+ * SPDX-FileCopyrightText: 2026 David Edmundson <kde@davidedmundson.co.uk>
+ * SPDX-FileCopyrightText: 2026 Artem Grinev <agrinev98@gmail.com>
+ *
+ * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+ */
+
+/*
  * XSettings-focused kded plugin. Contains only XSettings and xsettingsd-related actions.
  */
 
-#include "gtkconfig.h"
+#include "gtkconfig-xsettings.h"
 
 #include <KPluginFactory>
-#include <KWindowSystem>
 
 #include <QDBusConnection>
 #include <QDir>
 #include <QStandardPaths>
-#include <QTimer>
 
 #include "config_editor/settings_ini.h"
 #include "config_editor/xsettings.h"
-#include "gsd-xsettings-manager/gsd-xsettings-manager.h"
 
 K_PLUGIN_CLASS_WITH_JSON(GtkConfigXSettings, "gtkconfig-xsettings.json")
 
@@ -70,25 +74,17 @@ GtkConfigXSettings::GtkConfigXSettings(QObject *parent, const QVariantList &)
     , kwinConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kwinrc"))))
     , kcminputConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kcminputrc"))))
 {
-    QDBusConnection dbus = QDBusConnection::sessionBus();
-    dbus.registerService(QStringLiteral("org.kde.GtkConfig.XSettings"));
-    dbus.registerObject(QStringLiteral("/GtkConfigXSettings"), this, QDBusConnection::ExportScriptableSlots);
-
-    if (qgetenv("GTK_USE_PORTAL") != "1" && KWindowSystem::isPlatformWayland()) {
-        m_gsdXsettingsManager = new GSDXSettingsManager(this);
-    }
+    QDBusConnection::sessionBus().connect(QStringLiteral("org.kde.GtkConfig"),
+                                          QStringLiteral("/GtkConfig"),
+                                          QStringLiteral("org.kde.GtkConfig"),
+                                          QStringLiteral("gtk2ThemeChanged"),
+                                          this,
+                                          SLOT(onGtk2ThemeChanged(QString)));
 
     connect(kdeglobalsConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfigXSettings::onKdeglobalsSettingsChange);
     connect(kwinConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfigXSettings::onKWinSettingsChange);
     connect(kcminputConfigWatcher.data(), &KConfigWatcher::configChanged, this, &GtkConfigXSettings::onKCMInputSettingsChange);
     applyAllSettings();
-}
-
-GtkConfigXSettings::~GtkConfigXSettings()
-{
-    QDBusConnection dbus = QDBusConnection::sessionBus();
-    dbus.unregisterService(QStringLiteral("org.kde.GtkConfig.XSettings"));
-    dbus.unregisterObject(QStringLiteral("/GtkConfigXSettings"));
 }
 
 void GtkConfigXSettings::setGtk2Theme(const QString &themeName, const bool preferDarkTheme) const
@@ -136,8 +132,9 @@ void GtkConfigXSettings::setCursorTheme() const
 
 void GtkConfigXSettings::setCursorSize() const
 {
+    // Not KWindowSystem: this module can run on xcb inside a Wayland session
     qreal xwaylandScale = 1.0;
-    if (KWindowSystem::isPlatformWayland()) {
+    if (qgetenv("XDG_SESSION_TYPE") != "x11") {
         xwaylandScale = configValueProvider->x11GlobalScaleFactor();
     }
 
@@ -197,9 +194,6 @@ void GtkConfigXSettings::setEnableAnimations() const
 {
     const bool enableAnimations = configValueProvider->enableAnimations();
     XSettingsEditor::setValue(QStringLiteral("Gtk/EnableAnimations"), enableAnimations);
-    if (m_gsdXsettingsManager) {
-        m_gsdXsettingsManager->enableAnimationsChanged();
-    }
 }
 
 void GtkConfigXSettings::setGlobalScale() const
@@ -217,13 +211,6 @@ void GtkConfigXSettings::setTextScale() const
 
     XSettingsEditor::unsetValue(QStringLiteral("Xft/DPI"));
     XSettingsEditor::setValue(QStringLiteral("Gdk/UnscaledDPI"), x11TextDpiAbsolute / x11ScaleIntegerPart);
-}
-
-void GtkConfigXSettings::setColors() const
-{
-    if (m_gsdXsettingsManager) {
-        m_gsdXsettingsManager->modulesChanged();
-    }
 }
 
 void GtkConfigXSettings::applyAllSettings() const
@@ -245,7 +232,11 @@ void GtkConfigXSettings::applyAllSettings() const
     setEnableAnimations();
     setGlobalScale();
     setTextScale();
-    setColors();
+}
+
+void GtkConfigXSettings::onGtk2ThemeChanged(const QString &themeName) const
+{
+    XSettingsEditor::setValue(QStringLiteral("Net/ThemeName"), themeName);
 }
 
 void GtkConfigXSettings::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const
@@ -284,14 +275,12 @@ void GtkConfigXSettings::onKdeglobalsSettingsChange(const KConfigGroup &group, c
             setEventSoundsEnabled();
         }
     } else if (group.name() == QStringLiteral("General")) {
-        if (names.contains(QByteArrayLiteral("fixed"))) {
-            /* font handling moved to main plugin */
-        }
         if (names.contains(QByteArrayLiteral("font"))) {
             setFont();
         }
-        if (names.contains(QByteArrayLiteral("ColorScheme")) || names.contains(QByteArrayLiteral("AccentColor"))) {
-            setColors();
+    } else if (group.name() == QStringLiteral("Toolbar style")) {
+        if (names.contains(QByteArrayLiteral("ToolButtonStyle"))) {
+            setToolbarStyle();
         }
     }
 }
@@ -323,4 +312,4 @@ void GtkConfigXSettings::onKCMInputSettingsChange(const KConfigGroup &group, con
     }
 }
 
-#include "gtkconfig.moc"
+#include "gtkconfig-xsettings.moc"

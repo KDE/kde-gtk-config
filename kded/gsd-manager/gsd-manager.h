@@ -8,7 +8,7 @@
 
 #include <QObject>
 
-class GSDXSettingsManager : public QObject
+class GSDManager : public QObject
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.gtk.Settings")
@@ -18,8 +18,8 @@ class GSDXSettingsManager : public QObject
     Q_PROPERTY(bool EnableAnimations READ EnableAnimations)
 
 public:
-    explicit GSDXSettingsManager(QObject *parent);
-    ~GSDXSettingsManager() override;
+    explicit GSDManager(QObject *parent);
+    ~GSDManager() override;
 
 public:
     void modulesChanged();
