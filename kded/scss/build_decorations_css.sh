@@ -20,10 +20,12 @@ build_and_install_decorations_css() {
 
   # Build
   build_sass "window_decorations.scss" "${BUILD_DIR}/window_decorations.css"
+  build_sass "adwaita_colors.scss"     "${BUILD_DIR}/adwaita_colors.css"
 
   # Install
   mkdir -p "${INSTALL_DIR}"
   mv -f "${BUILD_DIR}/window_decorations.css" "${INSTALL_DIR}"
+  mv -f "${BUILD_DIR}/adwaita_colors.css"     "${INSTALL_DIR}"
 }
 
 build_and_install_decorations_css "$1"

@@ -82,6 +82,7 @@ void GtkConfig::setGtkTheme(const QString &themeName) const
 
     // Window decorations are part of the theme, in case of Breeze we inject custom ones from KWin
     setWindowDecorationsAppearance();
+    setAdwaitaColors();
 }
 
 QString GtkConfig::gtkTheme() const
@@ -225,6 +226,15 @@ void GtkConfig::setWindowDecorationsAppearance() const
     }
 }
 
+void GtkConfig::setAdwaitaColors() const
+{
+    if (gtkTheme() == QStringLiteral("Breeze")) {
+        CustomCssEditor::enableAdwaitaColors();
+    } else {
+        CustomCssEditor::disableAdwaitaColors();
+    }
+}
+
 void GtkConfig::setWindowDecorationsButtonsOrder() const
 {
     const QString windowDecorationsButtonOrder = configValueProvider->windowDecorationsButtonsOrder();
@@ -291,6 +301,7 @@ void GtkConfig::applyAllSettings() const
     setDarkThemePreference();
     setWindowDecorationsAppearance();
     setWindowDecorationsButtonsOrder();
+    setAdwaitaColors();
     setEnableAnimations();
     setGlobalScale();
     setTextScale();

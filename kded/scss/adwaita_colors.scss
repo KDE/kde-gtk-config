@@ -1,0 +1,58 @@
+// SPDX-FileCopyrightText: 2026 Kylie C <kyliepc@proton.me>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+
+@each $s in view, sidebar, secondary_sidebar {
+  @define-color #{$s}_bg_color @content_view_bg_breeze;
+  @define-color #{$s}_fg_color @theme_fg_color_breeze;
+}
+@each $s in sidebar, secondary_sidebar {
+  @define-color #{$s}_shade_color    rgba(0,0,0,0.08);
+  @define-color #{$s}_backdrop_color @content_view_bg_breeze;
+}
+@each $s in card, thumbnail, dialog, popover {
+  @define-color #{$s}_bg_color @theme_base_color_breeze;
+  @define-color #{$s}_fg_color @theme_fg_color_breeze;
+}
+
+$semantic: ( destructive: ("@error_color_breeze", "@error_color_backdrop_breeze"),
+        warning: ("@warning_color_breeze", "@warning_color_backdrop_breeze"),
+        success: ("@success_color_breeze", "@success_color_backdrop_breeze"),
+        error: ("@error_color_breeze", "@error_color_backdrop_breeze"));
+@each $role, $pair in $semantic {
+  @define-color #{$role}_color    #{nth($pair,1)};
+  @define-color #{$role}_bg_color #{nth($pair,2)};
+  @define-color #{$role}_fg_color rgba(0,0,0,1);
+}
+
+@define-color borders @borders_breeze;
+@define-color window_bg_color @theme_bg_color_breeze;
+@define-color window_fg_color @theme_fg_color_breeze;
+@define-color headerbar_bg_color @theme_header_background_breeze;
+@define-color headerbar_fg_color @theme_header_foreground_breeze;
+@define-color headerbar_border_color @borders;
+@define-color headerbar_backdrop_color @theme_header_background_breeze;
+@define-color shade_color rgba(0,0,0,0.12);
+@define-color scrollbar_outline_color @theme_bg_color_breeze;
+@define-color accent_color @theme_button_decoration_focus_breeze;
+@define-color accent_bg_color @theme_button_decoration_focus_breeze;
+@define-color accent_fg_color rgba(0,0,0,1);
+
+:root {
+  --borders: @borders;
+  --sidebar-border-color: color-mix(in srgb, var(--borders) 30%, transparent);
+  --card-shade-color: color-mix(in srgb, var(--borders) 30%, transparent);
+  --accent-bg-color: @accent_color;
+  --headerbar-bg-color: @headerbar_bg_color;
+  --headerbar-fg-color: @headerbar_fg_color;
+  --active-toggle-bg-color: @theme_selected_bg_color_breeze;
+  --active-toggle-fg-color: @theme_selected_fg_color_breeze;
+  --overview-bg-color: @theme_base_color_breeze;
+  --overview-fg-color: @theme_fg_color_breeze;
+}
+
+toast {
+  background: #{"@tooltip_background_breeze"};
+  color: #{"@tooltip_text_breeze"};
+  border: 1px solid #{"@tooltip_border_breeze"};
+}
+toolbarview > box > box:last-child > headerbar { background: none; }

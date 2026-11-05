@@ -21,4 +21,9 @@ void setColors(const QMap<QString, QColor> &colorsDefinitions);
 void setCustomClientSideDecorations(const QStringList &windowDecorationsButtonsImages);
 void disableCustomClientSideDecorations();
 
+/**
+ * Makes libadwaita use the Breeze colors defined in colors.css. GTK 4 only.
+ */
+void enableAdwaitaColors();
+void disableAdwaitaColors();
 }

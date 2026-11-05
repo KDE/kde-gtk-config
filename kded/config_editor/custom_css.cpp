@@ -50,29 +50,21 @@ void addWindowDecorationsCssFile()
     }
 }
 
-void addImportStatementsToGtkCssUserFile()
+void setImportStatement(int gtkVersion, const QByteArray &statement, bool enabled)
 {
-    for (auto gtkVersion : Utils::s_gtkVersions) {
-        auto gtkCssPath = Utils::configDirPath(gtkVersion) + QStringLiteral("/gtk.css");
-        QFile gtkCss(gtkCssPath);
+    QFile gtkCss(Utils::configDirPath(gtkVersion) + QStringLiteral("/gtk.css"));
 
-        if (gtkCss.open(QIODevice::ReadWrite)) {
-            QByteArray gtkCssContents = gtkCss.readAll().trimmed();
+    if (gtkCss.open(QIODevice::ReadWrite)) {
+        QByteArray gtkCssContents = gtkCss.readAll();
 
-            static const QList<QByteArray> importStatements{
-                QByteArrayLiteral("\n@import 'colors.css';"),
-            };
-
-            for (const auto &statement : importStatements) {
-                if (!gtkCssContents.contains(statement.trimmed())) {
-                    gtkCssContents.append(statement);
-                }
-            }
-
-            gtkCss.remove();
-            gtkCss.open(QIODevice::WriteOnly | QIODevice::Text);
-            gtkCss.write(gtkCssContents);
+        if (!enabled) {
+            gtkCssContents.replace('\n' + statement, QByteArray()).replace(statement, QByteArray());
+        } else if (!gtkCssContents.contains(statement)) {
+            gtkCssContents.append('\n' + statement);
         }
+
+        gtkCss.resize(0);
+        gtkCss.write(gtkCssContents);
     }
 }
 
@@ -118,7 +110,9 @@ void addGtkModule(const QString &moduleName)
 
 void setColors(const QMap<QString, QColor> &colorsDefinitions)
 {
-    addImportStatementsToGtkCssUserFile();
+    for (auto gtkVersion : Utils::s_gtkVersions) {
+        setImportStatement(gtkVersion, QByteArrayLiteral("@import 'colors.css';"), true);
+    }
     modifyColorsCssFile(colorsDefinitions);
     // addGtkModule is called in GtkConfig::setColors
 }
@@ -133,6 +127,20 @@ void setCustomClientSideDecorations(const QStringList &windowDecorationsButtonsI
 void disableCustomClientSideDecorations()
 {
     removeWindowDecorationsCSS();
+}
+
+void enableAdwaitaColors()
+{
+    const QString destination = Utils::configDirPath(4) + QStringLiteral("/adwaita_colors.css");
+    QFile::remove(destination);
+    QFile::copy(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("/themes/Breeze/adwaita_colors.css")), destination);
+    setImportStatement(4, QByteArrayLiteral("@import 'adwaita_colors.css';"), true);
+}
+
+void disableAdwaitaColors()
+{
+    QFile::remove(Utils::configDirPath(4) + QStringLiteral("/adwaita_colors.css"));
+    setImportStatement(4, QByteArrayLiteral("@import 'adwaita_colors.css';"), false);
 }
 
 }
