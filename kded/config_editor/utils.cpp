@@ -3,7 +3,41 @@
 
 #include "utils.h"
 
+#include <QDir>
 #include <QStandardPaths>
+
+namespace
+{
+
+QStringList gtkThemeSearchPaths()
+{
+    QStringList paths;
+    paths << QDir::homePath() + QStringLiteral("/.themes/");
+    paths << QDir::homePath() + QStringLiteral("/.local/share/themes/");
+
+    for (const QString &dataLocation : QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation)) {
+        paths << dataLocation + QStringLiteral("/themes/");
+    }
+
+    return paths;
+}
+
+bool gtkThemeExists(const QString &themeName)
+{
+    if (themeName.isEmpty()) {
+        return false;
+    }
+
+    for (const QString &themeBasePath : gtkThemeSearchPaths()) {
+        if (QDir(themeBasePath + themeName).exists()) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+}
 
 namespace Utils
 {
@@ -23,4 +57,30 @@ QString readFileContents(QFile &file)
     }
 }
 
+QString gtk2ThemeName(const QString &themeName, bool preferDarkTheme)
+{
+    if (!preferDarkTheme) {
+        return themeName;
+    }
+
+    // clang-format off
+    static const QStringList suffixes = {
+        QStringLiteral("-dark"),
+        QStringLiteral("-Dark"),
+        QStringLiteral(" dark"),
+        QStringLiteral(" Dark"),
+        QStringLiteral("dark"),
+        QStringLiteral("Dark")
+    };
+    // clang-format on
+
+    for (const QString &suffix : suffixes) {
+        const QString candidate = themeName + suffix;
+        if (gtkThemeExists(candidate)) {
+            return candidate;
+        }
+    }
+
+    return themeName;
+}
 }

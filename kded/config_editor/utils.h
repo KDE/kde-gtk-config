@@ -10,6 +10,8 @@ namespace Utils
 {
 QString configDirPath(int gtkVersion);
 QString readFileContents(QFile &file);
+// GTK2 can't use dark variants automatically, so returns the dark theme folder if available
+QString gtk2ThemeName(const QString &themeName, bool preferDarkTheme);
 
 [[maybe_unused]] static inline const auto s_gtkVersions = {3, 4};
 }
