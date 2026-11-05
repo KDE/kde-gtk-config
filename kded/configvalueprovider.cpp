@@ -49,7 +49,7 @@ QString ConfigValueProvider::fixedName(const bool isGsettingsFormat) const
     static QFont font;
     font.fromString(fixedAsString);
     const QString fontStyle = fontStyleHelper(font);
-    return font.family() + (isGsettingsFormat ? " " : QStringLiteral(", ")) + fontStyle + ' ' + QString::number(font.pointSize());
+    return font.family() + (isGsettingsFormat ? " " : QStringLiteral(", ")) + fontStyle + (fontStyle.isEmpty() ? QStringLiteral("") : QStringLiteral(" ")) + QString::number(font.pointSize());
 }
 
 QString ConfigValueProvider::fontName(const bool isGsettingsFormat) const
@@ -61,7 +61,7 @@ QString ConfigValueProvider::fontName(const bool isGsettingsFormat) const
     static QFont font;
     font.fromString(fontAsString);
     const QString fontStyle = fontStyleHelper(font);
-    return font.family() + (isGsettingsFormat ? " " : QStringLiteral(", ")) + fontStyle + ' ' + QString::number(font.pointSize());
+    return font.family() + (isGsettingsFormat ? " " : QStringLiteral(", ")) + fontStyle + (fontStyle.isEmpty() ? QStringLiteral("") : QStringLiteral(" ")) + QString::number(font.pointSize());
 }
 
 QString ConfigValueProvider::fontStyleHelper(const QFont &font) const
