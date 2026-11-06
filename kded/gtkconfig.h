@@ -11,7 +11,6 @@
 #include <KDEDModule>
 
 #include "configvalueprovider.h"
-#include "themepreviewer.h"
 
 class GSDXSettingsManager;
 
@@ -50,7 +49,6 @@ public:
 public Q_SLOTS:
     Q_SCRIPTABLE void setGtkTheme(const QString &themeName) const;
     Q_SCRIPTABLE QString gtkTheme() const;
-    Q_SCRIPTABLE void showGtkThemePreview(const QString &themeName) const;
 
     void onKdeglobalsSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
     void onKWinSettingsChange(const KConfigGroup &group, const QByteArrayList &names) const;
@@ -59,7 +57,6 @@ public Q_SLOTS:
 
 private:
     QScopedPointer<ConfigValueProvider> configValueProvider;
-    QScopedPointer<ThemePreviewer> themePreviewer;
     KConfigWatcher::Ptr kdeglobalsConfigWatcher;
     KConfigWatcher::Ptr kwinConfigWatcher;
     KConfigWatcher::Ptr kcminputConfigWatcher;

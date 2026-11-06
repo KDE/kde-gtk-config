@@ -7,7 +7,6 @@ set(gtkconfig_SRCS
     gtkconfig.cpp
     gsd-xsettings-manager/gsd-xsettings-manager.cpp
     configvalueprovider.cpp
-    themepreviewer.cpp
 )
 
 qt_add_dbus_adaptor(gtkconfig_SRCS

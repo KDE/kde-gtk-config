@@ -34,7 +34,6 @@ K_PLUGIN_CLASS_WITH_JSON(GtkConfig, "gtkconfig.json")
 GtkConfig::GtkConfig(QObject *parent, const QVariantList &)
     : KDEDModule(parent)
     , configValueProvider(new ConfigValueProvider())
-    , themePreviewer(new ThemePreviewer(this))
     , kdeglobalsConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig()))
     , kwinConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kwinrc"))))
     , kcminputConfigWatcher(KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kcminputrc"))))
@@ -146,13 +145,6 @@ void GtkConfig::setGtkTheme(const QString &themeName) const
 QString GtkConfig::gtkTheme() const
 {
     return SettingsIniEditor::value(QStringLiteral("gtk-theme-name"));
-}
-
-void GtkConfig::showGtkThemePreview(const QString &themeName) const
-{
-    const bool darkTheme = configValueProvider->preferDarkTheme();
-    const auto themeVariant =  darkTheme ? QStringLiteral(":dark") : QStringLiteral(":light");
-    themePreviewer->showGtk3App(themeName + themeVariant);
 }
 
 void GtkConfig::setFixed() const
