@@ -270,9 +270,12 @@ void GtkConfig::setTextScale() const
 void GtkConfig::setColors() const
 {
     CustomCssEditor::addGtkModule(QStringLiteral("colorreload-gtk-module"));
+    CustomCssEditor::addGtkModule(QStringLiteral("menubar-hover-gtk-module"));
+
     if (m_gsdManager) {
         m_gsdManager->modulesChanged();
     }
+    
     // modulesChanged signal will take some time to reach a GTK app, so explicitly wait a moment
     QTimer::singleShot(200, this, [this] {
         const QMap<QString, QColor> colors = configValueProvider->colors();
