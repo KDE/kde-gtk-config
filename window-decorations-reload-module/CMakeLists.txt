@@ -11,6 +11,8 @@ target_link_libraries(window-decorations-gtk3-module
 set_target_properties(window-decorations-gtk3-module
   PROPERTIES
     OUTPUT_NAME libwindow-decorations-gtk-module
+    # moc's C++ file would pull in libstdc++
+    AUTOMOC OFF
 )
 
 install(
