@@ -353,6 +353,7 @@ void GtkConfig::setTextScale() const
 void GtkConfig::setColors() const
 {
     CustomCssEditor::addGtkModule(QStringLiteral("colorreload-gtk-module"));
+    CustomCssEditor::addGtkModule(QStringLiteral("menubar-hover-gtk-module"));
     if (m_gsdXsettingsManager) {
         m_gsdXsettingsManager->modulesChanged();
     }

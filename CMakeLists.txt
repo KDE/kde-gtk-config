@@ -58,6 +58,7 @@ add_subdirectory(kded)
 add_subdirectory(kconf_update)
 add_subdirectory(color-reload-module)
 add_subdirectory(window-decorations-reload-module)
+add_subdirectory(menubar-hover-module)
 
 ecm_qt_install_logging_categories(
     EXPORT KDE_GTK_CONFIG
