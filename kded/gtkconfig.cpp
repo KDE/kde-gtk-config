@@ -82,7 +82,7 @@ void GtkConfig::setGtkTheme(const QString &themeName) const
 
     // Window decorations are part of the theme, in case of Breeze we inject custom ones from KWin
     setWindowDecorationsAppearance();
-    setAdwaitaColors();
+    setColorizeAdwaita();
 }
 
 QString GtkConfig::gtkTheme() const
@@ -226,9 +226,9 @@ void GtkConfig::setWindowDecorationsAppearance() const
     }
 }
 
-void GtkConfig::setAdwaitaColors() const
+void GtkConfig::setColorizeAdwaita() const
 {
-    if (gtkTheme() == QStringLiteral("Breeze")) {
+    if (configValueProvider->colorizeAdwaitaApps()) {
         CustomCssEditor::enableAdwaitaColors();
     } else {
         CustomCssEditor::disableAdwaitaColors();
@@ -301,7 +301,7 @@ void GtkConfig::applyAllSettings() const
     setDarkThemePreference();
     setWindowDecorationsAppearance();
     setWindowDecorationsButtonsOrder();
-    setAdwaitaColors();
+    setColorizeAdwaita();
     setEnableAnimations();
     setGlobalScale();
     setTextScale();
@@ -334,6 +334,9 @@ void GtkConfig::onKdeglobalsSettingsChange(const KConfigGroup &group, const QByt
         }
         if (names.contains(QByteArrayLiteral("CursorBlinkRate"))) {
             setCursorBlinkRate();
+        }
+        if (names.contains(QByteArrayLiteral("ColorizeAdwaita"))) {
+            setColorizeAdwaita();
         }
     } else if (group.name() == QStringLiteral("Icons")) {
         if (names.contains(QByteArrayLiteral("Theme"))) {

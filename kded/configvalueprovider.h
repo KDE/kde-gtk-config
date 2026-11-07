@@ -37,6 +37,7 @@ public:
     int cursorBlinkRate() const;
     QMap<QString, QColor> colors() const;
     qreal frameContrast() const;
+    bool colorizeAdwaitaApps() const;
 
     // The global scale factor, as X11 doesn't support mixed-DPI
     // setups. It's useful both for Plasma/X11 sessions and for

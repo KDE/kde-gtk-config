@@ -39,7 +39,7 @@ public:
     void setDarkThemePreference() const;
     void setWindowDecorationsAppearance() const;
     void setWindowDecorationsButtonsOrder() const;
-    void setAdwaitaColors() const;
+    void setColorizeAdwaita() const;
     void setEnableAnimations() const;
     void setGlobalScale() const;
     void setTextScale() const;

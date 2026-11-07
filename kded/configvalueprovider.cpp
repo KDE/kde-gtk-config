@@ -504,6 +504,11 @@ qreal ConfigValueProvider::frameContrast() const
     return KColorScheme::frameContrast();
 }
 
+bool ConfigValueProvider::colorizeAdwaitaApps() const
+{
+    return kdeglobalsConfig->group(QStringLiteral("KDE")).readEntry(QStringLiteral("ColorizeAdwaita"), false);
+}
+
 double ConfigValueProvider::x11GlobalScaleFactor() const
 {
     const double scaleFactor = [this] {
