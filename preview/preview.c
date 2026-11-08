@@ -21,6 +21,36 @@ static void printHelp(void)
         "  -V, --version\tPrints the program version\n");
 }
 
+static GMainLoop *loop;
+static GtkWidget *window;
+static GtkWidget *content;
+
+static void showWindow(gboolean csd)
+{
+    GtkWidget *old = window;
+
+    window = gtk_window_new();
+    gtk_window_set_title(GTK_WINDOW(window), "GTK Theme Preview");
+    if (csd) {
+        gtk_window_set_titlebar(GTK_WINDOW(window), gtk_header_bar_new());
+    }
+
+    if (old) {
+        g_signal_handlers_disconnect_by_func(old, G_CALLBACK(g_main_loop_quit), loop);
+        gtk_window_set_child(GTK_WINDOW(old), NULL);
+        gtk_window_destroy(GTK_WINDOW(old));
+    }
+
+    gtk_window_set_child(GTK_WINDOW(window), content);
+    g_signal_connect_swapped(window, "destroy", G_CALLBACK(g_main_loop_quit), loop);
+    gtk_window_present(GTK_WINDOW(window));
+}
+
+static void onCsdToggled(GtkCheckButton *button)
+{
+    showWindow(gtk_check_button_get_active(button));
+}
+
 int main(int argc, char **argv)
 {
     for (int i = 0; i < argc; i++) {
@@ -43,14 +73,14 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    GtkWidget *window = gtk_window_new();
-    gtk_window_set_title(GTK_WINDOW(window), "GTK Theme Preview");
-    gtk_window_set_child(GTK_WINDOW(window), GTK_WIDGET(gtk_builder_get_object(builder, "preview")));
+    g_signal_connect(gtk_builder_get_object(builder, "csd"), "toggled", G_CALLBACK(onCsdToggled), NULL);
+
+    // Own a ref so content survives moving between windows
+    content = g_object_ref(GTK_WIDGET(gtk_builder_get_object(builder, "preview")));
     g_object_unref(builder);
 
-    GMainLoop *loop = g_main_loop_new(NULL, FALSE);
-    g_signal_connect_swapped(window, "destroy", G_CALLBACK(g_main_loop_quit), loop);
-    gtk_window_present(GTK_WINDOW(window));
+    loop = g_main_loop_new(NULL, FALSE);
+    showWindow(FALSE);
     g_main_loop_run(loop);
 
     return 0;
