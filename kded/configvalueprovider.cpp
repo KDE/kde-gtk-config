@@ -467,16 +467,16 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
                        {"theme_header_background_light_breeze", csc["active"]["window"].background().color()},
                        {"theme_header_foreground_backdrop_breeze", csc["inactive"]["header"].foreground().color()},
                        {"theme_header_background_backdrop_breeze", csc["inactive"]["header"].background().color()},
-                       {"theme_header_foreground_insensitive_breeze", csc["inactive"]["header"].foreground().color()},
-                       {"theme_header_foreground_insensitive_backdrop_breeze", csc["inactive"]["header"].foreground().color()},
+                       {"theme_header_foreground_insensitive_breeze", csc["disabled"]["header"].foreground().color()},
+                       {"theme_header_foreground_insensitive_backdrop_breeze", csc["disabled"]["header"].foreground().color()},
 
                        {"theme_titlebar_background_breeze", csc["active"]["header"].background().color()},
                        {"theme_titlebar_foreground_breeze", csc["active"]["header"].foreground().color()},
                        {"theme_titlebar_background_light_breeze", csc["active"]["window"].background().color()},
                        {"theme_titlebar_foreground_backdrop_breeze", csc["inactive"]["header"].foreground().color()},
                        {"theme_titlebar_background_backdrop_breeze", csc["inactive"]["header"].background().color()},
-                       {"theme_titlebar_foreground_insensitive_breeze", csc["inactive"]["header"].foreground().color()},
-                       {"theme_titlebar_foreground_insensitive_backdrop_breeze", csc["inactive"]["header"].foreground().color()}});
+                       {"theme_titlebar_foreground_insensitive_breeze", csc["disabled"]["header"].foreground().color()},
+                       {"theme_titlebar_foreground_insensitive_backdrop_breeze", csc["disabled"]["header"].foreground().color()}});
     } else {
         //... if we don't we'll use regular window colors for headerbar and WM group for a titlebar
         result.insert({
@@ -485,16 +485,16 @@ QMap<QString, QColor> ConfigValueProvider::colors() const
             {"theme_header_background_light_breeze", csc["active"]["window"].background().color()},
             {"theme_header_foreground_backdrop_breeze", csc["inactive"]["window"].foreground().color()},
             {"theme_header_background_backdrop_breeze", csc["inactive"]["window"].background().color()},
-            {"theme_header_foreground_insensitive_breeze", csc["inactive"]["window"].foreground().color()},
-            {"theme_header_foreground_insensitive_backdrop_breeze", csc["inactive"]["window"].foreground().color()},
+            {"theme_header_foreground_insensitive_breeze", csc["disabled"]["window"].foreground().color()},
+            {"theme_header_foreground_insensitive_backdrop_breeze", csc["disabled"]["window"].foreground().color()},
 
             {"theme_titlebar_background_breeze", windowManagerConfig.readEntry("activeBackground", QColor())},
             {"theme_titlebar_foreground_breeze", windowManagerConfig.readEntry("activeForeground", QColor())},
             {"theme_titlebar_background_light_breeze", csc["active"]["window"].background(KCS::NormalBackground).color()},
             {"theme_titlebar_foreground_backdrop_breeze", windowManagerConfig.readEntry("inactiveForeground", QColor())},
             {"theme_titlebar_background_backdrop_breeze", windowManagerConfig.readEntry("inactiveBackground", QColor())},
-            {"theme_titlebar_foreground_insensitive_breeze", windowManagerConfig.readEntry("inactiveForeground", QColor())},
-            {"theme_titlebar_foreground_insensitive_backdrop_breeze", windowManagerConfig.readEntry("inactiveForeground", QColor())},
+            {"theme_titlebar_foreground_insensitive_breeze", csc["disabled"]["window"].foreground().color()},
+            {"theme_titlebar_foreground_insensitive_backdrop_breeze", csc["disabled"]["window"].foreground().color()},
         });
     }
 
