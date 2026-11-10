@@ -1,8 +1,16 @@
 {
     "KPlugin": {
         "Description": "Applies XSettings-related values to GNOME/GTK applications",
+        "Description[ca@valencia]": "Aplica els valors relacionats amb XSettings a les aplicacions GNOME/GTK",
+        "Description[ca]": "Aplica els valors relacionats amb XSettings a les aplicacions GNOME/GTK",
+        "Description[pt_BR]": "Aplica valores relacionados ao XSettings a aplicativos GNOME/GTK",
+        "Description[tr]": "XSettings ile ilgili değerleri GNOME/GTK uygulamalarına uygular",
         "Icon": "gtkconfig",
         "Name": "GNOME/GTK XSettings Service",
+        "Name[ca@valencia]": "Servei de XSettings de GNOME/GTK",
+        "Name[ca]": "Servei de XSettings de GNOME/GTK",
+        "Name[pt_BR]": "Serviço XSettings do GNOME/GTK",
+        "Name[tr]": "GNOME/GTK XSettings Hizmeti",
         "Version": "0.1"
     },
     "X-KDE-Kded-autoload": true,
