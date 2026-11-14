@@ -75,11 +75,11 @@ QString ConfigValueProvider::fontStyleHelper(const QFont &font) const
         if (weight >= QFont::Black) {
             result = QStringLiteral("Black");
         } else if (weight >= QFont::ExtraBold) {
-            result = QStringLiteral("Extra Bold");
+            result = QStringLiteral("Ultra-Bold");
         } else if (weight >= QFont::Bold) {
             result = QStringLiteral("Bold");
         } else if (weight >= QFont::DemiBold) {
-            result = QStringLiteral("Demi Bold");
+            result = QStringLiteral("Semi-Bold");
         } else if (weight >= QFont::Medium) {
             result = QStringLiteral("Medium");
         }
@@ -87,7 +87,7 @@ QString ConfigValueProvider::fontStyleHelper(const QFont &font) const
         if (weight <= QFont::Thin) {
             result = QStringLiteral("Thin");
         } else if (weight <= QFont::ExtraLight) {
-            result = QStringLiteral("Extra Light");
+            result = QStringLiteral("Ultra-Light");
         } else if (weight <= QFont::Light) {
             result = QStringLiteral("Light");
         }
@@ -109,8 +109,6 @@ QString ConfigValueProvider::fontStyleHelper(const QFont &font) const
         result += QLatin1Char(' ') + QStringLiteral("Condensed");
     } else if (stretch == QFont::SemiCondensed) {
         result += QLatin1Char(' ') + QStringLiteral("SemiCondensed");
-    } else if (stretch == QFont::Unstretched) {
-        result += QLatin1Char(' ') + QStringLiteral("Unstretched");
     } else if (stretch == QFont::SemiExpanded) {
         result += QLatin1Char(' ') + QStringLiteral("SemiExpanded");
     } else if (stretch == QFont::Expanded) {
