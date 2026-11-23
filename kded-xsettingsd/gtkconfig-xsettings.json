@@ -24,6 +24,7 @@
         "Description[sr]": "Примењује вредности везане за XSettings на програме за Гном/ГТК",
         "Description[tr]": "XSettings ile ilgili değerleri GNOME/GTK uygulamalarına uygular",
         "Description[uk]": "Застосовує пов'язані із XSettings значення до програм GNOME/GTK",
+        "Description[zh_CN]": "应用 XSettings 相关的值到 GNOME/GTK 应用",
         "Description[zh_TW]": "自動套用 XSettings 相關的設定值到 GNOME/GTK 應用程式",
         "Icon": "gtkconfig",
         "Name": "GNOME/GTK XSettings Service",
@@ -50,6 +51,7 @@
         "Name[sr]": "Сервис XSettings за Гном/ГТК",
         "Name[tr]": "GNOME/GTK XSettings Hizmeti",
         "Name[uk]": "Служба XSettings GNOME/GTK",
+        "Name[zh_CN]": "GNOME/GTK XSetting 服务",
         "Name[zh_TW]": "GNOME/GTK XSettings 服務",
         "Version": "0.1"
     },
