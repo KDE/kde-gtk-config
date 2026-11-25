@@ -10,7 +10,7 @@
     <property name="orientation">vertical</property>
     <child>
       <!-- Mirrors plasma-workspace kcms/style/stylepreview.ui -->
-      <object class="GtkNotebook">
+      <object class="GtkNotebook" id="notebook">
         <property name="margin-start">10</property>
         <property name="margin-end">10</property>
         <property name="margin-top">10</property>

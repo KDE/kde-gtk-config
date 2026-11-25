@@ -56,6 +56,11 @@ static void onCsdToggled(GtkCheckButton *button)
     g_idle_add_once(showWindowIdle, GINT_TO_POINTER(gtk_check_button_get_active(button)));
 }
 
+static void onSwitchPage(GtkNotebook *notebook)
+{
+    g_signal_stop_emission_by_name(notebook, "switch-page");
+}
+
 int main(int argc, char **argv)
 {
     for (int i = 0; i < argc; i++) {
@@ -79,6 +84,7 @@ int main(int argc, char **argv)
     }
 
     g_signal_connect(gtk_builder_get_object(builder, "csd"), "toggled", G_CALLBACK(onCsdToggled), NULL);
+    g_signal_connect(gtk_builder_get_object(builder, "notebook"), "switch-page", G_CALLBACK(onSwitchPage), NULL);
 
     // Own a ref so content survives moving between windows
     content = g_object_ref(GTK_WIDGET(gtk_builder_get_object(builder, "preview")));
